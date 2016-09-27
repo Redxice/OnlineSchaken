@@ -29,3 +29,5 @@ nb-gradle/
 
 .jacocoverage/
 UnittestenTime/nbproject/private/private.xml
+*.properties
+OnlineSchaken/nbproject/private/private.xml
