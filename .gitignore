@@ -1,0 +1,31 @@
+#
+# Project specific excludes
+#
+
+tomcat
+
+#
+# Default excludes
+#
+
+# Binaries
+.jar
+.ear
+.war
+*.class
+
+# Maven 
+target/
+
+
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nb-gradle/
+
+.jacocoverage/
+UnittestenTime/nbproject/private/private.xml
