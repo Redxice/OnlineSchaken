@@ -6,12 +6,14 @@
 package onlineschaken;
 
 import java.awt.Point;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
  * @author redxice
  */
-public class Section {
+public class Section extends Rectangle{
     //fields
     Point id;
     boolean occupied;
@@ -19,23 +21,26 @@ public class Section {
     Board board;
     
     //constructor
-    public Section(Point p_id,Board p_board)
+    public Section(boolean light, int x, int y)
     {
-        
+        setWidth(OnlineSchaken.TILE_SIZE);
+        setHeight(OnlineSchaken.TILE_SIZE);
+
+        relocate(x * OnlineSchaken.TILE_SIZE, y * OnlineSchaken.TILE_SIZE);
+
+        setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
     }
     
     //methode
 
-    public Point getId() {
-        return id;
-    }
+
 
     public void setId(Point id) {
         this.id = id;
     }
 
     public boolean isOccupied() {
-        return occupied;
+        return piece != null;
     }
 
     public void setOccupied(boolean occupied) {

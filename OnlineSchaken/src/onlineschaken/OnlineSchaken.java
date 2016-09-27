@@ -6,40 +6,55 @@
 package onlineschaken;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+;
 
 /**
  *
  * @author redxice
  */
 public class OnlineSchaken extends Application {
+    public static final int TILE_SIZE = 100;
+    public static final int WIDTH = 8;
+    public static final int HEIGHT = 8;
+    private Section[][] board = new Section[WIDTH][HEIGHT];
+    private Group tileGroup = new Group();
+    private Group pieceGroup = new Group();
     
+    private Parent createContent() {
+        Pane root = new Pane();
+        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        root.getChildren().addAll(tileGroup, pieceGroup);
+
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
+                Section section = new Section((x + y) % 2 == 0, x, y);
+                board[x][y] = section;
+
+                tileGroup.getChildren().add(section);
+
+            }
+        }
+
+        return root;
+    }
+    
+    
+   
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
+        Scene scene = new Scene(createContent());
+        primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+
+    
 
     /**
      * @param args the command line arguments

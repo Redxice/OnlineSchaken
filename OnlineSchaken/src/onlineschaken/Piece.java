@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author redxice
  */
-public abstract class Piece {
+public abstract class Piece{
     //fields
     String color;
     String name;
@@ -35,7 +35,8 @@ public abstract class Piece {
    }
    //geeft een lijst met opties
    public List<Section> moveOption(Section p_curSection){
-      
+       List<Section> sections =null;
+      return sections;
    }
    
    

@@ -35,7 +35,8 @@ public class King extends Piece {
     }
     
     public Section castling(){
-        
+       Section section = new Section(true,1,1);
+      return  section;
     }
    
 }

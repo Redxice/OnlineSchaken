@@ -5,6 +5,8 @@
  */
 package onlineschaken;
 
+import java.util.List;
+
 /**
  *
  * @author redxice
@@ -12,7 +14,7 @@ package onlineschaken;
 public class Tournament {
     //fields
     String naam;
-    Game[] game;
+    List<Game> games;
     
     
     //constructor
@@ -28,14 +30,10 @@ public class Tournament {
         this.naam = naam;
     }
 
-    public Game getGame() {
-        return game;
+    public List<Game> getGame() {
+        return this.games;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
-    
     public void addGame(Game game){
         
     }

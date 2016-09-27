@@ -20,6 +20,6 @@ public class Pawn extends Piece {
     {}
     
     public boolean getFirsMove(){
-        
+        return false;
     }
 }
