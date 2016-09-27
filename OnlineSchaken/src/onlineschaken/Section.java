@@ -23,10 +23,10 @@ public class Section extends Rectangle{
     //constructor
     public Section(boolean light, int x, int y)
     {
-        setWidth(80);
-        setHeight(80);
+        setWidth(OnlineSchaken.TILE_SIZE);
+        setHeight(OnlineSchaken.TILE_SIZE);
 
-        relocate(x * 80, y * 80);
+        relocate(x * OnlineSchaken.TILE_SIZE, y * OnlineSchaken.TILE_SIZE);
 
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
     }

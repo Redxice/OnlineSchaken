@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  * @author redxice
  */
 public class OnlineSchaken extends Application {
-    public static final int TILE_SIZE = 80;
+    public static final int TILE_SIZE = 100;
     public static final int WIDTH = 8;
     public static final int HEIGHT = 8;
     private Section[][] board = new Section[WIDTH][HEIGHT];
