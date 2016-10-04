@@ -20,36 +20,17 @@ import javafx.stage.Stage;
  * @author redxice
  */
 public class OnlineSchaken extends Application {
-    public static final int TILE_SIZE = 80;
-    public static final int WIDTH = 8;
-    public static final int HEIGHT = 8;
-    private Section[][] board = new Section[WIDTH][HEIGHT];
-    private Group tileGroup = new Group();
-    private Group pieceGroup = new Group();
-    
-    private Parent createContent() {
-        Pane root = new Pane();
-        root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
-        root.getChildren().addAll(tileGroup, pieceGroup);
-
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                Section section = new Section((x + y) % 2 == 0, x, y);
-                board[x][y] = section;
-
-                tileGroup.getChildren().add(section);
-                //pieceGroup.getChildren().add();
-            }
-        }
-
-        return root;
-    }
+    public Game game;
     
     
    
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(createContent());
+        Player p1 = new Player("p1","ww",0);
+        Player p2 = new Player("p2","ww",0);        
+        game = new Game(p1,p2);
+        Scene scene = new Scene(game.board.createContent());
+        game.setPieces();
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -24,23 +24,16 @@ public class Section extends Rectangle{
     //constructor
     // 
     //
-    public Section(boolean light, int x, int y)
+    public Section(boolean light, int x, int y,Board board)
     {
-        setWidth(OnlineSchaken.TILE_SIZE);
-        setHeight(OnlineSchaken.TILE_SIZE);
+        this.board = board;
+        setWidth(board.getTILE_SIZE());
+        setHeight(board.getTILE_SIZE());
 
-        relocate(x * OnlineSchaken.TILE_SIZE, y * OnlineSchaken.TILE_SIZE);
+        relocate(x * board.getTILE_SIZE(), y * board.getTILE_SIZE());
         
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
-        if(x == 0 & y == 0)
-        { setFill(Color.BLUE);}
-        if(y == 1 & x == 2)
-                {
-                Player p = new Player("hoi","doi",5);
-                Piece pawn = new Pawn("white",p,"k");                
-                ImagePattern ip = new ImagePattern(pawn.img);
-                this.setFill(ip);
-                }
+                
         id = new Point(x,y);
     }
     

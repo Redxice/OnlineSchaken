@@ -13,8 +13,8 @@ import javafx.scene.image.Image;
  */
 public class Rook extends Piece{
     boolean hasMoved;
-    public Rook(String p_color, Player p_player, String p_name) {
-        super(p_color, p_player, p_name);
+    public Rook(String p_color, Player p_player, Section p_section) {
+        super(p_color, p_player, p_section);
         if(p_color == "white")
         {
         this.img = new Image("ChessPieces/White Rook.png");
@@ -26,7 +26,7 @@ public class Rook extends Piece{
     }
     public Section castling()
     {
-      Section section = new Section(true,1,1);
+      Section section = null;
       return  section;
     }
 

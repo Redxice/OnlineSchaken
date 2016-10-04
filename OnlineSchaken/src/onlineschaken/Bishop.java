@@ -13,15 +13,15 @@ import javafx.scene.image.Image;
  */
 public class Bishop extends Piece{
     
-    public Bishop(String p_color, Player p_player, String p_name) {
-        super(p_color, p_player, p_name);
+    public Bishop(String p_color, Player p_player, Section p_section) {
+        super(p_color, p_player, p_section);
         if(p_color == "white")
         {
-        this.img = new Image("ChessPieces/White Bischop.png");
+        this.img = new Image("ChessPieces/White Bishop.png");
         }   
         if(p_color == "black")
         {
-        this.img = new Image("ChessPieces/Black Bischop.png");
+        this.img = new Image("ChessPieces/Black Bishop.png");
         }
          
     }

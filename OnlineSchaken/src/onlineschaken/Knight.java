@@ -13,8 +13,8 @@ import javafx.scene.image.Image;
  */
 public class Knight extends Piece{
     
-    public Knight(String p_color, Player p_player, String p_name) {
-        super(p_color, p_player, p_name);
+    public Knight(String p_color, Player p_player, Section p_section) {
+        super(p_color, p_player,p_section);
         if(p_color == "white")
         {
         this.img = new Image("ChessPieces/White Knight.png");

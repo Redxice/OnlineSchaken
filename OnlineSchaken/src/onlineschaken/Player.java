@@ -5,6 +5,9 @@
  */
 package onlineschaken;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author redxice
@@ -16,15 +19,18 @@ public class Player {
     String color;
     int rating;
     boolean online;
-    Player[] friends;
-    Piece[] pieces;
+    List<Player> friends;
+    List<Piece> pieces;
     Game game;
-    Game[] history;
+    List<Game> history;
     
     //constructor
     public Player(String p_username,String p_password,int p_rating)
     {
-        
+        this.username = p_username;
+        this.password = p_password;
+        this.rating = p_rating;
+        pieces = new ArrayList<Piece>();
     }
 
     public String getUsername() {
@@ -67,28 +73,37 @@ public class Player {
         this.online = online;
     }
 
-    public Player[] getFriends() {
-        return friends;
-    }
-
-    public void setFriends(Player[] friends) {
-        this.friends = friends;
-    }
-
-    public Piece[] getPieces() {
-        return pieces;
-    }
-
-    public void setPieces(Piece[] pieces) {
-        this.pieces = pieces;
-    }
-
+   
     public Game getGame() {
         return game;
     }
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public List<Player> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<Player> friends) {
+        this.friends = friends;
+    }
+
+    public List<Piece> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(List<Piece> pieces) {
+        this.pieces = pieces;
+    }
+
+    public List<Game> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<Game> history) {
+        this.history = history;
     }
     
 }

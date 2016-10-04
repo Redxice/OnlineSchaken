@@ -27,13 +27,11 @@ public class Game {
     Board board;
     Gamelobby gamelobby;
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Time p_time,Player p_player1,Player p_player2){
-        
+    public Game(Player p_player1,Player p_player2){        
         this.player1 = p_player1;
         this.player2 = p_player2;
-        this.time = p_time;
-        
-        
+        //this.time = p_time;
+        board = new Board();       
     }
     //constructor vor een game die deel is van een tournament
     public Game(Time p_time,Player p_player1,Player p_player2,
@@ -43,7 +41,7 @@ public class Game {
         this.player2 = p_player2;
         this.time = p_time;
         this.tournament = p_tournament;
-        
+        board = new Board();  
     }
 
     //getters and setters
@@ -162,6 +160,30 @@ public class Game {
    public boolean checkMate(){
       return false;
    }
+   
+   
+    public void setPieces()
+    {
+    Piece piece;
+    player1.pieces.add(piece = new Rook("white",player1,board.getSections(0,0)));
+    player1.pieces.add(piece = new Knight("white",player1,board.getSections(1,0)));
+    player1.pieces.add(piece = new Bishop("white",player1,board.getSections(2,0)));
+    player1.pieces.add(piece = new Queen("white",player1,board.getSections(3,0)));
+    player1.pieces.add(piece = new King("white",player1,board.getSections(4,0)));
+    player1.pieces.add(piece = new Bishop("white",player1,board.getSections(5,0)));
+    player1.pieces.add(piece = new Knight("white",player1,board.getSections(6,0)));
+    player1.pieces.add(piece = new Rook("white",player1,board.getSections(7,0)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(0,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(1,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(2,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(3,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(4,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(5,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(6,1)));
+    player1.pieces.add(piece = new Pawn("white",player1,board.getSections(7,1)));
+    
+    
+    }
   
    
 }

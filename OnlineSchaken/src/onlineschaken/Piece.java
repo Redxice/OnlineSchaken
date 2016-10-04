@@ -16,17 +16,16 @@ import javafx.scene.layout.StackPane;
 public abstract class Piece extends StackPane{
     //fields
     String color;
-    String name;
     Player player;
     Section section;
     Image img;
     
     
 //constructor
-    public Piece(String p_color,Player p_player,String p_name) {
+    public Piece(String p_color,Player p_player, Section p_section) {
         this.color = p_color;
-        this.name = p_name;
-        this.player = p_player;        
+        this.player = p_player;       
+        this.section = p_section;
     }
   
  //methode
