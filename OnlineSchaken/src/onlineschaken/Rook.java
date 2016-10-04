@@ -19,4 +19,9 @@ public class Rook extends Piece{
       Section section = new Section(true,1,1);
       return  section;
     }
+
+    @Override
+    public void move(Section p_section) {
+        
+    }
 }

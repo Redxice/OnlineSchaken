@@ -22,4 +22,9 @@ public class Pawn extends Piece {
     public boolean getFirsMove(){
         return false;
     }
+
+    @Override
+    public void move(Section p_section) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

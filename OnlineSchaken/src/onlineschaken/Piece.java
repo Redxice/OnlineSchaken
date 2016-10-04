@@ -18,6 +18,7 @@ public abstract class Piece{
     Player player;
     Section section;
     
+    
 //constructor
     public Piece(String p_color,Player p_player,String p_name) {
         this.color = p_color;
@@ -26,9 +27,7 @@ public abstract class Piece{
     }
   
  //methode
-   public void move(Section p_section){
-       
-   }
+   public abstract void move(Section p_section);
     
    public Section getSection(){
        return this.section;

@@ -21,14 +21,21 @@ public class Section extends Rectangle{
     Board board;
     
     //constructor
+    // 
+    //
     public Section(boolean light, int x, int y)
     {
         setWidth(OnlineSchaken.TILE_SIZE);
         setHeight(OnlineSchaken.TILE_SIZE);
 
         relocate(x * OnlineSchaken.TILE_SIZE, y * OnlineSchaken.TILE_SIZE);
-
+        
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
+        if(x == 0 & y == 0)
+        { setFill(Color.BLUE);}
+        if(x == 2& y == 0)
+        { setFill(Color.BLUE);}
+        id = new Point(x,y);
     }
     
     //methode
