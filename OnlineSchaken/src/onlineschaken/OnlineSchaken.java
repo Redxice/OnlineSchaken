@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import database.Database;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -61,6 +62,9 @@ public class OnlineSchaken extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        Database db = new Database();
+        db.init();
+        db.closeConnection();
     }
     
 }
