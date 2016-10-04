@@ -31,3 +31,4 @@ nb-gradle/
 UnittestenTime/nbproject/private/private.xml
 *.properties
 OnlineSchaken/nbproject/private/private.xml
+/OnlineSchaken/nbproject/private/
