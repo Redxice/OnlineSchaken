@@ -29,8 +29,10 @@ public class OnlineSchaken extends Application {
         Player p1 = new Player("p1","ww",0);
         Player p2 = new Player("p2","ww",0);        
         game = new Game(p1,p2);
-        Scene scene = new Scene(game.board.createContent());
+        game.board.createContent();               
         game.setPieces();
+        game.board.createContent2();
+        Scene scene = new Scene(game.board.getRoot()); 
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
         primaryStage.show();

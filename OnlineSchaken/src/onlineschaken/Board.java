@@ -10,6 +10,8 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 /**
  *
@@ -23,7 +25,7 @@ public class Board{
     public Section[][] sections = new Section[WIDTH][HEIGHT];
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
-
+    private Pane root = new Pane();
     public Board() {
         
     }
@@ -31,7 +33,6 @@ public class Board{
     
     
     public Parent createContent() {
-        Pane root = new Pane();
         root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
@@ -41,11 +42,30 @@ public class Board{
                 sections[x][y] = section;
 
                 tileGroup.getChildren().add(section);
-                //pieceGroup.getChildren().add();
-            }
+              if(x==1 & y==1)
+             {
+             section.setFill(Color.BLUE);
+             }
+            }          
         }
-
         return root;
+    }
+    
+    public Parent createContent2()
+    {
+        for (Section[] x: sections)
+        {
+            for(Section y: x)
+            {              
+                if (y.piece != null)
+                {
+                ImagePattern i = new ImagePattern(y.piece.img);
+                y.setFill(i);
+                pieceGroup.getChildren().add(y.piece); 
+                }
+            }
+        }     
+    return root;
     }
     
     public int getTILE_SIZE() {
@@ -98,6 +118,10 @@ public class Board{
 
     public void setPieceGroup(Group pieceGroup) {
         this.pieceGroup = pieceGroup;
+    }
+
+    public Pane getRoot() {
+        return root;
     }
     
 }

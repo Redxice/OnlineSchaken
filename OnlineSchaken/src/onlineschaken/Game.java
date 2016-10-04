@@ -161,7 +161,7 @@ public class Game {
       return false;
    }
    
-   
+   // Zet alle stukken in de begin positie op het bord;
     public void setPieces()
     {
     Piece piece;
@@ -182,7 +182,22 @@ public class Game {
     player1.pieces.add(piece = new Pawn("white",player1,board.getSections(6,1)));
     player1.pieces.add(piece = new Pawn("white",player1,board.getSections(7,1)));
     
-    
+    player2.pieces.add(piece = new Rook("black",player2,board.getSections(0,7)));
+    player2.pieces.add(piece = new Knight("black",player2,board.getSections(1,7)));
+    player2.pieces.add(piece = new Bishop("black",player2,board.getSections(2,7)));
+    player2.pieces.add(piece = new Queen("black",player2,board.getSections(3,7)));
+    player2.pieces.add(piece = new King("black",player2,board.getSections(4,7)));
+    player2.pieces.add(piece = new Bishop("black",player2,board.getSections(5,7)));
+    player2.pieces.add(piece = new Knight("black",player2,board.getSections(6,7)));
+    player2.pieces.add(piece = new Rook("black",player2,board.getSections(7,7)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(0,6)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(1,6)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(2,6)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(3,6)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(4,6)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(5,6)));
+    player1.pieces.add(piece = new Pawn("black",player2,board.getSections(6,6)));
+    player1.pieces.add(piece = new Pawn("black",player2,board.getSections(7,6)));    
     }
   
    

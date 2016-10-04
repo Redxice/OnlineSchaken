@@ -17,7 +17,6 @@ import javafx.scene.shape.Rectangle;
 public class Section extends Rectangle{
     //fields
     Point id;
-    boolean occupied;
     Board board;
     Piece piece;
     
@@ -35,6 +34,7 @@ public class Section extends Rectangle{
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
                 
         id = new Point(x,y);
+       
     }
     
     //methode
@@ -47,9 +47,6 @@ public class Section extends Rectangle{
         return true;
     }
 
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
-    }
 
     public Board getBoard() {
         return board;

@@ -26,6 +26,7 @@ public abstract class Piece extends StackPane{
         this.color = p_color;
         this.player = p_player;       
         this.section = p_section;
+        this.section.piece = this;
     }
   
  //methode
