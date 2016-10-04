@@ -5,6 +5,8 @@
  */
 package onlineschaken;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author redxice
@@ -13,6 +15,15 @@ public class Queen extends Piece{
     
     public Queen(String p_color, Player p_player, String p_name) {
         super(p_color, p_player, p_name);
+        if(p_color == "white")
+        {
+        this.img = new Image("ChessPieces/White Queen.png");
+        }
+        if(p_color == "black")
+        {
+        this.img = new Image("ChessPieces/Black Queen.png");
+        }
+        
     }
 
     @Override

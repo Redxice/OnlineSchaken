@@ -10,9 +10,10 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-;
+
 
 /**
  *
@@ -28,7 +29,7 @@ public class OnlineSchaken extends Application {
     
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
         for (int y = 0; y < HEIGHT; y++) {
@@ -37,7 +38,7 @@ public class OnlineSchaken extends Application {
                 board[x][y] = section;
 
                 tileGroup.getChildren().add(section);
-
+                //pieceGroup.getChildren().add();
             }
         }
 

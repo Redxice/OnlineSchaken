@@ -5,15 +5,27 @@
  */
 package onlineschaken;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+
 /**
  *
  * @author redxice
  */
-public class Pawn extends Piece {
+public class Pawn extends Piece{
     boolean hasMoved;
 
     public Pawn(String p_color, Player p_player, String p_name) {
         super(p_color, p_player, p_name);
+        if (p_color == "white")
+        {
+        this.img = new Image("ChessPieces/White Pawn.png");
+        }
+        else if (p_color == "black")
+        {
+        this.img = new Image("ChessPieces/Black Pawn.png");
+        }
+        
     }
     
     public void promotion()

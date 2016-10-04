@@ -6,24 +6,27 @@
 package onlineschaken;
 
 import java.util.List;
+import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 
 /**
  *
  * @author redxice
  */
-public abstract class Piece{
+public abstract class Piece extends StackPane{
     //fields
     String color;
     String name;
     Player player;
     Section section;
+    Image img;
     
     
 //constructor
     public Piece(String p_color,Player p_player,String p_name) {
         this.color = p_color;
         this.name = p_name;
-        this.player = p_player;
+        this.player = p_player;        
     }
   
  //methode
