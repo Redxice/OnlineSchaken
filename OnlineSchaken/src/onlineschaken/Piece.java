@@ -62,10 +62,9 @@ public abstract class Piece extends StackPane{
        if(checkMove(p_section))
        {
            section.getBoard().drawSpecificPieces(section, p_section);
-           section.getBoard().getSections()[section.id.x][section.id.x].setPiece(null);
            section.id.x = p_section.id.x;
            section.id.y = p_section.id.y;
-           section.getBoard().getSections()[section.id.x][section.id.x].setPiece(this);
+           section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
        }
    }
    public Section getSection(){
