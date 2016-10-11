@@ -11,76 +11,96 @@ import javafx.scene.image.Image;
  *
  * @author redxice
  */
-public class King extends Piece {
+public class King extends Piece
+{
+
     boolean check;
     boolean checkMate;
 
-    public King(String p_color, Player p_player,Section p_section) {
+    public King(String p_color, Player p_player, Section p_section)
+    {
         super(p_color, p_player, p_section);
-        if(p_color == "white")
+        if (p_color == "white")
         {
-        this.img = new Image("ChessPieces/White King.png");
+            this.img = new Image("ChessPieces/White King.png");
         }
-        if(p_color == "black")
+        if (p_color == "black")
         {
-        this.img = new Image("ChessPieces/Black King.png");
+            this.img = new Image("ChessPieces/Black King.png");
         }
     }
 
-    public boolean isCheck() {
+    public boolean isCheck()
+    {
         return check;
     }
 
-    public void setCheck(boolean check) {
+    public void setCheck(boolean check)
+    {
         this.check = check;
     }
 
-    public boolean isCheckMate() {
+    public boolean isCheckMate()
+    {
         return checkMate;
     }
 
-    public void setCheckMate(boolean checkMate) {
+    public void setCheckMate(boolean checkMate)
+    {
         this.checkMate = checkMate;
     }
-    
-    public Section castling(){
-       Section section = null;
-      return  section;
+
+    public Section castling()
+    {
+        Section section = null;
+        return section;
     }
 
     /**
-     * 
+     *
      * @param p_section waarna toe moet worden bewogen
      * @return geeft true terug als de koning naar dit vak mag bewegen
      */
     @Override
-    public Boolean checkMove(Section p_section) {
-        if(p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
+    public Boolean checkMove(Section p_section)
+    {
+        //check of het niet naar dezelfde plek wordt verplaatst
+        if (p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
         {
             //check of het een geldige vak is om naar toe te verschuiven
-            if(isValidMove(p_section) == false)
+            if (isValidMove(p_section) == false)
             {
-               return false; 
-            }
-            //check of koning niet meer dan 1 vakje verschuift
-            else if(p_section.getID().x + 1 > section.getID().x)
+                return false;
+            } //check of koning niet meer dan 1 vakje verschuift
+            else if (p_section.getID().x + 1 > section.getID().x)
+            {
+                return false;
+            } else if (p_section.getID().x - 1 < section.getID().x)
+            {
+                return false;
+            } else if (p_section.getID().y + 1 > section.getID().y)
+            {
+                return false;
+            } else if (p_section.getID().y - 1 < section.getID().y)
             {
                 return false;
             }
-            else if(p_section.getID().x - 1 < section.getID().x)
+            //check of je niet versliest door de koning naar de plek te verplaatsen
+            for (Section[] x : section.getBoard().getSections())
             {
-                return false;
+                for (Section y : x)
+                {
+                    if (y.getPiece().color.equals(this.color))
+                    {
+                        if (y.getPiece().checkMove(p_section))
+                        {
+                            return false;
+                        }
+                    }
+                }
             }
-            else if(p_section.getID().y + 1 > section.getID().y)
-            {
-                return false;
-            }
-            else if(p_section.getID().y - 1 < section.getID().y)
-            {
-                return false;
-            }
-            this.section = p_section;
+            return true;
         }
-        return true;
+        return false;
     }
 }
