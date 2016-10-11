@@ -28,11 +28,12 @@ public abstract class Piece extends StackPane{
         this.section = p_section;
         this.section.setPiece(this);
     }
+    
+ 
    public boolean isValidMove(Section p_section){
+       
        if (p_section.isOccupied() == true) {
            if (p_section.getPiece().getColor() != this.color) {
-               p_section.getPiece().setSection(null);
-               this.section = p_section;
                return true;
            }
            else{
@@ -40,7 +41,6 @@ public abstract class Piece extends StackPane{
            }
        }
        else{
-           this.section = p_section;
            return true;
        }
    }

@@ -32,15 +32,19 @@ public class Pawn extends Piece{
     {}
     
     public boolean getFirsMove(){
-        return false;
+        return this.hasMoved;
     }
 
     @Override
     public void move(Section p_section) {
         
-        if (hasMoved == false) {
+        
+        if(hasMoved == true) {
+           
+        }
+        else if (hasMoved == false) {
             
         }
-        this.section = p_section;
+       
     }
 }
