@@ -36,11 +36,13 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public void move(Section p_section) {
+    public boolean move(Section p_section) {
         
        Board board = p_section.getBoard();
         if(hasMoved == true) {
-           
+            for (int i = 1; i < 3; i++) {
+                board.getSections()[][]
+            }
         }
         else if (hasMoved == false) {
             

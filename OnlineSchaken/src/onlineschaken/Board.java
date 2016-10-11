@@ -22,7 +22,7 @@ public class Board{
     private int TILE_SIZE = 80;    
     private int WIDTH = 8;
     private int HEIGHT = 8;
-    public Section[][] sections = new Section[WIDTH][HEIGHT];
+    private Section[][] sections = new Section[WIDTH][HEIGHT];
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
     private Pane root = new Pane();
@@ -112,6 +112,9 @@ public class Board{
         return sections[x][y];
     }
 
+    public Section[][] getSections() {
+        return sections;
+    }
 
     public Group getTileGroup() {
         return tileGroup;
