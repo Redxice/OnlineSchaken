@@ -50,31 +50,32 @@ public class King extends Piece {
     }
 
     @Override
-    public void move(Section p_section) {
+    public Boolean move(Section p_section) {
         if(p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
         {
             if(p_section.getID().x + 1 > section.getID().x)
             {
-                return;
+                return false;
             }
             if(p_section.getID().x - 1 < section.getID().x)
             {
-                return;
+                return false;
             }
             if(p_section.getID().y + 1 > section.getID().y)
             {
-                return;
+                return false;
             }
             if(p_section.getID().y - 1 < section.getID().y)
             {
-                return;
+                return false;
             }
             if(section.board.sections[section.getID().x][p_section.getID().y].getPiece() == null)
             {
-                return;
+                return false;
             }
             this.section = p_section;
         }
+        return true;
     }
    
 }

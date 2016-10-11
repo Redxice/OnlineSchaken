@@ -54,7 +54,7 @@ public abstract class Piece extends StackPane{
        return this.color;
    }
  //methode
-   public abstract void move(Section p_section);
+   public abstract Boolean move(Section p_section);
     
    public Section getSection(){
        return this.section;
