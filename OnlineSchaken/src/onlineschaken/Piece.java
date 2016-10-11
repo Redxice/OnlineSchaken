@@ -65,7 +65,8 @@ public abstract class Piece extends StackPane{
            section.id.x = p_section.id.x;
            section.id.y = p_section.id.y;
            section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
-       }
+           hasMoved = true;
+       }      
    }
    public Section getSection(){
        return this.section;
