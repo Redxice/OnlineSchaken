@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 public class King extends Piece {
     boolean check;
     boolean checkMate;
-    boolean hasMoved;
 
     public King(String p_color, Player p_player,Section p_section) {
         super(p_color, p_player, p_section);

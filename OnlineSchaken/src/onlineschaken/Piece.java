@@ -19,7 +19,7 @@ public abstract class Piece extends StackPane{
     Player player;
     Section section;
     Image img;
-    
+    boolean hasMoved;
     
 //constructor
     public Piece(String p_color,Player p_player, Section p_section) {
