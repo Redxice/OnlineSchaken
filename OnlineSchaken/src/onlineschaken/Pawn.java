@@ -38,7 +38,7 @@ public class Pawn extends Piece{
     @Override
     public void move(Section p_section) {
         
-        
+       Board board = p_section.getBoard();
         if(hasMoved == true) {
            
         }

@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 public class Section extends Rectangle{
     //fields
     Point id;
-    Board board;
+   private Board board;
    private Piece piece;
 
    
