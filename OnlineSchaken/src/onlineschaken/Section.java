@@ -39,7 +39,9 @@ public class Section extends Rectangle{
     }
     
     //methode
-
+   public Point getID(){
+       return this.id;
+   }
     public void setId(Point id) {
         this.id = id;
     }
