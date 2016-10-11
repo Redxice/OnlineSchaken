@@ -29,9 +29,17 @@ public class Rook extends Piece{
       return  section;
     }
 
+    /**
+     * Deze methode kijkt of de gekozen zet mag volgens de spelregels.
+     * @param p_section de section waar het stuk neergezet wil worden.
+     * @return true waneer de zet geldig is en false waneer de zet niet geldig is.
+     */
     @Override
     public Boolean checkMove(Section p_section) {
-       if(hasMoved == false)
+        if (isValidMove(p_section) == true) {
+            
+          
+        if(hasMoved == false)
        {
             if(p_section.getPiece() instanceof King)
             {
@@ -94,7 +102,8 @@ public class Rook extends Piece{
                return true;
            }
        }
+       }
        return false;
-       
+        
     }
 }
