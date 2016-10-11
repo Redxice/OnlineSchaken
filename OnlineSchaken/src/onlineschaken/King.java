@@ -48,14 +48,21 @@ public class King extends Piece {
       return  section;
     }
 
+    /**
+     * 
+     * @param p_section waarna toe moet worden bewogen
+     * @return geeft true terug als de koning naar dit vak mag bewegen
+     */
     @Override
     public Boolean checkMove(Section p_section) {
         if(p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
         {
+            //check of het een geldige vak is om naar toe te verschuiven
             if(isValidMove(p_section) == false)
             {
                return false; 
             }
+            //check of koning niet meer dan 1 vakje verschuift
             else if(p_section.getID().x + 1 > section.getID().x)
             {
                 return false;
@@ -69,10 +76,6 @@ public class King extends Piece {
                 return false;
             }
             else if(p_section.getID().y - 1 < section.getID().y)
-            {
-                return false;
-            }
-            else if(section.getBoard().getSections()[section.getID().x][p_section.getID().y].getPiece() == null)
             {
                 return false;
             }
