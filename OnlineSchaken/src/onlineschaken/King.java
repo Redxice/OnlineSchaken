@@ -51,7 +51,30 @@ public class King extends Piece {
 
     @Override
     public void move(Section p_section) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
+        {
+            if(p_section.getID().x + 1 > section.getID().x)
+            {
+                return;
+            }
+            if(p_section.getID().x - 1 < section.getID().x)
+            {
+                return;
+            }
+            if(p_section.getID().y + 1 > section.getID().y)
+            {
+                return;
+            }
+            if(p_section.getID().y - 1 < section.getID().y)
+            {
+                return;
+            }
+            if(section.board.sections[section.getID().x][p_section.getID().y].getPiece() == null)
+            {
+                return;
+            }
+            this.section = p_section;
+        }
     }
    
 }
