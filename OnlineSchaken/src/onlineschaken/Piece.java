@@ -48,6 +48,7 @@ public abstract class Piece extends StackPane{
    
     public void setSection(Section section) {
         this.section = section;
+        section.setPiece(this);
     }
    
    public  String getColor(){
