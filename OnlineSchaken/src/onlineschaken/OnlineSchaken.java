@@ -32,6 +32,8 @@ public class OnlineSchaken extends Application {
         game.board.createContent();               
         game.setPieces();
         game.board.createContent2();
+        game.board.getSections(1, 1).getPiece().move(game.board.getSections(1, 2));
+        game.board.drawSpecificPieces(game.board.getSections(1, 1), game.board.getSections(1, 2));
         Scene scene = new Scene(game.board.getRoot()); 
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
