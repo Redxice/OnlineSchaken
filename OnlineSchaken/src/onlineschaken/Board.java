@@ -57,11 +57,11 @@ public class Board{
         {
             for(Section y: x)
             {              
-                if (y.piece != null)
+                if (y.getPiece() != null)
                 {
-                ImagePattern i = new ImagePattern(y.piece.img);
+                ImagePattern i = new ImagePattern(y.getPiece().img);
                 y.setFill(i);
-                pieceGroup.getChildren().add(y.piece); 
+                pieceGroup.getChildren().add(y.getPiece()); 
                 }
             }
         }     
@@ -70,9 +70,9 @@ public class Board{
     
     public Parent drawSpecificPieces(Section p_section1, Section p_section2)
     {
-                ImagePattern i = new ImagePattern(p_section1.piece.img);
+                ImagePattern i = new ImagePattern(p_section1.getPiece().img);
                 //p_section2.setFill(i);
-                Piece piece = p_section1.piece;
+                Piece piece = p_section1.getPiece();
                 int counter = 0;
         for (Section[] x: sections)
         {
@@ -80,12 +80,12 @@ public class Board{
             {              
                 if (y.id == p_section1.id)
                 {
-                    y.piece = null;
+                    y.setPiece(piece);
                     y.setFill(i);
                 }
                 if (y.id == p_section2.id)
                 {
-                    y.piece = piece;
+                    y.setPiece(piece);
                     y.setFill(i);
                     counter++;
                 }
