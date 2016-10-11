@@ -50,7 +50,7 @@ public class King extends Piece {
     }
 
     @Override
-    public Boolean move(Section p_section) {
+    public Boolean checkMove(Section p_section) {
         if(p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
         {
             if(isValidMove(p_section) == false)
@@ -81,5 +81,4 @@ public class King extends Piece {
         }
         return true;
     }
-   
 }

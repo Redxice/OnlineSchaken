@@ -27,7 +27,7 @@ public class Bishop extends Piece{
     }
 
     @Override
-    public Boolean move(Section p_section) {
+    public Boolean checkMove(Section p_section) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
