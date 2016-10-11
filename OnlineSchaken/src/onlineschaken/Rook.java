@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
  * @author redxice
  */
 public class Rook extends Piece{
-    boolean hasMoved;
     public Rook(String p_color, Player p_player, Section p_section) {
         super(p_color, p_player, p_section);
         if(p_color == "white")
@@ -31,7 +30,71 @@ public class Rook extends Piece{
     }
 
     @Override
-    public void move(Section p_section) {
-        
+    public Boolean checkMove(Section p_section) {
+       if(hasMoved == false)
+       {
+            if(p_section.getPiece() instanceof King)
+            {
+                if(this.color == p_section.getPiece().color)
+                {
+                    if(p_section.getPiece().hasMoved == false)
+                    {
+                    return true;
+                    }
+                }
+            }        
+       }
+       else if(this.section.getID().x == p_section.getID().x)
+       {
+           if(this.section.getID().y > p_section.getID().y)
+           {
+               for (int i = 0; i < p_section.getID().y - this.section.getID().y; i++) 
+               {
+                    if(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i].getPiece() != null)
+                    {
+                        return false;
+                    }
+               }
+               return true;
+           }
+           else if(this.section.getID().y < p_section.getID().y)
+           {
+                for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++) 
+                {
+                    if(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - i] != null)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+           }
+       }
+       else if(this.section.getID().y == p_section.getID().y) 
+       {
+           if(this.section.getID().x > p_section.getID().x)
+           {
+               for (int i = 0; i < this.section.getID().x - p_section.getID().x; i++) 
+               {
+                    if(this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y] != null)
+                    {
+                        return false;
+                    }
+               }
+               return true;
+           }
+           else if(this.section.getID().x < p_section.getID().x)
+           {
+               for (int i = 0; i < p_section.getID().x - this.section.getID().x; i++) 
+               {
+                    if(this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y] != null)
+                    {
+                        return false;
+                    }                   
+               }
+               return true;
+           }
+       }
+       return false;
+       
     }
 }
