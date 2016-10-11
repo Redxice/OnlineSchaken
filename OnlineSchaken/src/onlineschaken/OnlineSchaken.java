@@ -32,6 +32,8 @@ public class OnlineSchaken extends Application {
         game.board.createContent();               
         game.setPieces();
         game.board.createContent2();
+        
+        //game.board.drawSpecificPieces(game.board.sections[0][0],game.board.sections[3][3]);
         Scene scene = new Scene(game.board.getRoot()); 
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
@@ -46,9 +48,9 @@ public class OnlineSchaken extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        Database db = new Database();
-        db.init();
-        db.closeConnection();
+        //Database db = new Database();
+        //db.init();
+        //db.closeConnection();
     }
     
 }

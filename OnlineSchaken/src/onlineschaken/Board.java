@@ -68,6 +68,36 @@ public class Board{
     return root;
     }
     
+    public Parent drawSpecificPieces(Section p_section1, Section p_section2)
+    {
+                ImagePattern i = new ImagePattern(p_section1.piece.img);
+                //p_section2.setFill(i);
+                Piece piece = p_section1.piece;
+                int counter = 0;
+        for (Section[] x: sections)
+        {
+            for(Section y: x)
+            {              
+                if (y.id == p_section1.id)
+                {
+                    y.piece = null;
+                    y.setFill(i);
+                }
+                if (y.id == p_section2.id)
+                {
+                    y.piece = piece;
+                    y.setFill(i);
+                    counter++;
+                }
+                if(counter == 1)
+                {
+                    i = null;
+                }
+            }
+        }
+    return root;
+    }
+    
     public int getTILE_SIZE() {
         return TILE_SIZE;
     }
