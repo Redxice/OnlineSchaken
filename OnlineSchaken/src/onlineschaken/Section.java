@@ -57,6 +57,7 @@ public class Section extends Rectangle{
         return board;
     }
    public void setPiece(Piece piece){
+       this.piece.setSection(null);
         this.piece = piece;
    }
     public void setBoard(Board board) {

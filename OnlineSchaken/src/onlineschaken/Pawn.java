@@ -36,17 +36,56 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public boolean move(Section p_section) {
+    public Boolean move(Section p_section) {
         
        Board board = p_section.getBoard();
-        if(hasMoved == true) {
+       if(isValidMove(p_section)==false){
+           return false;
+       }
+      
+       else if(hasMoved == false) {
+         if(this.color =="black"){
+          if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y+1){
+          this.section.setPiece(null);
+          p_section.setPiece(this);
+          this.setSection(p_section);
+          this.hasMoved =true;
+          }
+          else if(p_section.getID().x == this.section.getID().x+1 && p_section.getID().y == this.section.getID().y+1 ||
+                  p_section.getID().x == this.section.getID().x-1 && p_section.getID().y == this.section.getID().y+1 ){
+              if(p_section.getID().x == this.section.getID().x+1 && p_section.getID().y == this.section.getID().y+1){
+               
+              }
+              else if()
+          }
+          else{
             for (int i = 1; i < 3; i++) {
-                board.getSections()[][]
+               int x= this.section.getID().x+i;
+               int y= this.section.getID().y+i;
+              Section section = board.getSections(x, y);
+              if(section.isOccupied()==true){
+                 return false;
+              }
             }
+         }
+          
         }
-        else if (hasMoved == false) {
+           if(this.color =="white"){
+          if(p_section.getID().x == this.section.getID().x-1 && p_section.getID().y == this.section.getID().y-1){
+          this.section.setPiece(null);
+          p_section.setPiece(this);
+          }
+          else{
+            for (int i = 1; i < 3; i++) {
+               int x= this.section.getID().x-i;
+               int y= this.section.getID().y-i;
+              Section section = board.getSections(x, y);
+            }
+         }
+        }
+       else if (hasMoved == true) {
             
         }
-       
+       return true;
     }
 }
