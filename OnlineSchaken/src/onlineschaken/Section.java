@@ -17,7 +17,7 @@ public class Section extends Rectangle{
     //fields
     Point id;
    private Board board;
-   private Piece piece;
+   private Piece piece = null;
 
    
     
@@ -57,7 +57,6 @@ public class Section extends Rectangle{
         return board;
     }
    public void setPiece(Piece piece){
-       this.piece.setSection(null);
         this.piece = piece;
    }
     public void setBoard(Board board) {
