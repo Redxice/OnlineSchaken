@@ -174,16 +174,19 @@ public class Pawn extends Piece
                         || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
                 {
                     if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
-                    {
+                    {if(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1).isOccupied()){
                         if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
 
                         {
                             return true;
                         }
-                    } else if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
+                    }
+                    } else if (board.getSections(this.section.getID().x - 1, this.section.getID().y - 1).isOccupied())
 
                     {
+                        if(isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1))){
                         return true;
+                        }
                     }
                     return false;
                 }
@@ -204,18 +207,22 @@ public class Pawn extends Piece
                 else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1
                         || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
                 {
-                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
-                    {
+                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+                    {if(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1).isOccupied()){
                         if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1)))
-                        {
-                            return true;
-                        } else if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1)))
 
                         {
                             return true;
                         }
-
                     }
+                    } else if (board.getSections(this.section.getID().x - 1, this.section.getID().y + 1).isOccupied())
+
+                    {
+                        if(isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1))){
+                        return true;
+                        }
+                    }
+                    return false;
                 }
 
             }
