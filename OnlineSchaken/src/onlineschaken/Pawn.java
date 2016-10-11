@@ -52,68 +52,17 @@ public class Pawn extends Piece
             if (this.color == "black")
             {
                 //1 section naar voren.
-                if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1)
-                {
-                    if (board.getSections(this.section.getID().x, this.section.getID().y + 1).isOccupied())
-                    {
-                        return false;
-
-                    } else
-                    {
-                        hasMoved = true;
-                        return true;
-
-                    }
-                } //schuin slaan van andere pawn.
-                else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1
-                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
-                {
-                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
-                    {
-                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1)))
-                        {
-                            hasMoved = true;
-                        }
-                        return true;
-                    } else
-                    {
-                        if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1)))
-                        {
-                            hasMoved = true;
-                        }
-                        return true;
-                    }
-
-                } //2 section naar voren
-                else
-                {
-                    for (int i = 1; i < 3; i++)
-                    {
-                        int x = this.section.getID().x + i;
-                        int y = this.section.getID().y + i;
-                        Section section = board.getSections(x, y);
-                        if (section.isOccupied() == true)
-                        {
-                            return false;
-                        }
-                    }
-                    hasMoved = true;
-                    return true;
-                }
-
-            }
-            if (this.color == "white")
-            {
-                //1 section naar voren.
                 if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 1)
                 {
                     if (board.getSections(this.section.getID().x, this.section.getID().y - 1).isOccupied())
                     {
                         return false;
+
                     } else
                     {
                         hasMoved = true;
                         return true;
+
                     }
                 } //schuin slaan van andere pawn.
                 else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1
@@ -140,8 +89,59 @@ public class Pawn extends Piece
                 {
                     for (int i = 1; i < 3; i++)
                     {
-                        int x = this.section.getID().x + i;
+                        int x = this.section.getID().x ;
                         int y = this.section.getID().y - i;
+                        Section section = board.getSections(x, y);
+                        if (section.isOccupied() == true)
+                        {
+                            return false;
+                        }
+                    }
+                    hasMoved = true;
+                    return true;
+                }
+
+            }
+            if (this.color == "white")
+            {
+                //1 section naar voren.
+                if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1)
+                {
+                    if (board.getSections(this.section.getID().x, this.section.getID().y + 1).isOccupied())
+                    {
+                        return false;
+                    } else
+                    {
+                        hasMoved = true;
+                        return true;
+                    }
+                } //schuin slaan van andere pawn.
+                else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1
+                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
+                {
+                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+                    {
+                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1)))
+                        {
+                            hasMoved = true;
+                        }
+                        return true;
+                    } else
+                    {
+                        if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1)))
+                        {
+                            hasMoved = true;
+                        }
+                        return true;
+                    }
+
+                } //2 section naar voren
+                else
+                {
+                    for (int i = 1; i < 3; i++)
+                    {
+                        int x = this.section.getID().x ;
+                        int y = this.section.getID().y + i;
                         Section section = board.getSections(x, y);
                         if (section.isOccupied() == true)
                         {
@@ -157,9 +157,9 @@ public class Pawn extends Piece
             if (this.color == "black")
             {
                 //1 section naar voren.
-                if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1)
+                if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 1)
                 {
-                    if (board.getSections(this.section.getID().x, this.section.getID().y + 1).isOccupied())
+                    if (board.getSections(this.section.getID().x, this.section.getID().y - 1).isOccupied())
                     {
                         return false;
 
@@ -170,17 +170,17 @@ public class Pawn extends Piece
 
                     }
                 } //schuin slaan van andere pawn.
-                else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1
-                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
+                else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1
+                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
                 {
-                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
                     {
-                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1)))
+                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
 
                         {
                             return true;
                         }
-                    } else if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1)))
+                    } else if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
 
                     {
                         return true;
@@ -191,9 +191,9 @@ public class Pawn extends Piece
             } else if (this.color == "white")
             {
                 //1 section naar voren.
-                if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 1)
+                if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1)
                 {
-                    if (board.getSections(this.section.getID().x, this.section.getID().y - 1).isOccupied())
+                    if (board.getSections(this.section.getID().x, this.section.getID().y + 1).isOccupied())
                     {
                         return false;
                     } else
@@ -201,15 +201,15 @@ public class Pawn extends Piece
                         return true;
                     }
                 } //schuin slaan van andere pawn.
-                else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1
-                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
+                else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1
+                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
                 {
-                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
                     {
-                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
+                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1)))
                         {
                             return true;
-                        } else if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
+                        } else if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1)))
 
                         {
                             return true;
