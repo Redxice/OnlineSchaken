@@ -29,6 +29,7 @@ public class Bishop extends Piece{
     @Override
     public Boolean checkMove(Section p_section) {
        
+        return false;
     }
     
 }
