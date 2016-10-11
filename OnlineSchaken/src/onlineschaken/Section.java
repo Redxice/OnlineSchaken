@@ -7,7 +7,6 @@ package onlineschaken;
 
 import java.awt.Point;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -18,7 +17,9 @@ public class Section extends Rectangle{
     //fields
     Point id;
     Board board;
-    Piece piece;
+   private Piece piece;
+
+   
     
     //constructor
     // 
@@ -44,14 +45,18 @@ public class Section extends Rectangle{
     }
 
     public boolean isOccupied() {
-        return true;
+        return piece != null;
     }
 
-
+    public Piece getPiece() {
+        return piece;
+    }
     public Board getBoard() {
         return board;
     }
-
+   public void setPiece(Piece piece){
+        this.piece = piece;
+   }
     public void setBoard(Board board) {
         this.board = board;
     }
