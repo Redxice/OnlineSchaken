@@ -53,23 +53,27 @@ public class King extends Piece {
     public Boolean move(Section p_section) {
         if(p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
         {
-            if(p_section.getID().x + 1 > section.getID().x)
+            if(isValidMove(p_section) == false)
+            {
+               return false; 
+            }
+            else if(p_section.getID().x + 1 > section.getID().x)
             {
                 return false;
             }
-            if(p_section.getID().x - 1 < section.getID().x)
+            else if(p_section.getID().x - 1 < section.getID().x)
             {
                 return false;
             }
-            if(p_section.getID().y + 1 > section.getID().y)
+            else if(p_section.getID().y + 1 > section.getID().y)
             {
                 return false;
             }
-            if(p_section.getID().y - 1 < section.getID().y)
+            else if(p_section.getID().y - 1 < section.getID().y)
             {
                 return false;
             }
-            if(section.board.sections[section.getID().x][p_section.getID().y].getPiece() == null)
+            else if(section.getBoard().getSections()[section.getID().x][p_section.getID().y].getPiece() == null)
             {
                 return false;
             }
