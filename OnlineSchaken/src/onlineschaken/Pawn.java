@@ -27,7 +27,7 @@ public class Pawn extends Piece
         {
             this.img = new Image("ChessPieces/Black Pawn.png");
         }
-
+    this.hasMoved = false;
     }
 
     public void promotion()

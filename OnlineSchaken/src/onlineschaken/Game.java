@@ -5,7 +5,9 @@
  */
 package onlineschaken;
 
+
 import java.sql.Time;
+import java.util.Timer;
 
 /**
  *
@@ -13,9 +15,10 @@ import java.sql.Time;
  */
 public class Game {
     //fields
-    Time time;
-    Time resterend1;
-    Time resterend2;
+    int time;
+    int resterend1;
+    int resterend2;
+    Timer timer ;
     boolean finished;
     Tournament tournament;
     Player player1;
@@ -34,39 +37,55 @@ public class Game {
         board = new Board();       
     }
     //constructor vor een game die deel is van een tournament
-    public Game(Time p_time,Player p_player1,Player p_player2,
+    public Game(int p_time,Player p_player1,Player p_player2,
             Tournament p_tournament){
         
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.time = p_time;
+        this.resterend1 =p_time;
+        this.resterend2 =p_time;
         this.tournament = p_tournament;
         board = new Board();  
+        timer = new Timer();
+        timer.schedule(new GameTimer(this), 0,1000);
     }
 
     //getters and setters
-    public Time getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public Time getResterend1() {
+    public double getResterend1() {
         return resterend1;
     }
 
-    public void setResterend1(Time resterend1) {
-        this.resterend1 = resterend1;
+    public void setResterend1(int seconde) {
+        this.resterend1 = resterend1-seconde;
+          if (resterend1 <=0)
+        {
+         setWinner(player2)  ;
+         setFinished(true);
+         timer.cancel();
+        }
     }
 
-    public Time getResterend2() {
+    public double getResterend2() {
         return resterend2;
     }
 
-    public void setResterend2(Time resterend2) {
-        this.resterend2 = resterend2;
+    public void setResterend2(int seconde) {
+        this.resterend2 = resterend2-seconde;
+        if (resterend2 <=0)
+        {
+         setWinner(player1)  ;
+         setFinished(true);
+         timer.cancel();
+        }
     }
 
     public boolean isFinished() {

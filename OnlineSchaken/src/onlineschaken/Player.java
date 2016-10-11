@@ -24,7 +24,6 @@ public class Player {
     List<Piece> pieces;
     Game game;
     List<Game> history;
-    private Time timer;
     //constructor
     public Player(String p_username,String p_password,int p_rating)
     {
@@ -45,9 +44,7 @@ public class Player {
     public String getPassword() {
         return password;
     }
-    public void setTimer(){
-        
-    }
+    
     public void setPassword(String password) {
         this.password = password;
     }
