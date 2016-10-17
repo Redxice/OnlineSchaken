@@ -5,13 +5,8 @@
  */
 package onlineschaken;
 
-import database.Database;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
@@ -39,6 +34,7 @@ public class OnlineSchaken extends Application {
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
         primaryStage.show();
+        //this.set
     }
 
 

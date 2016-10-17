@@ -6,6 +6,7 @@
 package onlineschaken;
 
 import java.util.List;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 
@@ -59,12 +60,25 @@ public abstract class Piece extends StackPane{
     
    public void move(Section p_section)
    {
+       try
+       {
        if(checkMove(p_section))
        {
            section.getBoard().drawSpecificPieces(section, p_section);
+           section.setPiece(null);
            section.id.x = p_section.id.x;
            section.id.y = p_section.id.y;
            section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
+           this.section = section.getBoard().getSections()[section.id.x][section.id.y];
+       }
+       }
+       catch(NullPointerException e)
+       {
+           //Logger.getLogger(e.getMessage());
+           System.out.println(e.getMessage());
+           System.out.println(section.getPiece());
+           System.out.println(section.getBoard());
+           System.out.println(p_section.getPiece());
        }
    }
    public Section getSection(){

@@ -5,10 +5,11 @@
  */
 package onlineschaken;
 
-import java.util.Arrays;
-import javafx.application.Application;
+import java.awt.Point;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -26,6 +27,10 @@ public class Board{
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
     private Pane root = new Pane();
+    private Point firstClick;
+    private Section firstSection;
+    private Piece piece;
+    
     public Board() {
         
     }
@@ -35,17 +40,33 @@ public class Board{
     public Parent createContent() {
         root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
-
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
                 Section section = new Section((x + y) % 2 == 0, x, y,this);
+                section.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent t) {
+            
+                if(firstSection == null)
+                        {
+                            if(section.getPiece() != null)
+                            {
+                                firstSection = sections[section.id.x][section.id.y];
+                                piece = firstSection.getPiece();
+                            }
+                        }
+                else
+                {
+                    piece.move(section);
+                    firstSection = null;
+                    piece = null;
+                }
+            }
+        });
                 sections[x][y] = section;
 
                 tileGroup.getChildren().add(section);
-              if(x==1 & y==1)
-             {
-             section.setFill(Color.BLUE);
-             }
             }          
         }
         return root;
@@ -71,23 +92,44 @@ public class Board{
     public Parent drawSpecificPieces(Section p_section1, Section p_section2)
     {
         ImagePattern i = new ImagePattern(p_section1.getPiece().img);
-        Piece piece = p_section1.getPiece();
+        Piece piece2 = p_section1.getPiece();
         for (Section[] x: sections)
         {
             for(Section y: x)
             {              
                 if (y.id == p_section1.id)
                 {
-                    y.setPiece(piece);
-                    y.setFill(i);
                     Section section = new Section((y.id.x + y.id.y) % 2 == 0, y.id.x, y.id.y,this);
+                    section.setOnMouseClicked(new EventHandler<MouseEvent>()
+                {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        
+                        if(firstSection == null)
+                        {
+                            if(section.getPiece() != null)
+                            {
+                                firstSection = sections[section.id.x][section.id.y];
+                                piece = firstSection.getPiece();
+                            }
+                        }
+                        else
+                        {
+                            piece.move(section);
+                            firstSection = null;
+                            piece = null;
+                        }
+                    }
+                });
                     sections[y.id.x][y.id.y] = section;
+                    
 
                 tileGroup.getChildren().add(section);
+                //pieceGroup.getChildren().add(section.getPiece());
                 }
                 if (y.id == p_section2.id)
                 {
-                    y.setPiece(piece);
+                    y.setPiece(piece2);
                     y.setFill(i);
                 }
             }

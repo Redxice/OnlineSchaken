@@ -35,6 +35,7 @@ public class Section extends Rectangle{
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
                 
         id = new Point(x,y);
+        
        
     }
     
