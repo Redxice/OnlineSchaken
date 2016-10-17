@@ -69,7 +69,6 @@ public abstract class Piece extends StackPane{
            section.id.x = p_section.id.x;
            section.id.y = p_section.id.y;
            section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
-<<<<<<< HEAD
            this.section = section.getBoard().getSections()[section.id.x][section.id.y];
        }
        }
@@ -81,11 +80,10 @@ public abstract class Piece extends StackPane{
            System.out.println(section.getBoard());
            System.out.println(p_section.getPiece());
        }
-=======
-           hasMoved = true;
-       }      
->>>>>>> origin/master
+           hasMoved = true;      
    }
+
+    
    public Section getSection(){
        return this.section;
    }
@@ -94,6 +92,4 @@ public abstract class Piece extends StackPane{
        List<Section> sections =null;
       return sections;
    }
-   
-   
 }
