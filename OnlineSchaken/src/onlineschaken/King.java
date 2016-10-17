@@ -122,23 +122,23 @@ public class King extends Piece
     public Boolean checkMove(Section p_section)
     {
         //check of het niet naar dezelfde plek wordt verplaatst
-        if (p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
-        {
+        //if (p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
+        //{
             //check of het een geldige vak is om naar toe te verschuiven
             if (isValidMove(p_section) == false)
             {
                 return false;
             } //check of koning niet meer dan 1 vakje verschuift
-            else if (p_section.getID().x + 1 > section.getID().x)
+            else if (p_section.getID().x + 1 < section.getID().x)
             {
                 return false;
-            } else if (p_section.getID().x - 1 < section.getID().x)
+            } else if (p_section.getID().x - 1 > section.getID().x)
             {
                 return false;
-            } else if (p_section.getID().y + 1 > section.getID().y)
+            } else if (p_section.getID().y + 1 < section.getID().y)
             {
                 return false;
-            } else if (p_section.getID().y - 1 < section.getID().y)
+            } else if (p_section.getID().y - 1 > section.getID().y)
             {
                 return false;
             }
@@ -147,17 +147,20 @@ public class King extends Piece
             {
                 for (Section y : x)
                 {
-                    if (!y.getPiece().color.equals(this.color))
+                    if(y.getPiece() != null)
                     {
-                        if (y.getPiece().checkMove(p_section))
+                        if (!y.getPiece().color.equals(this.color))
                         {
-                            return false;
+                            if (y.getPiece().checkMove(p_section))
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
             }
             return true;
-        }
-        return false;
+        //}
+        //return false;
     }
 }

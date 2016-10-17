@@ -55,13 +55,14 @@ public class Rook extends Piece
                     {
                         if (p_section.getPiece().hasMoved == false)
                         {
-                            return true;
+                           return true;
                         }
                     }
                 }
-            // Kijkt of de toren over de y as kan bewegen
-            } else if (this.section.getID().x == p_section.getID().x)
-            {
+             //Kijkt of de toren over de y as kan bewegen
+        }
+             if (this.section.getID().x == p_section.getID().x)
+             {
                 if (this.section.getID().y > p_section.getID().y)
                 {
                     for (int i = 0; i < p_section.getID().y - this.section.getID().y; i++)
@@ -86,7 +87,7 @@ public class Rook extends Piece
             // Kijkt of de toren over de x as kan bewegen
             } else if (this.section.getID().y == p_section.getID().y)
             {
-                if (this.section.getID().x > p_section.getID().x)
+                if (this.section.getID().x < p_section.getID().x)
                 {
                     for (int i = 0; i < this.section.getID().x - p_section.getID().x; i++)
                     {
@@ -96,7 +97,7 @@ public class Rook extends Piece
                         }
                     }
                     return true;
-                } else if (this.section.getID().x < p_section.getID().x)
+                } else if (this.section.getID().x > p_section.getID().x)
                 {
                     for (int i = 0; i < p_section.getID().x - this.section.getID().x; i++)
                     {
