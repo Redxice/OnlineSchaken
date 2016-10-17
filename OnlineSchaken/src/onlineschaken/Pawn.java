@@ -120,22 +120,25 @@ public class Pawn extends Piece
                         || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
                 {
                     if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
-                    {
+                    {if(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1).isOccupied()){
                         if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y + 1)))
                         {
                             hasMoved = true;
+                             return true;
                         }
-                        return true;
-                    } else
+                       
+                    }
+                    }
+                else if(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1).isOccupied())
                     {
                         if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y + 1)))
                         {
                             hasMoved = true;
-                        }
-                        return true;
+                            return true;
+                        } 
                     }
-
-                } //2 section naar voren
+                    }
+                 //2 section naar voren
                 else
                 {
                     for (int i = 1; i < 3; i++)
@@ -150,8 +153,9 @@ public class Pawn extends Piece
                     }
                 }
 
-            }
-        } else if (hasMoved == true)
+            
+        }
+        }else if (hasMoved == true)
         {
 
             if (this.color == "black")
@@ -230,3 +234,4 @@ public class Pawn extends Piece
         return false;
     }
 }
+
