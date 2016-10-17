@@ -45,7 +45,7 @@ public class Rook extends Piece
     {
         // Kijkt of de target section bezet is en door welke kleur
         if (isValidMove(p_section) == true)
-        {
+        {            
             // Kijkt of er een rokade gedaan kan worden
             if (hasMoved == false)
             {

@@ -28,10 +28,26 @@ public class King extends Piece
         {
             this.img = new Image("ChessPieces/Black King.png");
         }
+        check = false;
+        checkMate = false;
     }
 
     public boolean isCheck()
     {
+        for (Section[] x : section.getBoard().getSections())
+            {
+                for (Section y : x)
+                {
+                    if (!y.getPiece().color.equals(this.color))
+                    {
+                        if (y.getPiece().checkMove(this.section))
+                        {
+                            check = true;
+                            isCheckMate();
+                        }
+                    }
+                }
+            } 
         return check;
     }
 
@@ -42,6 +58,47 @@ public class King extends Piece
 
     public boolean isCheckMate()
     {
+        for (Section[] x : section.getBoard().getSections())
+            {
+                for (Section y : x)
+                {
+                    if (!y.getPiece().color.equals(this.color))
+                    {
+                        if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x +1][this.section.getID().y]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x +1][this.section.getID().y +1]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y +1]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x -1][this.section.getID().y]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y -1]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x -1][this.section.getID().y -1]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x +1][this.section.getID().y -1]))
+                        {
+                          checkMate = true;  
+                        }
+                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x -1][this.section.getID().y +1]))
+                        {
+                          checkMate = true;  
+                        }
+                    }
+                }
+            }        
         return checkMate;
     }
 
@@ -90,7 +147,7 @@ public class King extends Piece
             {
                 for (Section y : x)
                 {
-                    if (y.getPiece().color.equals(this.color))
+                    if (!y.getPiece().color.equals(this.color))
                     {
                         if (y.getPiece().checkMove(p_section))
                         {
