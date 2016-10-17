@@ -32,21 +32,17 @@ public class Rook extends Piece
         Section section = null;
         return section;
     }
-
+    
     /**
-     * Deze methode kijkt of de gekozen zet mag volgens de spelregels.
-     *
+     * Deze methode kijkt of een rokade gedaan mag worden.
      * @param p_section de section waar het stuk neergezet wil worden.
      * @return true waneer de zet geldig is en false waneer de zet niet geldig
      * is.
      */
-    @Override
-    public Boolean checkMove(Section p_section)
+    public Boolean checkRokade(Section p_section)
     {
-        // Kijkt of de target section bezet is en door welke kleur
         if (isValidMove(p_section) == true)
-        {            
-            // Kijkt of er een rokade gedaan kan worden
+        { 
             if (hasMoved == false)
             {
                 if (p_section.getPiece() instanceof King)
@@ -59,8 +55,29 @@ public class Rook extends Piece
                         }
                     }
                 }
+            }
+        }
+        return false;
+    }
+    /**
+     * Deze methode kijkt of de gekozen zet mag volgens de spelregels.
+     * @param p_section de section waar het stuk neergezet wil worden.
+     * @return true waneer de zet geldig is en false waneer de zet niet geldig
+     * is.
+     */
+    @Override
+    public Boolean checkMove(Section p_section)
+    {
+        // Kijkt of de target section bezet is en door welke kleur
+        if (isValidMove(p_section) == true)
+        {    
+            // Kijkt of rokade kan
+            if(checkRokade(p_section) == true)
+            {
+            return true;
+            }
             // Kijkt of de toren over de y as kan bewegen
-            } else if (this.section.getID().x == p_section.getID().x)
+            else if (this.section.getID().x == p_section.getID().x)
             {
                 if (this.section.getID().y > p_section.getID().y)
                 {
