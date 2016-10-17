@@ -88,7 +88,7 @@ public class Rook extends Piece
 
                 if (this.section.getID().y > p_section.getID().y)
                 {
-                    for (int i = 0; i < this.section.getID().y - p_section.getID().y ; i++)
+                    for (int i = 0; i < p_section.getID().y - this.section.getID().y; i++)
                     {
                         if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i].getPiece() != null)
                         {
@@ -98,7 +98,7 @@ public class Rook extends Piece
                     return true;
                 } else if (this.section.getID().y < p_section.getID().y)
                 {
-                    for (int i = 0; i < p_section.getID().y - this.section.getID().y; i++)
+                    for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
                     {
                         if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - i] != null)
                         {
