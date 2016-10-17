@@ -41,7 +41,7 @@ public class Bishop extends Piece
                     {
                         for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y + i] != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y - i] != null)
                             {
                                 return false;
                             }
