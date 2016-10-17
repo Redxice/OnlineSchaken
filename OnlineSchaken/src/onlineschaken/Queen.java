@@ -25,7 +25,6 @@ public class Queen extends Piece
         {
             this.img = new Image("ChessPieces/Black Queen.png");
         }
-
     }
 
     @Override

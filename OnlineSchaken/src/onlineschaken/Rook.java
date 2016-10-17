@@ -55,12 +55,6 @@ public class Rook extends Piece
                         }
                     }
                 }
-
-             //Kijkt of de toren over de y as kan bewegen
-        }
-             if (this.section.getID().x == p_section.getID().x)
-             {
-
             }
         }
         return false;
@@ -83,7 +77,7 @@ public class Rook extends Piece
             return true;
             }
             // Kijkt of de toren over de y as kan bewegen
-            else if (this.section.getID().x == p_section.getID().x)
+            if (this.section.getID().x == p_section.getID().x)
             {
 
                 if (this.section.getID().y > p_section.getID().y)
