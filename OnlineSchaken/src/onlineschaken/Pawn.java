@@ -79,11 +79,11 @@ public class Pawn extends Piece
        if (hasMoved==false)
         {
            if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 2){
-               if (board.getSections(p_section.getID().x,p_section.getID().y+1).isOccupied())
+               if (board.getSections(p_section.getID().x,p_section.getID().y-1).isOccupied())
                     {
                         return false;
                     } 
-               else if(board.getSections(p_section.getID().x,p_section.getID().y+2).isOccupied())
+               else if(board.getSections(p_section.getID().x,p_section.getID().y).isOccupied())
                     {
                         return false;
                     }
@@ -96,11 +96,11 @@ public class Pawn extends Piece
         if (hasMoved==false)
         {
            if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 2){
-               if (board.getSections(p_section.getID().x,p_section.getID().y-1).isOccupied())
+               if (board.getSections(p_section.getID().x,p_section.getID().y+1).isOccupied())
                     {
                         return false;
                     } 
-               else if(board.getSections(p_section.getID().x,p_section.getID().y-2).isOccupied())
+               else if(board.getSections(p_section.getID().x,p_section.getID().y).isOccupied())
                     {
                         return false;
                     }
@@ -163,17 +163,17 @@ public class Pawn extends Piece
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section,board))
                 {
-                    hasMoved= true;
+                    this.hasMoved= true;
                     return true;
                 }
                   //2 section naar voren
                 else if(this.moveTwoTilesForwardBlack(p_section, board)){
-                    hasMoved= true;
+                    this.hasMoved= true;
                     return true;
                 }
                 //schuin slaan van andere piece.
                 else if(this.toCaptureBlack(p_section, board)){
-                    hasMoved= true;
+                    this.hasMoved= true;
                     return true;
                 }
             }
@@ -182,17 +182,17 @@ public class Pawn extends Piece
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
                 {
-                    hasMoved= true;
+                    this.hasMoved= true;
                     return true;
                 } //2 section naar voren
                 else if(this.moveTwoTilesForwardWhite(p_section, board)){
-                    hasMoved= true;
+                    this.hasMoved= true;
                     return true;
                 }
                //schuin slaan van andere pawn.
                 else if (this.toCaptureWhite(p_section, board))
                 {
-                    hasMoved= true;
+                    this.hasMoved= true;
                     return true;
                 }
                     }
