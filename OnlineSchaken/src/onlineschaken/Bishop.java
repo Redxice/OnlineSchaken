@@ -20,11 +20,11 @@ public class Bishop extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Bishop.png");
+            this.img = new Image("ChessPieces/White Bishop.jpg");
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Bishop.png");
+            this.img = new Image("ChessPieces/Black Bishop.jpg");
         }
 
     }

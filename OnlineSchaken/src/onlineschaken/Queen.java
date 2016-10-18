@@ -20,11 +20,11 @@ public class Queen extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Queen.png");
+            this.img = new Image("ChessPieces/White Queen.jpg");
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Queen.png");
+            this.img = new Image("ChessPieces/Black Queen.jpg");
         }
     }
 
@@ -142,8 +142,7 @@ public class Queen extends Piece
                 }
                 return true;
             }
-            } 
-            
+            }             
         }
         return false;
     }
