@@ -67,11 +67,35 @@ public abstract class Piece extends StackPane{
        {
        if(checkMove(p_section))
        {
-           if(section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
-           {
-               
-               section.getBoard().drawSpecificPieces(this.getSection().getBoard().getSections()[3][3], section);
-           }
+           // kijkt of het gekoze tuk een toren is
+                if (section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
+                {
+                    // kijkt of op de gekoze locatie een koning staat
+                    if (p_section.getPiece() instanceof King && p_section.getPiece().hasMoved == false)
+                    {
+                        // kijkt welke toren het is en zet ze dan op de goede plaats
+                        if (section.getID().getX() == 0 && section.getID().getY() == 0)
+                        {
+                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 0));
+                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 0));
+                        }
+                        else if (section.getID().getX() == 0 && section.getID().getY() == 7)
+                        {
+                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 7));
+                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 7));
+                        }
+                        else if (section.getID().getX() == 7 && section.getID().getY() == 7)
+                        {
+                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 7));
+                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 7));
+                        }
+                        else if (section.getID().getX() == 7 && section.getID().getY() == 0)
+                        {
+                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 0));
+                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 0));
+                        }
+                    }
+                }
            section.getBoard().drawSpecificPieces(section, p_section);
            section.setPiece(null);
            section.id.x = p_section.id.x;

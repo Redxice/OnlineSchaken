@@ -41,8 +41,6 @@ public class Rook extends Piece
      */
     public Boolean checkRokade(Section p_section)
     {
-        //if (isValidMove(p_section) == true)
-        //{ 
             if (hasMoved == false)
             {
                 if (p_section.getPiece() instanceof King)
@@ -89,7 +87,7 @@ public class Rook extends Piece
                     }
                 }
             }
-        //}
+        
         return false;
     }
     /**
@@ -103,7 +101,6 @@ public class Rook extends Piece
     {
         if(checkRokade(p_section) == true)
             {
-                p_section.getPiece().moveWithoutCheck(section.getBoard().getSections()[3][3]);
                 return true;
             }
         // Kijkt of de target section bezet is en door welke kleur
