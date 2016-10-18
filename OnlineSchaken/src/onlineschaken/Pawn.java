@@ -5,8 +5,15 @@
  */
 package onlineschaken;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 
 
@@ -47,8 +54,28 @@ public class Pawn extends Piece
     }
     public Popup menu(){
         Popup menu = new Popup();
-        Button show = new Button("Test");
-        menu.getContent().addAll(show);
+        Button Bishop = new Button(type.Bishop.name());
+        Button Knight = new Button(type.Knight.name());
+        Button Queen = new Button(type.Queen.name());
+        Button Rook = new Button(type.Rook.name());
+        if (this.getColor()=="white")
+        {
+             Bishop.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent event) {
+         
+          {
+         menu.hide();
+          }
+      }
+    });
+        }
+       
+        HBox box = new HBox(5);
+      //  box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
+       box.getChildren().addAll(Bishop,Knight,Queen,Rook);
+        menu.getContent().add(box);
+        
+       
        return menu;
     }
     public boolean Promotion(Section p_section){

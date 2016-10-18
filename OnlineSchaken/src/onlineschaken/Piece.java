@@ -7,8 +7,11 @@ package onlineschaken;
 
 import java.util.List;
 import java.util.logging.Logger;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 /**
  *
@@ -64,7 +67,6 @@ public abstract class Piece extends StackPane{
        {
        if(checkMove(p_section))
        {
-           
            if(section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
            {
                
@@ -76,6 +78,19 @@ public abstract class Piece extends StackPane{
            section.id.y = p_section.id.y;
            section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
            this.section = section.getBoard().getSections()[section.id.x][section.id.y];
+           if (this instanceof Pawn)
+           {
+               Pawn pawn = (Pawn)this;
+               if (pawn.Promotion(p_section))
+               {
+                   Popup menu = pawn.menu();
+                   double x =p_section.getBoard().getWIDTH()*100;
+                   double y=p_section.getBoard().getHEIGHT()*50;
+                   menu.requestFocus();
+                   menu.show(p_section,x,y);
+                  
+               }
+           }
            hasMoved = true;
            return true;
        }
