@@ -30,6 +30,7 @@ public class Board{
     private Point firstClick;
     private Section firstSection;
     private Piece piece;
+    private String turn = "white";
     
     public Board() {
         
@@ -91,6 +92,8 @@ public class Board{
     
     public Parent drawSpecificPieces(Section p_section1, Section p_section2)
     {
+        if (turn == p_section1.getPiece().color)
+        {
         ImagePattern i = new ImagePattern(p_section1.getPiece().img);
         Piece piece2 = p_section1.getPiece();
         for (Section[] x: sections)
@@ -132,8 +135,12 @@ public class Board{
                     y.setPiece(piece2);
                     y.setFill(i);
                 }
-            }
+            }    
         }
+        if(turn == "white") 
+        {turn = "black";}
+        else {turn = "white";}
+        }    
     return root;
     }
     

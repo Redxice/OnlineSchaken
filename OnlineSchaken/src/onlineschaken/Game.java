@@ -49,7 +49,7 @@ public class Game {
         this.resterend2 =p_time;
         this.tournament = p_tournament;
         board = new Board();  
-        timer = new Timer();
+       // timer = new Timer();
         timer.schedule(new GameTimer(this), 0,1000);
     }
 
