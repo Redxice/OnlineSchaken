@@ -64,6 +64,12 @@ public abstract class Piece extends StackPane{
        {
        if(checkMove(p_section))
        {
+           
+           if(section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
+           {
+               
+               section.getBoard().drawSpecificPieces(this.getSection().getBoard().getSections()[3][3], section);
+           }
            section.getBoard().drawSpecificPieces(section, p_section);
            section.setPiece(null);
            section.id.x = p_section.id.x;
@@ -83,6 +89,27 @@ public abstract class Piece extends StackPane{
            hasMoved = true;      
    }
 
+   public void moveWithoutCheck(Section p_section)
+   {
+       try
+       {
+           section.getBoard().drawSpecificPieces(section, p_section);
+           section.setPiece(null);
+           section.id.x = p_section.id.x;
+           section.id.y = p_section.id.y;
+           section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
+           this.section = section.getBoard().getSections()[section.id.x][section.id.y];
+       }
+       catch(NullPointerException e)
+       {
+           //Logger.getLogger(e.getMessage());
+           System.out.println(e.getMessage());
+           System.out.println(section.getPiece());
+           System.out.println(section.getBoard());
+           System.out.println(p_section.getPiece());
+       }
+           hasMoved = true;      
+   }
     
    public Section getSection(){
        return this.section;
