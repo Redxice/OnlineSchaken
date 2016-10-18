@@ -52,7 +52,6 @@ public class Board
                     @Override
                     public void handle(MouseEvent t)
                     {
-
                         if (firstSection == null && section.getPiece() != null)
                         {
                             if (turn == section.getPiece().color)
@@ -125,30 +124,45 @@ public class Board
                 {
                     Section section = new Section((y.id.x + y.id.y) % 2 == 0, y.id.x, y.id.y, this);
                     section.setOnMouseClicked(new EventHandler<MouseEvent>()
+                {
+                    @Override
+                    public void handle(MouseEvent t)
                     {
-                        @Override
-                        public void handle(MouseEvent t)
+                        if (firstSection == null && section.getPiece() != null)
                         {
-
-                            if (firstSection == null)
+                            if (turn == section.getPiece().color)
                             {
                                 if (section.getPiece() != null)
                                 {
                                     firstSection = sections[section.id.x][section.id.y];
                                     piece = firstSection.getPiece();
                                 }
-                            } else
+                            }
+                        } else if (firstSection != null)
+                        {
+                            if (piece.move(section))
                             {
-                                piece.move(section);
                                 firstSection = null;
                                 piece = null;
+                                if (turn == "white")
+                                {
+                                    turn = "black";
+                                } else
+                                {
+                                    turn = "white";
+                                }
                             }
+                            else
+                            {
+                               firstSection = null;
+                            }
+
                         }
-                    });
+                    }
+                });
                     sections[y.id.x][y.id.y] = section;
 
                     tileGroup.getChildren().add(section);
-                    //pieceGroup.getChildren().add(section.getPiece());
                 }
                 if (y.id == p_section2.id)
                 {
@@ -156,10 +170,6 @@ public class Board
                     y.setFill(i);
                 }
             }
-            //}
-            //if(turn == "white") 
-            //{turn = "black";}
-            //else {turn = "white";}
         }
         return root;
     }
