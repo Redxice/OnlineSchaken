@@ -84,7 +84,7 @@ public class Rook extends Piece
                 {
                     for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i].getPiece() != null)
+                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i + 1].isOccupied())
                         {
                             return false;
                         }
@@ -94,7 +94,7 @@ public class Rook extends Piece
                 {
                     for (int i = 0; i < p_section.getID().y - this.section.getID().y; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - i] != null)
+                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - i - 1].isOccupied())
                         {
                             return false;
                         }
@@ -106,9 +106,9 @@ public class Rook extends Piece
             {
                 if (this.section.getID().x < p_section.getID().x)
                 {
-                    for (int i = 0; i < this.section.getID().x - p_section.getID().x; i++)
+                    for (int i = 0; i < p_section.getID().x - this.section.getID().x; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y] != null)
+                        if (this.section.getBoard().getSections()[this.section.getID().x + i +1][this.section.getID().y].isOccupied())
                         {
                             return false;
                         }
@@ -116,9 +116,9 @@ public class Rook extends Piece
                     return true;
                 } else if (this.section.getID().x > p_section.getID().x)
                 {
-                    for (int i = 0; i < p_section.getID().x - this.section.getID().x; i++)
+                    for (int i = 0; i < this.section.getID().x - p_section.getID().x; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y] != null)
+                        if (this.section.getBoard().getSections()[this.section.getID().x - i -1][this.section.getID().y].isOccupied())
                         {
                             return false;
                         }
