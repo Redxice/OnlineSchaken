@@ -20,6 +20,7 @@ public class King extends Piece
     public King(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
+        //check of de koning zwart of wit is en bepaal de juiste afbeelding
         if (p_color == "white")
         {
             this.img = new Image("ChessPieces/White King.jpg");
@@ -31,7 +32,7 @@ public class King extends Piece
         check = false;
         checkMate = false;
     }
-
+    
     public boolean isCheck()
     {
         for (Section[] x : section.getBoard().getSections())
@@ -58,8 +59,10 @@ public class King extends Piece
 
     public boolean isCheckMate()
     {
+        //voor elke rij
         for (Section[] x : section.getBoard().getSections())
             {
+                //voor elk vakje in de rij
                 for (Section y : x)
                 {
                     if (!y.getPiece().color.equals(this.color))
@@ -121,9 +124,6 @@ public class King extends Piece
     @Override
     public Boolean checkMove(Section p_section)
     {
-        //check of het niet naar dezelfde plek wordt verplaatst
-        //if (p_section.getID().x != section.getID().x && p_section.getID().y != section.getID().y)
-        //{
             //check of het een geldige vak is om naar toe te verschuiven
             if (isValidMove(p_section) == false)
             {
@@ -160,7 +160,5 @@ public class King extends Piece
                 }
             }
             return true;
-        //}
-        //return false;
     }
 }
