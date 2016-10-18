@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import static java.lang.Math.abs;
 import javafx.scene.image.Image;
 
 /**
@@ -31,52 +32,65 @@ public class Bishop extends Piece
     @Override
     public Boolean checkMove(Section p_section)
     {
+        // kijkt of er een stuk op de gekoze positie staat
         if (isValidMove(p_section) == true)
         {
-            if (p_section.getID().x - this.section.getID().x == p_section.getID().y - this.section.getID().y)
+            // kijkt of het een move is die een loper mag doen
+            if (abs(p_section.getID().x - this.section.getID().x) == abs(p_section.getID().y - this.section.getID().y))
             {
+                // kijkt of hij naar links beweegt
                 if (this.section.getID().x > p_section.getID().x)
                 {
+                    // kijkt of hij naar boven beweegt
                     if (this.section.getID().y > p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < this.section.getID().y - p_section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y - i] != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x - i -1][this.section.getID().y - i -1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                    if (this.section.getID().y < p_section.getID().y)
+                    // kijkt of hij naar beneden beweegt
+                    else if (this.section.getID().y < p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < p_section.getID().y - this.section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y - i] != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x - i -1][this.section.getID().y + i +1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                } else if (this.section.getID().x < p_section.getID().x)
+                } 
+                // kijkt of hij naar rechts beweegt
+                else if (this.section.getID().x < p_section.getID().x)
                 {
+                    // kijkt of hij naar boven beweegt
                     if (this.section.getID().y > p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < this.section.getID().y - p_section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y + i] != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x + i +1][this.section.getID().y - i -1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                    if (this.section.getID().y < p_section.getID().y)
+                    // kijkt of hij naar beneden beweegt
+                    else if (this.section.getID().y < p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < p_section.getID().y - this.section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y - i] != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x + i +1][this.section.getID().y + i +1].isOccupied() == true)
                             {
                                 return false;
                             }
