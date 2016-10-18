@@ -5,15 +5,22 @@
  */
 package onlineschaken;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
+import javafx.stage.Popup;
+
 
 /**
  *
  * @author redxice
  */
 public class Pawn extends Piece
-{
+{   private enum type{
+    Knight,
+    Bishop,
+    Queen,
+    Rook
+}
 
     boolean hasMoved;
 
@@ -38,16 +45,22 @@ public class Pawn extends Piece
     {
         return this.hasMoved;
     }
+    public Popup menu(){
+        Popup menu = new Popup();
+        Button show = new Button("Test");
+        menu.getContent().addAll(show);
+       return menu;
+    }
     public boolean Promotion(Section p_section){
       if(this.color=="white"){
-          if (p_section.getID().y==0)
+          if (p_section.getID().y==7)
           {
               return true;
           }
       }
       else{
           if(p_section.getID().y==0){
-              
+              return true;
           }
       }
       return false;
