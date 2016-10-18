@@ -58,7 +58,7 @@ public abstract class Piece extends StackPane{
  //methode
    public abstract Boolean checkMove(Section p_section);
     
-   public void move(Section p_section)
+   public Boolean move(Section p_section)
    {
        try
        {
@@ -76,7 +76,10 @@ public abstract class Piece extends StackPane{
            section.id.y = p_section.id.y;
            section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
            this.section = section.getBoard().getSections()[section.id.x][section.id.y];
+           hasMoved = true;
+           return true;
        }
+       return false;
        }
        catch(NullPointerException e)
        {
@@ -86,7 +89,7 @@ public abstract class Piece extends StackPane{
            System.out.println(section.getBoard());
            System.out.println(p_section.getPiece());
        }
-           hasMoved = true;      
+           return false;
    }
 
    public void moveWithoutCheck(Section p_section)
