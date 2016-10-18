@@ -19,11 +19,11 @@ public class Knight extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Knight.png");
+            this.img = new Image("ChessPieces/White Knight.jpg");
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Knight.png");
+            this.img = new Image("ChessPieces/Black Knight.jpg");
         }
     }
 

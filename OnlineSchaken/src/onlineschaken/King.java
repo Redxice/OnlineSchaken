@@ -22,11 +22,11 @@ public class King extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White King.png");
+            this.img = new Image("ChessPieces/White King.jpg");
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black King.png");
+            this.img = new Image("ChessPieces/Black King.jpg");
         }
         check = false;
         checkMate = false;

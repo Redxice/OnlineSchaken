@@ -9,6 +9,7 @@ import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -114,7 +115,7 @@ public class Board
     {
         //if (turn == p_section1.getPiece().color)
         //{
-        ImagePattern i = new ImagePattern(p_section1.getPiece().img);
+        
         Piece piece2 = p_section1.getPiece();
         for (Section[] x : sections)
         {
@@ -166,6 +167,8 @@ public class Board
                 }
                 if (y.id == p_section2.id)
                 {
+                    ImagePattern i = new ImagePattern(p_section1.getPiece().img);
+                    
                     y.setPiece(piece2);
                     y.setFill(i);
                 }
