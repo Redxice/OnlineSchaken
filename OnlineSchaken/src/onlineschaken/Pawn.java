@@ -38,6 +38,20 @@ public class Pawn extends Piece
     {
         return this.hasMoved;
     }
+    public boolean Promotion(Section p_section){
+      if(this.color=="white"){
+          if (p_section.getID().y==0)
+          {
+              return true;
+          }
+      }
+      else{
+          if(p_section.getID().y==0){
+              
+          }
+      }
+      return false;
+    }
     public boolean toCaptureWhite(Section p_section,Board board){
        if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1
                         || p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
@@ -45,14 +59,14 @@ public class Pawn extends Piece
                     if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
                     {
                       if(board.getSections(p_section.getID().x, p_section.getID().y).isOccupied()){
-                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
+                        if (isValidMove(p_section))
                         {
                             return true;
                         }
                       } 
                     } else if(p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1){
                     if(board.getSections(p_section.getID().x, p_section.getID().y).isOccupied()){
-                        if (isValidMove(board.getSections(p_section.getID().x, p_section.getID().y)))
+                        if (isValidMove(p_section))
                         {
                             return true;
                         }
