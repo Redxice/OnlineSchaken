@@ -64,9 +64,10 @@ public class Pawn extends Piece
              Bishop.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent event) {
          Section section = pawn.getSection();
-         Bishop bishop = new Bishop(pawn.getColor(),pawn.player,pawn.getSection());
+         Bishop bishop = new Bishop(pawn.getColor(),pawn.player,null);
          pawn.setSection(null);
          section.setPiece(bishop);
+         bishop.moveWithoutCheck(section);
          menu.hide();
       }
     });

@@ -30,7 +30,11 @@ public abstract class Piece extends StackPane{
         this.color = p_color;
         this.player = p_player;       
         this.section = p_section;
-        this.section.setPiece(this);
+        if (p_section != null)
+        {
+           this.section.setPiece(this); 
+        }
+        
     }
     
  
@@ -52,7 +56,11 @@ public abstract class Piece extends StackPane{
    
     public void setSection(Section section) {
         this.section = section;
-        section.setPiece(this);
+        if (section != null)
+        {
+            section.setPiece(this);
+        }
+        
     }
    
    public  String getColor(){
@@ -121,10 +129,10 @@ public abstract class Piece extends StackPane{
        catch(NullPointerException e)
        {
            //Logger.getLogger(e.getMessage());
-           System.out.println(e.getMessage());
-           System.out.println(section.getPiece());
-           System.out.println(section.getBoard());
-           System.out.println(p_section.getPiece());
+//           System.out.println(e.getMessage());
+//           System.out.println(section.getPiece());
+//           System.out.println(section.getBoard());
+//           System.out.println(p_section.getPiece());
        }
            hasMoved = true;      
    }
