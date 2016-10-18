@@ -36,10 +36,10 @@ public class Pawn extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Pawn.png");
+            this.img = new Image("ChessPieces/White Pawn.jpg");
         } else if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Pawn.png");
+            this.img = new Image("ChessPieces/Black Pawn.jpg");
         }
     this.hasMoved = false;
     }
@@ -54,6 +54,7 @@ public class Pawn extends Piece
     }
     public Popup menu(){
         Popup menu = new Popup();
+         Piece pawn = this;
         Button Bishop = new Button(type.Bishop.name());
         Button Knight = new Button(type.Knight.name());
         Button Queen = new Button(type.Queen.name());
@@ -62,16 +63,17 @@ public class Pawn extends Piece
         {
              Bishop.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent event) {
-         
-          {
+         Section section = pawn.getSection();
+         Bishop bishop = new Bishop(pawn.getColor(),pawn.player,pawn.getSection());
+         pawn.setSection(null);
+         section.setPiece(bishop);
          menu.hide();
-          }
       }
     });
         }
        
         HBox box = new HBox(5);
-      //  box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
+       box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
        box.getChildren().addAll(Bishop,Knight,Queen,Rook);
         menu.getContent().add(box);
         
