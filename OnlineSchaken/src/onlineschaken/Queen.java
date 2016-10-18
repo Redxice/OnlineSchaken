@@ -33,50 +33,61 @@ public class Queen extends Piece
     {
         if (isValidMove(p_section) == true)
         {
-            if (abs(p_section.getID().x - this.section.getID().x) == abs(this.section.getID().y - p_section.getID().y))//p_section.getID().x - this.section.getID().x == p_section.getID().y - this.section.getID().y)
+            if (abs(p_section.getID().x - this.section.getID().x) == abs(p_section.getID().y - this.section.getID().y))
             {
+                // kijkt of hij naar links beweegt
                 if (this.section.getID().x > p_section.getID().x)
                 {
+                    // kijkt of hij naar boven beweegt
                     if (this.section.getID().y > p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < this.section.getID().y - p_section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y - 1].getPiece() != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x - i -1][this.section.getID().y - i -1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                    if (this.section.getID().y < p_section.getID().y)
+                    // kijkt of hij naar beneden beweegt
+                    else if (this.section.getID().y < p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < p_section.getID().y - this.section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y - i].getPiece() != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x - i -1][this.section.getID().y + i +1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                } else if (this.section.getID().x < p_section.getID().x)
+                } 
+                // kijkt of hij naar rechts beweegt
+                else if (this.section.getID().x < p_section.getID().x)
                 {
+                    // kijkt of hij naar boven beweegt
                     if (this.section.getID().y > p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < this.section.getID().y - p_section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[p_section.getID().x - 1][p_section.getID().y + 1].getPiece() != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x + i +1][this.section.getID().y - i -1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                    if (this.section.getID().y < p_section.getID().y)
+                    // kijkt of hij naar beneden beweegt
+                    else if (this.section.getID().y < p_section.getID().y)
                     {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < p_section.getID().y - this.section.getID().y -1; i++)
                         {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y - 1].getPiece() != null)
+                            if (this.section.getBoard().getSections()[this.section.getID().x + i +1][this.section.getID().y + i +1].isOccupied() == true)
                             {
                                 return false;
                             }
@@ -84,31 +95,7 @@ public class Queen extends Piece
                         return true;
                     }
                 }
-            } 
-            else if (this.section.getID().x == p_section.getID().x)
-            {
-
-                if (this.section.getID().y > p_section.getID().y)
-                {
-                    for (int i = 0; i < this.section.getID().y - p_section.getID().y - 1; i++)
-                    {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - i - 1].isOccupied() == true)
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                } else if (this.section.getID().y < p_section.getID().y)
-                {
-                    for (int i = 0; i < p_section.getID().y - this.section.getID().y - 1; i++)
-                    {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i + 1].isOccupied() == true)
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
+            }
             // Kijkt of de toren over de x as kan bewegen
             } else if (this.section.getID().y == p_section.getID().y)
             {
@@ -135,117 +122,7 @@ public class Queen extends Piece
                     return true;
                 }
             }
-            
-            /*
-                // Kijkt of de toren over de y as kan bewegen
-                else if (this.section.getID().x == p_section.getID().x)
-            {
-
-                if (this.section.getID().y < p_section.getID().y)
-                {
-                    for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
-                    {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + 1].isOccupied())
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                    
-                } else if (this.section.getID().y > p_section.getID().y)
-                {
-                    for (int i = 0; i < p_section.getID().y - this.section.getID().y; i++)
-                    {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + 1].isOccupied())
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-            // Kijkt of de toren over de x as kan bewegen
-            } else if (this.section.getID().y == p_section.getID().y)
-            {
-                if (this.section.getID().x < p_section.getID().x)
-                {
-                    for (int i = 0; i < p_section.getID().x - this.section.getID().x; i++)
-                    {
-                        if (this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y].isOccupied())
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                } else if (this.section.getID().x > p_section.getID().x)
-                {
-                    for (int i = 0; i < this.section.getID().x - p_section.getID().x; i++)
-                    {
-                        if (this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y].isOccupied())
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-            }
-            
-            /*    
-            } else if (p_section.getID().x == this.section.getID().x || p_section.getID().y == this.section.getID().y)
-            {
-                if (this.section.getID().x > p_section.getID().x)
-                {
-                    if (this.section.getID().y > p_section.getID().y)
-                    {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
-                        {
-                            if (this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y + i] != null)
-                            {
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                    if (this.section.getID().y < p_section.getID().y)
-                    {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
-                        {
-                            if (this.section.getBoard().getSections()[this.section.getID().x + i][this.section.getID().y - i] != null)
-                            {
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                } else if (this.section.getID().x < p_section.getID().x)
-                {
-                    if (this.section.getID().y > p_section.getID().y)
-                    {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
-                        {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y + i] != null)
-                            {
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                    if (this.section.getID().y < p_section.getID().y)
-                    {
-                        for (int i = 0; i < this.section.getID().y - p_section.getID().y; i++)
-                        {
-                            if (this.section.getBoard().getSections()[this.section.getID().x - i][this.section.getID().y - i] != null)
-                            {
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                }
-            }
-            */
-        }
 
         return false;
     }
-
 }
