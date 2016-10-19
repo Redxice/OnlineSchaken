@@ -36,7 +36,11 @@ public class Game {
         this.player1 = p_player1;
         this.player2 = p_player2;
         //this.time = p_time;
-        board = new Board();       
+        board = new Board();
+        resterend1 = 100;
+        resterend2 = 150;
+        timer = new Timer();
+        timer.schedule(new GameTimer(this), 0,1000);
     }
     //constructor vor een game die deel is van een tournament
     public Game(int p_time,Player p_player1,Player p_player2,
@@ -49,7 +53,7 @@ public class Game {
         this.resterend2 =p_time;
         this.tournament = p_tournament;
         board = new Board();  
-       // timer = new Timer();
+        timer = new Timer();
         timer.schedule(new GameTimer(this), 0,1000);
     }
 
