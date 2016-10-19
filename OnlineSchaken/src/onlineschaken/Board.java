@@ -33,10 +33,10 @@ public class Board
     private Section firstSection;
     private Piece piece;
     private String turn = "white";
-
-    public Board()
+    private Game game ;
+    public Board(Game game)
     {
-
+        this.game = game;
     }
 
     public Parent createContent()
@@ -55,7 +55,7 @@ public class Board
                     {
                         if (firstSection == null && section.getPiece() != null)
                         {
-                            if (turn == section.getPiece().color)
+                            if (getTurn() == section.getPiece().color)
                             {
                                 if (section.getPiece() != null)
                                 {
@@ -69,7 +69,7 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
-                                if (turn == "white")
+                                if (getTurn() == "white")
                                 {
                                     turn = "black";
                                 } else
@@ -113,8 +113,6 @@ public class Board
 
     public Parent drawSpecificPieces(Section p_section1, Section p_section2)
     {
-        //if (turn == p_section1.getPiece().color)
-        //{
         
         Piece piece2 = p_section1.getPiece();
         for (Section[] x : sections)
@@ -131,7 +129,7 @@ public class Board
                     {
                         if (firstSection == null && section.getPiece() != null)
                         {
-                            if (turn == section.getPiece().color)
+                            if (getTurn() == section.getPiece().color)
                             {
                                 if (section.getPiece() != null)
                                 {
@@ -145,7 +143,7 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
-                                if (turn == "white")
+                                if (getTurn() == "white")
                                 {
                                     turn = "black";
                                 } else
@@ -246,6 +244,14 @@ public class Board
     public Pane getRoot()
     {
         return root;
+    }
+
+    /**
+     * @return the turn
+     */
+    public String getTurn()
+    {
+        return turn;
     }
 
 }

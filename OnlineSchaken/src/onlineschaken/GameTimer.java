@@ -12,22 +12,35 @@ import java.util.TimerTask;
  * @author redxice
  */
 public class GameTimer extends TimerTask
-{  private Game game;
-   public GameTimer (Game game){
-      this.game = game;
-   }
+{
+
+    private Game game;
+    private Board board;
+    private OnlineSchaken javaFX;
+    public GameTimer(Game game, Board board, OnlineSchaken javaFX)
+    {
+        this.game = game;
+        this.board = board;
+        this.javaFX = javaFX;
+    }
 
     @Override
     public void run()
-    {if(game.isFinished()!= true){
-        if (game.whiteTurn)
+    {
+        if (game.isFinished() != true)
         {
-            game.setResterend1(1);
-        }
-        else{
-            game.setResterend2(1);
+            if (board.getTurn().equals("white"))
+            {
+                game.setResterend1(1);
+                javaFX.update();
+                
+            } else if(board.getTurn().equals("black"))
+            {
+                game.setResterend2(1);
+                javaFX.update();
+            }
+            
         }
     }
-    }
-    
+
 }

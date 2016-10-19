@@ -31,20 +31,23 @@ public class Game {
     List<Chatline> chat = new ArrayList<>();
     Board board;
     Gamelobby gamelobby;
+    private OnlineSchaken javaFX;
+    String resterend11;
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Player p_player1,Player p_player2){        
+    public Game(Player p_player1,Player p_player2, OnlineSchaken javaFX){        
         this.player1 = p_player1;
         this.player2 = p_player2;
         //this.time = p_time;
-        board = new Board();
-        resterend1 = 100;
-        resterend2 = 150;
-        //timer = new Timer();
-        //timer.schedule(new GameTimer(this), 0,1000);
+        this.javaFX = javaFX;
+        board = new Board(this);
+        resterend1 = 1800;
+        resterend2 = 1800;
+        timer = new Timer();
+        timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
     }
     //constructor vor een game die deel is van een tournament
     public Game(int p_time,Player p_player1,Player p_player2,
-            Tournament p_tournament){
+            Tournament p_tournament, OnlineSchaken javaFX){
         
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -52,11 +55,30 @@ public class Game {
         this.resterend1 =p_time;
         this.resterend2 =p_time;
         this.tournament = p_tournament;
-        board = new Board();  
+        this.javaFX = javaFX;
+        board = new Board(this);  
         timer = new Timer();
-        timer.schedule(new GameTimer(this), 0,1000);
+        timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
     }
 
+    public String resterend(int i)
+    {
+        if(i == 1)
+        {
+            int h = resterend1 / 60;
+            int m = resterend1 % 60;
+            String newtime = h+":"+m;
+            return newtime;
+        }
+        else
+        {
+            int h = resterend2 / 60;
+            int m = resterend2 % 60;
+            String newtime = h+":"+m;
+            return newtime;
+        }
+    }
+            
     //getters and setters
     public double getTime() {
         return time;
