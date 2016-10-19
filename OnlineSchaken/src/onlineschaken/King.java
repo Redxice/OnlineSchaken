@@ -32,26 +32,53 @@ public class King extends Piece
         check = false;
         checkMate = false;
     }
-    
+
     public boolean isCheck()
     {
         for (Section[] x : section.getBoard().getSections())
+        {
+            for (Section y : x)
             {
-                for (Section y : x)
+                if (y.getPiece() != null)
                 {
                     if (!y.getPiece().color.equals(this.color))
                     {
                         if (y.getPiece().checkMove(this.section))
                         {
                             check = true;
-                            isCheckMate();
                         }
+                        check = false;
                     }
                 }
-            } 
+            }
+        }
         return check;
     }
 
+    public boolean becomeCheck(Section p_section)
+    {
+        for (Section[] x : section.getBoard().getSections())
+        {
+            for (Section y : x)
+            {
+                if (y.getPiece() != null)
+                {
+                    if (!y.getPiece().color.equals(this.color))
+                    {
+                        p_section.setPiece(this);
+                        if (y.getPiece().checkMove(p_section))
+                        {
+                            p_section.setPiece(null);
+                            return true;
+                        }
+                        p_section.setPiece(null);
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
     public void setCheck(boolean check)
     {
         this.check = check;
@@ -61,47 +88,40 @@ public class King extends Piece
     {
         //voor elke rij
         for (Section[] x : section.getBoard().getSections())
+        {
+            //voor elk vakje in de rij
+            for (Section y : x)
             {
-                //voor elk vakje in de rij
-                for (Section y : x)
+                if (!y.getPiece().color.equals(this.color))
                 {
-                    if (!y.getPiece().color.equals(this.color))
+                    if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x + 1][this.section.getID().y]))
                     {
-                        if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x +1][this.section.getID().y]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x +1][this.section.getID().y +1]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y +1]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x -1][this.section.getID().y]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y -1]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x -1][this.section.getID().y -1]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x +1][this.section.getID().y -1]))
-                        {
-                          checkMate = true;  
-                        }
-                        else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x -1][this.section.getID().y +1]))
-                        {
-                          checkMate = true;  
-                        }
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x + 1][this.section.getID().y + 1]))
+                    {
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + 1]))
+                    {
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y]))
+                    {
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - 1]))
+                    {
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y - 1]))
+                    {
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x + 1][this.section.getID().y - 1]))
+                    {
+                        checkMate = true;
+                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y + 1]))
+                    {
+                        checkMate = true;
                     }
                 }
-            }        
+            }
+        }
         return checkMate;
     }
 
@@ -124,41 +144,29 @@ public class King extends Piece
     @Override
     public Boolean checkMove(Section p_section)
     {
-            //check of het een geldige vak is om naar toe te verschuiven
-            if (isValidMove(p_section) == false)
-            {
-                return false;
-            } //check of koning niet meer dan 1 vakje verschuift
-            else if (p_section.getID().x + 1 < section.getID().x)
-            {
-                return false;
-            } else if (p_section.getID().x - 1 > section.getID().x)
-            {
-                return false;
-            } else if (p_section.getID().y + 1 < section.getID().y)
-            {
-                return false;
-            } else if (p_section.getID().y - 1 > section.getID().y)
-            {
-                return false;
-            }
-            //check of je niet versliest door de koning naar de plek te verplaatsen
-            for (Section[] x : section.getBoard().getSections())
-            {
-                for (Section y : x)
-                {
-                    if(y.getPiece() != null)
-                    {
-                        if (!y.getPiece().color.equals(this.color))
-                        {
-                            if (y.getPiece().checkMove(p_section))
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-            return true;
+        //check of het een geldige vak is om naar toe te verschuiven
+        if (isValidMove(p_section) == false)
+        {
+            return false;
+        } //check of koning niet meer dan 1 vakje verschuift
+        else if (p_section.getID().x + 1 < section.getID().x)
+        {
+            return false;
+        } else if (p_section.getID().x - 1 > section.getID().x)
+        {
+            return false;
+        } else if (p_section.getID().y + 1 < section.getID().y)
+        {
+            return false;
+        } else if (p_section.getID().y - 1 > section.getID().y)
+        {
+            return false;
+        }
+        //check of je niet versliest door de koning naar de plek te verplaatsen
+        if(becomeCheck(p_section))
+        {
+            return false;
+        }
+        return true;
     }
 }

@@ -39,8 +39,8 @@ public class Game {
         board = new Board();
         resterend1 = 100;
         resterend2 = 150;
-        timer = new Timer();
-        timer.schedule(new GameTimer(this), 0,1000);
+        //timer = new Timer();
+        //timer.schedule(new GameTimer(this), 0,1000);
     }
     //constructor vor een game die deel is van een tournament
     public Game(int p_time,Player p_player1,Player p_player2,
