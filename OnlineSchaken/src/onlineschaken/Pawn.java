@@ -111,7 +111,6 @@ public class Pawn extends Piece
             }
         } else if (hasMoved == true)
         {
-
             if (this.color == "black")
             {
                 //1 section naar voren.

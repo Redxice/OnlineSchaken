@@ -5,8 +5,6 @@
  */
 package onlineschaken;
 
-
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -39,7 +37,7 @@ public class Game {
         this.player2 = p_player2;
         //this.time = p_time;
         this.javaFX = javaFX;
-        board = new Board(this);
+        board = new Board();
         resterend1 = 1800;
         resterend2 = 1800;
         timer = new Timer();
@@ -56,7 +54,7 @@ public class Game {
         this.resterend2 =p_time;
         this.tournament = p_tournament;
         this.javaFX = javaFX;
-        board = new Board(this);  
+        board = new Board();  
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
     }
