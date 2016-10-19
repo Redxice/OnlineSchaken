@@ -16,21 +16,24 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
 
-
 /**
  *
  * @author redxice
  */
 public class Pawn extends Piece
-{   private enum type{
-    Knight,
-    Bishop,
-    Queen,
-    Rook
-}
+{
+
+    private enum type
+    {
+        Knight,
+        Bishop,
+        Queen,
+        Rook
+    }
 
     boolean hasMoved;
-private Section prevSection;
+    private Section prevSection;
+
     public Pawn(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
@@ -41,7 +44,7 @@ private Section prevSection;
         {
             this.img = new Image("ChessPieces/Black Pawn.jpg");
         }
-    this.hasMoved = false;
+        this.hasMoved = false;
     }
 
     public void setPrevSection(Section prevSection)
@@ -62,7 +65,9 @@ private Section prevSection;
     {
         return this.hasMoved;
     }
-    public Popup menu(){
+
+    public Popup menu()
+    {
         Popup menu = new Popup();
         Pawn pawn = this;
         Button Bishop = new Button(type.Bishop.name());
@@ -70,185 +75,212 @@ private Section prevSection;
         Button Queen = new Button(type.Queen.name());
         Button Rook = new Button(type.Rook.name());
 
-             Bishop.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent event) {
-         Section section = pawn.getSection();
-         Bishop bishop = new Bishop(pawn.getColor(),pawn.player,pawn.getPrevSection());
-         pawn.player.getPieces().add(bishop);
-         bishop.player.getPieces().remove(pawn);
-         section.setPiece(bishop);
-         bishop.moveWithoutCheck(section);
-         menu.hide();
-      }
-    });
-             Knight.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent event) {
-         Section section = pawn.getSection();
-         Knight knight = new Knight(pawn.getColor(),pawn.player,pawn.getPrevSection());
-         pawn.player.getPieces().add(knight);
-         knight.player.getPieces().remove(pawn);
-         section.setPiece(knight);
-         knight.moveWithoutCheck(section);
-         menu.hide();
-      }
-    });
-             Queen.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent event) {
-         Section section = pawn.getSection();
-         Queen queen = new Queen(pawn.getColor(),pawn.player,pawn.getPrevSection());
-         pawn.player.getPieces().add(queen);
-         queen.player.getPieces().remove(pawn);
-         section.setPiece(queen);
-         queen.moveWithoutCheck(section);
-         menu.hide();
-      }
-    });
-           Rook.setOnAction(new EventHandler<ActionEvent>() {
-      @Override public void handle(ActionEvent event) {
-         Section section = pawn.getSection();
-         Rook rook = new Rook(pawn.getColor(),pawn.player,pawn.getPrevSection());
-         pawn.player.getPieces().add(rook);
-         rook.player.getPieces().remove(pawn);
-         section.setPiece(rook);
-         rook.moveWithoutCheck(section);
-         menu.hide();
-      }
-    });
-             
-             
-       
+        Bishop.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                Section section = pawn.getSection();
+                Bishop bishop = new Bishop(pawn.getColor(), pawn.player, pawn.getPrevSection());
+                pawn.player.getPieces().add(bishop);
+                bishop.player.getPieces().remove(pawn);
+                section.setPiece(bishop);
+                bishop.moveWithoutCheck(section);
+                menu.hide();
+            }
+        });
+        Knight.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                Section section = pawn.getSection();
+                Knight knight = new Knight(pawn.getColor(), pawn.player, pawn.getPrevSection());
+                pawn.player.getPieces().add(knight);
+                knight.player.getPieces().remove(pawn);
+                section.setPiece(knight);
+                knight.moveWithoutCheck(section);
+                menu.hide();
+            }
+        });
+        Queen.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                Section section = pawn.getSection();
+                Queen queen = new Queen(pawn.getColor(), pawn.player, pawn.getPrevSection());
+                pawn.player.getPieces().add(queen);
+                queen.player.getPieces().remove(pawn);
+                section.setPiece(queen);
+                queen.moveWithoutCheck(section);
+                menu.hide();
+            }
+        });
+        Rook.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                Section section = pawn.getSection();
+                Rook rook = new Rook(pawn.getColor(), pawn.player, pawn.getPrevSection());
+                pawn.player.getPieces().add(rook);
+                rook.player.getPieces().remove(pawn);
+                section.setPiece(rook);
+                rook.moveWithoutCheck(section);
+                menu.hide();
+            }
+        });
+
         HBox box = new HBox(5);
-       box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
-       box.getChildren().addAll(Bishop,Knight,Queen,Rook);
+        box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
+        box.getChildren().addAll(Bishop, Knight, Queen, Rook);
         menu.getContent().add(box);
-        
-       
-       return menu;
+
+        return menu;
     }
-    public boolean Promotion(Section p_section){
-      if(this.color=="white"){
-          if (p_section.getID().y==7)
-          {
-              return true;
-          }
-      }
-      else{
-          if(p_section.getID().y==0){
-              return true;
-          }
-      }
-      return false;
-    }
-    public boolean toCaptureWhite(Section p_section,Board board){
-       if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1
-                        || p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
-                {
-                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
-                    {
-                      if(board.getSections(p_section.getID().x, p_section.getID().y).isOccupied()){
-                        if (isValidMove(p_section))
-                        {
-                            return true;
-                        }
-                      } 
-                    } else if(p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1){
-                    if(board.getSections(p_section.getID().x, p_section.getID().y).isOccupied()){
-                        if (isValidMove(p_section))
-                        {
-                            return true;
-                        }
-                    }
-                    }
-    }
-   return false;
-    }
-    public boolean moveOneTileForwardWhite(Section p_section,Board board){
-                {if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1){
-                    if (board.getSections(p_section.getID().x,p_section.getID().y).isOccupied())
-                    {
-                        return false;
-                    } else
-                    {
-                        return true;
-                    }
-                }
-          }
-          return false;
-    }
-    
-    public boolean moveTwoTilesForwardWhite(Section p_section,Board board){
-       if (hasMoved==false)
+
+    public boolean Promotion(Section p_section)
+    {
+        if (this.color == "white")
         {
-           if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 2){
-               if (board.getSections(p_section.getID().x,p_section.getID().y-1).isOccupied())
-                    {
-                        return false;
-                    } 
-               else if(board.getSections(p_section.getID().x,p_section.getID().y).isOccupied())
-                    {
-                        return false;
-                    }
-               return true;
-           }
-        }
-        return false;  
-    }
-    public boolean moveTwoTilesForwardBlack(Section p_section,Board board){
-        if (hasMoved==false)
+            if (p_section.getID().y == 7)
+            {
+                return true;
+            }
+        } else if (p_section.getID().y == 0)
         {
-           if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 2){
-               if (board.getSections(p_section.getID().x,p_section.getID().y+1).isOccupied())
-                    {
-                        return false;
-                    } 
-               else if(board.getSections(p_section.getID().x,p_section.getID().y).isOccupied())
-                    {
-                        return false;
-                    }
-               return true;
-           }
+            return true;
         }
         return false;
     }
-    
-    public boolean moveOneTileForwardBlack(Section p_section,Board board){
-                {if(p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 1){
-                    if (board.getSections(p_section.getID().x,p_section.getID().y).isOccupied())
-                    {
-                        return false;
-                    } else
+
+    public boolean toCaptureWhite(Section p_section, Board board)
+    {
+        if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1
+                || p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+        {
+            if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                {
+                    if (isValidMove(p_section))
                     {
                         return true;
                     }
                 }
-          }
-          return false;
-    }
-    
-    public boolean toCaptureBlack(Section p_section,Board board){
-       if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1
-                        || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
+            } else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
                 {
-                    if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+                    if (isValidMove(p_section))
                     {
-                      if(board.getSections(p_section.getID().x, p_section.getID().y).isOccupied()){
-                        if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
-                        {
-                            return true;
-                        }
-                      } 
-                    } else if(board.getSections(p_section.getID().x, p_section.getID().y).isOccupied()){
-                    
-                        if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
+                }
+            }
+        }
+        return false;
     }
-   return false;
+
+    public boolean moveOneTileForwardWhite(Section p_section, Board board)
+    {
+        {
+            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                {
+                    return false;
+                } else
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
-    
-    
+
+    public boolean moveTwoTilesForwardWhite(Section p_section, Board board)
+    {
+        if (hasMoved == false)
+        {
+            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 2)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y - 1).isOccupied())
+                {
+                    return false;
+                } else if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean moveTwoTilesForwardBlack(Section p_section, Board board)
+    {
+        if (hasMoved == false)
+        {
+            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 2)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y + 1).isOccupied())
+                {
+                    return false;
+                } else if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean moveOneTileForwardBlack(Section p_section, Board board)
+    {
+        {
+            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 1)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                {
+                    return false;
+                } else
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean toCaptureBlack(Section p_section, Board board)
+    {
+        if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1
+                || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
+        {
+            if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+            {
+                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                {
+                    if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
+                    {
+                        return true;
+                    }
+                }
+            } else if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+            {
+
+                if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public Boolean checkMove(Section p_section)
     {
@@ -262,19 +294,19 @@ private Section prevSection;
             if (this.color == "black")
             {
                 //1 section naar voren.
-                if (this.moveOneTileForwardBlack(p_section,board))
+                if (this.moveOneTileForwardBlack(p_section, board))
                 {
-                    this.hasMoved= true;
+                    this.hasMoved = true;
                     return true;
-                }
-                  //2 section naar voren
-                else if(this.moveTwoTilesForwardBlack(p_section, board)){
-                    this.hasMoved= true;
+                } //2 section naar voren
+                else if (this.moveTwoTilesForwardBlack(p_section, board))
+                {
+                    this.hasMoved = true;
                     return true;
-                }
-                //schuin slaan van andere piece.
-                else if(this.toCaptureBlack(p_section, board)){
-                    this.hasMoved= true;
+                } //schuin slaan van andere piece.
+                else if (this.toCaptureBlack(p_section, board))
+                {
+                    this.hasMoved = true;
                     return true;
                 }
             }
@@ -283,48 +315,48 @@ private Section prevSection;
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
                 {
-                    this.hasMoved= true;
+                    this.hasMoved = true;
                     return true;
                 } //2 section naar voren
-                else if(this.moveTwoTilesForwardWhite(p_section, board)){
-                    this.hasMoved= true;
+                else if (this.moveTwoTilesForwardWhite(p_section, board))
+                {
+                    this.hasMoved = true;
                     return true;
-                }
-               //schuin slaan van andere pawn.
+                } //schuin slaan van andere pawn.
                 else if (this.toCaptureWhite(p_section, board))
                 {
-                    this.hasMoved= true;
+                    this.hasMoved = true;
                     return true;
                 }
-                    }
-        }else if (hasMoved == true)
+            }
+        } else if (hasMoved == true)
         {
 
             if (this.color == "black")
             {
                 //1 section naar voren.
-                if (this.moveOneTileForwardBlack(p_section, board)){
+                if (this.moveOneTileForwardBlack(p_section, board))
+                {
                     return true;
-                }
-                //schuin slaan van andere pawn.
-                else if (this.toCaptureBlack(p_section, board)){
-                    return true;     
+                } //schuin slaan van andere pawn.
+                else if (this.toCaptureBlack(p_section, board))
+                {
+                    return true;
                 }
 
             } else if (this.color == "white")
             {
                 //1 section naar voren.
-                if(this.moveOneTileForwardWhite(p_section, board)){
+                if (this.moveOneTileForwardWhite(p_section, board))
+                {
                     return true;
-                }
-                 //schuin slaan van andere pawn.
+                } //schuin slaan van andere pawn.
                 else if (this.toCaptureWhite(p_section, board))
                 {
-                   return true;
+                    return true;
                 }
+            }
         }
-    }
         return false;
-  }
+    }
 }
-
