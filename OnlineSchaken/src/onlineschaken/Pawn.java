@@ -69,8 +69,7 @@ private Section prevSection;
         Button Knight = new Button(type.Knight.name());
         Button Queen = new Button(type.Queen.name());
         Button Rook = new Button(type.Rook.name());
-        if (this.getColor()=="white")
-        {
+
              Bishop.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent event) {
          Section section = pawn.getSection();
@@ -82,7 +81,41 @@ private Section prevSection;
          menu.hide();
       }
     });
-        }
+             Knight.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent event) {
+         Section section = pawn.getSection();
+         Knight knight = new Knight(pawn.getColor(),pawn.player,pawn.getPrevSection());
+         pawn.player.getPieces().add(knight);
+         knight.player.getPieces().remove(pawn);
+         section.setPiece(knight);
+         knight.moveWithoutCheck(section);
+         menu.hide();
+      }
+    });
+             Queen.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent event) {
+         Section section = pawn.getSection();
+         Queen queen = new Queen(pawn.getColor(),pawn.player,pawn.getPrevSection());
+         pawn.player.getPieces().add(queen);
+         queen.player.getPieces().remove(pawn);
+         section.setPiece(queen);
+         queen.moveWithoutCheck(section);
+         menu.hide();
+      }
+    });
+           Rook.setOnAction(new EventHandler<ActionEvent>() {
+      @Override public void handle(ActionEvent event) {
+         Section section = pawn.getSection();
+         Rook rook = new Rook(pawn.getColor(),pawn.player,pawn.getPrevSection());
+         pawn.player.getPieces().add(rook);
+         rook.player.getPieces().remove(pawn);
+         section.setPiece(rook);
+         rook.moveWithoutCheck(section);
+         menu.hide();
+      }
+    });
+             
+             
        
         HBox box = new HBox(5);
        box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
