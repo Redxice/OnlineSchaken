@@ -71,6 +71,19 @@ public abstract class Piece extends StackPane{
     
    public Boolean move(Section p_section)
    {
+       for(Piece p : player.pieces)
+       {
+       if(p instanceof King)
+       {
+       if(((King) p).check)
+       {
+       if (!(this instanceof King))
+       {
+           return false;
+       }
+       }
+       }
+       }       
        try
        {
        if(checkMove(p_section))
