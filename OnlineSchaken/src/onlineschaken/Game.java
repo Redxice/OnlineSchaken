@@ -31,6 +31,7 @@ public class Game {
     Gamelobby gamelobby;
     private OnlineSchaken javaFX;
     String resterend11;
+    
     //constructor voor game die geen deel uitmaakt van een tournament
     public Game(Player p_player1,Player p_player2, OnlineSchaken javaFX){        
         this.player1 = p_player1;

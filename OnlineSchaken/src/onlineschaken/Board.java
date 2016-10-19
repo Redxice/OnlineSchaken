@@ -10,11 +10,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
@@ -37,10 +35,10 @@ public class Board
     private Section firstSection;
     private Piece piece;
     private String turn = "white";
-    private Game game ;
-    public Board(Game game)
+    
+    public Board()
     {
-        this.game = game;
+        
     }
 
     public Parent createContent()
