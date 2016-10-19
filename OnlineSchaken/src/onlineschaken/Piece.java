@@ -30,7 +30,11 @@ public abstract class Piece extends StackPane{
         this.color = p_color;
         this.player = p_player;       
         this.section = p_section;
-        this.section.setPiece(this);
+        if (this.section != null)
+        {
+            this.section.setPiece(this);
+        }
+        
     }
     
  
@@ -52,7 +56,11 @@ public abstract class Piece extends StackPane{
    
     public void setSection(Section section) {
         this.section = section;
-        section.setPiece(this);
+        if (this.section != null)
+        {
+            section.setPiece(this);
+        }
+        
     }
    
    public  String getColor(){

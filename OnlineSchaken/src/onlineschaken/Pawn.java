@@ -67,6 +67,7 @@ public class Pawn extends Piece
          Bishop bishop = new Bishop(pawn.getColor(),pawn.player,pawn.getSection());
          pawn.setSection(null);
          section.setPiece(bishop);
+         bishop.moveWithoutCheck(section);
          menu.hide();
       }
     });
