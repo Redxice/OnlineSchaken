@@ -30,7 +30,7 @@ public class Pawn extends Piece
 }
 
     boolean hasMoved;
-
+private Section prevSection;
     public Pawn(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
@@ -44,6 +44,16 @@ public class Pawn extends Piece
     this.hasMoved = false;
     }
 
+    public void setPrevSection(Section prevSection)
+    {
+        this.prevSection = prevSection;
+    }
+
+    public Section getPrevSection()
+    {
+        return prevSection;
+    }
+
     public void promotion()
     {
     }
@@ -54,7 +64,7 @@ public class Pawn extends Piece
     }
     public Popup menu(){
         Popup menu = new Popup();
-         Piece pawn = this;
+        Pawn pawn = this;
         Button Bishop = new Button(type.Bishop.name());
         Button Knight = new Button(type.Knight.name());
         Button Queen = new Button(type.Queen.name());
@@ -64,8 +74,9 @@ public class Pawn extends Piece
              Bishop.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent event) {
          Section section = pawn.getSection();
-         Bishop bishop = new Bishop(pawn.getColor(),pawn.player,pawn.getSection());
-         pawn.setSection(null);
+         Bishop bishop = new Bishop(pawn.getColor(),pawn.player,pawn.getPrevSection());
+         pawn.player.getPieces().add(bishop);
+         bishop.player.getPieces().remove(pawn);
          section.setPiece(bishop);
          bishop.moveWithoutCheck(section);
          menu.hide();
@@ -208,7 +219,7 @@ public class Pawn extends Piece
     @Override
     public Boolean checkMove(Section p_section)
     {
-
+        this.setPrevSection(section);
         Board board = p_section.getBoard();
         if (isValidMove(p_section) == false)
         {
