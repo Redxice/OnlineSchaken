@@ -9,11 +9,15 @@ import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
 
 /**
  *
@@ -252,6 +256,16 @@ public class Board
     public String getTurn()
     {
         return turn;
+    }
+     public Popup getCheckmatePopUp(){
+       Popup popUp = new Popup();
+       Text text = new Text("schaakmat");
+        HBox box = new HBox(5);
+        Button ok = new Button("ok");
+        box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
+        box.getChildren().addAll(text,ok);
+        popUp.getContent().add(box); 
+        return popUp;
     }
 
 }
