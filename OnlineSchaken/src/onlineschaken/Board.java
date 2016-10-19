@@ -41,7 +41,7 @@ public class Board
 
     public Parent createContent()
     {
-        root.setPrefSize(WIDTH * TILE_SIZE + 100, HEIGHT * TILE_SIZE);
+        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
         for (int y = 0; y < HEIGHT; y++)
         {
