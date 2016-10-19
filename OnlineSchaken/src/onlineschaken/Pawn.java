@@ -57,13 +57,87 @@ public class Pawn extends Piece
         return prevSection;
     }
 
-    public void promotion()
-    {
-    }
-
     public boolean getFirsMove()
     {
         return this.hasMoved;
+    }
+    @Override
+    public Boolean checkMove(Section p_section)
+    {
+        this.setPrevSection(section);
+        Board board = p_section.getBoard();
+        if (isValidMove(p_section) == false)
+        {
+            return false;
+        } else if (hasMoved == false)
+        {
+            if (this.color == "black")
+            {
+                //1 section naar voren.
+                if (this.moveOneTileForwardBlack(p_section, board))
+                {
+                    this.hasMoved = true;
+                    return true;
+                } //2 section naar voren
+                else if (this.moveTwoTilesForwardBlack(p_section, board))
+                {
+                    this.hasMoved = true;
+                    return true;
+                } //schuin slaan van andere piece.
+                else if (this.toCaptureBlack(p_section, board))
+                {
+                    this.hasMoved = true;
+                    return true;
+                }
+            }
+            if (this.color == "white")
+            {
+                //1 section naar voren.
+                if (this.moveOneTileForwardWhite(p_section, board))
+                {
+                    this.hasMoved = true;
+                    return true;
+                } //2 section naar voren
+                else if (this.moveTwoTilesForwardWhite(p_section, board))
+                {
+                    this.hasMoved = true;
+                    return true;
+                } //schuin slaan van andere pawn.
+                else if (this.toCaptureWhite(p_section, board))
+                {
+                    this.hasMoved = true;
+                    return true;
+                }
+            }
+        } else if (hasMoved == true)
+        {
+
+            if (this.color == "black")
+            {
+                //1 section naar voren.
+                if (this.moveOneTileForwardBlack(p_section, board))
+                {
+                    return true;
+                } //schuin slaan van andere pawn.
+                else if (this.toCaptureBlack(p_section, board))
+                {
+                    return true;
+                }
+
+            } else if (this.color == "white")
+            {
+                //1 section naar voren.
+                if (this.moveOneTileForwardWhite(p_section, board))
+                {
+                    return true;
+                } //schuin slaan van andere pawn.
+                else if (this.toCaptureWhite(p_section, board))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public Popup menu()
@@ -157,28 +231,47 @@ public class Pawn extends Piece
 
     public boolean toCaptureWhite(Section p_section, Board board)
     {
-        if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1
-                || p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+        Section Leftsection = section.getBoard().getSections(section.id.x-1, section.id.y);
+        Section Rightsection = section.getBoard().getSections(section.id.x+1, section.id.y);
+        if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
         {
-            if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
-            {
-                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+            
+                if (p_section.isOccupied())
                 {
                     if (isValidMove(p_section))
                     {
                         return true;
                     }
                 }
-            } else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
+                else if (Leftsection.isOccupied())
             {
-                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                if (isValidMove(Leftsection))
+                {
+                    return true;
+                }
+  
+            }
+              
+            }  
+        
+        else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+        {
+             if (p_section.isOccupied())
                 {
                     if (isValidMove(p_section))
                     {
                         return true;
                     }
+                }
+        
+                else if (Rightsection.isOccupied())
+            {
+                if(isValidMove(Rightsection))
+                {
+                    return true;
                 }
             }
+            
         }
         return false;
     }
@@ -228,7 +321,7 @@ public class Pawn extends Piece
                 if (board.getSections(p_section.getID().x, p_section.getID().y + 1).isOccupied())
                 {
                     return false;
-                } else if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
+                } else if (p_section.isOccupied())
                 {
                     return false;
                 }
@@ -280,83 +373,5 @@ public class Pawn extends Piece
         }
         return false;
     }
-
-    @Override
-    public Boolean checkMove(Section p_section)
-    {
-        this.setPrevSection(section);
-        Board board = p_section.getBoard();
-        if (isValidMove(p_section) == false)
-        {
-            return false;
-        } else if (hasMoved == false)
-        {
-            if (this.color == "black")
-            {
-                //1 section naar voren.
-                if (this.moveOneTileForwardBlack(p_section, board))
-                {
-                    this.hasMoved = true;
-                    return true;
-                } //2 section naar voren
-                else if (this.moveTwoTilesForwardBlack(p_section, board))
-                {
-                    this.hasMoved = true;
-                    return true;
-                } //schuin slaan van andere piece.
-                else if (this.toCaptureBlack(p_section, board))
-                {
-                    this.hasMoved = true;
-                    return true;
-                }
-            }
-            if (this.color == "white")
-            {
-                //1 section naar voren.
-                if (this.moveOneTileForwardWhite(p_section, board))
-                {
-                    this.hasMoved = true;
-                    return true;
-                } //2 section naar voren
-                else if (this.moveTwoTilesForwardWhite(p_section, board))
-                {
-                    this.hasMoved = true;
-                    return true;
-                } //schuin slaan van andere pawn.
-                else if (this.toCaptureWhite(p_section, board))
-                {
-                    this.hasMoved = true;
-                    return true;
-                }
-            }
-        } else if (hasMoved == true)
-        {
-
-            if (this.color == "black")
-            {
-                //1 section naar voren.
-                if (this.moveOneTileForwardBlack(p_section, board))
-                {
-                    return true;
-                } //schuin slaan van andere pawn.
-                else if (this.toCaptureBlack(p_section, board))
-                {
-                    return true;
-                }
-
-            } else if (this.color == "white")
-            {
-                //1 section naar voren.
-                if (this.moveOneTileForwardWhite(p_section, board))
-                {
-                    return true;
-                } //schuin slaan van andere pawn.
-                else if (this.toCaptureWhite(p_section, board))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+  
 }
