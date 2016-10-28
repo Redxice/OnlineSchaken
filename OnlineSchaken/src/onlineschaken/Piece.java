@@ -82,7 +82,7 @@ public abstract class Piece extends StackPane
         {
             if (p instanceof King)
             {
-                ((King) p).isCheck();
+                //((King) p).isCheck();
                 if (((King) p).check)
                 {
                     if (!(this instanceof King))
@@ -96,7 +96,7 @@ public abstract class Piece extends StackPane
         {
             if (checkMove(p_section))
             {
-                // kijkt of het gekoze tuk een toren is
+                // kijkt of het gekoze stuk een toren is
                 if (section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
                 {
                     // kijkt of op de gekoze locatie een koning staat
