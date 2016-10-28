@@ -33,6 +33,8 @@ public class Pawn extends Piece
 
     boolean hasMoved;
     private Section prevSection;
+    private double prevX;
+    private double prevY;
 
     public Pawn(String p_color, Player p_player, Section p_section)
     {
@@ -47,14 +49,23 @@ public class Pawn extends Piece
         this.hasMoved = false;
     }
 
-    public void setPrevSection(Section prevSection)
+    public void setPrevSection(Section section)
     {
-        this.prevSection = prevSection;
+        this.prevX = section.id.x;
+        this.prevY = section.id.y;
+        this.prevSection = section;
     }
 
-    public Section getPrevSection()
+    public double getPrevSectionX()
     {
-        return prevSection;
+        return prevX;
+    }
+      public double getPrevSectionY()
+    {
+        return prevY;
+    }
+    public Section getPrevSection(){
+        return this.prevSection;
     }
 
     public boolean getFirsMove()
@@ -64,7 +75,7 @@ public class Pawn extends Piece
     @Override
     public Boolean checkMove(Section p_section)
     {
-        this.setPrevSection(section);
+        Section prevsection = (Section)section;
         Board board = p_section.getBoard();
         if (isValidMove(p_section) == false)
         {
@@ -75,18 +86,17 @@ public class Pawn extends Piece
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
-                {
-                    this.hasMoved = true;
+                {   this.setPrevSection(prevsection);
                     return true;
                 } //2 section naar voren
                 else if (this.moveTwoTilesForwardBlack(p_section, board))
                 {
-                    this.hasMoved = true;
+                    this.setPrevSection(prevsection);
                     return true;
                 } //schuin slaan van andere piece.
                 else if (this.toCaptureBlack(p_section, board))
                 {
-                    this.hasMoved = true;
+                    this.setPrevSection(prevsection);
                     return true;
                 }
             }
@@ -95,17 +105,17 @@ public class Pawn extends Piece
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
                 {
-                    this.hasMoved = true;
+                    this.setPrevSection(prevsection);
                     return true;
                 } //2 section naar voren
                 else if (this.moveTwoTilesForwardWhite(p_section, board))
                 {
-                    this.hasMoved = true;
+                    this.setPrevSection(prevsection);
                     return true;
                 } //schuin slaan van andere pawn.
                 else if (this.toCaptureWhite(p_section, board))
                 {
-                    this.hasMoved = true;
+                    this.setPrevSection(prevsection);
                     return true;
                 }
             }
@@ -116,10 +126,12 @@ public class Pawn extends Piece
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
                 {
+                    this.setPrevSection(prevsection);
                     return true;
                 } //schuin slaan van andere pawn.
                 else if (this.toCaptureBlack(p_section, board))
                 {
+                    this.setPrevSection(prevsection);
                     return true;
                 }
 
@@ -128,10 +140,12 @@ public class Pawn extends Piece
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
                 {
+                    this.setPrevSection(prevsection);
                     return true;
                 } //schuin slaan van andere pawn.
                 else if (this.toCaptureWhite(p_section, board))
                 {
+                    this.setPrevSection(prevsection);
                     return true;
                 }
             }
@@ -204,7 +218,6 @@ public class Pawn extends Piece
                 menu.hide();
             }
         });
-
         HBox box = new HBox(5);
         box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
         box.getChildren().addAll(Bishop, Knight, Queen, Rook);
@@ -246,6 +259,7 @@ public class Pawn extends Piece
             {
                 if (isValidMove(Leftsection))
                 {
+                    moveEnPassant(Leftsection);
                     return true;
                 }
   
@@ -266,7 +280,8 @@ public class Pawn extends Piece
                 else if (Rightsection.isOccupied())
             {
                 if(isValidMove(Rightsection))
-                {
+                {    
+                    moveEnPassant(Rightsection);
                     return true;
                 }
             }
@@ -348,16 +363,23 @@ public class Pawn extends Piece
     }
 
     public boolean toCaptureBlack(Section p_section, Board board)
-    {
-        if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1
-                || p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
-        {
+    {   
+        Section Leftsection = section.getBoard().getSections(section.id.x-1, section.id.y);
+        Section Rightsection = section.getBoard().getSections(section.id.x+1, section.id.y);
             if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
             {
                 if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
                 {
                     if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
                     {
+                        return true;
+                    }
+                }
+                else if (Rightsection.isOccupied())
+                {
+                    if (isValidMove(Rightsection))
+                    {
+                        moveEnPassant(Rightsection);
                         return true;
                     }
                 }
@@ -368,9 +390,42 @@ public class Pawn extends Piece
                 {
                     return true;
                 }
+                else if (Leftsection.isOccupied())
+                {
+                    if (isValidMove(Rightsection))
+                    {
+                        
+                    }
+                }
             }
-        }
         return false;
     }
-  
+    /**
+     * 
+     * @param p_section 
+     * Deze methode verwijdert een pawn van een section wanneer de prev state op de start positie was.
+     * 
+     */
+    
+  public boolean moveEnPassant(Section p_section){
+      if (p_section.getPiece() instanceof Pawn)
+      {  Pawn pawn = (Pawn) p_section.getPiece();
+      System.out.println(String.valueOf(pawn.getPrevSectionY()));
+          if (pawn.color== "black")
+          {
+              if (pawn.getPrevSectionY() == 6)
+              {
+                   p_section.getBoard().ClearSection(p_section);
+              }
+          }
+          else if(pawn.color =="white"){
+              if (pawn.getPrevSectionY() == 1)
+              {
+                 p_section.getBoard().ClearSection(p_section);  
+              }
+              
+          }
+      }
+      return false;
+  } 
 }

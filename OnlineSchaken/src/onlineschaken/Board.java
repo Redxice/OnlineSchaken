@@ -176,7 +176,72 @@ public class Board
         }
         return root;
     }
+    /**
+     * 
+     * @param p_section1 de section waar de te verwijderen stuk staat.
+     * @return 
+     */
+ public Parent ClearSection(Section p_section1)
+    {
+        
+        for (Section[] x : sections)
+        {
+            for (Section y : x)
+            {
+                if (y.id == p_section1.id)
+                {
+                    Section section = new Section((y.id.x + y.id.y) % 2 == 0, y.id.x, y.id.y, this);
+                    section.setOnMouseClicked(new EventHandler<MouseEvent>()
+                {
+                    @Override
+                    public void handle(MouseEvent t)
+                    {
+                        if (firstSection == null && section.getPiece() != null)
+                        {
+                            if (getTurn() == section.getPiece().color)
+                            {
+                                if (section.getPiece() != null)
+                                {
+                                    firstSection = sections[section.id.x][section.id.y];
+                                    piece = firstSection.getPiece();
+                                }
+                            }
+                        } else if (firstSection != null)
+                        {
+                            if (piece.move(section))
+                            {
+                                firstSection = null;
+                                piece = null;
+                                if (getTurn() == "white")
+                                {
+                                    turn = "black";
+                                } else
+                                {
+                                    turn = "white";
+                                }
+                            }
+                            else
+                            {
+                               firstSection = null;
+                            }
 
+                        }
+                    }
+                });
+                    sections[y.id.x][y.id.y] = section;
+
+                    tileGroup.getChildren().add(section);
+                }
+                if (y.id == p_section1.id)
+                {//verwijdert de piece uit de lijst van de speler.
+                    y.getPiece().player.getPieces().remove(y.getPiece());
+                    y.setPiece(null);
+                    y.setFill(null);
+                }
+            }
+        }
+        return root;
+    }
     public int getTILE_SIZE()
     {
         return TILE_SIZE;
