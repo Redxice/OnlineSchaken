@@ -70,14 +70,14 @@ public class Game {
         {
             int h = resterend1 / 60;
             int m = resterend1 % 60;
-            String newtime = h+":"+m;
+            String newtime = String.format("%02d", h) + ":" + String.format("%02d", m);
             return newtime;
         }
         else
         {
             int h = resterend2 / 60;
             int m = resterend2 % 60;
-            String newtime = h+":"+m;
+            String newtime = String.format("%02d", h) + ":" + String.format("%02d", m);
             return newtime;
         }
     }
