@@ -8,6 +8,10 @@ package onlineschaken;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+import javafx.stage.Popup;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,7 +43,7 @@ public class Game {
         //this.time = p_time;
         this.javaFX = javaFX;
         board = new Board();
-        resterend1 = 1800;
+        resterend1 = 10;
         resterend2 = 1800;
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
@@ -109,7 +113,7 @@ public class Game {
         this.resterend2 = resterend2-seconde;
         if (resterend2 <=0)
         {
-         setWinner(player1)  ;
+         setWinner(player1);
          setFinished(true);
          timer.cancel();
         }
@@ -121,6 +125,10 @@ public class Game {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+        if (this.finished==true)
+        {   timer.cancel();
+       JOptionPane.showMessageDialog(null, String.valueOf(winner.username)+" has won.");
+        }
     }
 
     public Tournament getTournament() {
@@ -249,6 +257,5 @@ public class Game {
     player1.pieces.add(piece = new Pawn("black",player2,board.getSections(6,6)));
     player1.pieces.add(piece = new Pawn("black",player2,board.getSections(7,6)));    
     }
-  
    
 }
