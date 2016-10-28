@@ -242,9 +242,15 @@ public class Pawn extends Piece
     }
 
     public boolean toCaptureWhite(Section p_section, Board board)
-    {
-        Section Leftsection = section.getBoard().getSections(section.id.x-1, section.id.y);
-        Section Rightsection = section.getBoard().getSections(section.id.x+1, section.id.y);
+    {       Section Leftsection=null;
+            Section Rightsection=null;
+        try{
+         Leftsection = section.getBoard().getSections(section.id.x-1, section.id.y);
+         Rightsection = section.getBoard().getSections(section.id.x+1, section.id.y);
+        }
+        catch(ArrayIndexOutOfBoundsException ex){
+            
+        }
         if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
         {
             
