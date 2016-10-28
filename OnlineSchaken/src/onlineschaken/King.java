@@ -33,6 +33,51 @@ public class King extends Piece
         checkMate = false;
     }
 
+    public int countCheckSections()
+    {
+        int counter = 0;
+        for (Section[] x : section.getBoard().getSections())
+        {
+            for (Section y : x)
+            {
+                if (y.getPiece() != null)
+                {
+                    if (!y.getPiece().color.equals(this.color))
+                    {
+                        if (y.getPiece().checkMove(this.section))
+                        {
+                            counter++;
+                        }
+                        
+                    }
+                }
+            }
+        }
+        return counter;
+    }
+    
+    public Section getSingleCheckSection()
+    {
+        Section checkSection = null;
+        for (Section[] x : section.getBoard().getSections())
+        {
+            for (Section y : x)
+            {
+                if (y.getPiece() != null)
+                {
+                    if (!y.getPiece().color.equals(this.color))
+                    {
+                        if (y.getPiece().checkMove(this.section))
+                        {
+                            checkSection = y;
+                        }
+                    }
+                }
+            }
+        }
+        return checkSection;
+    }
+    
     public boolean isCheck()
     {
         for (Section[] x : section.getBoard().getSections())

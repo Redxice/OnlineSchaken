@@ -85,7 +85,11 @@ public abstract class Piece extends StackPane
                 //((King) p).isCheck();
                 if (((King) p).check)
                 {
-                    if (!(this instanceof King))
+                    if (!(this instanceof King) && ((King) p).countCheckSections() > 1)
+                    {
+                        return false;
+                    }
+                    if(((King) p).getSingleCheckSection().id != p_section.id)
                     {
                         return false;
                     }
