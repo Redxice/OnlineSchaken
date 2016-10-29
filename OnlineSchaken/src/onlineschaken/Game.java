@@ -43,7 +43,7 @@ public class Game {
         //this.time = p_time;
         this.javaFX = javaFX;
         board = new Board();
-        resterend1 = 10;
+        resterend1 = 1800;
         resterend2 = 1800;
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
