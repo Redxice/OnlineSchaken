@@ -106,4 +106,9 @@ public class Player {
         this.history = history;
     }
     
+    public void removePiece(Piece piece)
+    {
+     pieces.remove(piece);
+    }
+    
 }

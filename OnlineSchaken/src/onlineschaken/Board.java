@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +36,7 @@ public class Board
     private Section firstSection;
     private Piece piece;
     private String turn = "white";
+    private Game game;
     
     public Board()
     {
@@ -71,6 +73,10 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
+                                 if(game.draw())
+                                {
+                                JOptionPane.showMessageDialog(null,"draw");
+                                }
                                 if (getTurn() == "white")
                                 {
                                     turn = "black";
@@ -145,6 +151,10 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
+                                 if(game.draw())
+                                {
+                                JOptionPane.showMessageDialog(null,"draw");
+                                }
                                 if (getTurn() == "white")
                                 {
                                     turn = "black";
@@ -182,8 +192,7 @@ public class Board
      * @return 
      */
  public Parent ClearSection(Section p_section1)
-    {
-        
+    {  
         for (Section[] x : sections)
         {
             for (Section y : x)
@@ -212,13 +221,17 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
+                                if(game.draw())
+                                {
+                                JOptionPane.showMessageDialog(null,"draw");
+                                }
                                 if (getTurn() == "white")
                                 {
                                     turn = "black";
                                 } else
                                 {
                                     turn = "white";
-                                }
+                                }                               
                             }
                             else
                             {
@@ -296,6 +309,11 @@ public class Board
     public void setSections(Section[][] sections)
     {
         this.sections = sections;
+    }
+
+    public void setGame(Game game)
+    {
+        this.game = game;
     }
 
     public void setTileGroup(Group tileGroup)

@@ -35,6 +35,8 @@ public class Game {
     Gamelobby gamelobby;
     private OnlineSchaken javaFX;
     String resterend11;
+    private boolean player1Draw = false;
+    private boolean player2Draw = false;
     
     //constructor voor game die geen deel uitmaakt van een tournament
     public Game(Player p_player1,Player p_player2, OnlineSchaken javaFX){        
@@ -47,6 +49,7 @@ public class Game {
         resterend2 = 1800;
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
+        board.setGame(this);
     }
     //constructor vor een game die deel is van een tournament
     public Game(int p_time,Player p_player1,Player p_player2,
@@ -311,7 +314,7 @@ public class Game {
     {
         if (board.getTurn() == "white")
         {
-            for (Piece piece : player1.getPieces())
+            for (Piece piece : player2.getPieces())
             {
                 for (Section[] x : board.getSections())
                 {
@@ -326,7 +329,7 @@ public class Game {
             }
         } else if (board.getTurn() == "black")
         {
-            for (Piece piece : player2.getPieces())
+            for (Piece piece : player1.getPieces())
             {
                 for (Section[] x : board.getSections())
                 {
