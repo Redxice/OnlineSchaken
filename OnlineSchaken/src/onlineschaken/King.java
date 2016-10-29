@@ -48,7 +48,6 @@ public class King extends Piece
                         {
                             counter++;
                         }
-                        
                     }
                 }
             }
@@ -80,6 +79,7 @@ public class King extends Piece
     
     public boolean isCheck()
     {
+        check = false;
         for (Section[] x : section.getBoard().getSections())
         {
             for (Section y : x)
@@ -91,8 +91,8 @@ public class King extends Piece
                         if (y.getPiece().checkMove(this.section))
                         {
                             check = true;
+                            return check;
                         }
-                        check = false;
                     }
                 }
             }

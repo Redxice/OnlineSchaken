@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import java.awt.Point;
 import java.util.List;
 import java.util.logging.Logger;
 import javafx.scene.Scene;
@@ -26,7 +27,8 @@ public abstract class Piece extends StackPane
     Section section;
     Image img;
     boolean hasMoved;
-
+    Point idKing = null;
+        Boolean check = false;
 //constructor
     public Piece(String p_color, Player p_player, Section p_section)
     {
@@ -78,24 +80,40 @@ public abstract class Piece extends StackPane
 
     public Boolean move(Section p_section)
     {
+        
+        
         for (Piece p : player.pieces)
         {
             if (p instanceof King)
             {
-                //((King) p).isCheck();
+                ((King) p).isCheck();
                 if (((King) p).check)
                 {
-                    if (!(this instanceof King) && ((King) p).countCheckSections() > 1)
+                    check = true;
+                    if (((King) p).becomeCheck(p_section))
                     {
                         return false;
                     }
-                    if(((King) p).getSingleCheckSection().id != p_section.id)
-                    {
-                        return false;
-                    }
+                    idKing = ((King) p).getSingleCheckSection().id;
+                }
+                else
+                {
+                    
+                }
+            }
+            if(!(this instanceof King) && check == true)
+            {
+                if(idKing != p_section.id)
+                {
+                    return false;
+                }
+                else
+                {
+                    check = false;
                 }
             }
         }
+        
         try
         {
             if (checkMove(p_section))
