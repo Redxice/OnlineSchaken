@@ -102,7 +102,7 @@ public abstract class Piece extends StackPane
                 }
             }
 
-            if (!(this instanceof King) && check == true)
+            if (!(this instanceof King) /*&& check == true*/)
             {
                 if (idKing != p_section.id)
                 {
@@ -121,6 +121,8 @@ public abstract class Piece extends StackPane
                             {
                                 p_section.setPiece(null);
                                 this.section = previousState;
+                                section.setPiece(this);
+                                System.out.println("---" + section);
                                 return false;
                             }
                         }
@@ -212,6 +214,10 @@ public abstract class Piece extends StackPane
                         }
                     }
                 }
+                /*if()
+                {
+                    return false;
+                }*/
                 System.out.println(section.id);
                 System.out.println(p_section.id);
                 System.out.println(section.getBoard());
