@@ -258,4 +258,88 @@ public class Game {
     player1.pieces.add(piece = new Pawn("black",player2,board.getSections(7,6)));    
     }
    
+    // kijkt of het draw is
+
+    public boolean draw()
+    {
+        if (staleMate())
+        {
+            return true;
+        } else if (impossibleCheckMate())
+        {
+            return true;
+        } else if (player1Draw == true && player2Draw == true)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // kijkt of het onmogenlijk is om schaak te zetten
+    public boolean impossibleCheckMate()
+    {
+        if (player1.getPieces().size() <= 2)
+        {
+            if (player2.getPieces().size() == 1)
+            {
+                for (Piece piece : player1.getPieces())
+                {
+                    if (piece instanceof Knight || piece instanceof Bishop)
+                    {
+                        return true;
+                    }
+                }
+            }
+        } else if (player2.getPieces().size() <= 2)
+        {
+            if (player1.getPieces().size() == 1)
+            {
+                for (Piece piece : player2.getPieces())
+                {
+                    if (piece instanceof Knight || piece instanceof Bishop)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // kijkt of de speler die aan zet is nog een stuk kan verzetten
+    public boolean staleMate()
+    {
+        if (board.getTurn() == "white")
+        {
+            for (Piece piece : player1.getPieces())
+            {
+                for (Section[] x : board.getSections())
+                {
+                    for (Section y : x)
+                    {
+                        if (piece.checkMove(y))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        } else if (board.getTurn() == "black")
+        {
+            for (Piece piece : player2.getPieces())
+            {
+                for (Section[] x : board.getSections())
+                {
+                    for (Section y : x)
+                    {
+                        if (piece.checkMove(y))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
