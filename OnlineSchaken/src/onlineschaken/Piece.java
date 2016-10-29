@@ -27,9 +27,9 @@ public abstract class Piece extends StackPane
     Section section;
     Image img;
     boolean hasMoved;
-    Point idKing = null;
-        Boolean check = false;
+    Section previousState;
 //constructor
+
     public Piece(String p_color, Player p_player, Section p_section)
     {
         this.color = p_color;
@@ -80,8 +80,9 @@ public abstract class Piece extends StackPane
 
     public Boolean move(Section p_section)
     {
-        
-        
+        Point idKing = null;
+        Boolean check = false;
+        //previousState = this.section;
         for (Piece p : player.pieces)
         {
             if (p instanceof King)
@@ -90,30 +91,52 @@ public abstract class Piece extends StackPane
                 if (((King) p).check)
                 {
                     check = true;
-                    if (((King) p).becomeCheck(p_section))
+                    if (this.section.getPiece() instanceof King)
                     {
-                        return false;
+                        if (((King) p).becomeCheck(p_section))
+                        {
+                            return false;
+                        }
                     }
                     idKing = ((King) p).getSingleCheckSection().id;
                 }
-                else
-                {
-                    
-                }
             }
-            if(!(this instanceof King) && check == true)
+
+            if (!(this instanceof King) && check == true)
             {
-                if(idKing != p_section.id)
+                if (idKing != p_section.id)
                 {
-                    return false;
-                }
-                else
+                    //this.section.setPiece(null);
+                    previousState = this.section;
+                    p_section.setPiece(this);
+                    this.section.setPiece(null);
+                    for (Piece p2 : player.pieces)
+                    {
+                        if (p2 instanceof King)
+                        {
+                            //p_section.setPiece(this);
+                            //this.section.setPiece(null);
+                            ((King) p2).isCheck();
+                            if (((King) p2).check)
+                            {
+                                p_section.setPiece(null);
+                                this.section = previousState;
+                                return false;
+                            }
+                        }
+                    }
+                    p_section.setPiece(null);
+                    this.section = previousState;
+                    this.section.setPiece(this);
+                    check = false;
+
+                } else
                 {
                     check = false;
                 }
             }
         }
-        
+
         try
         {
             if (checkMove(p_section))
@@ -127,8 +150,8 @@ public abstract class Piece extends StackPane
                         // kijkt welke toren het is en zet ze dan op de goede plaats
                         if (section.getID().getX() == 0 && section.getID().getY() == 0)
                         {
-                            
-                            if (((King)p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][0]))
+
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][0]))
                             {
                                 section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 0));
                                 p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 0));
@@ -143,52 +166,55 @@ public abstract class Piece extends StackPane
                             return false;
                         } else if (section.getID().getX() == 0 && section.getID().getY() == 7)
                         {
-                            if (((King)p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][7]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][7]))
                             {
-                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 7));
-                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 7));
-                            section.getBoard().getSections()[3][7].setPiece(this);
-                            section.getBoard().getSections()[2][7].setPiece(p_section.getPiece());
-                            section.setPiece(null);
-                            this.section = section.getBoard().getSections(3, 7);
-                            p_section.getPiece().section = section.getBoard().getSections()[2][7];
-                            p_section.setPiece(null);
-                            return true;
+                                section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 7));
+                                p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 7));
+                                section.getBoard().getSections()[3][7].setPiece(this);
+                                section.getBoard().getSections()[2][7].setPiece(p_section.getPiece());
+                                section.setPiece(null);
+                                this.section = section.getBoard().getSections(3, 7);
+                                p_section.getPiece().section = section.getBoard().getSections()[2][7];
+                                p_section.setPiece(null);
+                                return true;
                             }
                             return false;
                         } else if (section.getID().getX() == 7 && section.getID().getY() == 7)
                         {
-                            if (((King)p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][7]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][7]))
                             {
-                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 7));
-                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 7));
-                            section.getBoard().getSections()[5][7].setPiece(this);
-                            section.getBoard().getSections()[6][7].setPiece(p_section.getPiece());
-                            section.setPiece(null);
-                            this.section = section.getBoard().getSections(5, 7);
-                            p_section.getPiece().section = section.getBoard().getSections()[6][7];
-                            p_section.setPiece(null);
-                            return true;
+                                section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 7));
+                                p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 7));
+                                section.getBoard().getSections()[5][7].setPiece(this);
+                                section.getBoard().getSections()[6][7].setPiece(p_section.getPiece());
+                                section.setPiece(null);
+                                this.section = section.getBoard().getSections(5, 7);
+                                p_section.getPiece().section = section.getBoard().getSections()[6][7];
+                                p_section.setPiece(null);
+                                return true;
                             }
                             return false;
                         } else if (section.getID().getX() == 7 && section.getID().getY() == 0)
                         {
-                            if (((King)p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][0]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][0]))
                             {
-                            section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 0));
-                            p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 0));
-                            section.getBoard().getSections()[5][0].setPiece(this);
-                            section.getBoard().getSections()[6][0].setPiece(p_section.getPiece());
-                            section.setPiece(null);
-                            this.section = section.getBoard().getSections(5, 0);
-                            p_section.getPiece().section = section.getBoard().getSections()[6][0];
-                            p_section.setPiece(null);
-                            return true;
+                                section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 0));
+                                p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 0));
+                                section.getBoard().getSections()[5][0].setPiece(this);
+                                section.getBoard().getSections()[6][0].setPiece(p_section.getPiece());
+                                section.setPiece(null);
+                                this.section = section.getBoard().getSections(5, 0);
+                                p_section.getPiece().section = section.getBoard().getSections()[6][0];
+                                p_section.setPiece(null);
+                                return true;
                             }
                             return false;
                         }
                     }
                 }
+                System.out.println(section.id);
+                System.out.println(p_section.id);
+                System.out.println(section.getBoard());
                 section.getBoard().drawSpecificPieces(section, p_section);
                 section.setPiece(null);
                 section.id.x = p_section.id.x;
