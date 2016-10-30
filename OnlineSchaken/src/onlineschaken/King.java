@@ -102,6 +102,7 @@ public class King extends Piece
 
     public boolean becomeCheck(Section p_section)
     {
+        Piece previousPiece;
         for (Section[] x : section.getBoard().getSections())
         {
             for (Section y : x)
@@ -110,13 +111,14 @@ public class King extends Piece
                 {
                     if (!y.getPiece().color.equals(this.color))
                     {
+                        previousPiece = p_section.getPiece();
                         p_section.setPiece(this);
                         if (y.getPiece().checkMove(p_section))
                         {
-                            p_section.setPiece(null);
+                            p_section.setPiece(previousPiece);
                             return true;
                         }
-                        p_section.setPiece(null);
+                        p_section.setPiece(previousPiece);
                     }
                 }
             }
