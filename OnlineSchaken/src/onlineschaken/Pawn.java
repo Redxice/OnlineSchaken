@@ -75,13 +75,13 @@ public class Pawn extends Piece
     @Override
     public Boolean checkMove(Section p_section)
     {
-        Section prevsection = (Section)section;
+        Section prevsection = section;
         Board board = p_section.getBoard();
         if (isValidMove(p_section) == false)
         {
             return false;
         } else if (hasMoved == false)
-        {
+        { System.out.println(String.valueOf(this));
             if (this.color == "black")
             {
                 //1 section naar voren.
@@ -265,8 +265,9 @@ public class Pawn extends Piece
             {
                 if (isValidMove(Leftsection))
                 {
-                    moveEnPassant(Leftsection);
+                    if(moveEnPassant(Leftsection)){
                     return true;
+                    }
                 }
   
             }
@@ -287,8 +288,9 @@ public class Pawn extends Piece
             {
                 if(isValidMove(Rightsection))
                 {    
-                    moveEnPassant(Rightsection);
-                    return true;
+                    if(moveEnPassant(Rightsection)){
+                        return true;
+                     }
                 }
             }
             
@@ -392,8 +394,9 @@ public class Pawn extends Piece
                 {
                     if (isValidMove(Rightsection))
                     {
-                        moveEnPassant(Rightsection);
+                        if(moveEnPassant(Rightsection)){
                         return true;
+                        }
                     }
                 }
             }else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1){
@@ -409,8 +412,9 @@ public class Pawn extends Piece
                 {
                     if (isValidMove(Leftsection))
                     {
-                        moveEnPassant(Leftsection);
+                        if(moveEnPassant(Leftsection)){
                         return true;
+                        }
                     }
                 }
             }
@@ -433,15 +437,18 @@ public class Pawn extends Piece
               if (pawn.getPrevSectionY() == 6)
               {
                    p_section.getBoard().ClearSection(p_section);
+                   return true;
               }
           }
           else if(pawn.color =="white"){
               if (pawn.getPrevSectionY() == 1)
               {
                  p_section.getBoard().ClearSection(p_section);  
+                 return true;
               }
               
           }
+          
       }
       return false;
   } 
