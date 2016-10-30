@@ -27,7 +27,6 @@ public class Pawn extends Piece
         Rook
     }
 
-    boolean hasMoved;
     private Section prevSection;
     private double prevX;
     private double prevY;
