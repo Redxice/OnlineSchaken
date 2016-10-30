@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ChessPieces;
+package onlineschaken;
 
+import javafx.stage.Stage;
 import onlineschaken.*;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,11 +47,12 @@ public class PawnTest
     
     @Before
     public void setUp()
-    {    
+    {   Stage primarystage = new Stage();
         onlineSchaken = new OnlineSchaken();
+        onlineSchaken.start(primarystage);
          p1 = new Player("p1", "ww", 0);
          p2 = new Player("p2", "ww", 0);
-         game = new Game(p1, p2);
+        game = new Game(p1, p2);
         game.getBoard().createContent();
         game.setPieces();
         game.getBoard().createContent2();
