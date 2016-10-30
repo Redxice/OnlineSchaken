@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,6 +56,8 @@ public class OnlineSchaken extends Application
             {
                 game.setPlayer1Draw(true);
                 game.setPlayer2Draw(true);
+                game.timer.cancel();
+                JOptionPane.showMessageDialog(null, "The game is a draw");
             }
         });
         vb = new VBox();

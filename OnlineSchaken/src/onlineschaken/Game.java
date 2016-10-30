@@ -136,8 +136,9 @@ public class Game {
     public void setFinished(boolean finished) {
         this.finished = finished;
         if (this.finished==true)
-        {   timer.cancel();
-       JOptionPane.showMessageDialog(null, String.valueOf(winner.username)+" has won.");
+        {   
+            timer.cancel();
+            JOptionPane.showMessageDialog(null, String.valueOf(winner.username) + " has won.");
         }
     }
 
