@@ -227,7 +227,6 @@ public class Game {
    }
    
    public boolean checkMate(){
-       Piece previousPiece;
       if(board.getTurn() == "white")
       {
         for(Piece p: player2.getPieces())
@@ -238,8 +237,6 @@ public class Game {
                 {
                    if(p.checkMove(section))
                    {
-                       previousPiece = section.getPiece();
-                       section.tempSetPiece(p);
                        for(Piece p2: player2.getPieces())
                        {
                            if(p2 instanceof King)
@@ -252,7 +249,6 @@ public class Game {
                                 }
                            }
                        }
-                       section.tempSetPiece(previousPiece);
                    }
                 }
             }
@@ -268,8 +264,6 @@ public class Game {
                 {
                    if(p.checkMove(section))
                    {
-                       previousPiece = section.getPiece();
-                       section.tempSetPiece(p);
                        for(Piece p2: player1.getPieces())
                        {
                            if(p2 instanceof King)
@@ -282,7 +276,6 @@ public class Game {
                                 }
                            }
                        }
-                       section.tempSetPiece(previousPiece);
                    }
                 }
             }
