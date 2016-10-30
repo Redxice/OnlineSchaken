@@ -226,7 +226,57 @@ public class Game {
    }
    
    public boolean checkMate(){
-      return false;
+      if(board.getTurn() == "white")
+      {
+        for(Piece p: player2.getPieces())
+        {
+            for(Section[] x: board.getSections())
+            {
+                for(Section section : x)
+                {
+                   if(p.checkMove(section))
+                   {
+                       for(Piece p2: player2.getPieces())
+                       {
+                           if(p2 instanceof King)
+                           {
+                                if(((King) p2).isCheck() == false)
+                                {
+                                 return false; 
+                                }
+                           }
+                       }
+                   }
+                }
+            }
+        }
+        return true;
+      }
+      else{
+      for(Piece p: player1.pieces)
+        {
+            for(Section[] x: board.getSections())
+            {
+                for(Section section : x)
+                {
+                   if(p.checkMove(section))
+                   {
+                       for(Piece p2: player1.getPieces())
+                       {
+                           if(p2 instanceof King)
+                           {
+                                if(((King) p2).check == false)
+                                {
+                                 return false;
+                                }
+                           }
+                       }
+                   }
+                }
+            }
+        }
+      }
+      return true;
    }
    
    // Zet alle stukken in de begin positie op het bord;

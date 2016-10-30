@@ -73,12 +73,16 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
-                                 if(game.draw())
+                               if(game.draw())
+                              {
+                               JOptionPane.showMessageDialog(null,"draw");
+                              }   
+                                if(game.checkMate())
                                 {
-                                JOptionPane.showMessageDialog(null,"draw");
+                                    game.setFinished(true);
                                 }
                                 if (getTurn() == "white")
-                                {
+                                {                                    
                                     turn = "black";
                                 } else
                                 {
@@ -155,6 +159,10 @@ public class Board
                                 {
                                 JOptionPane.showMessageDialog(null,"draw");
                                 }
+                                if(game.checkMate())
+                                {
+                                    game.setFinished(true);
+                                }
                                 if (getTurn() == "white")
                                 {
                                     turn = "black";
@@ -225,6 +233,10 @@ public class Board
                                 {
                                 JOptionPane.showMessageDialog(null,"draw");
                                 }
+                                if(game.checkMate())
+                                {
+                                    game.setFinished(true);
+                                }
                                 if (getTurn() == "white")
                                 {
                                     turn = "black";
@@ -272,7 +284,6 @@ public class Board
 
     public Section getSections(int x, int y)
     {
-
         return sections[x][y];
     }
 
@@ -338,15 +349,4 @@ public class Board
     {
         return turn;
     }
-     public Popup getCheckmatePopUp(){
-       Popup popUp = new Popup();
-       Text text = new Text("schaakmat");
-        HBox box = new HBox(5);
-        Button ok = new Button("ok");
-        box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
-        box.getChildren().addAll(text,ok);
-        popUp.getContent().add(box); 
-        return popUp;
-    }
-
 }
