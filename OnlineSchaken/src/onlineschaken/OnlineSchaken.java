@@ -8,9 +8,12 @@ package onlineschaken;
 import java.util.Timer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,6 +31,8 @@ public class OnlineSchaken extends Application
     Label timerWhite;
     Timer timer;
     VBox vb;
+    Button drawButton;
+    
     @Override
     public void start(Stage primaryStage)
     {
@@ -42,6 +47,16 @@ public class OnlineSchaken extends Application
         HBox hb = new HBox(20);
         timerWhite = new Label("30:00");
         timerBlack = new Label("30:00");
+        drawButton = new Button("draw");
+        drawButton.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent e)
+            {
+                game.setPlayer1Draw(true);
+                game.setPlayer2Draw(true);
+            }
+        });
         vb = new VBox();
         vb.getChildren().addAll(timerWhite, timerBlack);
         hb.getChildren().addAll(game.board.getRoot(), vb);
