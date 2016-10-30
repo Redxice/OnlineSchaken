@@ -247,6 +247,7 @@ public class Game {
                                ((King) p2).isCheck();
                                 if(((King) p2).check == false)
                                 {
+                                 section.tempSetPiece(previousPiece);
                                  return false; 
                                 }
                            }
@@ -276,6 +277,7 @@ public class Game {
                                ((King) p2).isCheck();
                                 if(((King) p2).check == false)
                                 {
+                                 section.tempSetPiece(previousPiece);
                                  return false; 
                                 }
                            }
