@@ -254,7 +254,7 @@ public class Game {
         return true;
       }
       else{
-      for(Piece p: player1.pieces)
+      for(Piece p: player1.getPieces())
         {
             for(Section[] x: board.getSections())
             {
@@ -266,9 +266,10 @@ public class Game {
                        {
                            if(p2 instanceof King)
                            {
+                               ((King) p2).isCheck();
                                 if(((King) p2).check == false)
                                 {
-                                 return false;
+                                 return false; 
                                 }
                            }
                        }
@@ -276,8 +277,8 @@ public class Game {
                 }
             }
         }
-      }
-      return true;
+        return true;
+      }      
    }
    
    // Zet alle stukken in de begin positie op het bord;

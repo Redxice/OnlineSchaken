@@ -31,8 +31,8 @@ public class OnlineSchaken extends Application
     @Override
     public void start(Stage primaryStage)
     {
-        Player p1 = new Player("p1", "ww", 0);
-        Player p2 = new Player("p2", "ww", 0);
+        Player p1 = new Player("White", "ww", 0);
+        Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         game = new Game(p1, p2, this);
         game.board.createContent();

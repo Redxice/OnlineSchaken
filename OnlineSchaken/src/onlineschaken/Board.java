@@ -79,9 +79,14 @@ public class Board
                               }   
                                 if(game.checkMate())
                                 {
+                                    if(turn == "white")
+                                    {
+                                    game.setWinner(game.player1);
+                                    }
+                                    else{game.setWinner(game.player2);}
                                     game.setFinished(true);
                                 }
-                                if (getTurn() == "white")
+                                if (turn == "white")
                                 {                                    
                                     turn = "black";
                                 } else
@@ -161,6 +166,11 @@ public class Board
                                 }
                                 if(game.checkMate())
                                 {
+                                     if(turn == "white")
+                                    {
+                                    game.setWinner(game.player1);
+                                    }
+                                    else{game.setWinner(game.player2);}
                                     game.setFinished(true);
                                 }
                                 if (getTurn() == "white")
@@ -235,6 +245,11 @@ public class Board
                                 }
                                 if(game.checkMate())
                                 {
+                                     if(turn == "white")
+                                    {
+                                    game.setWinner(game.player1);
+                                    }
+                                    else{game.setWinner(game.player2);}
                                     game.setFinished(true);
                                     
                                 }
