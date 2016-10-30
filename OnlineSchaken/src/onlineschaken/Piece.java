@@ -102,43 +102,41 @@ public abstract class Piece extends StackPane
                     if (((King) p).countCheckSections() == 1)
                     {
                         idKing = ((King) p).getSingleCheckSection().id;
-                    }
-                    else
+                    } else
                     {
                         return false;
                     }
-                    
+
                 }
             }
 
-            
         }
-if (!(this instanceof King) /*&& check == true*/)
+        if (!(this instanceof King) /*&& check == true*/)
+        {
+            if (idKing != p_section.id)
             {
-                if (idKing != p_section.id)
+                previousState = this.section;
+                p_section.setPiece(this);
+                this.section.setPiece(null);
+                for (Piece p2 : player.pieces)
                 {
-                    previousState = this.section;
-                    p_section.setPiece(this);
-                    this.section.setPiece(null);
-                    for (Piece p2 : player.pieces)
+                    if (p2 instanceof King)
                     {
-                        if (p2 instanceof King)
+                        ((King) p2).isCheck();
+                        if (((King) p2).check)
                         {
-                            ((King) p2).isCheck();
-                            if (((King) p2).check)
-                            {
-                                p_section.setPiece(null);
-                                this.section = previousState;
-                                section.setPiece(this);
-                                return false;
-                            }
+                            p_section.setPiece(null);
+                            this.section = previousState;
+                            section.setPiece(this);
+                            return false;
                         }
                     }
-                    p_section.setPiece(null);
-                    this.section = previousState;
-                    this.section.setPiece(this);
                 }
+                p_section.setPiece(null);
+                this.section = previousState;
+                this.section.setPiece(this);
             }
+        }
         try
         {
             if (p_sectionPiece != null)

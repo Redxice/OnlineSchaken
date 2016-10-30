@@ -5,8 +5,7 @@
  */
 package onlineschaken;
 
-import javafx.stage.Stage;
-import onlineschaken.*;
+import java.awt.Point;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,65 +15,85 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author redxice
+ * @author Sander
  */
 public class PawnTest
 {
-    private static OnlineSchaken onlineSchaken;
-    private Game game;
-    private Player p1;
-    private Player p2;
-    private Board board;
-    private Section testSection;
-    private Section testSection2;
-    private Pawn pawnWhite;
-    private Pawn pawnBlack;
-    
+
+    OnlineSchaken onlineSchaken;
+    Game game;
+    Player p1;
+    Player p2;
+    Board board;
+
     public PawnTest()
     {
+        onlineSchaken = new OnlineSchaken();
+        p1 = new Player("p1", "ww", 0);
+        p2 = new Player("p2", "ww", 0);
+        game = new Game(p1, p2);
+        game.getBoard().createContent();
     }
+
     @BeforeClass
     public static void setUpClass()
     {
-        
+
     }
-    
+
     @AfterClass
     public static void tearDownClass()
     {
-
     }
-    
+
     @Before
     public void setUp()
-    {   Stage primarystage = new Stage();
-        onlineSchaken = new OnlineSchaken();
-        onlineSchaken.start(primarystage);
-         p1 = new Player("p1", "ww", 0);
-         p2 = new Player("p2", "ww", 0);
-        game = new Game(p1, p2);
-        game.getBoard().createContent();
-        game.setPieces();
-        game.getBoard().createContent2();
-         
+    {
     }
-    
+
     @After
     public void tearDown()
     {
-        p1 = null;
-        testSection = null;
-        testSection2= null;
-        pawnWhite = null;  
     }
-/**
- * check de getter and setter van PrevSection
- */
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
     @Test
-    public void setPrevSectionAndGetSection(){
-        
-       pawnWhite.setPrevSection(testSection2);
-       Section prevSection =testSection2;
-       assertEquals(prevSection.getID(),pawnWhite.getPrevSection().getID());
+    public void TestGetPlayer()
+    {
+        Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(0, 0));
+        String actual = pawnWhite.player.username;
+        String expected = "p1";
+        assertEquals(actual, expected);
     }
+
+    @Test
+    public void TestGetColor()
+    {
+        Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(0, 0));
+        String actual = pawnWhite.getColor();
+        String expected = "Black";
+        assertEquals(actual, expected);
+    }
+    
+    @Test
+    public void TestGetSection()
+    {
+        Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(3, 5));
+        Point actual = pawnWhite.getSection().id;
+        Point expected = new Point(3,5);
+        assertEquals(actual, expected);
+    }
+    
+    @Test
+    public void TestPrevSection()
+    {
+        Pawn pawnWhite = new Pawn("Black", p1, game.board.getSections(3, 5));
+        pawnWhite.setPrevSection(game.board.getSections(2, 2));
+        Point actual = pawnWhite.getPrevSection().id;
+        Point expected = new Point(2,2);
+        assertEquals(actual, expected);
+    }
+    
 }
