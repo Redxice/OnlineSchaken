@@ -236,6 +236,7 @@ public class Board
                                 if(game.checkMate())
                                 {
                                     game.setFinished(true);
+                                    
                                 }
                                 if (getTurn() == "white")
                                 {

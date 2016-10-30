@@ -82,7 +82,6 @@ public abstract class Piece extends StackPane
 
     public Boolean move(Section p_section)
     {
-        System.out.println(String.valueOf(section.id));
         Point idKing = null;
         Piece p_sectionPiece = p_section.getPiece();
 
@@ -131,7 +130,6 @@ if (!(this instanceof King) /*&& check == true*/)
                                 p_section.setPiece(null);
                                 this.section = previousState;
                                 section.setPiece(this);
-                                System.out.println("---" + section);
                                 return false;
                             }
                         }
@@ -221,9 +219,6 @@ if (!(this instanceof King) /*&& check == true*/)
                         }
                     }
                 }
-                System.out.println(section.id);
-                System.out.println(p_section.id);
-                System.out.println(section.getBoard());
                 section.getBoard().drawSpecificPieces(section, p_section);
                 section.setPiece(null);
                 section.id.x = p_section.id.x;

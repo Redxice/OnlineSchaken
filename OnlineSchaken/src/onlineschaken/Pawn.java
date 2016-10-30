@@ -447,7 +447,6 @@ public class Pawn extends Piece
   public boolean moveEnPassant(Section p_section){
       if (p_section.getPiece() instanceof Pawn)
       {  Pawn pawn = (Pawn) p_section.getPiece();
-      System.out.println(String.valueOf(pawn.getPrevSectionY()));
           if (pawn.color== "black")
           {
               if (pawn.getPrevSectionY() == 6)

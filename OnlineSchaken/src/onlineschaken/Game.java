@@ -240,7 +240,8 @@ public class Game {
                        {
                            if(p2 instanceof King)
                            {
-                                if(((King) p2).isCheck() == false)
+                               ((King) p2).isCheck();
+                                if(((King) p2).check == false)
                                 {
                                  return false; 
                                 }
