@@ -58,7 +58,7 @@ public class OnlineSchaken extends Application
             }
         });
         vb = new VBox();
-        vb.getChildren().addAll(timerWhite, timerBlack);
+        vb.getChildren().addAll(timerWhite, timerBlack, drawButton);
         hb.getChildren().addAll(game.board.getRoot(), vb);
         hb.setAlignment(Pos.CENTER);
         vb.setAlignment(Pos.CENTER);
