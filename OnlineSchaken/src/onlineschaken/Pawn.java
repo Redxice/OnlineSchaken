@@ -81,7 +81,7 @@ public class Pawn extends Piece
         {
             return false;
         } else if (hasMoved == false)
-        { System.out.println(String.valueOf(this));
+        { 
             if (this.color == "black")
             {
                 //1 section naar voren.

@@ -80,8 +80,11 @@ public abstract class Piece extends StackPane
 
     public Boolean move(Section p_section)
     {
+        System.out.println(String.valueOf(section.id));
         Point idKing = null;
         Boolean check = false;
+        Piece p_sectionPiece = p_section.getPiece();
+        
         //previousState = this.section;
         for (Piece p : player.pieces)
         {
@@ -141,7 +144,12 @@ public abstract class Piece extends StackPane
 
         try
         {
-            if (checkMove(p_section))
+            if (p_sectionPiece != null)
+        { 
+            p_section.setPiece(p_sectionPiece);
+        }
+        
+           if (checkMove(p_section))
             {
                 // kijkt of het gekoze stuk een toren is
                 if (section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
