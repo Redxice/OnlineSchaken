@@ -54,7 +54,7 @@ public class King extends Piece
         }
         return counter;
     }
-    
+
     public Section getSingleCheckSection()
     {
         Section checkSection = null;
@@ -76,7 +76,7 @@ public class King extends Piece
         }
         return checkSection;
     }
-    
+
     public boolean isCheck()
     {
         check = false;
@@ -125,7 +125,7 @@ public class King extends Piece
         }
         return false;
     }
-    
+
     public void setCheck(boolean check)
     {
         this.check = check;
@@ -210,7 +210,7 @@ public class King extends Piece
             return false;
         }
         //check of je niet versliest door de koning naar de plek te verplaatsen
-        if(becomeCheck(p_section))
+        if (becomeCheck(p_section))
         {
             return false;
         }

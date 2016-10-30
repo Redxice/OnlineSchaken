@@ -33,7 +33,7 @@ public class OnlineSchaken extends Application
     Timer timer;
     VBox vb;
     Button drawButton;
-    
+
     @Override
     public void start(Stage primaryStage)
     {
@@ -57,8 +57,8 @@ public class OnlineSchaken extends Application
                 game.setPlayer1Draw(true);
                 game.setPlayer2Draw(true);
                 game.timer.cancel();
-                int exit = JOptionPane.showOptionDialog(null, "The game is a draw", "Draw", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
-                if(exit == 0)
+                int exit = JOptionPane.showOptionDialog(null, "The game is a draw", "Draw", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                if (exit == 0)
                 {
                     Platform.exit();
                 }
@@ -77,14 +77,16 @@ public class OnlineSchaken extends Application
 
     public void update()
     {
-        Platform.runLater(new Runnable() {
-        @Override public void run() {
-        timerWhite.setText(game.resterend(1));
-        timerBlack.setText(game.resterend(2));
-      }
-    });
+        Platform.runLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                timerWhite.setText(game.resterend(1));
+                timerBlack.setText(game.resterend(2));
+            }
+        });
     }
-    
 
     /**
      * @param args the command line arguments

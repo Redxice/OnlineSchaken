@@ -9,13 +9,9 @@ import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.text.Text;
-import javafx.stage.Popup;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,10 +33,10 @@ public class Board
     private Piece piece;
     private String turn = "white";
     private Game game;
-    
+
     public Board()
     {
-        
+
     }
 
     public Parent createContent()
@@ -73,30 +69,31 @@ public class Board
                             {
                                 firstSection = null;
                                 piece = null;
-                               if(game.draw())
-                              {
-                               JOptionPane.showMessageDialog(null,"draw");
-                              }   
-                                if(game.checkMate())
+                                if (game.draw())
                                 {
-                                    if(turn == "white")
+                                    JOptionPane.showMessageDialog(null, "draw");
+                                }
+                                if (game.checkMate())
+                                {
+                                    if (turn == "white")
                                     {
-                                    game.setWinner(game.player1);
+                                        game.setWinner(game.player1);
+                                    } else
+                                    {
+                                        game.setWinner(game.player2);
                                     }
-                                    else{game.setWinner(game.player2);}
                                     game.setFinished(true);
                                 }
                                 if (turn == "white")
-                                {                                    
+                                {
                                     turn = "black";
                                 } else
                                 {
                                     turn = "white";
                                 }
-                            }
-                            else
+                            } else
                             {
-                               firstSection = null;
+                                firstSection = null;
                             }
 
                         }
@@ -130,7 +127,7 @@ public class Board
 
     public Parent drawSpecificPieces(Section p_section1, Section p_section2)
     {
-        
+
         Piece piece2 = p_section1.getPiece();
         for (Section[] x : sections)
         {
@@ -140,55 +137,56 @@ public class Board
                 {
                     Section section = new Section((y.id.x + y.id.y) % 2 == 0, y.id.x, y.id.y, this);
                     section.setOnMouseClicked(new EventHandler<MouseEvent>()
-                {
-                    @Override
-                    public void handle(MouseEvent t)
                     {
-                        if (firstSection == null && section.getPiece() != null)
+                        @Override
+                        public void handle(MouseEvent t)
                         {
-                            if (getTurn() == section.getPiece().color)
+                            if (firstSection == null && section.getPiece() != null)
                             {
-                                if (section.getPiece() != null)
+                                if (getTurn() == section.getPiece().color)
                                 {
-                                    firstSection = sections[section.id.x][section.id.y];
-                                    piece = firstSection.getPiece();
-                                }
-                            }
-                        } else if (firstSection != null)
-                        {
-                            if (piece.move(section))
-                            {
-                                firstSection = null;
-                                piece = null;
-                                 if(game.draw())
-                                {
-                                JOptionPane.showMessageDialog(null,"draw");
-                                }
-                                if(game.checkMate())
-                                {
-                                     if(turn == "white")
+                                    if (section.getPiece() != null)
                                     {
-                                    game.setWinner(game.player1);
+                                        firstSection = sections[section.id.x][section.id.y];
+                                        piece = firstSection.getPiece();
                                     }
-                                    else{game.setWinner(game.player2);}
-                                    game.setFinished(true);
                                 }
-                                if (getTurn() == "white")
+                            } else if (firstSection != null)
+                            {
+                                if (piece.move(section))
                                 {
-                                    turn = "black";
+                                    firstSection = null;
+                                    piece = null;
+                                    if (game.draw())
+                                    {
+                                        JOptionPane.showMessageDialog(null, "draw");
+                                    }
+                                    if (game.checkMate())
+                                    {
+                                        if (turn == "white")
+                                        {
+                                            game.setWinner(game.player1);
+                                        } else
+                                        {
+                                            game.setWinner(game.player2);
+                                        }
+                                        game.setFinished(true);
+                                    }
+                                    if (getTurn() == "white")
+                                    {
+                                        turn = "black";
+                                    } else
+                                    {
+                                        turn = "white";
+                                    }
                                 } else
                                 {
-                                    turn = "white";
+                                    firstSection = null;
                                 }
-                            }
-                            else
-                            {
-                               firstSection = null;
-                            }
 
+                            }
                         }
-                    }
-                });
+                    });
                     sections[y.id.x][y.id.y] = section;
 
                     tileGroup.getChildren().add(section);
@@ -196,7 +194,7 @@ public class Board
                 if (y.id == p_section2.id)
                 {
                     ImagePattern i = new ImagePattern(p_section1.getPiece().img);
-                    
+
                     y.setPiece(piece2);
                     y.setFill(i);
                 }
@@ -204,13 +202,14 @@ public class Board
         }
         return root;
     }
+
     /**
-     * 
+     *
      * @param p_section1 de section waar de te verwijderen stuk staat.
-     * @return 
+     * @return
      */
- public Parent ClearSection(Section p_section1)
-    {  
+    public Parent ClearSection(Section p_section1)
+    {
         for (Section[] x : sections)
         {
             for (Section y : x)
@@ -219,56 +218,57 @@ public class Board
                 {
                     Section section = new Section((y.id.x + y.id.y) % 2 == 0, y.id.x, y.id.y, this);
                     section.setOnMouseClicked(new EventHandler<MouseEvent>()
-                {
-                    @Override
-                    public void handle(MouseEvent t)
                     {
-                        if (firstSection == null && section.getPiece() != null)
+                        @Override
+                        public void handle(MouseEvent t)
                         {
-                            if (getTurn() == section.getPiece().color)
+                            if (firstSection == null && section.getPiece() != null)
                             {
-                                if (section.getPiece() != null)
+                                if (getTurn() == section.getPiece().color)
                                 {
-                                    firstSection = sections[section.id.x][section.id.y];
-                                    piece = firstSection.getPiece();
-                                }
-                            }
-                        } else if (firstSection != null)
-                        {
-                            if (piece.move(section))
-                            {
-                                firstSection = null;
-                                piece = null;
-                                if(game.draw())
-                                {
-                                JOptionPane.showMessageDialog(null,"draw");
-                                }
-                                if(game.checkMate())
-                                {
-                                     if(turn == "white")
+                                    if (section.getPiece() != null)
                                     {
-                                    game.setWinner(game.player1);
+                                        firstSection = sections[section.id.x][section.id.y];
+                                        piece = firstSection.getPiece();
                                     }
-                                    else{game.setWinner(game.player2);}
-                                    game.setFinished(true);
-                                    
                                 }
-                                if (getTurn() == "white")
+                            } else if (firstSection != null)
+                            {
+                                if (piece.move(section))
                                 {
-                                    turn = "black";
+                                    firstSection = null;
+                                    piece = null;
+                                    if (game.draw())
+                                    {
+                                        JOptionPane.showMessageDialog(null, "draw");
+                                    }
+                                    if (game.checkMate())
+                                    {
+                                        if (turn == "white")
+                                        {
+                                            game.setWinner(game.player1);
+                                        } else
+                                        {
+                                            game.setWinner(game.player2);
+                                        }
+                                        game.setFinished(true);
+
+                                    }
+                                    if (getTurn() == "white")
+                                    {
+                                        turn = "black";
+                                    } else
+                                    {
+                                        turn = "white";
+                                    }
                                 } else
                                 {
-                                    turn = "white";
-                                }                               
-                            }
-                            else
-                            {
-                               firstSection = null;
-                            }
+                                    firstSection = null;
+                                }
 
+                            }
                         }
-                    }
-                });
+                    });
                     sections[y.id.x][y.id.y] = section;
 
                     tileGroup.getChildren().add(section);
@@ -283,6 +283,7 @@ public class Board
         }
         return root;
     }
+
     public int getTILE_SIZE()
     {
         return TILE_SIZE;

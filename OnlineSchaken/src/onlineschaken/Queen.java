@@ -116,8 +116,7 @@ public class Queen extends Piece
                     }
                     return true;
                 }
-            } 
-             // Kijkt of de toren over de y as kan bewegen
+            } // Kijkt of de toren over de y as kan bewegen
             else if (this.section.getID().x == p_section.getID().x)
             {
                 if (this.section.getID().y > p_section.getID().y)
@@ -130,19 +129,18 @@ public class Queen extends Piece
                         }
                     }
                     return true;
-                }
-                else if (this.section.getID().y < p_section.getID().y)
-            {
-                for (int i = 0; i < p_section.getID().y - this.section.getID().y - 1; i++)
+                } else if (this.section.getID().y < p_section.getID().y)
                 {
-                    if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i + 1].isOccupied() == true)
+                    for (int i = 0; i < p_section.getID().y - this.section.getID().y - 1; i++)
                     {
-                        return false;
+                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i + 1].isOccupied() == true)
+                        {
+                            return false;
+                        }
                     }
+                    return true;
                 }
-                return true;
             }
-            }             
         }
         return false;
     }

@@ -76,24 +76,26 @@ public class PawnTest
         String expected = "Black";
         assertEquals(actual, expected);
     }
-    
+
     @Test
     public void TestGetSection()
     {
         Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(3, 5));
         Point actual = pawnWhite.getSection().id;
-        Point expected = new Point(3,5);
+        Point expected = new Point(3, 5);
         assertEquals(actual, expected);
     }
-    
+
     @Test
     public void TestPrevSection()
     {
         Pawn pawnWhite = new Pawn("Black", p1, game.board.getSections(3, 5));
         pawnWhite.setPrevSection(game.board.getSections(2, 2));
         Point actual = pawnWhite.getPrevSection().id;
-        Point expected = new Point(2,2);
+        Point expected = new Point(2, 2);
         assertEquals(actual, expected);
+        Knight k = new Knight("Black", p1, game.board.getSections(3, 5));
+
     }
-    
+
 }

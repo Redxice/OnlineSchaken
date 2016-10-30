@@ -55,11 +55,14 @@ public class Pawn extends Piece
     {
         return prevX;
     }
-      public double getPrevSectionY()
+
+    public double getPrevSectionY()
     {
         return prevY;
     }
-    public Section getPrevSection(){
+
+    public Section getPrevSection()
+    {
         return this.prevSection;
     }
 
@@ -67,6 +70,7 @@ public class Pawn extends Piece
     {
         return this.hasMoved;
     }
+
     @Override
     public Boolean checkMove(Section p_section)
     {
@@ -76,12 +80,13 @@ public class Pawn extends Piece
         {
             return false;
         } else if (hasMoved == false)
-        { 
+        {
             if (this.color == "black")
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
-                {   this.setPrevSection(prevsection);
+                {
+                    this.setPrevSection(prevsection);
                     return true;
                 } //2 section naar voren
                 else if (this.moveTwoTilesForwardBlack(p_section, board))
@@ -147,13 +152,15 @@ public class Pawn extends Piece
         }
         return false;
     }
-/**
- * Deze methode wordt aangeroepen wanneer de promotion methode true returned
- * 
- * @return Popup met daar de 4 buttons die allemaal hun eigen eventhandler hebben.
- * zodra er wordt geclickt op een button wordt de de pawn uit de speler zijn lijst verwijdert 
- * en  het aangegeven type piece wordt toegevoegt aan de speler zijn lijst op de locatie van de pawn.
- */
+
+    /**
+     * Deze methode wordt aangeroepen wanneer de promotion methode true returned
+     *
+     * @return Popup met daar de 4 buttons die allemaal hun eigen eventhandler
+     * hebben. zodra er wordt geclickt op een button wordt de de pawn uit de
+     * speler zijn lijst verwijdert en het aangegeven type piece wordt
+     * toegevoegt aan de speler zijn lijst op de locatie van de pawn.
+     */
     public Popup menu()
     {
         Popup menu = new Popup();
@@ -241,71 +248,73 @@ public class Pawn extends Piece
         }
         return false;
     }
-/**
- * Checked of schuin voor de pion is geclicked.
- * En of daar een pion staat van de tegenstander.Zo niet kijkt hij 
- * of er onder de geclickte locatie een pion staat van de tegenstander
- * @param p_section
- * @param board
- * @return 
- */
+
+    /**
+     * Checked of schuin voor de pion is geclicked. En of daar een pion staat
+     * van de tegenstander.Zo niet kijkt hij of er onder de geclickte locatie
+     * een pion staat van de tegenstander
+     *
+     * @param p_section
+     * @param board
+     * @return
+     */
     public boolean toCaptureWhite(Section p_section, Board board)
-    {       Section Leftsection=null;
-            Section Rightsection=null;
-        try{
-         Leftsection = section.getBoard().getSections(section.id.x-1, section.id.y);
-         Rightsection = section.getBoard().getSections(section.id.x+1, section.id.y);
-        }
-        catch(ArrayIndexOutOfBoundsException ex){
-            
+    {
+        Section Leftsection = null;
+        Section Rightsection = null;
+        try
+        {
+            Leftsection = section.getBoard().getSections(section.id.x - 1, section.id.y);
+            Rightsection = section.getBoard().getSections(section.id.x + 1, section.id.y);
+        } catch (ArrayIndexOutOfBoundsException ex)
+        {
+
         }
         if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
         {
-            
-                if (p_section.isOccupied())
+
+            if (p_section.isOccupied())
+            {
+                if (isValidMove(p_section))
                 {
-                    if (isValidMove(p_section))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                else if (Leftsection !=null)
-                {     
+            } else if (Leftsection != null)
+            {
                 if (Leftsection.isOccupied())
                 {
                     if (isValidMove(Leftsection))
                     {
-                        if(moveEnPassant(Leftsection)){
-                        return true;
+                        if (moveEnPassant(Leftsection))
+                        {
+                            return true;
                         }
                     }
                 }
-                }
-              
-            }  
-        
-        else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+            }
+
+        } else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
         {
-             if (p_section.isOccupied())
+            if (p_section.isOccupied())
+            {
+                if (isValidMove(p_section))
                 {
-                    if (isValidMove(p_section))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-              else if (Rightsection !=null)
-                {     
+            } else if (Rightsection != null)
+            {
                 if (Rightsection.isOccupied())
                 {
                     if (isValidMove(Rightsection))
                     {
-                        if(moveEnPassant(Rightsection)){
-                        return true;
+                        if (moveEnPassant(Rightsection))
+                        {
+                            return true;
                         }
                     }
                 }
-                }
-            
+            }
+
         }
         return false;
     }
@@ -381,100 +390,106 @@ public class Pawn extends Piece
         }
         return false;
     }
-/**
- * Checked of schuin voor de pion is geclicked.
- * En of daar een pion staat van de tegenstander.Zo niet kijkt hij 
- * of er onder de geclickte locatie een pion staat van de tegenstander
- * @param p_section
- * @param board
- * @return 
- */
+
+    /**
+     * Checked of schuin voor de pion is geclicked. En of daar een pion staat
+     * van de tegenstander.Zo niet kijkt hij of er onder de geclickte locatie
+     * een pion staat van de tegenstander
+     *
+     * @param p_section
+     * @param board
+     * @return
+     */
     public boolean toCaptureBlack(Section p_section, Board board)
-    {   
-        Section Leftsection=null;
-            Section Rightsection=null;
-        try{
-         Leftsection = section.getBoard().getSections(section.id.x-1, section.id.y);
-         Rightsection = section.getBoard().getSections(section.id.x+1, section.id.y);
+    {
+        Section Leftsection = null;
+        Section Rightsection = null;
+        try
+        {
+            Leftsection = section.getBoard().getSections(section.id.x - 1, section.id.y);
+            Rightsection = section.getBoard().getSections(section.id.x + 1, section.id.y);
+        } catch (ArrayIndexOutOfBoundsException ex)
+        {
+
         }
-        catch(ArrayIndexOutOfBoundsException ex){
-            
-        }
-            if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+        if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+        {
+            if (p_section.isOccupied())
             {
-                if (p_section.isOccupied())
+                if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
                 {
-                    if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                else if (Rightsection!=null)
-                {
+            } else if (Rightsection != null)
+            {
                 if (Rightsection.isOccupied())
                 {
                     if (isValidMove(Rightsection))
                     {
-                        if(moveEnPassant(Rightsection)){
-                        return true;
+                        if (moveEnPassant(Rightsection))
+                        {
+                            return true;
                         }
                     }
                 }
-                }
-            }else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1){
-               if (p_section.isOccupied())
+            }
+        } else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
+        {
+            if (p_section.isOccupied())
             {
-        
+
                 if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
                 {
                     return true;
                 }
-            }
-               else if (Leftsection!=null)
-                {     
+            } else if (Leftsection != null)
+            {
                 if (Leftsection.isOccupied())
                 {
                     if (isValidMove(Leftsection))
                     {
-                        if(moveEnPassant(Leftsection)){
-                        return true;
+                        if (moveEnPassant(Leftsection))
+                        {
+                            return true;
                         }
                     }
                 }
-                }
             }
-            
+        }
+
         return false;
     }
+
     /**
-     * 
-     * @param p_section 
-     * Deze methode verwijdert een
-     * pawn van een section wanneer de prevY op de start positie was.
-     * 
+     *
+     * @param p_section Deze methode verwijdert een pawn van een section wanneer
+     * de prevY op de start positie was.
+     *
      */
-    
-  public boolean moveEnPassant(Section p_section){
-      if (p_section.getPiece() instanceof Pawn)
-      {  Pawn pawn = (Pawn) p_section.getPiece();
-          if (pawn.color== "black")
-          {
-              if (pawn.getPrevSectionY() == 6)
-              {
-                   p_section.getBoard().ClearSection(p_section);
-                   return true;
-              }
-          }
-          else if(pawn.color =="white"){
-              if (pawn.getPrevSectionY() == 1)
-              {
-                 p_section.getBoard().ClearSection(p_section);  
-                 return true;
-              }
-              
-          }
-          
-      }
-      return false;
-  } 
+
+    public boolean moveEnPassant(Section p_section)
+    {
+        if (p_section.getPiece() instanceof Pawn)
+        {
+            Pawn pawn = (Pawn) p_section.getPiece();
+            if (pawn.color == "black")
+            {
+                if (pawn.getPrevSectionY() == 6)
+                {
+                    p_section.getBoard().ClearSection(p_section);
+                    return true;
+                }
+            } else if (pawn.color == "white")
+            {
+                if (pawn.getPrevSectionY() == 1)
+                {
+                    p_section.getBoard().ClearSection(p_section);
+                    return true;
+                }
+
+            }
+
+        }
+        return false;
+    }
 }

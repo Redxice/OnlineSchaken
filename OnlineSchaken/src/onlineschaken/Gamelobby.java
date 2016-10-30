@@ -11,25 +11,32 @@ import java.util.List;
  *
  * @author redxice
  */
-class Gamelobby {
+class Gamelobby
+{
+
     String name;
     int maxPlayers;
     List<Chatline> chatLines;
-    
-    public Gamelobby(String name,int maxPlayers){
+
+    public Gamelobby(String name, int maxPlayers)
+    {
         this.name = name;
         this.maxPlayers = maxPlayers;
     }
-    public String getName(){
-       return this.name;
+
+    public String getName()
+    {
+        return this.name;
     }
+
     public int getMaxPlayers()
     {
         return this.maxPlayers;
     }
-    public void addChatLine(Chatline message){
-       chatLines.add(message);
+
+    public void addChatLine(Chatline message)
+    {
+        chatLines.add(message);
     }
-   
-    
+
 }
