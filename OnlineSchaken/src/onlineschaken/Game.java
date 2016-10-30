@@ -414,4 +414,20 @@ public class Game {
         }
         return true;
     }
+
+    /**
+     * @param player1Draw the player1Draw to set
+     */
+    public void setPlayer1Draw(boolean player1Draw)
+    {
+        this.player1Draw = player1Draw;
+    }
+
+    /**
+     * @param player2Draw the player2Draw to set
+     */
+    public void setPlayer2Draw(boolean player2Draw)
+    {
+        this.player2Draw = player2Draw;
+    }
 }
