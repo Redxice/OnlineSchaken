@@ -65,6 +65,10 @@ public class Section extends Rectangle{
        }
         this.piece = piece;
    }
+    public void tempSetPiece(Piece piece){
+        this.piece = piece;
+    }
+    
     public void setBoard(Board board) {
         this.board = board;
     }

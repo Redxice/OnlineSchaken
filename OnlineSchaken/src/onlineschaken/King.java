@@ -112,13 +112,13 @@ public class King extends Piece
                     if (!y.getPiece().color.equals(this.color))
                     {
                         previousPiece = p_section.getPiece();
-                        p_section.setPiece(this);
+                        p_section.tempSetPiece(this);
                         if (y.getPiece().checkMove(p_section))
                         {
-                            p_section.setPiece(previousPiece);
+                            p_section.tempSetPiece(previousPiece);
                             return true;
                         }
-                        p_section.setPiece(previousPiece);
+                        p_section.tempSetPiece(previousPiece);
                     }
                 }
             }
