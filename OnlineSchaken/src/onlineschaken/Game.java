@@ -266,8 +266,8 @@ public class Game {
     player2.pieces.add(piece = new Pawn("black",player2,board.getSections(3,6)));
     player2.pieces.add(piece = new Pawn("black",player2,board.getSections(4,6)));
     player2.pieces.add(piece = new Pawn("black",player2,board.getSections(5,6)));
-    player1.pieces.add(piece = new Pawn("black",player2,board.getSections(6,6)));
-    player1.pieces.add(piece = new Pawn("black",player2,board.getSections(7,6)));    
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(6,6)));
+    player2.pieces.add(piece = new Pawn("black",player2,board.getSections(7,6)));    
     }
    
     // kijkt of het draw is
