@@ -38,6 +38,7 @@ public abstract class Piece extends StackPane
         }
 
     }
+
     public Player getPlayer()
     {
         return player;
@@ -84,7 +85,7 @@ public abstract class Piece extends StackPane
         System.out.println(String.valueOf(section.id));
         Point idKing = null;
         Piece p_sectionPiece = p_section.getPiece();
-        
+
         for (Piece p : player.pieces)
         {
             if (p instanceof King)
@@ -99,11 +100,21 @@ public abstract class Piece extends StackPane
                             return false;
                         }
                     }
-                    idKing = ((King) p).getSingleCheckSection().id;
+                    if (((King) p).countCheckSections() == 1)
+                    {
+                        idKing = ((King) p).getSingleCheckSection().id;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
                 }
             }
 
-            if (!(this instanceof King) /*&& check == true*/)
+            
+        }
+if (!(this instanceof King) /*&& check == true*/)
             {
                 if (idKing != p_section.id)
                 {
@@ -128,18 +139,16 @@ public abstract class Piece extends StackPane
                     p_section.setPiece(null);
                     this.section = previousState;
                     this.section.setPiece(this);
-                } 
+                }
             }
-        }
-
         try
         {
             if (p_sectionPiece != null)
-        { 
-            p_section.setPiece(p_sectionPiece);
-        }
-        
-           if (checkMove(p_section))
+            {
+                p_section.setPiece(p_sectionPiece);
+            }
+
+            if (checkMove(p_section))
             {
                 // kijkt of het gekoze stuk een toren is
                 if (section.getPiece() instanceof Rook && section.getPiece().hasMoved == false)
