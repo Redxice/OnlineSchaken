@@ -51,6 +51,15 @@ public class Game {
         timer.schedule(new GameTimer(this, board, this.javaFX), 0,1000);
         board.setGame(this);
     }
+    //zonder timer
+    public Game(Player p_player1,Player p_player2){        
+        this.player1 = p_player1;
+        this.player2 = p_player2;
+        //this.time = p_time;
+        this.javaFX = javaFX;
+        board = new Board();
+        board.setGame(this);
+    }
     //constructor vor een game die deel is van een tournament
     public Game(int p_time,Player p_player1,Player p_player2,
             Tournament p_tournament, OnlineSchaken javaFX){

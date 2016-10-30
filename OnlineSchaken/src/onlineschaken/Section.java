@@ -57,7 +57,14 @@ public class Section extends Rectangle{
     public Board getBoard() {
         return board;
     }
-   public void setPiece(Piece piece){
+    public void setPiece(Piece piece){
+       if(this.piece != null && piece != null)
+       {       
+        if(this.piece.getColor() != piece.getColor())
+        {
+        this.piece.getPlayer().removePiece(this.piece);
+        }
+       }
         this.piece = piece;
    }
     public void setBoard(Board board) {

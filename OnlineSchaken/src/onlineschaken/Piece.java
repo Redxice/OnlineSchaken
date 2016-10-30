@@ -41,6 +41,10 @@ public abstract class Piece extends StackPane
         }
 
     }
+    public Player getPlayer()
+    {
+        return player;
+    }
 
     public boolean isValidMove(Section p_section)
     {
