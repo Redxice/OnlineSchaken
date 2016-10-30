@@ -57,7 +57,11 @@ public class OnlineSchaken extends Application
                 game.setPlayer1Draw(true);
                 game.setPlayer2Draw(true);
                 game.timer.cancel();
-                JOptionPane.showMessageDialog(null, "The game is a draw");
+                int exit = JOptionPane.showOptionDialog(null, "The game is a draw", "Draw", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                if(exit == 0)
+                {
+                    Platform.exit();
+                }
             }
         });
         vb = new VBox();

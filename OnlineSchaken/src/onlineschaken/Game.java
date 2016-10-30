@@ -8,6 +8,7 @@ package onlineschaken;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import javafx.application.Platform;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
@@ -138,7 +139,11 @@ public class Game {
         if (this.finished==true)
         {   
             timer.cancel();
-            JOptionPane.showMessageDialog(null, String.valueOf(winner.username) + " has won.");
+            int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.username) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                if(exit == 0)
+                {
+                    Platform.exit();
+                }
         }
     }
 
