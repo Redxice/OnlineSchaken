@@ -89,7 +89,15 @@ public class Player {
     public void setFriends(List<Player> friends) {
         this.friends = friends;
     }
-
+    public void addFriend(Player friend){
+        this.friends.add(friend);
+    }
+    public void removeFriend(Player friend){
+        this.friends.remove(friend);
+    }
+    public void addHistory(Game game){
+        history.add(game);
+    }
     public List<Piece> getPieces() {
         return pieces;
     }
