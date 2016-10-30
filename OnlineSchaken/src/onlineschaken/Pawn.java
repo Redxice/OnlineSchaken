@@ -148,7 +148,13 @@ public class Pawn extends Piece
         }
         return false;
     }
-
+/**
+ * Deze methode wordt aangeroepen wanneer de promotion methode true returned
+ * 
+ * @return Popup met daar de 4 buttons die allemaal hun eigen eventhandler hebben.
+ * zodra er wordt geclickt op een button wordt de de pawn uit de speler zijn lijst verwijdert 
+ * en  het aangegeven type piece wordt toegevoegt aan de speler zijn lijst op de locatie van de pawn.
+ */
     public Popup menu()
     {
         Popup menu = new Popup();
@@ -236,7 +242,14 @@ public class Pawn extends Piece
         }
         return false;
     }
-
+/**
+ * Checked of schuin voor de pion is geclicked.
+ * En of daar een pion staat van de tegenstander.Zo niet kijkt hij 
+ * of er onder de geclickte locatie een pion staat van de tegenstander
+ * @param p_section
+ * @param board
+ * @return 
+ */
     public boolean toCaptureWhite(Section p_section, Board board)
     {       Section Leftsection=null;
             Section Rightsection=null;
@@ -365,7 +378,14 @@ public class Pawn extends Piece
         }
         return false;
     }
-
+/**
+ * Checked of schuin voor de pion is geclicked.
+ * En of daar een pion staat van de tegenstander.Zo niet kijkt hij 
+ * of er onder de geclickte locatie een pion staat van de tegenstander
+ * @param p_section
+ * @param board
+ * @return 
+ */
     public boolean toCaptureBlack(Section p_section, Board board)
     {   
         Section Leftsection=null;
@@ -420,7 +440,8 @@ public class Pawn extends Piece
     /**
      * 
      * @param p_section 
-     * Deze methode verwijdert een pawn van een section wanneer de prev state op de start positie was.
+     * Deze methode verwijdert een
+     * pawn van een section wanneer de prevY op de start positie was.
      * 
      */
     
