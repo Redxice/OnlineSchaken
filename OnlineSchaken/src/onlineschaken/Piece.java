@@ -165,7 +165,7 @@ public abstract class Piece extends StackPane
                         if (section.getID().getX() == 0 && section.getID().getY() == 0)
                         {
 
-                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][0]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][0]) == false)
                             {
                                 section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 0));
                                 p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 0));
@@ -180,7 +180,7 @@ public abstract class Piece extends StackPane
                             return false;
                         } else if (section.getID().getX() == 0 && section.getID().getY() == 7)
                         {
-                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][7]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[3][7]) == false)
                             {
                                 section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(3, 7));
                                 p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(2, 7));
@@ -195,7 +195,7 @@ public abstract class Piece extends StackPane
                             return false;
                         } else if (section.getID().getX() == 7 && section.getID().getY() == 7)
                         {
-                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][7]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][7]) == false)
                             {
                                 section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 7));
                                 p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 7));
@@ -210,7 +210,7 @@ public abstract class Piece extends StackPane
                             return false;
                         } else if (section.getID().getX() == 7 && section.getID().getY() == 0)
                         {
-                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][0]))
+                            if (((King) p_section.getPiece()).becomeCheck(section.getBoard().getSections()[5][0]) == false)
                             {
                                 section.getBoard().drawSpecificPieces(section, section.getBoard().getSections(5, 0));
                                 p_section.getBoard().drawSpecificPieces(p_section, section.getBoard().getSections(6, 0));
