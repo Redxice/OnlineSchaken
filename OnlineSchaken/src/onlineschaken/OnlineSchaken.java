@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -52,8 +51,6 @@ public class OnlineSchaken extends Application
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-      
     }
 
     public void update()
@@ -73,10 +70,6 @@ public class OnlineSchaken extends Application
     public static void main(String[] args)
     {
         launch(args);
-
-        //Database db = new Database();
-        //db.init();
-        //db.closeConnection();
     }
 
 }

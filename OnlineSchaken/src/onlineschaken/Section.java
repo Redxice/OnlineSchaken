@@ -22,8 +22,6 @@ public class Section extends Rectangle{
    
     
     //constructor
-    // 
-    //
     public Section(boolean light, int x, int y,Board board)
     {
         this.board = board;

@@ -5,7 +5,6 @@
  */
 package onlineschaken;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +23,7 @@ public class Player {
     List<Piece> pieces;
     Game game;
     List<Game> history;
+    
     //constructor
     public Player(String p_username,String p_password,int p_rating)
     {

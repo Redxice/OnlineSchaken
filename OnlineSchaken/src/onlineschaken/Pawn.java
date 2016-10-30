@@ -7,11 +7,7 @@ package onlineschaken;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;

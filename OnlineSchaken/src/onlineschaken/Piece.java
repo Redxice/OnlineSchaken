@@ -7,12 +7,9 @@ package onlineschaken;
 
 import java.awt.Point;
 import java.util.List;
-import java.util.logging.Logger;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 
 /**
  *
@@ -28,8 +25,8 @@ public abstract class Piece extends StackPane
     Image img;
     boolean hasMoved;
     Section previousState;
-//constructor
 
+    //constructor
     public Piece(String p_color, Player p_player, Section p_section)
     {
         this.color = p_color;
@@ -86,10 +83,8 @@ public abstract class Piece extends StackPane
     {
         System.out.println(String.valueOf(section.id));
         Point idKing = null;
-        Boolean check = false;
         Piece p_sectionPiece = p_section.getPiece();
         
-        //previousState = this.section;
         for (Piece p : player.pieces)
         {
             if (p instanceof King)
@@ -97,7 +92,6 @@ public abstract class Piece extends StackPane
                 ((King) p).isCheck();
                 if (((King) p).check)
                 {
-                    check = true;
                     if (this.section.getPiece() instanceof King)
                     {
                         if (((King) p).becomeCheck(p_section))
@@ -113,7 +107,6 @@ public abstract class Piece extends StackPane
             {
                 if (idKing != p_section.id)
                 {
-                    //this.section.setPiece(null);
                     previousState = this.section;
                     p_section.setPiece(this);
                     this.section.setPiece(null);
@@ -121,8 +114,6 @@ public abstract class Piece extends StackPane
                     {
                         if (p2 instanceof King)
                         {
-                            //p_section.setPiece(this);
-                            //this.section.setPiece(null);
                             ((King) p2).isCheck();
                             if (((King) p2).check)
                             {
@@ -137,12 +128,7 @@ public abstract class Piece extends StackPane
                     p_section.setPiece(null);
                     this.section = previousState;
                     this.section.setPiece(this);
-                    check = false;
-
-                } else
-                {
-                    check = false;
-                }
+                } 
             }
         }
 
@@ -226,10 +212,6 @@ public abstract class Piece extends StackPane
                         }
                     }
                 }
-                /*if()
-                {
-                    return false;
-                }*/
                 System.out.println(section.id);
                 System.out.println(p_section.id);
                 System.out.println(section.getBoard());
@@ -258,11 +240,6 @@ public abstract class Piece extends StackPane
             return false;
         } catch (NullPointerException e)
         {
-            //Logger.getLogger(e.getMessage());
-            System.out.println(e.getMessage());
-            System.out.println(section.getPiece());
-            System.out.println(section.getBoard());
-            System.out.println(p_section.getPiece());
         }
         return false;
     }
@@ -279,11 +256,6 @@ public abstract class Piece extends StackPane
             this.section = section.getBoard().getSections()[section.id.x][section.id.y];
         } catch (NullPointerException e)
         {
-            //Logger.getLogger(e.getMessage());
-            System.out.println(e.getMessage());
-            System.out.println(section.getPiece());
-            System.out.println(section.getBoard());
-            System.out.println(p_section.getPiece());
         }
         hasMoved = true;
     }

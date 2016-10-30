@@ -42,7 +42,6 @@ public class Game {
     public Game(Player p_player1,Player p_player2, OnlineSchaken javaFX){        
         this.player1 = p_player1;
         this.player2 = p_player2;
-        //this.time = p_time;
         this.javaFX = javaFX;
         board = new Board();
         resterend1 = 1800;
@@ -55,7 +54,6 @@ public class Game {
     public Game(Player p_player1,Player p_player2){        
         this.player1 = p_player1;
         this.player2 = p_player2;
-        //this.time = p_time;
         this.javaFX = javaFX;
         board = new Board();
         board.setGame(this);
