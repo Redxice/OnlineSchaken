@@ -269,16 +269,18 @@ public class Pawn extends Piece
                         return true;
                     }
                 }
-                else if (Leftsection.isOccupied())
-            {
-                if (isValidMove(Leftsection))
+                else if (Leftsection !=null)
+                {     
+                if (Leftsection.isOccupied())
                 {
-                    if(moveEnPassant(Leftsection)){
-                    return true;
+                    if (isValidMove(Leftsection))
+                    {
+                        if(moveEnPassant(Leftsection)){
+                        return true;
+                        }
                     }
                 }
-  
-            }
+                }
               
             }  
         
@@ -291,16 +293,18 @@ public class Pawn extends Piece
                         return true;
                     }
                 }
-        
-                else if (Rightsection.isOccupied())
-            {
-                if(isValidMove(Rightsection))
-                {    
-                    if(moveEnPassant(Rightsection)){
+              else if (Rightsection !=null)
+                {     
+                if (Rightsection.isOccupied())
+                {
+                    if (isValidMove(Rightsection))
+                    {
+                        if(moveEnPassant(Rightsection)){
                         return true;
-                     }
+                        }
+                    }
                 }
-            }
+                }
             
         }
         return false;
@@ -405,7 +409,9 @@ public class Pawn extends Piece
                         return true;
                     }
                 }
-                else if (Rightsection.isOccupied())
+                else if (Rightsection!=null)
+                {
+                if (Rightsection.isOccupied())
                 {
                     if (isValidMove(Rightsection))
                     {
@@ -413,6 +419,7 @@ public class Pawn extends Piece
                         return true;
                         }
                     }
+                }
                 }
             }else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1){
                if (p_section.isOccupied())
@@ -423,7 +430,9 @@ public class Pawn extends Piece
                     return true;
                 }
             }
-                else if (Leftsection.isOccupied())
+               else if (Leftsection!=null)
+                {     
+                if (Leftsection.isOccupied())
                 {
                     if (isValidMove(Leftsection))
                     {
@@ -431,6 +440,7 @@ public class Pawn extends Piece
                         return true;
                         }
                     }
+                }
                 }
             }
             
