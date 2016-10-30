@@ -274,12 +274,15 @@ public class Game {
     {
         if (staleMate())
         {
+            timer.cancel();
             return true;
         } else if (impossibleCheckMate())
         {
+            timer.cancel();
             return true;
         } else if (player1Draw == true && player2Draw == true)
         {
+            timer.cancel();
             return true;
         }
         return false;
