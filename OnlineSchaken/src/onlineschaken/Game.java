@@ -265,6 +265,7 @@ public class Game
 
     public boolean checkMate()
     {
+        Piece previousPiece;
         if (board.getTurn() == "white")
         {
             for (Piece p : player2.getPieces())
@@ -275,6 +276,8 @@ public class Game
                     {
                         if (p.checkMove(section))
                         {
+                            previousPiece = section.getPiece();
+                            section.tempSetPiece(p);
                             for (Piece p2 : player2.getPieces())
                             {
                                 if (p2 instanceof King)
@@ -282,11 +285,14 @@ public class Game
                                     ((King) p2).isCheck();
                                     if (((King) p2).check == false)
                                     {
+                                        section.tempSetPiece(previousPiece);
                                         return false;
                                     }
                                 }
                             }
+                            section.tempSetPiece(p);
                         }
+                        
                     }
                 }
             }
@@ -301,6 +307,8 @@ public class Game
                     {
                         if (p.checkMove(section))
                         {
+                            previousPiece = section.getPiece();
+                            section.tempSetPiece(p);
                             for (Piece p2 : player1.getPieces())
                             {
                                 if (p2 instanceof King)
@@ -308,10 +316,12 @@ public class Game
                                     ((King) p2).isCheck();
                                     if (((King) p2).check == false)
                                     {
+                                        section.tempSetPiece(previousPiece);
                                         return false;
                                     }
                                 }
                             }
+                            section.tempSetPiece(p);
                         }
                     }
                 }
