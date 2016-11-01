@@ -20,11 +20,11 @@ import static org.junit.Assert.*;
 public class PawnTest
 {
 
-    OnlineSchaken onlineSchaken;
-    Game game;
-    Player p1;
-    Player p2;
-    Board board;
+    private OnlineSchaken onlineSchaken;
+    private Game game;
+    private Player p1;
+    private Player p2;
+    private Board board;
 
     public PawnTest()
     {
@@ -62,8 +62,8 @@ public class PawnTest
     @Test
     public void TestGetPlayer()
     {
-        Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(0, 0));
-        String actual = pawnWhite.player.username;
+        Piece pawnWhite = new Pawn("Black", p1, game.getBoard().getSections(0, 0));
+        String actual = pawnWhite.getPlayer().getUsername();
         String expected = "p1";
         assertEquals(actual, expected);
     }
@@ -71,7 +71,7 @@ public class PawnTest
     @Test
     public void TestGetColor()
     {
-        Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(0, 0));
+        Piece pawnWhite = new Pawn("Black", p1, game.getBoard().getSections(0, 0));
         String actual = pawnWhite.getColor();
         String expected = "Black";
         assertEquals(actual, expected);
@@ -80,8 +80,8 @@ public class PawnTest
     @Test
     public void TestGetSection()
     {
-        Piece pawnWhite = new Pawn("Black", p1, game.board.getSections(3, 5));
-        Point actual = pawnWhite.getSection().id;
+        Piece pawnWhite = new Pawn("Black", p1, game.getBoard().getSections(3, 5));
+        Point actual = pawnWhite.getSection().getID();
         Point expected = new Point(3, 5);
         assertEquals(actual, expected);
     }
@@ -89,12 +89,12 @@ public class PawnTest
     @Test
     public void TestPrevSection()
     {
-        Pawn pawnWhite = new Pawn("Black", p1, game.board.getSections(3, 5));
-        pawnWhite.setPrevSection(game.board.getSections(2, 2));
-        Point actual = pawnWhite.getPrevSection().id;
+        Pawn pawnWhite = new Pawn("Black", p1, game.getBoard().getSections(3, 5));
+        pawnWhite.setPrevSection(game.getBoard().getSections(2, 2));
+        Point actual = pawnWhite.getPrevSection().getID();
         Point expected = new Point(2, 2);
         assertEquals(actual, expected);
-        Knight k = new Knight("Black", p1, game.board.getSections(3, 5));
+        Knight k = new Knight("Black", p1, game.getBoard().getSections(3, 5));
 
     }
 

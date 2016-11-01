@@ -20,11 +20,11 @@ import static org.junit.Assert.*;
 public class KnightTest
 {
 
-    OnlineSchaken onlineSchaken;
-    Game game;
-    Player p1;
-    Player p2;
-    Board board;
+    private OnlineSchaken onlineSchaken;
+    private Game game;
+    private Player p1;
+    private Player p2;
+    private Board board;
 
     public KnightTest()
     {
@@ -61,12 +61,12 @@ public class KnightTest
     @Test
     public void TestBlackKnight()
     {
-        Knight k = new Knight("Black", p1, game.board.getSections(3, 5));
+        Knight k = new Knight("Black", p1, game.getBoard().getSections(3, 5));
     }
 
     @Test
     public void TestWiteKnight()
     {
-        Knight k = new Knight("White", p1, game.board.getSections(3, 5));
+        Knight k = new Knight("White", p1, game.getBoard().getSections(3, 5));
     }
 }

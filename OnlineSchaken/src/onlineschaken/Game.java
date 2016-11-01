@@ -20,8 +20,8 @@ public class Game
 
     //fields
     private int time;
-    private int resterend1;
-    private int resterend2;
+    private int remaining1;
+    private int remaining2;
     private Timer timer;
     private boolean finished;
     private Tournament tournament;
@@ -34,7 +34,6 @@ public class Game
     private Board board;
     private Gamelobby gamelobby;
     private OnlineSchaken javaFX;
-    private String resterend11;
     private boolean player1Draw = false;
     private boolean player2Draw = false;
 
@@ -45,8 +44,8 @@ public class Game
         this.player2 = p_player2;
         this.javaFX = javaFX;
         board = new Board();
-        resterend1 = 1800;
-        resterend2 = 1800;
+        remaining1 = 1800;
+        remaining2 = 1800;
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
         board.setGame(this);
@@ -70,8 +69,8 @@ public class Game
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.time = p_time;
-        this.resterend1 = p_time;
-        this.resterend2 = p_time;
+        this.remaining1 = p_time;
+        this.remaining2 = p_time;
         this.tournament = p_tournament;
         this.javaFX = javaFX;
         board = new Board();
@@ -83,14 +82,14 @@ public class Game
     {
         if (i == 1)
         {
-            int h = resterend1 / 60;
-            int m = resterend1 % 60;
+            int h = remaining1 / 60;
+            int m = remaining1 % 60;
             String newtime = String.format("%02d", h) + ":" + String.format("%02d", m);
             return newtime;
         } else
         {
-            int h = resterend2 / 60;
-            int m = resterend2 % 60;
+            int h = remaining2 / 60;
+            int m = remaining2 % 60;
             String newtime = String.format("%02d", h) + ":" + String.format("%02d", m);
             return newtime;
         }
@@ -109,7 +108,7 @@ public class Game
 
     public double getResterend1()
     {
-        return resterend1;
+        return remaining1;
     }
 
     public Timer getTimer()
@@ -119,8 +118,8 @@ public class Game
 
     public void setResterend1(int seconde)
     {
-        this.resterend1 = resterend1 - seconde;
-        if (resterend1 <= 0)
+        this.remaining1 = remaining1 - seconde;
+        if (remaining1 <= 0)
         {
             setWinner(player2);
             setFinished(true);
@@ -130,13 +129,13 @@ public class Game
 
     public double getResterend2()
     {
-        return resterend2;
+        return remaining2;
     }
 
     public void setResterend2(int seconde)
     {
-        this.resterend2 = resterend2 - seconde;
-        if (resterend2 <= 0)
+        this.remaining2 = remaining2 - seconde;
+        if (remaining2 <= 0)
         {
             setWinner(player1);
             setFinished(true);

@@ -13,21 +13,23 @@ import java.util.List;
  */
 public class Tournament {
     //fields
-    private String naam;
+    private String name;
     private List<Game> games;
     
     
     //constructor
-    public Tournament(String p_naam,Game game)
+    public Tournament(String p_name,List<Game> games)
     {
+        this.name = p_name;
+        this.games = games;
     }
 
     public String getNaam() {
-        return naam;
+        return name;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public void setNaam(String name) {
+        this.name = name;
     }
 
     public List<Game> getGame() {
