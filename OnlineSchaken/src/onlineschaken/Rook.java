@@ -19,11 +19,11 @@ public class Rook extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Rook.jpg");
+            this.setImg(new Image("ChessPieces/White Rook.jpg"));
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Rook.jpg");
+            this.setImg(new Image("ChessPieces/Black Rook.jpg"));
         }
     }
 
@@ -41,55 +41,55 @@ public class Rook extends Piece
      */
     public Boolean checkRokade(Section p_section)
     {
-            if (hasMoved == false)
+            if (isHasMoved() == false)
             {
                 if (p_section.getPiece() instanceof King)
                 {
-                    if (this.color == p_section.getPiece().color)
+                    if (this.getColor() == p_section.getPiece().getColor())
                     {
                         // kijken of er iets tussen staat
-                        if (section.getID().x == 0 && section.getID().y == 0)
+                        if (getSection().getID().x == 0 && getSection().getID().y == 0)
                         {
                             for (int i = 0; i < 3; i++)
                             {
-                                if (section.getBoard().getSections()[1 + i][0].isOccupied())
+                                if (getSection().getBoard().getSections()[1 + i][0].isOccupied())
                                 {
                                     return false;
                                 }
                             }
                             return true;
-                        } else if (section.getID().x == 7 && section.getID().y == 0)
+                        } else if (getSection().getID().x == 7 && getSection().getID().y == 0)
                         {
                             for (int i = 0; i < 2; i++)
                             {
-                                if (section.getBoard().getSections()[6 - i][0].isOccupied())
+                                if (getSection().getBoard().getSections()[6 - i][0].isOccupied())
                                 {
                                     return false;
                                 }
                             }
                             return true;
-                        } else if (section.getID().x == 0 && section.getID().y == 7)
+                        } else if (getSection().getID().x == 0 && getSection().getID().y == 7)
                         {
                             for (int i = 0; i < 3; i++)
                             {
-                                if (section.getBoard().getSections()[1 + i][7].isOccupied())
+                                if (getSection().getBoard().getSections()[1 + i][7].isOccupied())
                                 {
                                     return false;
                                 }
                             }
                             return true;
-                        } else if (section.getID().x == 7 && section.getID().y == 7)
+                        } else if (getSection().getID().x == 7 && getSection().getID().y == 7)
                         {
                         for (int i = 0; i < 2; i++)
                             {
-                                if (section.getBoard().getSections()[6 - i][7].isOccupied())
+                                if (getSection().getBoard().getSections()[6 - i][7].isOccupied())
                                 {
                                     return false;
                                 }
                             }
                             return true;
                         }
-                        if (p_section.getPiece().hasMoved == false)
+                        if (p_section.getPiece().isHasMoved() == false)
                         {
                            return true;
                         }
@@ -118,24 +118,24 @@ public class Rook extends Piece
             // Kijkt of rokade kan
             
             // Kijkt of de toren over de y as kan bewegen
-            if (this.section.getID().x == p_section.getID().x)
+            if (this.getSection().getID().x == p_section.getID().x)
             {
 
-                if (this.section.getID().y > p_section.getID().y)
+                if (this.getSection().getID().y > p_section.getID().y)
                 {
-                    for (int i = 0; i < this.section.getID().y - p_section.getID().y - 1; i++)
+                    for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - i - 1].isOccupied() == true)
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y - i - 1].isOccupied() == true)
                         {
                             return false;
                         }
                     }
                     return true;
-                } else if (this.section.getID().y < p_section.getID().y)
+                } else if (this.getSection().getID().y < p_section.getID().y)
                 {
-                    for (int i = 0; i < p_section.getID().y - this.section.getID().y - 1; i++)
+                    for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + i + 1].isOccupied() == true)
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y + i + 1].isOccupied() == true)
                         {
                             return false;
                         }
@@ -143,24 +143,24 @@ public class Rook extends Piece
                     return true;
                 }
             // Kijkt of de toren over de x as kan bewegen
-            } else if (this.section.getID().y == p_section.getID().y)
+            } else if (this.getSection().getID().y == p_section.getID().y)
             {
-                if (this.section.getID().x < p_section.getID().x)
+                if (this.getSection().getID().x < p_section.getID().x)
                 {
-                    for (int i = 0; i < p_section.getID().x - this.section.getID().x - 1; i++)
+                    for (int i = 0; i < p_section.getID().x - this.getSection().getID().x - 1; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x + i +1][this.section.getID().y].isOccupied() == true)
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i +1][this.getSection().getID().y].isOccupied() == true)
                         {
                             return false;
                         }
                     }
                     return true;
                 } 
-                else if (this.section.getID().x > p_section.getID().x)
+                else if (this.getSection().getID().x > p_section.getID().x)
                 {
-                    for (int i = 0; i < this.section.getID().x - p_section.getID().x - 1; i++)
+                    for (int i = 0; i < this.getSection().getID().x - p_section.getID().x - 1; i++)
                     {
-                        if (this.section.getBoard().getSections()[this.section.getID().x - i -1][this.section.getID().y].isOccupied() == true)
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i -1][this.getSection().getID().y].isOccupied() == true)
                         {
                             return false;
                         }

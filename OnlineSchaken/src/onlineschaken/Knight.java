@@ -19,11 +19,11 @@ public class Knight extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Knight.jpg");
+            this.setImg(new Image("ChessPieces/White Knight.jpg"));
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Knight.jpg");
+            this.setImg(new Image("ChessPieces/Black Knight.jpg"));
         }
     }
 
@@ -36,62 +36,62 @@ public class Knight extends Piece
             return false;
         }
         //kijk of de move geldig is2 opzij 1 omhoog(of in een andererichting)
-        if (section.id.x == p_section.id.x + 2)
+        if (getSection().getID().x == p_section.getID().x + 2)
         {
-            if (section.id.y == p_section.id.y + 1)
+            if (getSection().getID().y == p_section.getID().y + 1)
             {
                 return true;
             }
         }
-        if (section.id.x == p_section.id.x + 2)
+        if (getSection().getID().x == p_section.getID().x + 2)
         {
-            if (section.id.y == p_section.id.y - 1)
+            if (getSection().getID().y == p_section.getID().y - 1)
             {
                 return true;
             }
         }
-        if (section.id.x == p_section.id.x - 2)
+        if (getSection().getID().x == p_section.getID().x - 2)
         {
-            if (section.id.y == p_section.id.y + 1)
+            if (getSection().getID().y == p_section.getID().y + 1)
             {
                 return true;
             }
         }
-        if (section.id.x == p_section.id.x - 2)
+        if (getSection().getID().x == p_section.getID().x - 2)
         {
-            if (section.id.y == p_section.id.y - 1)
-            {
-                return true;
-            }
-        }
-
-        if (section.id.x == p_section.id.x + 1)
-        {
-            if (section.id.y == p_section.id.y + 2)
+            if (getSection().getID().y == p_section.getID().y - 1)
             {
                 return true;
             }
         }
 
-        if (section.id.x == p_section.id.x + 1)
+        if (getSection().getID().x == p_section.getID().x + 1)
         {
-            if (section.id.y == p_section.id.y - 2)
+            if (getSection().getID().y == p_section.getID().y + 2)
             {
                 return true;
             }
         }
 
-        if (section.id.x == p_section.id.x - 1)
+        if (getSection().getID().x == p_section.getID().x + 1)
         {
-            if (section.id.y == p_section.id.y + 2)
+            if (getSection().getID().y == p_section.getID().y - 2)
             {
                 return true;
             }
         }
 
-        if (section.id.x == p_section.id.x - 1)
+        if (getSection().getID().x == p_section.getID().x - 1)
         {
-            if (section.id.y == p_section.id.y - 2)
+            if (getSection().getID().y == p_section.getID().y + 2)
+            {
+                return true;
+            }
+        }
+
+        if (getSection().getID().x == p_section.getID().x - 1)
+        {
+            if (getSection().getID().y == p_section.getID().y - 2)
             {
                 return true;
             }

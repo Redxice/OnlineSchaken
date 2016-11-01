@@ -23,11 +23,11 @@ public class King extends Piece
         //check of de koning zwart of wit is en bepaal de juiste afbeelding
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White King.jpg");
+            this.setImg(new Image("ChessPieces/White King.jpg"));
         }
         if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black King.jpg");
+            this.setImg(new Image("ChessPieces/Black King.jpg"));
         }
         check = false;
         checkMate = false;
@@ -36,15 +36,15 @@ public class King extends Piece
     public int countCheckSections()
     {
         int counter = 0;
-        for (Section[] x : section.getBoard().getSections())
+        for (Section[] x : getSection().getBoard().getSections())
         {
             for (Section y : x)
             {
                 if (y.getPiece() != null)
                 {
-                    if (!y.getPiece().color.equals(this.color))
+                    if (!y.getPiece().getColor().equals(this.getColor()))
                     {
-                        if (y.getPiece().checkMove(this.section))
+                        if (y.getPiece().checkMove(this.getSection()))
                         {
                             counter++;
                         }
@@ -58,15 +58,15 @@ public class King extends Piece
     public Section getSingleCheckSection()
     {
         Section checkSection = null;
-        for (Section[] x : section.getBoard().getSections())
+        for (Section[] x : getSection().getBoard().getSections())
         {
             for (Section y : x)
             {
                 if (y.getPiece() != null)
                 {
-                    if (!y.getPiece().color.equals(this.color))
+                    if (!y.getPiece().getColor().equals(this.getColor()))
                     {
-                        if (y.getPiece().checkMove(this.section))
+                        if (y.getPiece().checkMove(this.getSection()))
                         {
                             checkSection = y;
                         }
@@ -80,15 +80,15 @@ public class King extends Piece
     public boolean isCheck()
     {
         check = false;
-        for (Section[] x : section.getBoard().getSections())
+        for (Section[] x : getSection().getBoard().getSections())
         {
             for (Section y : x)
             {
                 if (y.getPiece() != null)
                 {
-                    if (!y.getPiece().color.equals(this.color))
+                    if (!y.getPiece().getColor().equals(this.getColor()))
                     {
-                        if (y.getPiece().checkMove(this.section))
+                        if (y.getPiece().checkMove(this.getSection()))
                         {
                             check = true;
                             return check;
@@ -103,13 +103,13 @@ public class King extends Piece
     public boolean becomeCheck(Section p_section)
     {
         Piece previousPiece;
-        for (Section[] x : section.getBoard().getSections())
+        for (Section[] x : getSection().getBoard().getSections())
         {
             for (Section y : x)
             {
                 if (y.getPiece() != null)
                 {
-                    if (!y.getPiece().color.equals(this.color))
+                    if (!y.getPiece().getColor().equals(this.getColor()))
                     {
                         previousPiece = p_section.getPiece();
                         p_section.tempSetPiece(this);
@@ -134,35 +134,35 @@ public class King extends Piece
     public boolean isCheckMate()
     {
         //voor elke rij
-        for (Section[] x : section.getBoard().getSections())
+        for (Section[] x : getSection().getBoard().getSections())
         {
             //voor elk vakje in de rij
             for (Section y : x)
             {
-                if (!y.getPiece().color.equals(this.color))
+                if (!y.getPiece().getColor().equals(this.getColor()))
                 {
-                    if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x + 1][this.section.getID().y]))
+                    if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x + 1][this.getSection().getID().y]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x + 1][this.section.getID().y + 1]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x + 1][this.getSection().getID().y + 1]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y + 1]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y + 1]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x - 1][this.getSection().getID().y]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x][this.section.getID().y - 1]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y - 1]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y - 1]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x - 1][this.getSection().getID().y - 1]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x + 1][this.section.getID().y - 1]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x + 1][this.getSection().getID().y - 1]))
                     {
                         checkMate = true;
-                    } else if (y.getPiece().checkMove(this.section.getBoard().getSections()[this.section.getID().x - 1][this.section.getID().y + 1]))
+                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x - 1][this.getSection().getID().y + 1]))
                     {
                         checkMate = true;
                     }
@@ -196,16 +196,16 @@ public class King extends Piece
         {
             return false;
         } //check of koning niet meer dan 1 vakje verschuift
-        else if (p_section.getID().x + 1 < section.getID().x)
+        else if (p_section.getID().x + 1 < getSection().getID().x)
         {
             return false;
-        } else if (p_section.getID().x - 1 > section.getID().x)
+        } else if (p_section.getID().x - 1 > getSection().getID().x)
         {
             return false;
-        } else if (p_section.getID().y + 1 < section.getID().y)
+        } else if (p_section.getID().y + 1 < getSection().getID().y)
         {
             return false;
-        } else if (p_section.getID().y - 1 > section.getID().y)
+        } else if (p_section.getID().y - 1 > getSection().getID().y)
         {
             return false;
         }

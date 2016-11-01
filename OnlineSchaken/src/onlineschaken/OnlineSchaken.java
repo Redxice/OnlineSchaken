@@ -27,12 +27,12 @@ import javax.swing.JOptionPane;
 public class OnlineSchaken extends Application
 {
 
-    public Game game;
-    Label timerBlack;
-    Label timerWhite;
-    Timer timer;
-    VBox vb;
-    Button drawButton;
+    private Game game;
+    private Label timerBlack;
+    private Label timerWhite;
+    private Timer timer;
+    private VBox vb;
+    private Button drawButton;
 
     @Override
     public void start(Stage primaryStage)
@@ -41,9 +41,9 @@ public class OnlineSchaken extends Application
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         game = new Game(p1, p2, this);
-        game.board.createContent();
+        game.getBoard().createContent();
         game.setPieces();
-        game.board.createContent2();
+        game.getBoard().createContent2();
         Scene scene = new Scene(root);
         HBox hb = new HBox(20);
         timerWhite = new Label("30:00");
@@ -56,7 +56,7 @@ public class OnlineSchaken extends Application
             {
                 game.setPlayer1Draw(true);
                 game.setPlayer2Draw(true);
-                game.timer.cancel();
+                game.getTimer().cancel();
                 int exit = JOptionPane.showOptionDialog(null, "The game is a draw", "Draw", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 if (exit == 0)
                 {
@@ -66,7 +66,7 @@ public class OnlineSchaken extends Application
         });
         vb = new VBox();
         vb.getChildren().addAll(timerWhite, timerBlack, drawButton);
-        hb.getChildren().addAll(game.board.getRoot(), vb);
+        hb.getChildren().addAll(game.getBoard().getRoot(), vb);
         hb.setAlignment(Pos.CENTER);
         vb.setAlignment(Pos.CENTER);
         root.getChildren().add(hb);

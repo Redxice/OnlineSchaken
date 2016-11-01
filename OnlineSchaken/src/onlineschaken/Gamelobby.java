@@ -14,9 +14,9 @@ import java.util.List;
 class Gamelobby
 {
 
-    String name;
-    int maxPlayers;
-    List<Chatline> chatLines;
+    private String name;
+    private int maxPlayers;
+    private List<Chatline> chatLines;
 
     public Gamelobby(String name, int maxPlayers)
     {

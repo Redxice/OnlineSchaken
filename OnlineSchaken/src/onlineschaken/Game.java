@@ -19,22 +19,22 @@ public class Game
 {
 
     //fields
-    int time;
-    int resterend1;
-    int resterend2;
-    Timer timer;
-    boolean finished;
-    Tournament tournament;
-    Player player1;
-    Player player2;
-    List<Player> spectators = new ArrayList<>();
-    Player winner;
-    boolean whiteTurn;
-    List<Chatline> chat = new ArrayList<>();
-    Board board;
-    Gamelobby gamelobby;
+    private int time;
+    private int resterend1;
+    private int resterend2;
+    private Timer timer;
+    private boolean finished;
+    private Tournament tournament;
+    private Player player1;
+    private Player player2;
+    private List<Player> spectators = new ArrayList<>();
+    private Player winner;
+    private boolean whiteTurn;
+    private List<Chatline> chat = new ArrayList<>();
+    private Board board;
+    private Gamelobby gamelobby;
     private OnlineSchaken javaFX;
-    String resterend11;
+    private String resterend11;
     private boolean player1Draw = false;
     private boolean player2Draw = false;
 
@@ -112,6 +112,11 @@ public class Game
         return resterend1;
     }
 
+    public Timer getTimer()
+    {
+        return timer;
+    }
+
     public void setResterend1(int seconde)
     {
         this.resterend1 = resterend1 - seconde;
@@ -150,7 +155,7 @@ public class Game
         if (this.finished == true)
         {
             timer.cancel();
-            int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.username) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             if (exit == 0)
             {
                 Platform.exit();
@@ -334,39 +339,39 @@ public class Game
     public void setPieces()
     {
         Piece piece;
-        player1.pieces.add(piece = new Rook("white", player1, board.getSections(0, 0)));
-        player1.pieces.add(piece = new Knight("white", player1, board.getSections(1, 0)));
-        player1.pieces.add(piece = new Bishop("white", player1, board.getSections(2, 0)));
-        player1.pieces.add(piece = new Queen("white", player1, board.getSections(3, 0)));
-        player1.pieces.add(piece = new King("white", player1, board.getSections(4, 0)));
-        player1.pieces.add(piece = new Bishop("white", player1, board.getSections(5, 0)));
-        player1.pieces.add(piece = new Knight("white", player1, board.getSections(6, 0)));
-        player1.pieces.add(piece = new Rook("white", player1, board.getSections(7, 0)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(0, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(1, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(2, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(3, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(4, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(5, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(6, 1)));
-        player1.pieces.add(piece = new Pawn("white", player1, board.getSections(7, 1)));
+        player1.getPieces().add(piece = new Rook("white", player1, board.getSections(0, 0)));
+        player1.getPieces().add(piece = new Knight("white", player1, board.getSections(1, 0)));
+        player1.getPieces().add(piece = new Bishop("white", player1, board.getSections(2, 0)));
+        player1.getPieces().add(piece = new Queen("white", player1, board.getSections(3, 0)));
+        player1.getPieces().add(piece = new King("white", player1, board.getSections(4, 0)));
+        player1.getPieces().add(piece = new Bishop("white", player1, board.getSections(5, 0)));
+        player1.getPieces().add(piece = new Knight("white", player1, board.getSections(6, 0)));
+        player1.getPieces().add(piece = new Rook("white", player1, board.getSections(7, 0)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(0, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(1, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(2, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(3, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(4, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(5, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(6, 1)));
+        player1.getPieces().add(piece = new Pawn("white", player1, board.getSections(7, 1)));
 
-        player2.pieces.add(piece = new Rook("black", player2, board.getSections(0, 7)));
-        player2.pieces.add(piece = new Knight("black", player2, board.getSections(1, 7)));
-        player2.pieces.add(piece = new Bishop("black", player2, board.getSections(2, 7)));
-        player2.pieces.add(piece = new Queen("black", player2, board.getSections(3, 7)));
-        player2.pieces.add(piece = new King("black", player2, board.getSections(4, 7)));
-        player2.pieces.add(piece = new Bishop("black", player2, board.getSections(5, 7)));
-        player2.pieces.add(piece = new Knight("black", player2, board.getSections(6, 7)));
-        player2.pieces.add(piece = new Rook("black", player2, board.getSections(7, 7)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(0, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(1, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(2, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(3, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(4, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(5, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(6, 6)));
-        player2.pieces.add(piece = new Pawn("black", player2, board.getSections(7, 6)));
+        player2.getPieces().add(piece = new Rook("black", player2, board.getSections(0, 7)));
+        player2.getPieces().add(piece = new Knight("black", player2, board.getSections(1, 7)));
+        player2.getPieces().add(piece = new Bishop("black", player2, board.getSections(2, 7)));
+        player2.getPieces().add(piece = new Queen("black", player2, board.getSections(3, 7)));
+        player2.getPieces().add(piece = new King("black", player2, board.getSections(4, 7)));
+        player2.getPieces().add(piece = new Bishop("black", player2, board.getSections(5, 7)));
+        player2.getPieces().add(piece = new Knight("black", player2, board.getSections(6, 7)));
+        player2.getPieces().add(piece = new Rook("black", player2, board.getSections(7, 7)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(0, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(1, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(2, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(3, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(4, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(5, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(6, 6)));
+        player2.getPieces().add(piece = new Pawn("black", player2, board.getSections(7, 6)));
     }
 
     // kijkt of het draw is

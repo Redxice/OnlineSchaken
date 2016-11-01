@@ -14,15 +14,15 @@ import java.util.List;
  */
 public class Player {
     //fields
-    String username;
-    String password;
-    String color;
-    int rating;
-    boolean online;
-    List<Player> friends;
-    List<Piece> pieces;
-    Game game;
-    List<Game> history;
+    private String username;
+    private String password;
+    private String color;
+    private int rating;
+    private boolean online;
+    private List<Player> friends;
+    private List<Piece> pieces;
+    private Game game;
+    private List<Game> history;
     
     //constructor
     public Player(String p_username,String p_password,int p_rating)

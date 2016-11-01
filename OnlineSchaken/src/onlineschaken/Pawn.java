@@ -36,18 +36,18 @@ public class Pawn extends Piece
         super(p_color, p_player, p_section);
         if (p_color == "white")
         {
-            this.img = new Image("ChessPieces/White Pawn.jpg");
+            this.setImg(new Image("ChessPieces/White Pawn.jpg"));
         } else if (p_color == "black")
         {
-            this.img = new Image("ChessPieces/Black Pawn.jpg");
+            this.setImg(new Image("ChessPieces/Black Pawn.jpg"));
         }
-        this.hasMoved = false;
+        this.setHasMoved(false);
     }
 
     public void setPrevSection(Section section)
     {
-        this.prevX = section.id.x;
-        this.prevY = section.id.y;
+        this.prevX = section.getID().x;
+        this.prevY = section.getID().y;
         this.prevSection = section;
     }
 
@@ -66,22 +66,17 @@ public class Pawn extends Piece
         return this.prevSection;
     }
 
-    public boolean getFirsMove()
-    {
-        return this.hasMoved;
-    }
-
     @Override
     public Boolean checkMove(Section p_section)
     {
-        Section prevsection = section;
+        Section prevsection = getSection();
         Board board = p_section.getBoard();
         if (isValidMove(p_section) == false)
         {
             return false;
-        } else if (hasMoved == false)
+        } else if (isHasMoved() == false)
         {
-            if (this.color == "black")
+            if (this.getColor() == "black")
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
@@ -100,7 +95,7 @@ public class Pawn extends Piece
                     return true;
                 }
             }
-            if (this.color == "white")
+            if (this.getColor() == "white")
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
@@ -119,9 +114,9 @@ public class Pawn extends Piece
                     return true;
                 }
             }
-        } else if (hasMoved == true)
+        } else if (isHasMoved() == true)
         {
-            if (this.color == "black")
+            if (this.getColor() == "black")
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
@@ -135,7 +130,7 @@ public class Pawn extends Piece
                     return true;
                 }
 
-            } else if (this.color == "white")
+            } else if (this.getColor() == "white")
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
@@ -176,9 +171,9 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Bishop bishop = new Bishop(pawn.getColor(), pawn.player, pawn.getPrevSection());
-                pawn.player.getPieces().add(bishop);
-                bishop.player.getPieces().remove(pawn);
+                Bishop bishop = new Bishop(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                pawn.getPlayer().getPieces().add(bishop);
+                bishop.getPlayer().getPieces().remove(pawn);
                 section.setPiece(bishop);
                 bishop.moveWithoutCheck(section);
                 menu.hide();
@@ -190,9 +185,9 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Knight knight = new Knight(pawn.getColor(), pawn.player, pawn.getPrevSection());
-                pawn.player.getPieces().add(knight);
-                knight.player.getPieces().remove(pawn);
+                Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                pawn.getPlayer().getPieces().add(knight);
+                knight.getPlayer().getPieces().remove(pawn);
                 section.setPiece(knight);
                 knight.moveWithoutCheck(section);
                 menu.hide();
@@ -204,9 +199,9 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Queen queen = new Queen(pawn.getColor(), pawn.player, pawn.getPrevSection());
-                pawn.player.getPieces().add(queen);
-                queen.player.getPieces().remove(pawn);
+                Queen queen = new Queen(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                pawn.getPlayer().getPieces().add(queen);
+                queen.getPlayer().getPieces().remove(pawn);
                 section.setPiece(queen);
                 queen.moveWithoutCheck(section);
                 menu.hide();
@@ -218,9 +213,9 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Rook rook = new Rook(pawn.getColor(), pawn.player, pawn.getPrevSection());
-                pawn.player.getPieces().add(rook);
-                rook.player.getPieces().remove(pawn);
+                Rook rook = new Rook(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                pawn.getPlayer().getPieces().add(rook);
+                rook.getPlayer().getPieces().remove(pawn);
                 section.setPiece(rook);
                 rook.moveWithoutCheck(section);
                 menu.hide();
@@ -236,7 +231,7 @@ public class Pawn extends Piece
 
     public boolean Promotion(Section p_section)
     {
-        if (this.color == "white")
+        if (this.getColor() == "white")
         {
             if (p_section.getID().y == 7)
             {
@@ -264,13 +259,13 @@ public class Pawn extends Piece
         Section Rightsection = null;
         try
         {
-            Leftsection = section.getBoard().getSections(section.id.x - 1, section.id.y);
-            Rightsection = section.getBoard().getSections(section.id.x + 1, section.id.y);
+            Leftsection = getSection().getBoard().getSections(getSection().getID().x - 1, getSection().getID().y);
+            Rightsection = getSection().getBoard().getSections(getSection().getID().x + 1, getSection().getID().y);
         } catch (ArrayIndexOutOfBoundsException ex)
         {
 
         }
-        if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y + 1)
+        if (p_section.getID().x == this.getSection().getID().x - 1 && p_section.getID().y == this.getSection().getID().y + 1)
         {
 
             if (p_section.isOccupied())
@@ -293,7 +288,7 @@ public class Pawn extends Piece
                 }
             }
 
-        } else if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y + 1)
+        } else if (p_section.getID().x == this.getSection().getID().x + 1 && p_section.getID().y == this.getSection().getID().y + 1)
         {
             if (p_section.isOccupied())
             {
@@ -322,7 +317,7 @@ public class Pawn extends Piece
     public boolean moveOneTileForwardWhite(Section p_section, Board board)
     {
         {
-            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 1)
+            if (p_section.getID().x == this.getSection().getID().x && p_section.getID().y == this.getSection().getID().y + 1)
             {
                 if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
                 {
@@ -338,9 +333,9 @@ public class Pawn extends Piece
 
     public boolean moveTwoTilesForwardWhite(Section p_section, Board board)
     {
-        if (hasMoved == false)
+        if (isHasMoved() == false)
         {
-            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y + 2)
+            if (p_section.getID().x == this.getSection().getID().x && p_section.getID().y == this.getSection().getID().y + 2)
             {
                 if (board.getSections(p_section.getID().x, p_section.getID().y - 1).isOccupied())
                 {
@@ -357,9 +352,9 @@ public class Pawn extends Piece
 
     public boolean moveTwoTilesForwardBlack(Section p_section, Board board)
     {
-        if (hasMoved == false)
+        if (isHasMoved() == false)
         {
-            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 2)
+            if (p_section.getID().x == this.getSection().getID().x && p_section.getID().y == this.getSection().getID().y - 2)
             {
                 if (board.getSections(p_section.getID().x, p_section.getID().y + 1).isOccupied())
                 {
@@ -377,7 +372,7 @@ public class Pawn extends Piece
     public boolean moveOneTileForwardBlack(Section p_section, Board board)
     {
         {
-            if (p_section.getID().x == this.section.getID().x && p_section.getID().y == this.section.getID().y - 1)
+            if (p_section.getID().x == this.getSection().getID().x && p_section.getID().y == this.getSection().getID().y - 1)
             {
                 if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
                 {
@@ -406,17 +401,17 @@ public class Pawn extends Piece
         Section Rightsection = null;
         try
         {
-            Leftsection = section.getBoard().getSections(section.id.x - 1, section.id.y);
-            Rightsection = section.getBoard().getSections(section.id.x + 1, section.id.y);
+            Leftsection = getSection().getBoard().getSections(getSection().getID().x - 1, getSection().getID().y);
+            Rightsection = getSection().getBoard().getSections(getSection().getID().x + 1, getSection().getID().y);
         } catch (ArrayIndexOutOfBoundsException ex)
         {
 
         }
-        if (p_section.getID().x == this.section.getID().x + 1 && p_section.getID().y == this.section.getID().y - 1)
+        if (p_section.getID().x == this.getSection().getID().x + 1 && p_section.getID().y == this.getSection().getID().y - 1)
         {
             if (p_section.isOccupied())
             {
-                if (isValidMove(board.getSections(this.section.getID().x + 1, this.section.getID().y - 1)))
+                if (isValidMove(board.getSections(this.getSection().getID().x + 1, this.getSection().getID().y - 1)))
                 {
                     return true;
                 }
@@ -433,12 +428,12 @@ public class Pawn extends Piece
                     }
                 }
             }
-        } else if (p_section.getID().x == this.section.getID().x - 1 && p_section.getID().y == this.section.getID().y - 1)
+        } else if (p_section.getID().x == this.getSection().getID().x - 1 && p_section.getID().y == this.getSection().getID().y - 1)
         {
             if (p_section.isOccupied())
             {
 
-                if (isValidMove(board.getSections(this.section.getID().x - 1, this.section.getID().y - 1)))
+                if (isValidMove(board.getSections(this.getSection().getID().x - 1, this.getSection().getID().y - 1)))
                 {
                     return true;
                 }
@@ -472,14 +467,14 @@ public class Pawn extends Piece
         if (p_section.getPiece() instanceof Pawn)
         {
             Pawn pawn = (Pawn) p_section.getPiece();
-            if (pawn.color == "black")
+            if (pawn.getColor() == "black")
             {
                 if (pawn.getPrevSectionY() == 6)
                 {
                     p_section.getBoard().ClearSection(p_section);
                     return true;
                 }
-            } else if (pawn.color == "white")
+            } else if (pawn.getColor() == "white")
             {
                 if (pawn.getPrevSectionY() == 1)
                 {

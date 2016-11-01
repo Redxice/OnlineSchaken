@@ -17,7 +17,7 @@ public class Section extends Rectangle
 {
 
     //fields
-    Point id;
+    private Point id;
     private Board board;
     private Piece piece;
 

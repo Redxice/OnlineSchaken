@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class Tournament {
     //fields
-    String naam;
-    List<Game> games;
+    private String naam;
+    private List<Game> games;
     
     
     //constructor

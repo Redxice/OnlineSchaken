@@ -19,12 +19,12 @@ public abstract class Piece extends StackPane
 {
 
     //fields
-    String color;
-    Player player;
-    Section section;
-    Image img;
-    boolean hasMoved;
-    Section previousState;
+    private String color;
+    private Player player;
+    private Section section;
+    private Image img;
+    private boolean hasMoved;
+    private Section previousState;
 
     //constructor
     public Piece(String p_color, Player p_player, Section p_section)
@@ -37,6 +37,46 @@ public abstract class Piece extends StackPane
             this.section.setPiece(this);
         }
 
+    }
+
+    public void setColor(String color)
+    {
+        this.color = color;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+
+    public void setImg(Image img)
+    {
+        this.img = img;
+    }
+
+    public void setHasMoved(boolean hasMoved)
+    {
+        this.hasMoved = hasMoved;
+    }
+
+    public void setPreviousState(Section previousState)
+    {
+        this.previousState = previousState;
+    }
+
+    public Image getImg()
+    {
+        return img;
+    }
+
+    public boolean isHasMoved()
+    {
+        return hasMoved;
+    }
+
+    public Section getPreviousState()
+    {
+        return previousState;
     }
 
     public Player getPlayer()
@@ -85,7 +125,7 @@ public abstract class Piece extends StackPane
         Point idKing = null;
         Piece p_sectionPiece = p_section.getPiece();
 
-        for (Piece p : player.pieces)
+        for (Piece p : player.getPieces())
         {
             if (p instanceof King)
             {
@@ -101,7 +141,7 @@ public abstract class Piece extends StackPane
                     }
                     if (((King) p).countCheckSections() == 1)
                     {
-                        idKing = ((King) p).getSingleCheckSection().id;
+                        idKing = ((King) p).getSingleCheckSection().getID();
                     } else
                     {
                         return false;
@@ -113,12 +153,12 @@ public abstract class Piece extends StackPane
         }
         if (!(this instanceof King) /*&& check == true*/)
         {
-            if (idKing != p_section.id)
+            if (idKing != p_section.getID())
             {
                 previousState = this.section;
                 p_section.setPiece(this);
                 this.section.setPiece(null);
-                for (Piece p2 : player.pieces)
+                for (Piece p2 : player.getPieces())
                 {
                     if (p2 instanceof King)
                     {
@@ -219,10 +259,10 @@ public abstract class Piece extends StackPane
                 }
                 section.getBoard().drawSpecificPieces(section, p_section);
                 section.setPiece(null);
-                section.id.x = p_section.id.x;
-                section.id.y = p_section.id.y;
-                section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
-                this.section = section.getBoard().getSections()[section.id.x][section.id.y];
+                section.getID().x = p_section.getID().x;
+                section.getID().y = p_section.getID().y;
+                section.getBoard().getSections()[section.getID().x][section.getID().y].setPiece(this);
+                this.section = section.getBoard().getSections()[section.getID().x][section.getID().y];
                 if (this instanceof Pawn)
                 {
                     Pawn pawn = (Pawn) this;
@@ -252,10 +292,10 @@ public abstract class Piece extends StackPane
         {
             section.getBoard().drawSpecificPieces(section, p_section);
             section.setPiece(null);
-            section.id.x = p_section.id.x;
-            section.id.y = p_section.id.y;
-            section.getBoard().getSections()[section.id.x][section.id.y].setPiece(this);
-            this.section = section.getBoard().getSections()[section.id.x][section.id.y];
+            section.getID().x = p_section.getID().x;
+            section.getID().y = p_section.getID().y;
+            section.getBoard().getSections()[section.getID().x][section.getID().y].setPiece(this);
+            this.section = section.getBoard().getSections()[section.getID().x][section.getID().y];
         } catch (NullPointerException e)
         {
         }
