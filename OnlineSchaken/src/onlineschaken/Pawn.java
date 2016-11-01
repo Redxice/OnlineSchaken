@@ -174,7 +174,6 @@ public class Pawn extends Piece
                 Bishop bishop = new Bishop(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
                 pawn.getPlayer().getPieces().add(bishop);
                 bishop.getPlayer().getPieces().remove(pawn);
-                section.setPiece(bishop);
                 bishop.moveWithoutCheck(section);
                 menu.hide();
             }
@@ -188,7 +187,6 @@ public class Pawn extends Piece
                 Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
                 pawn.getPlayer().getPieces().add(knight);
                 knight.getPlayer().getPieces().remove(pawn);
-                section.setPiece(knight);
                 knight.moveWithoutCheck(section);
                 menu.hide();
             }
@@ -202,7 +200,6 @@ public class Pawn extends Piece
                 Queen queen = new Queen(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
                 pawn.getPlayer().getPieces().add(queen);
                 queen.getPlayer().getPieces().remove(pawn);
-                section.setPiece(queen);
                 queen.moveWithoutCheck(section);
                 menu.hide();
             }
@@ -216,7 +213,6 @@ public class Pawn extends Piece
                 Rook rook = new Rook(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
                 pawn.getPlayer().getPieces().add(rook);
                 rook.getPlayer().getPieces().remove(pawn);
-                section.setPiece(rook);
                 rook.moveWithoutCheck(section);
                 menu.hide();
             }
