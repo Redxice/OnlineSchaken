@@ -171,7 +171,7 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Bishop bishop = new Bishop(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                Bishop bishop = new Bishop(pawn.getColor(), pawn.getPlayer(),section.getBoard().getSections((int)prevX,(int)prevY));
                 pawn.getPlayer().getPieces().add(bishop);
                 bishop.getPlayer().getPieces().remove(pawn);
                 bishop.moveWithoutCheck(section);
@@ -184,7 +184,7 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(),section.getBoard().getSections((int)prevX,(int)prevY));
                 pawn.getPlayer().getPieces().add(knight);
                 knight.getPlayer().getPieces().remove(pawn);
                 knight.moveWithoutCheck(section);
@@ -197,7 +197,7 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Queen queen = new Queen(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                Queen queen = new Queen(pawn.getColor(), pawn.getPlayer(),section.getBoard().getSections((int)prevX,(int)prevY));
                 pawn.getPlayer().getPieces().add(queen);
                 queen.getPlayer().getPieces().remove(pawn);
                 queen.moveWithoutCheck(section);
@@ -210,7 +210,7 @@ public class Pawn extends Piece
             public void handle(ActionEvent event)
             {
                 Section section = pawn.getSection();
-                Rook rook = new Rook(pawn.getColor(), pawn.getPlayer(), pawn.getPrevSection());
+                Rook rook = new Rook(pawn.getColor(), pawn.getPlayer(),section.getBoard().getSections((int)prevX,(int)prevY));
                 pawn.getPlayer().getPieces().add(rook);
                 rook.getPlayer().getPieces().remove(pawn);
                 rook.moveWithoutCheck(section);
