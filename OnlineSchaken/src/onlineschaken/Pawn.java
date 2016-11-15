@@ -185,15 +185,7 @@ public class Pawn extends Piece
             bishop.getPlayer().getPieces().remove(pawn);
             bishop.moveWithoutCheck(section);
             alert.close();
-        } else if (result.get() == Knight)
-        {
-            Section section = pawn.getSection();
-            Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
-            pawn.getPlayer().getPieces().add(knight);
-            knight.getPlayer().getPieces().remove(pawn);
-            knight.moveWithoutCheck(section);
-            alert.close();
-        } else if (result.get() == Knight)
+        }else if (result.get() == Knight)
         {
             Section section = pawn.getSection();
             Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
