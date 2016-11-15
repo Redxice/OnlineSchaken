@@ -294,7 +294,7 @@ public class Game
                                     }
                                 }
                             }
-                            section.tempSetPiece(p);
+                            section.tempSetPiece(previousPiece);
                         }
 
                     }
@@ -325,7 +325,7 @@ public class Game
                                     }
                                 }
                             }
-                            section.tempSetPiece(p);
+                            section.tempSetPiece(previousPiece);
                         }
                     }
                 }
