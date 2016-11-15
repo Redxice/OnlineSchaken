@@ -154,12 +154,10 @@ public abstract class Piece extends StackPane
                 hasMoved = true;
                 return true;
             }
-            p_section.setPiece(p_sectionPiece);
             return false;
         } catch (NullPointerException e)
         {
         }
-        p_section.setPiece(p_sectionPiece);
         return false;
     }
 
