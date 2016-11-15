@@ -5,12 +5,18 @@
  */
 package onlineschaken;
 
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Popup;
+import javafx.stage.Screen;
 
 /**
  *
@@ -156,73 +162,62 @@ public class Pawn extends Piece
      * speler zijn lijst verwijdert en het aangegeven type piece wordt
      * toegevoegt aan de speler zijn lijst op de locatie van de pawn.
      */
-    public Popup menu()
+    public void menu()
     {
-        Popup menu = new Popup();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
         Pawn pawn = this;
-        Button Bishop = new Button(type.Bishop.name());
-        Button Knight = new Button(type.Knight.name());
-        Button Queen = new Button(type.Queen.name());
-        Button Rook = new Button(type.Rook.name());
+        ButtonType Bishop = new ButtonType(type.Bishop.name());
+        ButtonType Knight = new ButtonType(type.Knight.name());
+        ButtonType Queen = new ButtonType(type.Queen.name());
+        ButtonType Rook = new ButtonType(type.Rook.name());
 
-        Bishop.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                Section section = pawn.getSection();
-                Bishop bishop = new Bishop(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
-                pawn.getPlayer().getPieces().add(bishop);
-                bishop.getPlayer().getPieces().remove(pawn);
-                bishop.moveWithoutCheck(section);
-                menu.hide();
-            }
-        });
-        Knight.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                Section section = pawn.getSection();
-                Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
-                pawn.getPlayer().getPieces().add(knight);
-                knight.getPlayer().getPieces().remove(pawn);
-                knight.moveWithoutCheck(section);
-                menu.hide();
-            }
-        });
-        Queen.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                Section section = pawn.getSection();
-                Queen queen = new Queen(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
-                pawn.getPlayer().getPieces().add(queen);
-                queen.getPlayer().getPieces().remove(pawn);
-                queen.moveWithoutCheck(section);
-                menu.hide();
-            }
-        });
-        Rook.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                Section section = pawn.getSection();
-                Rook rook = new Rook(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
-                pawn.getPlayer().getPieces().add(rook);
-                rook.getPlayer().getPieces().remove(pawn);
-                rook.moveWithoutCheck(section);
-                menu.hide();
-            }
-        });
-        HBox box = new HBox(5);
-        box.setStyle("-fx-background-color: cornsilk; -fx-padding: 10;");
-        box.getChildren().addAll(Bishop, Knight, Queen, Rook);
-        menu.getContent().add(box);
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        alert.setX(screenBounds.getWidth() / 2);
+        alert.setY(screenBounds.getHeight() / 2);
+        alert.getButtonTypes().setAll(Bishop, Knight, Queen, Rook);
 
-        return menu;
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == Bishop)
+        {
+            Section section = pawn.getSection();
+            Bishop bishop = new Bishop(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            pawn.getPlayer().getPieces().add(bishop);
+            bishop.getPlayer().getPieces().remove(pawn);
+            bishop.moveWithoutCheck(section);
+            alert.close();
+        } else if (result.get() == Knight)
+        {
+            Section section = pawn.getSection();
+            Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            pawn.getPlayer().getPieces().add(knight);
+            knight.getPlayer().getPieces().remove(pawn);
+            knight.moveWithoutCheck(section);
+            alert.close();
+        } else if (result.get() == Knight)
+        {
+            Section section = pawn.getSection();
+            Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            pawn.getPlayer().getPieces().add(knight);
+            knight.getPlayer().getPieces().remove(pawn);
+            knight.moveWithoutCheck(section);
+            alert.close();
+        } else if (result.get() == Queen)
+        {
+            Section section = pawn.getSection();
+            Queen queen = new Queen(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            pawn.getPlayer().getPieces().add(queen);
+            queen.getPlayer().getPieces().remove(pawn);
+            queen.moveWithoutCheck(section);
+            alert.close();
+        } else if (result.get() == Rook)
+        {
+            Section section = pawn.getSection();
+            Rook rook = new Rook(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            pawn.getPlayer().getPieces().add(rook);
+            rook.getPlayer().getPieces().remove(pawn);
+            rook.moveWithoutCheck(section);
+            alert.close();
+        }
     }
 
     public boolean Promotion(Section p_section)
