@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import database.Database;
 import java.util.Timer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -37,6 +38,7 @@ public class OnlineSchaken extends Application
     @Override
     public void start(Stage primaryStage)
     {
+        
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
@@ -93,6 +95,17 @@ public class OnlineSchaken extends Application
      */
     public static void main(String[] args)
     {
+        try
+        {
+            Database db = new Database();
+            db.init();
+            //db.insertPlayer("Sander", "WW123", "sander@test.com");
+            db.selectPlayer("Sander");
+            db.closeConnection();
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
         launch(args);
     }
 

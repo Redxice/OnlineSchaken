@@ -18,6 +18,7 @@ public class Player
     //fields
     private String username;
     private String password;
+    private String email;
     private String color;
     private int rating;
     private boolean online;
@@ -33,6 +34,19 @@ public class Player
         this.password = p_password;
         this.rating = p_rating;
         pieces = new ArrayList<Piece>();
+    }
+    
+    public Player(String p_username,String p_password,String email)
+    {
+        this.username = p_username;
+        this.password = p_password;
+        this.email = email;
+        pieces = new ArrayList<Piece>();
+    }
+    
+    public Player()
+    {
+        
     }
 
     public String getUsername()
