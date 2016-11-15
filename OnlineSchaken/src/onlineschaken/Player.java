@@ -12,7 +12,9 @@ import java.util.List;
  *
  * @author redxice
  */
-public class Player {
+public class Player
+{
+
     //fields
     private String username;
     private String password;
@@ -23,9 +25,9 @@ public class Player {
     private List<Piece> pieces;
     private Game game;
     private List<Game> history;
-    
+
     //constructor
-    public Player(String p_username,String p_password,int p_rating)
+    public Player(String p_username, String p_password, int p_rating)
     {
         this.username = p_username;
         this.password = p_password;
@@ -33,90 +35,114 @@ public class Player {
         pieces = new ArrayList<Piece>();
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
-    
-    public void setPassword(String password) {
+
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
-    public String getColor() {
+    public String getColor()
+    {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(String color)
+    {
         this.color = color;
     }
 
-    public int getRating() {
+    public int getRating()
+    {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(int rating)
+    {
         this.rating = rating;
     }
 
-    public boolean isOnline() {
+    public boolean isOnline()
+    {
         return online;
     }
 
-    public void setOnline(boolean online) {
+    public void setOnline(boolean online)
+    {
         this.online = online;
     }
 
-   
-    public Game getGame() {
+    public Game getGame()
+    {
         return game;
     }
 
-    public void setGame(Game game) {
+    public void setGame(Game game)
+    {
         this.game = game;
     }
 
-    public List<Player> getFriends() {
+    public List<Player> getFriends()
+    {
         return friends;
     }
 
-    public void setFriends(List<Player> friends) {
+    public void setFriends(List<Player> friends)
+    {
         this.friends = friends;
     }
-    public void addFriend(Player friend){
+
+    public void addFriend(Player friend)
+    {
         this.friends.add(friend);
     }
-    public void removeFriend(Player friend){
+
+    public void removeFriend(Player friend)
+    {
         this.friends.remove(friend);
     }
-    public void addHistory(Game game){
+
+    public void addHistory(Game game)
+    {
         history.add(game);
     }
-    public List<Piece> getPieces() {
+
+    public List<Piece> getPieces()
+    {
         return pieces;
     }
 
-    public void setPieces(List<Piece> pieces) {
+    public void setPieces(List<Piece> pieces)
+    {
         this.pieces = pieces;
     }
 
-    public List<Game> getHistory() {
+    public List<Game> getHistory()
+    {
         return history;
     }
 
-    public void setHistory(List<Game> history) {
+    public void setHistory(List<Game> history)
+    {
         this.history = history;
     }
-    
+
     public void removePiece(Piece piece)
     {
-     pieces.remove(piece);
+        pieces.remove(piece);
     }
-    
+
 }

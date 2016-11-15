@@ -45,52 +45,49 @@ public class Bishop extends Piece
                     if (this.getSection().getID().y > p_section.getID().y)
                     {
                         // kijkt of er een stuk in de weg staat
-                        for (int i = 0; i < this.getSection().getID().y - p_section.getID().y -1; i++)
+                        for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                         {
-                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i -1][this.getSection().getID().y - i -1].isOccupied() == true)
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y - i - 1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
-                    }
-                    // kijkt of hij naar beneden beweegt
+                    } // kijkt of hij naar beneden beweegt
                     else if (this.getSection().getID().y < p_section.getID().y)
                     {
                         // kijkt of er een stuk in de weg staat
-                        for (int i = 0; i < p_section.getID().y - this.getSection().getID().y -1; i++)
+                        for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
                         {
-                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i -1][this.getSection().getID().y + i +1].isOccupied() == true)
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y + i + 1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
                     }
-                } 
-                // kijkt of hij naar rechts beweegt
+                } // kijkt of hij naar rechts beweegt
                 else if (this.getSection().getID().x < p_section.getID().x)
                 {
                     // kijkt of hij naar boven beweegt
                     if (this.getSection().getID().y > p_section.getID().y)
                     {
                         // kijkt of er een stuk in de weg staat
-                        for (int i = 0; i < this.getSection().getID().y - p_section.getID().y -1; i++)
+                        for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                         {
-                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i +1][this.getSection().getID().y - i -1].isOccupied() == true)
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
                             {
                                 return false;
                             }
                         }
                         return true;
-                    }
-                    // kijkt of hij naar beneden beweegt
+                    } // kijkt of hij naar beneden beweegt
                     else if (this.getSection().getID().y < p_section.getID().y)
                     {
                         // kijkt of er een stuk in de weg staat
-                        for (int i = 0; i < p_section.getID().y - this.getSection().getID().y -1; i++)
+                        for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
                         {
-                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i +1][this.getSection().getID().y + i +1].isOccupied() == true)
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y + i + 1].isOccupied() == true)
                             {
                                 return false;
                             }

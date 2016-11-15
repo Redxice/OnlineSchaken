@@ -17,6 +17,7 @@ public class GameTimer extends TimerTask
     private Game game;
     private Board board;
     private OnlineSchaken javaFX;
+
     public GameTimer(Game game, Board board, OnlineSchaken javaFX)
     {
         this.game = game;
@@ -33,13 +34,13 @@ public class GameTimer extends TimerTask
             {
                 game.setResterend1(1);
                 javaFX.update();
-                
-            } else if(board.getTurn().equals("black"))
+
+            } else if (board.getTurn().equals("black"))
             {
                 game.setResterend2(1);
                 javaFX.update();
             }
-            
+
         }
     }
 

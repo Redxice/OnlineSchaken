@@ -296,7 +296,7 @@ public class Game
                             }
                             section.tempSetPiece(p);
                         }
-                        
+
                     }
                 }
             }
