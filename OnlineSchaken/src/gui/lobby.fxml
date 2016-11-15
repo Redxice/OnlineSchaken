@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="14.0" layoutY="361.0" prefHeight="25.0" prefWidth="374.0" promptText="Type message" />
+      <TextArea layoutX="14.0" layoutY="280.0" prefHeight="75.0" prefWidth="374.0" promptText="chat" />
+      <Button layoutX="402.0" layoutY="361.0" mnemonicParsing="false" text="Send" />
+      <Button layoutX="529.0" layoutY="374.0" mnemonicParsing="false" text="Friendlist" />
+      <TextArea layoutX="14.0" layoutY="48.0" prefHeight="222.0" prefWidth="374.0" promptText="Gamelobbys lijst" />
+      <Button layoutX="395.0" layoutY="62.0" mnemonicParsing="false" text="Create tournament" />
+      <Button layoutX="397.0" layoutY="94.0" mnemonicParsing="false" text="Quick game" />
+      <Button layoutX="395.0" layoutY="30.0" mnemonicParsing="false" text="Create game" />
+      <Button layoutX="397.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Create Competition" />
+      <Button layoutX="20.0" layoutY="18.0" mnemonicParsing="false" text="Profile" />
+      <Button layoutX="453.0" layoutY="374.0" mnemonicParsing="false" text="AddFriend" />
+      <Button layoutX="395.0" layoutY="167.0" mnemonicParsing="false" text="Shop" />
+      <Button layoutX="397.0" layoutY="200.0" mnemonicParsing="false" text="Report" />
+      <MenuButton layoutX="292.0" layoutY="14.0" mnemonicParsing="false" text="Game type">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</Pane>
