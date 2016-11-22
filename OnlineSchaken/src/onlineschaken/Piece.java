@@ -7,11 +7,9 @@ package onlineschaken;
 
 import java.awt.Point;
 import java.util.List;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Popup;
-import javafx.stage.Screen;
+import java.util.logging.*;
 
 /**
  *
@@ -21,6 +19,7 @@ public abstract class Piece extends StackPane
 {
 
     //fields
+    private static final Logger LOGGER = Logger.getLogger( Piece.class.getName() );
     private String color;
     private Player player;
     private Section section;
@@ -39,6 +38,11 @@ public abstract class Piece extends StackPane
             this.section.setPiece(this);
         }
 
+    }
+
+    public static Logger getLOGGER()
+    {
+        return LOGGER;
     }
 
     public void setColor(String color)
@@ -157,6 +161,7 @@ public abstract class Piece extends StackPane
             return false;
         } catch (NullPointerException e)
         {
+            LOGGER.log(Level.FINE, e.getMessage(), e);
         }
         return false;
     }
@@ -174,6 +179,7 @@ public abstract class Piece extends StackPane
             this.section = section.getBoard().getSections()[section.getID().x][section.getID().y];
         } catch (NullPointerException e)
         {
+             LOGGER.log(Level.FINE, e.getMessage(), e);
         }
         hasMoved = true;
     }

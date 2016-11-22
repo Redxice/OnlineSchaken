@@ -6,16 +6,12 @@
 package onlineschaken;
 
 import java.util.Optional;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import java.util.logging.Level;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.stage.Popup;
 import javafx.stage.Screen;
 
 /**
@@ -246,7 +242,7 @@ public class Pawn extends Piece
             Rightsection = getSection().getBoard().getSections(getSection().getID().x + 1, getSection().getID().y);
         } catch (ArrayIndexOutOfBoundsException ex)
         {
-
+           getLOGGER().log(Level.FINE, ex.getMessage(), ex);
         }
         if (p_section.getID().x == this.getSection().getID().x - 1 && p_section.getID().y == this.getSection().getID().y + 1)
         {
@@ -388,7 +384,7 @@ public class Pawn extends Piece
             Rightsection = getSection().getBoard().getSections(getSection().getID().x + 1, getSection().getID().y);
         } catch (ArrayIndexOutOfBoundsException ex)
         {
-
+       getLOGGER().log(Level.FINE, ex.getMessage(), ex);
         }
         if (p_section.getID().x == this.getSection().getID().x + 1 && p_section.getID().y == this.getSection().getID().y - 1)
         {
@@ -451,14 +447,15 @@ public class Pawn extends Piece
             Pawn pawn = (Pawn) p_section.getPiece();
             if (pawn.getColor() == "black")
             {
-                if (pawn.getPrevSectionY() == 6)
+             
+                if ((int)pawn.getPrevSectionY() == 6)
                 {
                     p_section.getBoard().ClearSection(p_section);
                     return true;
                 }
             } else if (pawn.getColor() == "white")
-            {
-                if (pawn.getPrevSectionY() == 1)
+            {   
+                if ((int)pawn.getPrevSectionY() == 1)
                 {
                     p_section.getBoard().ClearSection(p_section);
                     return true;

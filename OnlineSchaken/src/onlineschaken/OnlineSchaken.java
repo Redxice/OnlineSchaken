@@ -7,6 +7,8 @@ package onlineschaken;
 
 import database.Database;
 import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -27,7 +29,7 @@ import javax.swing.JOptionPane;
  */
 public class OnlineSchaken extends Application
 {
-
+private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getName() );
     private Game game;
     private Label timerBlack;
     private Label timerWhite;
@@ -104,7 +106,7 @@ public class OnlineSchaken extends Application
             db.closeConnection();
         } catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            LOGGER.log(Level.FINE, e.getMessage(), e);
         }
         launch(args);
     }
