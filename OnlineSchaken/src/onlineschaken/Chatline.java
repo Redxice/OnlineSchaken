@@ -18,6 +18,12 @@ public class Chatline
     private Gamelobby gameLobby;
     private long time;
 
+    /**
+     *
+     * @param userName
+     * @param message
+     * @param game
+     */
     public Chatline(String userName, String message, Game game)
     {
         time = System.currentTimeMillis();;
@@ -25,7 +31,12 @@ public class Chatline
         this.message = message;
         this.game = game;
     }
-
+/**
+     *
+     * @param userName
+     * @param message
+     * @param gameLobby
+     */
     public Chatline(String userName, String message, Gamelobby gameLobby)
     {
         this.userName = userName;

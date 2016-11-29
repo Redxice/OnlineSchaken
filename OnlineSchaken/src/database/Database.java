@@ -5,7 +5,6 @@
  */
 package database;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import onlineschaken.Piece;
 import onlineschaken.Player;
 
 /**
@@ -23,11 +23,20 @@ public class Database
 {
 
     private Connection con;
+    private static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
 
+    /**
+     * moet nog worden geimplementeerd
+     */
     public Database()
     {
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * sluit de connectie met de database als dat niet lukt wordt 
+     * er een sql injection gethrowed.
+     */
     public void closeConnection()
     {
         try
@@ -36,7 +45,7 @@ public class Database
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     private void initConnection() throws SQLException
@@ -44,11 +53,10 @@ public class Database
         try
         {
             con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi353331", "dbi353331", "Wachtwoord123;");
-        }  
-         catch (SQLException ex)
+        } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     public boolean init()
@@ -61,7 +69,7 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } 
+        }
     }
 
     public boolean insertPlayer(String username, String password, String email)
@@ -78,11 +86,13 @@ public class Database
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        return false;
-        } 
+            return false;
+        }
     }
+
     /**
      * //Dit moet nog worden gechecked worden in de methode die hem aanroept.
+     *
      * @param username
      * @return Player
      */
@@ -97,15 +107,15 @@ public class Database
             while (results.next())
             {
                 player = new Player(results.getString("username"), results.getString("password"), results.getString("email"));
-                System.out.println(player.getUsername() + " + " + player.getPassword());
+                LOGGER.log(Level.FINE,player.getUsername() + " + " + player.getPassword());
             }
             statement.close();
             return player;
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-           
+
             return null;
-        } 
+        }
     }
 }

@@ -35,6 +35,11 @@ public class Bishop extends Piece
 
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     @Override
     public Boolean checkMove(Section p_section)
     {
@@ -118,8 +123,20 @@ public class Bishop extends Piece
     {
         if (this.getSection().getID().x < p_section.getID().x)
         {
-            // kijkt of hij naar boven beweegt
-            if (this.getSection().getID().y > p_section.getID().y)
+         return CheckRightUp(p_section)||CheckRightDown(p_section);
+            
+        }
+        return false;
+    }
+    
+    /**
+     *
+     * @param p_section
+     * @return
+     */
+    public boolean CheckRightUp(Section p_section){
+        
+        if (this.getSection().getID().y > p_section.getID().y)
             {
                 // kijkt of er een stuk in de weg staat
                 for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
@@ -130,8 +147,18 @@ public class Bishop extends Piece
                     }
                 }
                 return true;
-            } // kijkt of hij naar beneden beweegt
-            else if (this.getSection().getID().y < p_section.getID().y)
+            }
+        return false;
+    }
+  
+    /**
+     *
+     * @param p_section
+     * @return
+     */
+    public boolean CheckRightDown(Section p_section){
+        
+        if (this.getSection().getID().y < p_section.getID().y)
             {
                 // kijkt of er een stuk in de weg staat
                 for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
@@ -143,8 +170,6 @@ public class Bishop extends Piece
                 }
                 return true;
             }
-        }
         return false;
     }
-
 }

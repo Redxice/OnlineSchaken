@@ -28,9 +28,9 @@ public class Board
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
     private Pane root = new Pane();
-    private Point firstClick;
     private Section firstSection;
     private Piece piece;
+    //Moet nog een enum van worden gemaakt
     private String turn = "white";
     private Game game;
 

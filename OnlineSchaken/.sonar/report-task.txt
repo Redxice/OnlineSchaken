@@ -1,5 +1,5 @@
 projectKey=groep_s31a_source_code_master
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/groep_s31a_source_code_master
-ceTaskId=AViMXOmW-U-a3XK5JJrP
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AViMXOmW-U-a3XK5JJrP
+ceTaskId=AViqHX_dp-uzJwE9vnW5
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AViqHX_dp-uzJwE9vnW5
