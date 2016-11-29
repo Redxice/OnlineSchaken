@@ -25,13 +25,6 @@ public class Database
     private Connection con;
     private static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
 
-    /**
-     * moet nog worden geimplementeerd
-     */
-    public Database()
-    {
-        throw new UnsupportedOperationException();
-    }
 
     /**
      * sluit de connectie met de database als dat niet lukt wordt 
@@ -52,10 +45,12 @@ public class Database
     {
         try
         {
-            con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi353331", "dbi353331", "Wachtwoord123;");
+            con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi353331", "dbi353331", "Wachtwoord123");
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getCause());
         }
     }
 
@@ -116,6 +111,62 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
 
             return null;
+        }
+    }
+    
+    public boolean insertLobby(String username)
+    {
+        try
+        {
+            int playerid = selectPlayerId(username);
+            PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID) VALUES(?);");
+            statement.setInt(1, playerid);
+            statement.executeUpdate();
+            statement.close();
+            return true;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean joinLobby(String username, int lobbyID)
+    {
+        try
+        {
+            int playerid = selectPlayerId(username);
+            PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player2ID) VALUES(?) WHERE lobbyID = ?;");
+            statement.setInt(1, playerid);
+            statement.setInt(2, lobbyID);
+            statement.executeUpdate();
+            statement.close();
+            return true;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public int selectPlayerId(String username)
+    {
+        try
+        {
+            PreparedStatement statement = con.prepareStatement("SELECT PlayerID FROM player WHERE username = ?;");
+            statement.setString(1, username);
+            ResultSet results = statement.executeQuery();
+            int id = 0;
+            while (results.next())
+            {
+                id = results.getInt("PlayerID");
+            }
+            statement.close();
+            return id;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
         }
     }
 }
