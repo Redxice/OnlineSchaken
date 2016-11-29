@@ -44,9 +44,9 @@ private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getNa
     {
         try
         {
-        Parent root = FXMLLoader.load(getClass().getResource("Gamelobby.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ingame.fxml"));
     
-        Scene scene = new Scene(root, 300, 275);
+        Scene scene = new Scene(root);
     
         primaryStage.setTitle("Gamelobby");
         primaryStage.setScene(scene);
