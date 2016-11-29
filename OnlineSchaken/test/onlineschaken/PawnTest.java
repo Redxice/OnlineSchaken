@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import gui.OnlineSchaken;
 import java.awt.Point;
 import org.junit.After;
 import org.junit.AfterClass;

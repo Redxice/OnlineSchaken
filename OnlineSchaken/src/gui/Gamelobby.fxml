@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GamelobbyController">
    <children>
       <TextField layoutX="14.0" layoutY="361.0" prefHeight="25.0" prefWidth="317.0" promptText="Message" />
       <TextArea layoutX="14.0" layoutY="262.0" prefHeight="90.0" prefWidth="395.0" promptText="Cchat" />

@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package onlineschaken;
+package gui;
+
 
 import database.Database;
 import java.util.Timer;
@@ -24,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
+import onlineschaken.Game;
 
 /**
  *
@@ -47,7 +49,7 @@ public class OnlineSchaken extends Application
         {
             //System.out.println(getClass().getResource("Gamelobby.fxml"));
             //System.out.println(getClass().getResource("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\Login.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("Gamelobby.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
             //System.out.println(getClass().getResource("gui/Login.fxml"));
             Scene scene = new Scene(root, 500, 500);
 

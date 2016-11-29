@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import gui.OnlineSchaken;
 import java.util.TimerTask;
 
 /**

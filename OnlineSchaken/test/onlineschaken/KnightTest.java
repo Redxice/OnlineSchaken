@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import gui.OnlineSchaken;
 import javafx.scene.image.Image;
 import org.junit.After;
 import org.junit.AfterClass;
