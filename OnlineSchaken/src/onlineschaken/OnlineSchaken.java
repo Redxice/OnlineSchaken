@@ -13,8 +13,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,6 +42,18 @@ private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getNa
     @Override
     public void start(Stage primaryStage)
     {
+        try
+        {
+        Parent root = FXMLLoader.load(getClass().getResource("Gamelobby.fxml"));
+    
+        Scene scene = new Scene(root, 300, 275);
+    
+        primaryStage.setTitle("Gamelobby");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        }
+        catch(Exception e){System.out.println(e.getMessage());}
+        
         
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
@@ -78,7 +92,7 @@ private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getNa
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+        
     public void update()
     {
         Platform.runLater(new Runnable()
@@ -98,17 +112,16 @@ private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getNa
     public static void main(String[] args)
     {
         try
-        {
+        {/*
             Database db = new Database();
             db.init();
             //db.insertPlayer("Sander", "WW123", "sander@test.com");
             db.selectPlayer("Sander");
-            db.closeConnection();
+            db.closeConnection();*/
         } catch (Exception e)
         {
             LOGGER.log(Level.FINE, e.getMessage(), e);
         }
         launch(args);
     }
-
 }
