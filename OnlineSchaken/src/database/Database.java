@@ -25,10 +25,9 @@ public class Database
     private Connection con;
     private static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
 
-
     /**
-     * sluit de connectie met de database als dat niet lukt wordt 
-     * er een sql injection gethrowed.
+     * sluit de connectie met de database als dat niet lukt wordt er een sql
+     * injection gethrowed.
      */
     public void closeConnection()
     {
@@ -49,8 +48,6 @@ public class Database
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            System.out.println(ex.getCause());
         }
     }
 
@@ -102,7 +99,7 @@ public class Database
             while (results.next())
             {
                 player = new Player(results.getString("username"), results.getString("password"), results.getString("email"));
-                LOGGER.log(Level.FINE,player.getUsername() + " + " + player.getPassword());
+                LOGGER.log(Level.FINE, player.getUsername() + " + " + player.getPassword());
             }
             statement.close();
             return player;
@@ -113,7 +110,7 @@ public class Database
             return null;
         }
     }
-    
+
     public boolean insertLobby(String username)
     {
         try
@@ -130,7 +127,7 @@ public class Database
             return false;
         }
     }
-    
+
     public boolean joinLobby(String username, int lobbyID)
     {
         try
@@ -148,7 +145,43 @@ public class Database
             return false;
         }
     }
+
+    public boolean addFriend(String username1, String username2)
+    {
+        try
+        {
+            int playerid1 = selectPlayerId(username1);
+            int playerid2 = selectPlayerId(username2);
+            PreparedStatement statement = con.prepareStatement("INSERT INTO friendlist(playerID, friendID) VALUES(?, ?);");
+            statement.setInt(1, playerid1);
+            statement.setInt(2, playerid2);
+            statement.executeUpdate();
+            statement.close();
+            return true;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     
+    public boolean addLobbyMessage(int lobbyid, String username)
+    {
+       try
+        {
+            int playerid = selectPlayerId(username);
+            PreparedStatement statement = con.prepareStatement("INSERT INTO lobbymessage(playerID, friendID) VALUES(?, ?);");
+            statement.setInt(1, playerid);
+            statement.executeUpdate();
+            statement.close();
+            return true;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } 
+    }
+
     public int selectPlayerId(String username)
     {
         try
