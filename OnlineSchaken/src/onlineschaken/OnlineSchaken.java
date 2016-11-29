@@ -31,7 +31,8 @@ import javax.swing.JOptionPane;
  */
 public class OnlineSchaken extends Application
 {
-private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getName() );
+
+    private static final Logger LOGGER = Logger.getLogger(OnlineSchaken.class.getName());
     private Game game;
     private Label timerBlack;
     private Label timerWhite;
@@ -44,17 +45,22 @@ private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getNa
     {
         try
         {
-        Parent root = FXMLLoader.load(getClass().getResource("ingame.fxml"));
-    
-        Scene scene = new Scene(root);
-    
-        primaryStage.setTitle("Gamelobby");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            //System.out.println(getClass().getResource("Gamelobby.fxml"));
+            //System.out.println(getClass().getResource("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Gamelobby.fxml"));
+            //System.out.println(getClass().getResource("gui/Login.fxml"));
+            Scene scene = new Scene(root, 500, 500);
+
+            primaryStage.setTitle("register");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e)
+        {
+            Logger.getLogger(OnlineSchaken.class.getName()).log(Level.SEVERE, null, e);
+            //System.out.println(e.getMessage());
         }
-        catch(Exception e){System.out.println(e.getMessage());}
-        
-        
+
+        /*
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
@@ -90,9 +96,9 @@ private static final Logger LOGGER = Logger.getLogger( OnlineSchaken.class.getNa
         root.getChildren().add(hb);
         primaryStage.setTitle("OnlineSchaken");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();*/
     }
-        
+
     public void update()
     {
         Platform.runLater(new Runnable()
