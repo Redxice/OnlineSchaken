@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LobbyController">
    <children>
-      <Button layoutX="529.0" layoutY="374.0" mnemonicParsing="false" text="Friendlist" />
+      <Button layoutX="524.0" layoutY="362.0" mnemonicParsing="false" text="Friendlist" />
       <Button layoutX="395.0" layoutY="62.0" mnemonicParsing="false" text="Create tournament" />
       <Button layoutX="397.0" layoutY="94.0" mnemonicParsing="false" text="Quick game" />
-      <Button layoutX="395.0" layoutY="30.0" mnemonicParsing="false" text="Create game" />
+      <Button fx:id="Btn_CreateGame" layoutX="395.0" layoutY="30.0" mnemonicParsing="false" onAction="#HandleCreateGame" text="Create game" />
       <Button layoutX="397.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Create Competition" />
       <Button fx:id="Btn_Profile" layoutX="20.0" layoutY="18.0" mnemonicParsing="false" onAction="#HandleProfileBTN" text="Profile" />
-      <Button fx:id="Btn_AddFriend" layoutX="453.0" layoutY="374.0" mnemonicParsing="false" onAction="#addFriend" text="AddFriend" />
+      <Button fx:id="Btn_AddFriend" layoutX="443.0" layoutY="362.0" mnemonicParsing="false" onAction="#addFriend" text="AddFriend" />
       <Button layoutX="397.0" layoutY="167.0" mnemonicParsing="false" text="Report" />
       <MenuButton layoutX="292.0" layoutY="14.0" mnemonicParsing="false" text="Game type">
         <items>
@@ -22,5 +23,7 @@
       </MenuButton>
       <ListView layoutX="20.0" layoutY="57.0" prefHeight="276.0" prefWidth="368.0" />
       <Button fx:id="Btn_Join" layoutX="26.0" layoutY="349.0" mnemonicParsing="false" onAction="#joinGame" text="Join" />
+      <TextField layoutX="288.0" layoutY="362.0" visible="false" />
+      <TextField fx:id="Tb_Friend" layoutX="288.0" layoutY="362.0" />
    </children>
 </Pane>
