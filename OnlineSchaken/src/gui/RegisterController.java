@@ -70,6 +70,9 @@ public class RegisterController implements Initializable
         WarningLabel_RePassword.setText(null);
         if (CheckTextFields())
         {  
+           db = new Database();
+           db.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(),TxtField_Email.getText());
+            
             try
             {
                 Stage CurrentStage = (Stage) Btn_Register.getScene().getWindow();
@@ -111,7 +114,7 @@ private boolean CheckTextFields()
             FieldsAreCorrect = false;
             
         }
-        else if(!CheckTxtFieldRePassword()){
+        if(!CheckTxtFieldRePassword()&&!TxtField_Password.getText().isEmpty()){
             FieldsAreCorrect = false;
            }
         
@@ -119,13 +122,10 @@ private boolean CheckTextFields()
         return FieldsAreCorrect;
     }
     private boolean CheckTxtFieldUsername(){
-    db = new Database();
-    db.init();
-     
+    db = new Database();   
       if(db.selectPlayer(TxtField_Username.getText()).getUsername().equals(TxtField_Username.getText()))
             {
                 TxtField_Username.setText("");
-                db.closeConnection();
                 WarningLabel_Username.setText("Username already in use");
                 return false;
             }
@@ -134,7 +134,7 @@ private boolean CheckTextFields()
      return true;
     }
 /**
- * Wordt aangeroepen nadat er wordt gechecked of password niet leeg is.
+ * 
  * @return 
  */
     private boolean CheckTxtFieldRePassword()
