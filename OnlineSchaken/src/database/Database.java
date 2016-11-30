@@ -80,6 +80,11 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        catch(Exception e)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        }
     }
 
     /**

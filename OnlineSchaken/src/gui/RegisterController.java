@@ -5,6 +5,7 @@
  */
 package gui;
 
+import database.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +30,8 @@ import javafx.stage.Stage;
  */
 public class RegisterController implements Initializable
 {
-private static final Logger LOGGER = Logger.getLogger( RegisterController.class.getName() );
+
+    private static final Logger LOGGER = Logger.getLogger(RegisterController.class.getName());
     /**
      * Initializes the controller class.
      */
@@ -43,29 +45,41 @@ private static final Logger LOGGER = Logger.getLogger( RegisterController.class.
     private PasswordField TxtField_Password;
     @FXML
     private PasswordField TxtField_RePassword;
-    
-    
+    private Database db;
+
     @FXML
     private void RegisterAccount(ActionEvent event)
     {
         try
-        {  
-            Stage CurrentStage = (Stage) Btn_Register.getScene().getWindow();
-            CurrentStage.close();
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-            Scene scene = new Scene(root,Color.TRANSPARENT);
-            stage.setScene(scene);
-            stage.show();      
+        {
+            if (TxtField_Password.getText().equals(TxtField_RePassword.getText()))
+            {
+                db = new Database();
+                db.init();
+                db.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
+                db.closeConnection();
+                Stage CurrentStage = (Stage) Btn_Register.getScene().getWindow();
+                CurrentStage.close();
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+                Scene scene = new Scene(root, Color.TRANSPARENT);
+                stage.setScene(scene);
+                stage.show();
+            }
+            else
+            {
+                
+            }
         } catch (IOException ex)
         {
-           LOGGER.log(Level.FINE,ex.getMessage());
+            LOGGER.log(Level.FINE, ex.getMessage());
         }
-    } 
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-    }    
-    
+    }
+
 }
