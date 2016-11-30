@@ -58,7 +58,7 @@ public class LobbyController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
+       
     }
 
     @FXML

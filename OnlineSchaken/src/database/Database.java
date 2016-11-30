@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import onlineschaken.Gamelobby;
 import onlineschaken.Piece;
 import onlineschaken.Player;
 
@@ -50,10 +53,6 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally
-        {
-            closeConnection();
-        }
     }
 
     public boolean init()
@@ -66,10 +65,6 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
-        finally
-        {
-            closeConnection();
         }
     }
 
@@ -245,6 +240,33 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
+        }
+        finally
+        {
+            closeConnection();
+        }
+    }
+    
+    public ObservableList<Gamelobby>  selectAllGameLobbys()
+    {
+        try
+        {
+            init();
+            PreparedStatement statement = con.prepareStatement("SELECT LobbyID FROM lobby;");
+            ResultSet results = statement.executeQuery();
+            ObservableList<Gamelobby> items =FXCollections.observableArrayList();
+            while (results.next())
+            {
+                Gamelobby lobby = new Gamelobby(results.getInt("LobbyID"));
+                items.add(lobby);
+            }
+            statement.close();
+            return items;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+
+            return null;
         }
         finally
         {
