@@ -6,10 +6,14 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RegisterController">
    <children>
-      <TextField fx:id="TxtField_Username" layoutX="204.0" layoutY="34.0" promptText="Username" />
-      <TextField fx:id="TxtField_Email" layoutX="204.0" layoutY="143.0" promptText="Email" />
-      <Button fx:id="Btn_Register" layoutX="268.0" layoutY="188.0" mnemonicParsing="false" onAction="#RegisterAccount" prefHeight="25.0" prefWidth="84.0" text="Register" />
+      <TextField fx:id="TxtField_Username" layoutX="204.0" layoutY="29.0" promptText="Username" />
+      <TextField fx:id="TxtField_Email" layoutX="204.0" layoutY="169.0" promptText="Email" />
+      <Button fx:id="Btn_Register" layoutX="269.0" layoutY="230.0" mnemonicParsing="false" onAction="#RegisterAccount" prefHeight="25.0" prefWidth="84.0" text="Register" />
       <PasswordField fx:id="TxtField_Password" layoutX="204.0" layoutY="76.0" promptText="password" />
-      <PasswordField fx:id="TxtField_RePassword" layoutX="204.0" layoutY="109.0" promptText="Re Password" />
+      <PasswordField fx:id="TxtField_RePassword" layoutX="204.0" layoutY="118.0" promptText="Re Password" />
+      <Label fx:id="WarningLabel_Username" layoutX="204.0" layoutY="54.0" />
+      <Label fx:id="WarningLabel_Password" layoutX="204.0" layoutY="101.0" />
+      <Label fx:id="WarningLabel_Email" layoutX="204.0" layoutY="200.0" />
+      <Label fx:id="WarningLabel_RePassword" layoutX="204.0" layoutY="143.0" />
    </children>
 </Pane>
