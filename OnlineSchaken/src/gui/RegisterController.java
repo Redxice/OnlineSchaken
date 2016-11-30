@@ -25,6 +25,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import onlineschaken.Player;
 
 /**
  * FXML Controller class
@@ -89,7 +90,10 @@ public class RegisterController implements Initializable
             }
         }
      }
-                
+ /**
+  * Checked of allen fields correct in zijn gevult.
+  * @return true wanneer alles correct is in gevult.
+  */      
 private boolean CheckTextFields()
     {
         boolean FieldsAreCorrect = true;
@@ -123,14 +127,17 @@ private boolean CheckTextFields()
     }
     private boolean CheckTxtFieldUsername(){
     db = new Database();   
-      if(db.selectPlayer(TxtField_Username.getText()).getUsername().equals(TxtField_Username.getText()))
+    Player player = db.selectPlayer(TxtField_Username.getText());
+        if (player != null)
+        {
+            if (player.equals(TxtField_Username.getText()))
             {
-                TxtField_Username.setText("");
-                WarningLabel_Username.setText("Username already in use");
-                return false;
-            }
+              TxtField_Username.setText("");
+              WarningLabel_Username.setText("Username already in use");
+              return false;  
+            }     
+        }
            
-    
      return true;
     }
 /**
