@@ -99,7 +99,7 @@ private boolean CheckTextFields()
            
             FieldsAreCorrect = false;
         }
-        else if (!CheckTxtFieldUsername())
+       else if (!CheckTxtFieldUsername())
         {
             FieldsAreCorrect = false;
         }

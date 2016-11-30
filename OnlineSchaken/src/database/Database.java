@@ -38,10 +38,7 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally
-        {
-            closeConnection();
-        }
+        
     }
 
     private void initConnection() throws SQLException
