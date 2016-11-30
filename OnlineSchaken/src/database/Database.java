@@ -252,12 +252,17 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("SELECT LobbyID FROM lobby;");
+            PreparedStatement statement = con.prepareStatement("SELECT LobbyID, player1ID, player2ID FROM lobby;");
             ResultSet results = statement.executeQuery();
             ObservableList<Gamelobby> items =FXCollections.observableArrayList();
             while (results.next())
             {
-                Gamelobby lobby = new Gamelobby(results.getInt("LobbyID"));
+                int count = 1;
+                if(results.getString("player2ID") != null)
+                {
+                    count = 2;
+                }
+                Gamelobby lobby = new Gamelobby(results.getInt("LobbyID"),count);
                 items.add(lobby);
             }
             statement.close();

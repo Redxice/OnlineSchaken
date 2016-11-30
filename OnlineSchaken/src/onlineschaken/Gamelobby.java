@@ -16,14 +16,14 @@ public class Gamelobby
 
     private int id;
     private int maxPlayers;
+    private int currentPlayers;
     private List<Chatline> chatLines;
 
-    public Gamelobby(int id)
+    public Gamelobby(int id, int currentPlayers)
     {
         this.id = id;
-    }
-
-    
+        this.currentPlayers = currentPlayers;
+    }    
 
     public int getMaxPlayers()
     {

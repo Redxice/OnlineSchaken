@@ -57,8 +57,9 @@ public class LobbyController implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {
-       
+    {       
+        gameList = db.selectAllGameLobbys();
+        Lv_GameList.setItems(gameList);
     }
 
     @FXML
@@ -82,7 +83,7 @@ public class LobbyController implements Initializable
     @FXML
     private void joinGame(ActionEvent event)
     {
-
+       
     }
 
     @FXML
