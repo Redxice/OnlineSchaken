@@ -5,6 +5,7 @@
  */
 package gui;
 
+import database.Database;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class RegisterController implements Initializable
     /**
      * Initializes the controller class.
      */
+    private Database db;
     @FXML
     private Button Btn_Register;
     @FXML
@@ -61,7 +63,7 @@ public class RegisterController implements Initializable
     
     @FXML
     private void RegisterAccount(ActionEvent event)
-    {
+    {   
         WarningLabel_Username.setText(null);
         WarningLabel_Email.setText(null);
         WarningLabel_Password.setText(null);
@@ -77,20 +79,25 @@ public class RegisterController implements Initializable
                 Scene scene = new Scene(root, Color.TRANSPARENT);
                 stage.setScene(scene);
                 stage.show();
-            } catch (IOException ex)
+                }
+                catch (IOException ex)
             {
                 LOGGER.log(Level.FINE, ex.getMessage());
             }
         }
-
-    }
-
-    private boolean CheckTextFields()
+     }
+                
+private boolean CheckTextFields()
     {
         boolean FieldsAreCorrect = true;
         if (TxtField_Username.getText().isEmpty())
         {
             WarningLabel_Username.setText("Plz insert a username");
+           
+            FieldsAreCorrect = false;
+        }
+        else if (!CheckTxtFieldUsername())
+        {
             FieldsAreCorrect = false;
         }
         if (!CheckTxtFieldEmail())
@@ -102,13 +109,29 @@ public class RegisterController implements Initializable
         {
             WarningLabel_Password.setText("Please insert a password");
             FieldsAreCorrect = false;
-            if(!CheckTxtFieldRePassword()){
+            
+        }
+        else if(!CheckTxtFieldRePassword()){
             FieldsAreCorrect = false;
            }
-        }
         
         
         return FieldsAreCorrect;
+    }
+    private boolean CheckTxtFieldUsername(){
+    db = new Database();
+    db.init();
+     
+      if(db.selectPlayer(TxtField_Username.getText()).getUsername().equals(TxtField_Username.getText()))
+            {
+                TxtField_Username.setText("");
+                db.closeConnection();
+                WarningLabel_Username.setText("Username already in use");
+                return false;
+            }
+           
+    
+     return true;
     }
 /**
  * Wordt aangeroepen nadat er wordt gechecked of password niet leeg is.
