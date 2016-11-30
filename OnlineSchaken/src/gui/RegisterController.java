@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -50,12 +51,18 @@ public class RegisterController implements Initializable
     @FXML
     private void RegisterAccount(ActionEvent event)
     {
+        db = new Database();
+        db.init();
         try
         {
+            if(db.selectPlayer(TxtField_Username.getText()).getUsername().equals(TxtField_Username.getText()))
+            {
+                TxtField_Username.setText("");
+                db.closeConnection();
+                return;
+            }
             if (TxtField_Password.getText().equals(TxtField_RePassword.getText()))
             {
-                db = new Database();
-                db.init();
                 db.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
                 db.closeConnection();
                 Stage CurrentStage = (Stage) Btn_Register.getScene().getWindow();
