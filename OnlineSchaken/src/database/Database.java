@@ -133,9 +133,9 @@ public class Database
     public boolean insertLobby(String username)
     {
         try
-        {
-            init();
+        {            
             int playerid = selectPlayerId(username);
+            init();
             PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID) VALUES(?);");
             statement.setInt(1, playerid);
             statement.executeUpdate();

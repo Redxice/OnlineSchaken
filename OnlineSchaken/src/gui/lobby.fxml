@@ -21,7 +21,7 @@
           <MenuItem mnemonicParsing="false" text="Action 2" />
         </items>
       </MenuButton>
-      <ListView layoutX="20.0" layoutY="57.0" prefHeight="276.0" prefWidth="368.0" />
+      <ListView fx:id="Lv_GameList" layoutX="20.0" layoutY="57.0" prefHeight="276.0" prefWidth="368.0" />
       <Button fx:id="Btn_Join" layoutX="26.0" layoutY="349.0" mnemonicParsing="false" onAction="#joinGame" text="Join" />
       <TextField layoutX="288.0" layoutY="362.0" visible="false" />
       <TextField fx:id="Tb_Friend" layoutX="288.0" layoutY="362.0" />

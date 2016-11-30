@@ -10,6 +10,7 @@ import onlineschaken.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -37,6 +38,7 @@ public class LobbyController implements Initializable
 {    
     Database db = new Database();
     private ObservableList<Gamelobby> gameList = FXCollections.observableArrayList();
+    private List<String> test = new ArrayList<String>();
     String naam = "a";
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     @FXML
@@ -59,7 +61,7 @@ public class LobbyController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {       
         gameList = db.selectAllGameLobbys();
-        Lv_GameList.setItems(gameList);
+        Lv_GameList.setItems(gameList);     
     }
 
     @FXML
