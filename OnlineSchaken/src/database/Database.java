@@ -38,6 +38,10 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally
+        {
+            closeConnection();
+        }
     }
 
     private void initConnection() throws SQLException
@@ -48,6 +52,10 @@ public class Database
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            closeConnection();
         }
     }
 
@@ -62,12 +70,17 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally
+        {
+            closeConnection();
+        }
     }
 
     public boolean insertPlayer(String username, String password, String email)
     {
         try
         {
+            init();
             PreparedStatement statement = con.prepareStatement("INSERT INTO player(Username, Password, Email) VALUES(?,?,?);");
             statement.setString(1, username);
             statement.setString(2, password);
@@ -85,6 +98,10 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
             return false;
         }
+        finally
+        {
+            closeConnection();
+        }
     }
 
     /**
@@ -97,6 +114,7 @@ public class Database
     {
         try
         {
+            init();
             PreparedStatement statement = con.prepareStatement("SELECT username, password, email FROM player WHERE username = ?;");
             statement.setString(1, username);
             ResultSet results = statement.executeQuery();
@@ -114,12 +132,17 @@ public class Database
 
             return null;
         }
+        finally
+        {
+            closeConnection();
+        }
     }
 
     public boolean insertLobby(String username)
     {
         try
         {
+            init();
             int playerid = selectPlayerId(username);
             PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID) VALUES(?);");
             statement.setInt(1, playerid);
@@ -131,12 +154,17 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally
+        {
+            closeConnection();
+        }
     }
 
     public boolean joinLobby(String username, int lobbyID)
     {
         try
         {
+            init();
             int playerid = selectPlayerId(username);
             PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player2ID) VALUES(?) WHERE lobbyID = ?;");
             statement.setInt(1, playerid);
@@ -149,12 +177,17 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally
+        {
+            closeConnection();
+        }
     }
 
     public boolean addFriend(String username1, String username2)
     {
         try
         {
+            init();
             int playerid1 = selectPlayerId(username1);
             int playerid2 = selectPlayerId(username2);
             PreparedStatement statement = con.prepareStatement("INSERT INTO friendlist(playerID, friendID) VALUES(?, ?);");
@@ -168,12 +201,17 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+        finally
+        {
+            closeConnection();
+        }
     }
     
     public boolean addLobbyMessage(int lobbyid, String username)
     {
        try
         {
+            init();
             int playerid = selectPlayerId(username);
             PreparedStatement statement = con.prepareStatement("INSERT INTO lobbymessage(playerID, friendID) VALUES(?, ?);");
             statement.setInt(1, playerid);
@@ -185,12 +223,17 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } 
+        finally
+        {
+            closeConnection();
+        }
     }
 
     public int selectPlayerId(String username)
     {
         try
         {
+            init();
             PreparedStatement statement = con.prepareStatement("SELECT PlayerID FROM player WHERE username = ?;");
             statement.setString(1, username);
             ResultSet results = statement.executeQuery();
@@ -205,6 +248,10 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
+        }
+        finally
+        {
+            closeConnection();
         }
     }
 }
