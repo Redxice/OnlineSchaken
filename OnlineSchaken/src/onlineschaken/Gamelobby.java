@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author redxice
  */
-class Gamelobby
+public class Gamelobby
 {
 
     private String name;
