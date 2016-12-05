@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.IngameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.IngameController">
    <children>
-      <TextArea layoutX="383.0" layoutY="169.0" prefHeight="169.0" prefWidth="202.0" promptText="Chat" />
-      <TextField layoutX="383.0" layoutY="350.0" promptText="Type your message" />
-      <Button layoutX="534.0" layoutY="350.0" mnemonicParsing="false" text="Send" />
-      <TextArea layoutX="14.0" layoutY="14.0" prefHeight="360.0" prefWidth="354.0" promptText="GAME" />
-      <Text layoutX="376.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
-      <Text layoutX="383.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
-      <TextArea layoutX="376.0" layoutY="31.0" prefHeight="49.0" prefWidth="187.0" promptText="Geslagen stukken" />
-      <TextArea layoutX="376.0" layoutY="110.0" prefHeight="49.0" prefWidth="187.0" promptText="Geslagen stukken" />
-      <TextField layoutX="434.0" layoutY="81.0" prefHeight="16.0" prefWidth="129.0" promptText="Timer" />
-      <TextField layoutX="434.0" layoutY="2.0" prefHeight="16.0" prefWidth="129.0" promptText="Timer" />
-      <Button layoutX="573.0" layoutY="19.0" mnemonicParsing="false" text="Draw" />
-      <Button layoutX="563.0" layoutY="56.0" mnemonicParsing="false" text="Surender" />
+      <TextArea layoutX="517.0" layoutY="279.0" prefHeight="169.0" prefWidth="202.0" promptText="Chat" />
+      <TextField layoutX="517.0" layoutY="460.0" promptText="Type your message" />
+      <Button layoutX="668.0" layoutY="460.0" mnemonicParsing="false" text="Send" />
+      <Text layoutX="510.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
+      <Text layoutX="517.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
+      <TextArea layoutX="510.0" layoutY="141.0" prefHeight="49.0" prefWidth="187.0" promptText="Geslagen stukken" />
+      <TextArea layoutX="510.0" layoutY="220.0" prefHeight="49.0" prefWidth="187.0" promptText="Geslagen stukken" />
+      <TextField layoutX="568.0" layoutY="191.0" prefHeight="16.0" prefWidth="129.0" promptText="Timer" />
+      <TextField layoutX="568.0" layoutY="112.0" prefHeight="16.0" prefWidth="129.0" promptText="Timer" />
+      <Button layoutX="707.0" layoutY="129.0" mnemonicParsing="false" text="Draw" />
+      <Button layoutX="697.0" layoutY="166.0" mnemonicParsing="false" text="Surender" />
+      <Canvas id="GameBoard" fx:id="GameBoard" height="520.0" layoutX="14.0" layoutY="30.0" width="495.0" />
    </children>
 </Pane>

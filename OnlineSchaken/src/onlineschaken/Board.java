@@ -34,10 +34,7 @@ public class Board
     private String turn = "white";
     private Game game;
 
-    public Board()
-    {
-
-    }
+   
 
     public Parent createContent()
     {

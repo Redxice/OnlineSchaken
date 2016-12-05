@@ -7,7 +7,14 @@ package gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+
+import onlineschaken.Game;
+import onlineschaken.Player;
 
 /**
  * FXML Controller class
@@ -16,6 +23,8 @@ import javafx.fxml.Initializable;
  */
 public class IngameController implements Initializable
 {
+    @FXML 
+    private Canvas GameBoard;
 
     /**
      * Initializes the controller class.
@@ -23,7 +32,15 @@ public class IngameController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        Player p1 = new Player("White", "ww", 0);
+        Player p2 = new Player("Black", "ww", 0);
+        Group root = new Group();
+        Game game = new Game(p1, p2);
+        game.getBoard().createContent();
+        game.setPieces();
+        game.getBoard().createContent2();
+        Scene scene = new Scene(root);
+  
     }    
     
 }
