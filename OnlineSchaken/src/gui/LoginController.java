@@ -97,7 +97,7 @@ public class LoginController implements Initializable
         Player player = db.selectPlayer(TxtField_Username.getText());
         if (player!= null)
         {
-         if (player.equals(TxtField_Username.getText())){
+         if (player.getUsername().equals(TxtField_Username.getText())){
            if(CheckUserPassword(player)){
                return true;
            }
@@ -106,9 +106,10 @@ public class LoginController implements Initializable
         return false; 
     }
     private boolean CheckUserPassword(Player player){
+        
         if (!TxtField_Password.getText().isEmpty())
         {
-            return player.getPassword()==TxtField_Password.getText();
+            return player.getPassword().equals(TxtField_Password.getText());
         }
         return false;
     }

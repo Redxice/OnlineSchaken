@@ -32,6 +32,8 @@ public class Database
      * sluit de connectie met de database als dat niet lukt wordt er een sql
      * injection gethrowed.
      */
+    
+  
     public void closeConnection()
     {
         try
