@@ -36,10 +36,10 @@ import javafx.stage.Stage;
  */
 public class LobbyController implements Initializable
 {    
-    Database db = new Database();
+    private Database db = new Database();
     private ObservableList<Gamelobby> gameList = FXCollections.observableArrayList();
     private List<String> test = new ArrayList<String>();
-    String naam = "a";
+    private Player player;
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     @FXML
     private Button Btn_Join;
@@ -67,19 +67,11 @@ public class LobbyController implements Initializable
     @FXML
     private void HandleProfileBTN(ActionEvent event)
     {
-        try
-        {
             Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
             CurrentStage.close();
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
-            Scene scene = new Scene(root, Color.TRANSPARENT);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex)
-        {
-            LOGGER.log(Level.FINE, ex.getMessage());
-        }
+            ProfileController profCont = new ProfileController();
+            profCont.load();
+            profCont.setPlayer(player);
     }
 
     @FXML
@@ -94,7 +86,7 @@ public class LobbyController implements Initializable
         if (Tb_Friend.getText() != null)
         {
             db.init();
-            db.addFriend(naam, Tb_Friend.getText());
+            db.addFriend(player.getUsername(), Tb_Friend.getText());
             db.closeConnection();
         }
     }
@@ -115,6 +107,18 @@ public class LobbyController implements Initializable
         {
             LOGGER.log(Level.FINE, ex.getMessage());
         }
-    db.insertLobby(naam);
+    db.insertLobby(player.getUsername());
     }
+
+    public Player getPlayer()
+    {
+        return player;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+    
+    
 }

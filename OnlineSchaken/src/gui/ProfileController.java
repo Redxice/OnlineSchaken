@@ -17,8 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import onlineschaken.Player;
 
 /**
  * FXML Controller class
@@ -27,43 +29,66 @@ import javafx.stage.Stage;
  */
 public class ProfileController implements Initializable
 {
-    private static final Logger LOGGER = Logger.getLogger( LobbyController.class.getName() );
+
+    private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     @FXML
     private Button Btn_Back;
+    @FXML
+    private Label lbNaam;
+    private Player player;
 
-    private int i = 5;
     /**
      * Initializes the controller class.
      */
+
+    public void load()
+    {
+        try
+        {
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
+            Scene scene = new Scene(root, Color.TRANSPARENT);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-    }    
-    
+        lbNaam.setText(player.getUsername());
+    }
+
     @FXML
     private void HandleBack(ActionEvent event)
-    {      
-        System.out.println(i);
+    {
         try
-        {  
+        {
             Stage CurrentStage = (Stage) Btn_Back.getScene().getWindow();
             CurrentStage.close();
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("lobby.fxml"));
-            Scene scene = new Scene(root,Color.TRANSPARENT);
+            Scene scene = new Scene(root, Color.TRANSPARENT);
             stage.setScene(scene);
-            stage.show();      
+            stage.show();
         } catch (IOException ex)
         {
-           LOGGER.log(Level.FINE,ex.getMessage());
+            LOGGER.log(Level.FINE, ex.getMessage());
         }
-        
-    } 
 
-    public void setI(int i)
-    {
-        this.i = i;
     }
-    
+
+    public Player getPlayer()
+    {
+        return player;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+
 }
