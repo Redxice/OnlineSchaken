@@ -105,6 +105,8 @@ private boolean CheckTextFields()
         }
        else if (!CheckTxtFieldUsername())
         {
+             TxtField_Username.setText("");
+             WarningLabel_Username.setText("Username already in use");
             FieldsAreCorrect = false;
         }
         if (!CheckTxtFieldEmail())
@@ -125,15 +127,15 @@ private boolean CheckTextFields()
         
         return FieldsAreCorrect;
     }
+
     private boolean CheckTxtFieldUsername(){
     db = new Database();   
     Player player = db.selectPlayer(TxtField_Username.getText());
         if (player != null)
         {
-            if (player.equals(TxtField_Username.getText()))
+            if (player.getUsername()==TxtField_Username.getText())
             {
-              TxtField_Username.setText("");
-              WarningLabel_Username.setText("Username already in use");
+             
               return false;  
             }     
         }

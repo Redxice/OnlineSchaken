@@ -9,7 +9,7 @@
       <TextField fx:id="TxtField_Username" layoutX="204.0" layoutY="29.0" promptText="Username" />
       <TextField fx:id="TxtField_Email" layoutX="204.0" layoutY="169.0" promptText="Email" />
       <Button fx:id="Btn_Register" layoutX="269.0" layoutY="230.0" mnemonicParsing="false" onAction="#RegisterAccount" prefHeight="25.0" prefWidth="84.0" text="Register" />
-      <PasswordField fx:id="TxtField_Password" layoutX="204.0" layoutY="76.0" promptText="password" />
+      <PasswordField fx:id="TxtField_Password" layoutX="204.0" layoutY="71.0" promptText="password" />
       <PasswordField fx:id="TxtField_RePassword" layoutX="204.0" layoutY="118.0" promptText="Re Password" />
       <Label fx:id="WarningLabel_Username" layoutX="204.0" layoutY="54.0" />
       <Label fx:id="WarningLabel_Password" layoutX="204.0" layoutY="101.0" />

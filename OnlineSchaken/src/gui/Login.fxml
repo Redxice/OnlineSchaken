@@ -7,9 +7,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
-      <TextField layoutX="226.0" layoutY="168.0" promptText="Username" />
-      <TextField layoutX="226.0" layoutY="209.0" promptText="Password" />
-      <Button layoutX="226.0" layoutY="254.0" mnemonicParsing="false" text="Login" />
-      <Button id="BtnRegister" fx:id="BtnRegister" layoutX="314.0" layoutY="254.0" mnemonicParsing="false" onAction="#HandleRegisterBTN" text="Register" />
+      <TextField fx:id="TxtField_Username" layoutX="226.0" layoutY="168.0" promptText="Username" />
+      <Button fx:id="BtnLogin" layoutX="226.0" layoutY="272.0" mnemonicParsing="false" onAction="#HandleLoginBTN" text="Login" />
+      <Button id="BtnRegister" fx:id="BtnRegister" layoutX="314.0" layoutY="272.0" mnemonicParsing="false" onAction="#HandleRegisterBTN" text="Register" />
+      <Label fx:id="Warning_Login" layoutX="226.0" layoutY="244.0" />
+      <PasswordField fx:id="TxtField_Password" layoutX="226.0" layoutY="208.0" promptText="password" />
    </children>
 </Pane>
