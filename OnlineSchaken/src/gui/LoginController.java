@@ -23,6 +23,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import onlineschaken.Player;
 
 /**
@@ -33,6 +34,7 @@ import onlineschaken.Player;
 public class LoginController implements Initializable
 {
  private Database db;
+ private Player player;
  private static final Logger LOGGER = Logger.getLogger( LoginController.class.getName() );
     /**
      * Initializes the controller class.
@@ -47,6 +49,8 @@ public class LoginController implements Initializable
     private PasswordField TxtField_Password;
     @FXML
     private Label Warning_Login;
+  
+    
     
     @FXML
     private void HandleLoginBTN(ActionEvent event){
@@ -55,10 +59,13 @@ public class LoginController implements Initializable
         {
             try {
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+                Parent root = (Parent)fxmlLoader.load();
+                LobbyController controller= fxmlLoader.<LobbyController>getController();
+                controller.setPlayer(this.player);
                 LoginStage.close();
                 Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("lobby.fxml"));
-                Scene scene = new Scene(root,Color.TRANSPARENT);
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
@@ -94,7 +101,7 @@ public class LoginController implements Initializable
      */
     private boolean CheckIfValidUser(){
         db = new Database();
-        Player player = db.selectPlayer(TxtField_Username.getText());
+        player = db.selectPlayer(TxtField_Username.getText());
         if (player!= null)
         {
          if (player.getUsername().equals(TxtField_Username.getText())){

@@ -67,11 +67,22 @@ public class LobbyController implements Initializable
     @FXML
     private void HandleProfileBTN(ActionEvent event)
     {
+        try
+        {
             Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
+            Parent root = (Parent)fxmlLoader.load();
+            ProfileController controller= fxmlLoader.<ProfileController>getController();
+            controller.setPlayer(this.player);
             CurrentStage.close();
-            ProfileController profCont = new ProfileController();
-            profCont.load();
-            profCont.setPlayer(player);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -109,16 +120,13 @@ public class LobbyController implements Initializable
         }
     db.insertLobby(player.getUsername());
     }
-
+    public void setPlayer(Player p_player){
+        this.player = p_player;
+    }
     public Player getPlayer()
     {
         return player;
     }
-
-    public void setPlayer(Player player)
-    {
-        this.player = player;
-    }
-    
+  
     
 }
