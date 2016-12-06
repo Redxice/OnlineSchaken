@@ -59,7 +59,7 @@ public class ProfileController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        lbNaam.setText(player.getUsername());
+        
     }
 
     @FXML
@@ -89,6 +89,7 @@ public class ProfileController implements Initializable
     public void setPlayer(Player player)
     {
         this.player = player;
+        lbNaam.setText(player.getUsername());
     }
 
 }
