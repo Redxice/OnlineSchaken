@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.stage.Stage;
 
 import onlineschaken.Game;
 import onlineschaken.Player;
@@ -36,10 +37,11 @@ public class IngameController implements Initializable
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         Game game = new Game(p1, p2);
-        game.getBoard().createContent();
+        Stage CurrentStage = (Stage) GameBoard.getScene().getWindow();
         game.setPieces();
         game.getBoard().createContent2();
         Scene scene = new Scene(root);
+        CurrentStage.setScene(scene);
   
     }    
     

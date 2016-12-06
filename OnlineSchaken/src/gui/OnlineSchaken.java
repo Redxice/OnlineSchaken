@@ -49,7 +49,7 @@ public class OnlineSchaken extends Application
         {
             //System.out.println(getClass().getResource("Gamelobby.fxml"));
             //System.out.println(getClass().getResource("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\Login.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("ingame.fxml"));
             //System.out.println(getClass().getResource("gui/Login.fxml"));
             Scene scene = new Scene(root, 500, 500);
 
