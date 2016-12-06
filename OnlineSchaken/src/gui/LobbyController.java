@@ -28,6 +28,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -49,6 +50,8 @@ public class LobbyController implements Initializable
     private Button Btn_AddFriend;
     @FXML
     private TextField Tb_Friend;
+    @FXML
+    private TextField Tb_GameName;
     @FXML
     private Button Btn_CreateGame;
     @FXML
@@ -107,13 +110,23 @@ public class LobbyController implements Initializable
     {
        try
         {
+            if(!Tb_GameName.getText().isEmpty())
+            {
             Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
             CurrentStage.close();
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("Gamelobby.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameLobbyController.fxml"));
+            Parent root = (Parent)fxmlLoader.load();
+            ProfileController controller= fxmlLoader.<ProfileController>getController();
+            Gamelobby gameLobby = new Gamelobby(Tb_GameName.getText(),player);
+            controller.createGameLobby(gameLobby,player);
             Scene scene = new Scene(root, Color.TRANSPARENT);
             stage.setScene(scene);
             stage.show();
+            }
+            else{
+            JOptionPane.showMessageDialog(null,"Geen gamenaam ingevoerd");
+            }
         } catch (IOException ex)
         {
             LOGGER.log(Level.FINE, ex.getMessage());
