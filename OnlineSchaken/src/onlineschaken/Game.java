@@ -8,6 +8,7 @@ package onlineschaken;
 import gui.OnlineSchaken;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.Timer;
 import javafx.application.Platform;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Game
+public class Game extends Observable
 {
 
     //fields
