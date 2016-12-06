@@ -75,7 +75,7 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO player(Username, Password, Email) VALUES(?,?,?);");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO player(Username, Password, Email, Rating) VALUES(?,?,?,1000);");
             statement.setString(1, username);
             statement.setString(2, password);
             statement.setString(3, email);
