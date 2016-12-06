@@ -50,6 +50,25 @@ public class GamelobbyController implements Initializable
     @FXML
     private TextField Chatline_TxtField;
    
+    @FXML 
+    public void HandleReadyBtn(ActionEvent event){
+        try
+        {
+            Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
+            Parent root = (Parent)fxmlLoader.load();
+            IngameController controller= fxmlLoader.<IngameController>getController();
+            LoginStage.close();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            controller.DrawBoard();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @FXML
     public void HandleLeaveBtn(ActionEvent event){
