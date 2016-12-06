@@ -34,7 +34,7 @@ public class IngameController implements Initializable
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         Game game = new Game(p1, p2);
-//        GameBoard.setRoot(root);
+        GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
         game.getBoard().createContent2();
