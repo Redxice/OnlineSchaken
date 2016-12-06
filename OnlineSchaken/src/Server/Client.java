@@ -30,7 +30,7 @@ public class Client
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("doTurn");
                 stub.doTurn(new Point(3, 3), new Point(3, 4), "3000");
             } catch (NotBoundException e)
             {

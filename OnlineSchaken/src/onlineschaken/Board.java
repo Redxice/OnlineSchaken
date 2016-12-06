@@ -33,9 +33,9 @@ public class Board
     //Moet nog een enum van worden gemaakt
     private String turn = "white";
     private Game game;
-
-   
-
+    private RmiClient client;
+    public Section section1;
+            
     public Parent createContent()
     {
         root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
@@ -58,12 +58,16 @@ public class Board
                                 {
                                     firstSection = sections[section.getID().x][section.getID().y];
                                     piece = firstSection.getPiece();
+                                    //section1 = firstSection.getID();
                                 }
                             }
                         } else if (firstSection != null)
                         {
+                            section1 = piece.getSection();
                             if (piece.move(section))
                             {
+                                client = new RmiClient();
+                                client.sendTurn(new Point(6,0), section.getID(), "timer");
                                 firstSection = null;
                                 piece = null;
                                 if (game.draw())
@@ -152,6 +156,8 @@ public class Board
                             {
                                 if (piece.move(section))
                                 {
+                                    System.out.println(firstSection.getId());
+                                    System.out.println(section.getId());
                                     firstSection = null;
                                     piece = null;
                                     if (game.draw())
@@ -233,6 +239,8 @@ public class Board
                             {
                                 if (piece.move(section))
                                 {
+                                    System.out.println(firstSection.getId());
+                                    System.out.println(section.getId());
                                     firstSection = null;
                                     piece = null;
                                     if (game.draw())
