@@ -5,6 +5,9 @@
  */
 package onlineschaken;
 
+import Shared.IrmiClient;
+import Shared.IrmiServer;
+import java.awt.Point;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -14,11 +17,18 @@ import java.rmi.registry.Registry;
  *
  * @author Sander
  */
-public class RMIClient
+public class RmiClient implements IrmiClient
 {
 
-    public RMIClient() throws RemoteException, NotBoundException
+    @Override
+    public void getTurn(Point section1, Point section2, String time) throws RemoteException
     {
-        Registry reg = LocateRegistry.getRegistry("127.0.0.1", 666);
+
     }
+    
+    public void sendTurn(Point section1, Point section2, String time)
+    {
+        
+    }
+
 }
