@@ -5,11 +5,13 @@
  */
 package onlineschaken;
 
+import java.io.Serializable;
+
 /**
  *
  * @author redxice
  */
-public class Chatline
+public class Chatline implements Serializable
 {
 
     private String userName;

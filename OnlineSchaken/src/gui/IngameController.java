@@ -26,9 +26,9 @@ public class IngameController implements Initializable
     @FXML 
     private SubScene GameBoard;
 
-    /**
-     * Initializes the controller class.
-     */
+   /**
+    * moet nog verder worden uitgewerkt. De players moeten worden geadd in de game.
+    */
     public void DrawBoard(){
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
@@ -40,6 +40,9 @@ public class IngameController implements Initializable
         game.getBoard().createContent2();
         root.getChildren().add(game.getBoard().getRoot());
     }
+     /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
