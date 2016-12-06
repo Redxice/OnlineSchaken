@@ -9,8 +9,8 @@
       <TextField id="MessageBox" fx:id="Chatline_TxtField" layoutX="14.0" layoutY="361.0" prefHeight="25.0" prefWidth="328.0" promptText="Message" />
       <Button id="Btn_Send" fx:id="Btn_Send" layoutX="350.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Send" />
       <Button id="Btn_FriendList" fx:id="Btn_FriendList" layoutX="528.0" layoutY="361.0" mnemonicParsing="false" text="Friendlist" />
-      <Button id="Btn_Ready" fx:id="Btn_Ready" layoutX="426.0" layoutY="262.0" mnemonicParsing="false" onAction="#HandleLeaveBtn" prefHeight="25.0" prefWidth="55.0" text="Ready" />
-      <Button id="Btn_Leave" fx:id="Btn_Leave" layoutX="426.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Leave" />
+      <Button id="Btn_Ready" fx:id="Btn_Ready" layoutX="426.0" layoutY="262.0" mnemonicParsing="false" onAction="#HandleReadyBtn" prefHeight="25.0" prefWidth="55.0" text="Ready" />
+      <Button id="Btn_Leave" fx:id="Btn_Leave" layoutX="426.0" layoutY="295.0" mnemonicParsing="false" onAction="#HandleLeaveBtn" prefHeight="25.0" prefWidth="55.0" text="Leave" />
       <ListView id="ChatBox" fx:id="ChatBox" layoutX="14.0" layoutY="259.0" prefHeight="97.0" prefWidth="328.0" />
       <ListView id="spelerBox" fx:id="SpelerBox" layoutX="14.0" layoutY="14.0" prefHeight="225.0" prefWidth="328.0" />
       <ListView id="GameInstellingBox" fx:id="GameInstellingBox" layoutX="360.0" layoutY="14.0" prefHeight="225.0" prefWidth="206.0" />

@@ -115,7 +115,7 @@ public class LobbyController implements Initializable
             Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
             CurrentStage.close();
             Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameLobbyController.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             GamelobbyController controller= fxmlLoader.<GamelobbyController>getController();
             Gamelobby gameLobby = new Gamelobby(Tb_GameName.getText(),player);

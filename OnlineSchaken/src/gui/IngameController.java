@@ -30,18 +30,22 @@ public class IngameController implements Initializable
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void DrawBoard(){
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         Game game = new Game(p1, p2);
-        Stage CurrentStage = (Stage) GameBoard.getScene().getWindow();
+        game.getBoard().createContent();
         game.setPieces();
         game.getBoard().createContent2();
+        Stage CurrentStage = (Stage) GameBoard.getScene().getWindow();
         Scene scene = new Scene(root);
         CurrentStage.setScene(scene);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        
   
     }    
     
