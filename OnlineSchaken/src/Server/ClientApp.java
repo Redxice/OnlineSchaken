@@ -6,18 +6,13 @@
 package Server;
 
 import java.awt.Point;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import Shared.IrmiServer;
 import onlineschaken.RMIClient;
 
 /**
  *
  * @author Sander
  */
-public class Client
+public class ClientApp
 {
 
     /**
@@ -28,5 +23,5 @@ public class Client
         RMIClient client = new RMIClient();
         client.sendTurn(new Point(3, 3), new Point(3, 4), "3000");
     }
-
+    
 }
