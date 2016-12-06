@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import Shared.IrmiServer;
+import onlineschaken.RmiClient;
 
 /**
  *
@@ -24,13 +25,14 @@ public class Client
      */
     public static void main(String[] args)
     {
+        /*
         try
         {
-            Registry registry = LocateRegistry.getRegistry("169.254.183.180", 666);
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("doTurn");
+                stub = (IrmiServer) registry.lookup("setTurn");
                 stub.doTurn(new Point(3, 3), new Point(3, 4), "3000");
             } catch (NotBoundException e)
             {
@@ -41,7 +43,9 @@ public class Client
         {
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
-        }
+        }*/
+        RmiClient client = new RmiClient();
+        client.sendTurn(new Point(3, 3), new Point(3, 4), "3000");
     }
 
 }
