@@ -27,6 +27,7 @@ public class Gamelobby
     {
         this.naam= naam;
         this.player1 = player1;
+        currentPlayers = 1;
     }   
     
     public Gamelobby(String naam, Player player1, Player player2)
@@ -34,6 +35,7 @@ public class Gamelobby
         this.naam= naam;
         this.player1 = player1;
         this.player2 = player2;
+        currentPlayers=2;
     }   
 
     public int getMaxPlayers()
@@ -54,6 +56,7 @@ public class Gamelobby
     public void setPlayer2(Player player2)
     {
         this.player2 = player2;
+        currentPlayers = 2;
     }
 
     public int getCurrentPlayers()
@@ -94,7 +97,7 @@ public class Gamelobby
     @Override
     public String toString()
     {
-        return "Gamelobby{" + "naam=" + naam + ", Players=" + currentPlayers + "/"+ maxPlayers+ '}';
+        return "ID=" + id + ", Naam=" + naam + ", Players=" + currentPlayers + "/"+ maxPlayers;
     }
     
     

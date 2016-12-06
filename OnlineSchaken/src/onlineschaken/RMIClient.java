@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
  *
  * @author Sander
  */
-public class RmiClient implements IrmiClient
+public class RMIClient implements IrmiClient
 {
 
     @Override

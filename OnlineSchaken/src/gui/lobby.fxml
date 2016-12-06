@@ -25,6 +25,6 @@
       <Button fx:id="Btn_Join" layoutX="26.0" layoutY="349.0" mnemonicParsing="false" onAction="#joinGame" text="Join" />
       <TextField layoutX="288.0" layoutY="362.0" visible="false" />
       <TextField fx:id="Tb_Friend" layoutX="288.0" layoutY="362.0" />
-      <TextField fx:id="tb_GameName" layoutX="404.0" layoutY="18.0" promptText="Game name" />
+      <TextField fx:id="Tb_GameName" layoutX="404.0" layoutY="18.0" promptText="Game name" />
    </children>
 </Pane>
