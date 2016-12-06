@@ -41,21 +41,6 @@ public class ProfileController implements Initializable
      * Initializes the controller class.
      */
 
-    public void load()
-    {
-        try
-        {
-            Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("profile.fxml"));
-            Scene scene = new Scene(root, Color.TRANSPARENT);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex)
-        {
-            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
