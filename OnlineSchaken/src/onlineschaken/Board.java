@@ -33,7 +33,7 @@ public class Board
     //Moet nog een enum van worden gemaakt
     private String turn = "white";
     private Game game;
-    private RmiClient client;
+    private RMIClient client;
     public Section section1;
             
     public Parent createContent()
@@ -66,7 +66,7 @@ public class Board
                             section1 = piece.getSection();
                             if (piece.move(section))
                             {
-                                client = new RmiClient();
+                                client = new RMIClient();
                                 client.sendTurn(new Point(6,0), section.getID(), "timer");
                                 firstSection = null;
                                 piece = null;
