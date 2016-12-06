@@ -254,21 +254,56 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("SELECT LobbyID, player1ID, player2ID FROM lobby;");
+            PreparedStatement statement = con.prepareStatement("SELECT LobbyID, player1ID, player2ID, LobbyNaam FROM lobby;");
             ResultSet results = statement.executeQuery();
             ObservableList<Gamelobby> items =FXCollections.observableArrayList();
             while (results.next())
             {
-                int count = 1;
                 if(results.getString("player2ID") != null)
                 {
-                    count = 2;
-                }
-                Gamelobby lobby = new Gamelobby(results.getInt("LobbyID"),count);
+                Player player1 = selectPlayerFromID(results.getInt("player1ID"));
+                Player player2 = selectPlayerFromID(results.getInt("player2ID"));
+                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1,player2);
+                lobby.setId(results.getInt("LobbyID"));
                 items.add(lobby);
+                }
+                else{
+                Player player1 = selectPlayerFromID(results.getInt("player1ID"));
+                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1);
+                lobby.setId(results.getInt("LobbyID"));
+                items.add(lobby);                  
+                }
             }
             statement.close();
             return items;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+
+            return null;
+        }
+        finally
+        {
+            closeConnection();
+        }
+    }
+    
+    public Player selectPlayerFromID(int id)
+    {
+        try
+        {
+            init();
+            PreparedStatement statement = con.prepareStatement("SELECT username, password, email, rating FROM player WHERE PlayerID = ?;");
+            statement.setInt(1, id);
+            ResultSet results = statement.executeQuery();
+            Player player = new Player();
+            while (results.next())
+            {
+                player = new Player(results.getString("username"), results.getString("password"), results.getString("email"), results.getInt("rating"));
+                LOGGER.log(Level.FINE, player.getUsername() + " + " + player.getPassword());
+            }
+            statement.close();
+            return player;
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);

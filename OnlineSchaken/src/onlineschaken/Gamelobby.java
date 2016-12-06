@@ -16,6 +16,7 @@ public class Gamelobby
 
     private String naam;
     private int maxPlayers = 2;
+    private int id;
     private int currentPlayers;
     private List<Chatline> chatLines;
     private Player player1;
@@ -26,7 +27,14 @@ public class Gamelobby
     {
         this.naam= naam;
         this.player1 = player1;
-    }    
+    }   
+    
+    public Gamelobby(String naam, Player player1, Player player2)
+    {
+        this.naam= naam;
+        this.player1 = player1;
+        this.player2 = player2;
+    }   
 
     public int getMaxPlayers()
     {
@@ -71,6 +79,11 @@ public class Gamelobby
     public String getNaam()
     {
         return naam;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public List<Player> getSpectators()
