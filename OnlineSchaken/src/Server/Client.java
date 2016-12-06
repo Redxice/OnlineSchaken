@@ -23,7 +23,7 @@ public class Client
      */
     public static void main(String[] args)
     {
-        String host = "127.0.0.1";
+        String host = "169.254.183.180";
 		
 		Registry registry;
 		try{
