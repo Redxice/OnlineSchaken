@@ -36,11 +36,12 @@ public class Player
         pieces = new ArrayList<Piece>();
     }
     
-    public Player(String p_username,String p_password,String email)
+    public Player(String p_username,String p_password,String email, int p_rating)
     {
         this.username = p_username;
         this.password = p_password;
         this.email = email;
+        this.rating = p_rating;
         pieces = new ArrayList<Piece>();
     }
     
@@ -158,5 +159,13 @@ public class Player
     {
         pieces.remove(piece);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Player{" + "username=" + username + ", rating=" + rating + '}';
+    }
+    
+    
 
 }

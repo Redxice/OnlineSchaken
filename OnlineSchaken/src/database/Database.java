@@ -109,13 +109,13 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("SELECT username, password, email FROM player WHERE username = ?;");
+            PreparedStatement statement = con.prepareStatement("SELECT username, password, email, rating FROM player WHERE username = ?;");
             statement.setString(1, username);
             ResultSet results = statement.executeQuery();
             Player player = new Player();
             while (results.next())
             {
-                player = new Player(results.getString("username"), results.getString("password"), results.getString("email"));
+                player = new Player(results.getString("username"), results.getString("password"), results.getString("email"), results.getInt("rating"));
                 LOGGER.log(Level.FINE, player.getUsername() + " + " + player.getPassword());
             }
             statement.close();
