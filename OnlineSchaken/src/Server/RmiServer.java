@@ -21,6 +21,8 @@ public class RmiServer implements IrmiServer
     @Override
     public void doTurn(Point section1, Point section2, String time) throws RemoteException
     {
+        System.out.println(section1.toString() + section2.toString() + time);
+        /*
         try
         {
             Registry registry = LocateRegistry.getRegistry("INSERT IP CLIENT HERE", 666);
@@ -38,7 +40,7 @@ public class RmiServer implements IrmiServer
         {
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
-        }
+        }*/
     }
     
 }

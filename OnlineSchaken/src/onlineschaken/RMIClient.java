@@ -28,7 +28,24 @@ public class RmiClient implements IrmiClient
     
     public void sendTurn(Point section1, Point section2, String time)
     {
-        
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry("169.254.183.180", 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("setTurn");
+                stub.doTurn(section1, section2, "3000");
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
     }
 
 }
