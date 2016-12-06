@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server;
+package Shared;
 
+import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -12,7 +13,7 @@ import java.rmi.RemoteException;
  *
  * @author Sander
  */
-public interface Hello extends Remote
+public interface IrmiServer extends Remote
 {
-    String sayHello() throws RemoteException;
+    public void doTurn(Point section1, Point section2, String time) throws RemoteException;
 }

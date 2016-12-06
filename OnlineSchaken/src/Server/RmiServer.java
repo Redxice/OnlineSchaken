@@ -6,31 +6,28 @@
 package Server;
 
 import java.awt.Point;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import Shared.IrmiServer;
+import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import Shared.IrmiServer;
 
 /**
  *
  * @author Sander
  */
-public class Client
+public class RmiServer implements IrmiServer
 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args)
+    @Override
+    public void doTurn(Point section1, Point section2, String time) throws RemoteException
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("169.254.183.180", 666);
+            Registry registry = LocateRegistry.getRegistry("INSERT IP CLIENT HERE", 666);
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("getTurn");
                 stub.doTurn(new Point(3, 3), new Point(3, 4), "3000");
             } catch (NotBoundException e)
             {
@@ -43,5 +40,5 @@ public class Client
             e.printStackTrace();
         }
     }
-
+    
 }

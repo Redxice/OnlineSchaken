@@ -3,22 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server;
+package Shared;
 
-import Shared.Itest;
+import java.awt.Point;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
  *
  * @author Sander
  */
-public class test implements Itest
+public interface IrmiClient extends Remote
 {
-
-    @Override
-    public void waarde() throws RemoteException
-    {
-        System.out.println("works");
-    }
-    
+    public void getTurn(Point section1, Point section2, String time) throws RemoteException;
 }

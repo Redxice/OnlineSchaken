@@ -5,25 +5,20 @@
  */
 package Server;
 
-import Shared.Itest;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import Shared.IrmiServer;
 
 /**
  *
  * @author Sander
  */
-public class Server implements Hello
+public class Server
 {
 
     public Server()
     {
-    }
-
-    public String sayHello()
-    {
-        return "Hello, world!";
     }
 
     /**
@@ -33,13 +28,12 @@ public class Server implements Hello
     {
         try
         {
-            test t1 = new test();
-            //Server obj = new Server();
-            Itest stub = (Itest) UnicastRemoteObject.exportObject(t1, 0);
+            RmiServer t1 = new RmiServer();
+            IrmiServer stub = (IrmiServer) UnicastRemoteObject.exportObject(t1, 0);
 
             //Bind the remote object stub in the registry
             Registry registry = LocateRegistry.createRegistry(666);
-            registry.bind("Hello", stub);
+            registry.bind("setTurn", stub);
 
             System.err.println("Server ready");
         } catch (Exception e)
