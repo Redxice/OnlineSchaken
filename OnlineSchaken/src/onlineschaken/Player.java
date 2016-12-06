@@ -160,4 +160,12 @@ public class Player
         pieces.remove(piece);
     }
 
+    @Override
+    public String toString()
+    {
+        return "Player{" + "username=" + username + ", rating=" + rating + '}';
+    }
+    
+    
+
 }
