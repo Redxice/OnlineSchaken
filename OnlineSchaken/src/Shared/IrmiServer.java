@@ -21,7 +21,7 @@ public interface IrmiServer extends Remote
     
     public void test() throws RemoteException;
     
-    public List<IGameLobby> GameLobbys()throws RemoteException;
+    //public List<IGameLobby> GameLobbys()throws RemoteException;
     
-    public IGameLobby GetIGameLobby(Gamelobby gamelobby)throws RemoteException;
+    //public IGameLobby GetIGameLobby(Gamelobby gamelobby)throws RemoteException;
 }
