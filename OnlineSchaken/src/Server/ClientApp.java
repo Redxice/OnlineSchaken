@@ -25,18 +25,15 @@ public class ClientApp
      */
     public static void main(String[] args)
     {
+        String ip = /*"127.0.0.1";*/"169.254.183.180";
         try
         {
-            Registry registry = LocateRegistry.getRegistry("169.254.183.180", 666);
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
             {
                 stub = (IrmiServer) registry.lookup("setTurn");
-                stub.test();
-                System.out.println("-,-");
-                //stub.doTurn(new Point(3,4), new Point(3,5), "3000");
-                System.out.println("-,0");
-                //stub.test();
+                stub.doTurn(new Point(3,4), new Point(3,5), "3000");
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
