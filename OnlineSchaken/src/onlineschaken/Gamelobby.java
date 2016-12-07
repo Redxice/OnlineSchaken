@@ -138,6 +138,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     }
 
     @Override
+    public void SendMessage(Chatline message) throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
