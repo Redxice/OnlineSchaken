@@ -9,6 +9,7 @@ import database.Database;
 import onlineschaken.*;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +64,13 @@ public class LobbyController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {       
-        gameList = db.selectAllGameLobbys();
+        try
+        {
+            gameList = db.selectAllGameLobbys();
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Lv_GameList.setItems(gameList);     
     }
 

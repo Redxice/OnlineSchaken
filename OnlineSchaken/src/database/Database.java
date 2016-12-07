@@ -5,6 +5,7 @@
  */
 package database;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -249,7 +250,7 @@ public class Database
         }
     }
     
-    public ObservableList<Gamelobby>  selectAllGameLobbys()
+    public ObservableList<Gamelobby>  selectAllGameLobbys() throws RemoteException
     {
         try
         {

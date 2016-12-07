@@ -6,6 +6,7 @@
 package gui;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,7 +30,7 @@ public class IngameController implements Initializable
    /**
     * moet nog verder worden uitgewerkt. De players moeten worden geadd in de game.
     */
-    public void DrawBoard(){
+    public void DrawBoard() throws RemoteException{
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
