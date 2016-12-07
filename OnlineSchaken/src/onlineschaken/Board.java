@@ -35,7 +35,7 @@ public class Board
     private String turn = "white";
     private Game game;
     private ClientApp client;
-            
+
     public Parent createContent()
     {
         root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
@@ -62,10 +62,11 @@ public class Board
                             }
                         } else if (firstSection != null)
                         {
+                            Point point = new Point(firstSection.getID());
                             if (piece.move(section))
                             {
                                 client = new ClientApp();
-                                client.sendTurn(firstSection.getID(), section.getID(), game.getTime());
+                                client.sendTurn(point, section.getID(), game.getTime());
                                 firstSection = null;
                                 piece = null;
                                 if (game.draw())
@@ -152,10 +153,11 @@ public class Board
                                 }
                             } else if (firstSection != null)
                             {
+                                Point point = new Point(firstSection.getID());
                                 if (piece.move(section))
                                 {
                                     client = new ClientApp();
-                                    client.sendTurn(firstSection.getID(), section.getID(), game.getTime());
+                                    client.sendTurn(point, section.getID(), game.getTime());
                                     firstSection = null;
                                     piece = null;
                                     if (game.draw())
@@ -235,14 +237,14 @@ public class Board
                                 }
                             } else if (firstSection != null)
                             {
+                                Point point = new Point(firstSection.getID());
                                 if (piece.move(section))
                                 {
                                     try
                                     {
-                                    client = new ClientApp();
-                                    client.sendTurn(firstSection.getID(), section.getID(), game.getTime());
-                                    }
-                                    catch(Exception e)
+                                        client = new ClientApp();
+                                        client.sendTurn(point, section.getID(), game.getTime());
+                                    } catch (Exception e)
                                     {
                                         System.out.println(e.getMessage());
                                     }
