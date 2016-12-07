@@ -133,14 +133,15 @@ public class Database
         }
     }
 
-    public boolean insertLobby(String username)
+    public boolean insertLobby(String username, String gameName)
     {
         try
         {            
             int playerid = selectPlayerId(username);
             init();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID) VALUES(?);");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID,LobbyNaam) VALUES(?,?);");
             statement.setInt(1, playerid);
+            statement.setString(2, gameName);
             statement.executeUpdate();
             statement.close();
             return true;

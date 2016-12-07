@@ -138,7 +138,7 @@ public class LobbyController implements Initializable
         {
             LOGGER.log(Level.FINE, ex.getMessage());
         }
-    db.insertLobby(player.getUsername());
+    db.insertLobby(player.getUsername(),Tb_GameName.getText());
     }
     public void setPlayer(Player p_player){
         this.player = p_player;

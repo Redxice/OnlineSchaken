@@ -39,6 +39,6 @@ public interface IGameLobby extends Remote
      * Deze Chatline wordt geadd in  List Chat van de Gamelobby klassen
      * @param message 
      */
-    public void SendMessage(Chatline message);
+    public void SendMessage(Chatline message)throws RemoteException;
     
 }

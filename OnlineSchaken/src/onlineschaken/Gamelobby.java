@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import Shared.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -13,8 +14,9 @@ import java.util.List;
  *
  * @author redxice
  */
-public class Gamelobby extends UnicastRemoteObject
+public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 {
+
     private String naam;
     private int maxPlayers = 2;
     private int id;
@@ -24,32 +26,32 @@ public class Gamelobby extends UnicastRemoteObject
     private Player player2;
     private List<Player> spectators;
 
-    public Gamelobby(String naam, Player player1,int id)throws RemoteException
+    public Gamelobby(String naam, Player player1, int id) throws RemoteException
 
     {
-        this.naam= naam;
+        this.naam = naam;
         this.player1 = player1;
         currentPlayers = 1;
         this.id = id;
-    }   
-    
-    public Gamelobby(String naam, Player player1, Player player2, int id)throws RemoteException
+    }
+
+    public Gamelobby(String naam, Player player1, Player player2, int id) throws RemoteException
 
     {
-        this.naam= naam;
+        this.naam = naam;
         this.player1 = player1;
         this.player2 = player2;
-        currentPlayers=2;
+        currentPlayers = 2;
         this.id = id;
-    }   
-    
-    public Gamelobby(String naam, Player player1)throws RemoteException
+    }
+
+    public Gamelobby(String naam, Player player1) throws RemoteException
     {
-        this.naam= naam;
+        this.naam = naam;
         this.player1 = player1;
         currentPlayers = 1;
-    }   
-    
+    }
+
     public int getMaxPlayers()
     {
         return this.maxPlayers;
@@ -64,7 +66,7 @@ public class Gamelobby extends UnicastRemoteObject
     {
         spectators.add(spectator);
     }
-    
+
     public void setPlayer2(Player player2)
     {
         this.player2 = player2;
@@ -109,8 +111,35 @@ public class Gamelobby extends UnicastRemoteObject
     @Override
     public String toString()
     {
-        return "ID=" + id + ", Naam=" + naam + ", Players=" + currentPlayers + "/"+ maxPlayers;
+        return "ID=" + id + ", Naam=" + naam + ", Players=" + currentPlayers + "/" + maxPlayers;
     }
-    
-    
+
+    @Override
+    public boolean joinGameLobby(Player player) throws RemoteException
+    {
+        if (player2 != null)
+        {
+            player2 = player;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean leaveGameLobby(Player player) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void PlayerIsReady() throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
