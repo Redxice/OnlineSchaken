@@ -30,7 +30,6 @@ public interface IGameLobby extends Remote
      */
     public boolean leaveGameLobby(Player player)throws RemoteException;;
     /**
-     * 
      * Deze methode moet worden gebruikt wanneer de clients in 
      * de gamelobby ui op de Btn_Ready clicken.
      */
