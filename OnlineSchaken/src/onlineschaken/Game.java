@@ -6,6 +6,8 @@
 package onlineschaken;
 
 import gui.OnlineSchaken;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -17,7 +19,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Game extends Observable
+public class Game extends UnicastRemoteObject
 {
 
     //fields
@@ -40,7 +42,7 @@ public class Game extends Observable
     private boolean player2Draw = false;
 
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX)
+    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX) throws RemoteException
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -54,7 +56,7 @@ public class Game extends Observable
     }
 
     //zonder timer
-    public Game(Player p_player1, Player p_player2)
+    public Game(Player p_player1, Player p_player2)throws RemoteException
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -65,7 +67,7 @@ public class Game extends Observable
 
     //constructor vor een game die deel is van een tournament
     public Game(int p_time, Player p_player1, Player p_player2,
-            Tournament p_tournament, OnlineSchaken javaFX)
+            Tournament p_tournament, OnlineSchaken javaFX)throws RemoteException
     {
 
         this.player1 = p_player1;

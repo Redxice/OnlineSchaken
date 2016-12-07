@@ -18,5 +18,5 @@ public interface IGame
      * @param message 
      */
     public void SendMessage(Chatline message);
-    
+  
 }

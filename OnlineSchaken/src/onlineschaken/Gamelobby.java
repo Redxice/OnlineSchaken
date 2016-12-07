@@ -5,13 +5,15 @@
  */
 package onlineschaken;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
  *
  * @author redxice
  */
-public class Gamelobby
+public class Gamelobby extends UnicastRemoteObject
 {
 
     private String naam;
@@ -23,14 +25,14 @@ public class Gamelobby
     private Player player2;
     private List<Player> spectators;
 
-    public Gamelobby(String naam, Player player1)
+    public Gamelobby(String naam, Player player1)throws RemoteException
     {
         this.naam= naam;
         this.player1 = player1;
         currentPlayers = 1;
     }   
     
-    public Gamelobby(String naam, Player player1, Player player2)
+    public Gamelobby(String naam, Player player1, Player player2)throws RemoteException
     {
         this.naam= naam;
         this.player1 = player1;
