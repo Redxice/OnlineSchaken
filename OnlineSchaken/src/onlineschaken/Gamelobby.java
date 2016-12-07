@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class Gamelobby
 {
-
     private String naam;
     private int maxPlayers = 2;
     private int id;
@@ -23,6 +22,23 @@ public class Gamelobby
     private Player player2;
     private List<Player> spectators;
 
+    public Gamelobby(String naam, Player player1,int id)
+    {
+        this.naam= naam;
+        this.player1 = player1;
+        currentPlayers = 1;
+        this.id = id;
+    }   
+    
+    public Gamelobby(String naam, Player player1, Player player2, int id)
+    {
+        this.naam= naam;
+        this.player1 = player1;
+        this.player2 = player2;
+        currentPlayers=2;
+        this.id = id;
+    }   
+    
     public Gamelobby(String naam, Player player1)
     {
         this.naam= naam;
@@ -30,14 +46,6 @@ public class Gamelobby
         currentPlayers = 1;
     }   
     
-    public Gamelobby(String naam, Player player1, Player player2)
-    {
-        this.naam= naam;
-        this.player1 = player1;
-        this.player2 = player2;
-        currentPlayers=2;
-    }   
-
     public int getMaxPlayers()
     {
         return this.maxPlayers;

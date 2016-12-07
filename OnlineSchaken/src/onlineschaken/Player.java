@@ -26,7 +26,7 @@ public class Player
     private List<Piece> pieces;
     private Game game;
     private List<Game> history;
-
+    
     //constructor
     public Player(String p_username, String p_password, int p_rating)
     {
@@ -163,7 +163,7 @@ public class Player
     @Override
     public String toString()
     {
-        return "Player{" + "username=" + username + ", rating=" + rating + '}';
+        return "username=" + username + ", rating=" + rating ;
     }
     
     

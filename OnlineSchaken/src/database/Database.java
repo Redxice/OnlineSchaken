@@ -263,14 +263,12 @@ public class Database
                 {
                 Player player1 = selectPlayerFromID(results.getInt("player1ID"));
                 Player player2 = selectPlayerFromID(results.getInt("player2ID"));
-                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1,player2);
-                lobby.setId(results.getInt("LobbyID"));
+                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1,player2,results.getInt("LobbyID"));
                 items.add(lobby);
                 }
                 else{
                 Player player1 = selectPlayerFromID(results.getInt("player1ID"));
-                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1);
-                lobby.setId(results.getInt("LobbyID"));
+                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1,results.getInt("LobbyID"));
                 items.add(lobby);                  
                 }
             }
