@@ -11,7 +11,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import onlineschaken.RMIClient;
 
 /**
  *
@@ -19,11 +18,11 @@ import onlineschaken.RMIClient;
  */
 public class ClientApp
 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args)
+    public ClientApp()
+    {
+        
+    }
+    public void sendTurn(Point prev, Point next, double time)
     {
         String ip = /*"127.0.0.1";*/"169.254.183.180";
         try
@@ -33,7 +32,7 @@ public class ClientApp
             try
             {
                 stub = (IrmiServer) registry.lookup("setTurn");
-                stub.doTurn(new Point(3,4), new Point(3,5), "3000");
+                stub.doTurn(prev, next, time);
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -45,5 +44,4 @@ public class ClientApp
             e.printStackTrace();
         }
     }
-    
 }

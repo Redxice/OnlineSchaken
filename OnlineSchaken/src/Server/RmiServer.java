@@ -19,7 +19,7 @@ import java.rmi.registry.Registry;
 public class RmiServer implements IrmiServer
 {
     @Override
-    public void doTurn(Point section1, Point section2, String time) throws RemoteException
+    public void doTurn(Point section1, Point section2, double time) throws RemoteException
     {
         System.out.println(section1.toString() + section2.toString() + time);
     }

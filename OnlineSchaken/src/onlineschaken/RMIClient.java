@@ -35,7 +35,7 @@ public class RMIClient implements IrmiClient
             try
             {
                 stub = (IrmiServer) registry.lookup("setTurn");
-                stub.doTurn(section1, section2, "3000");
+                stub.doTurn(section1, section2, 3000);
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());

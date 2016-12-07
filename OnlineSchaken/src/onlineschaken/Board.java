@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import Server.ClientApp;
 import java.awt.Point;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -33,7 +34,7 @@ public class Board
     //Moet nog een enum van worden gemaakt
     private String turn = "white";
     private Game game;
-    private RMIClient client;
+    private ClientApp client;
     public Section section1;
             
     public Parent createContent()
@@ -63,11 +64,12 @@ public class Board
                             }
                         } else if (firstSection != null)
                         {
+                            System.out.println(firstSection.getID().toString());
                             section1 = piece.getSection();
                             if (piece.move(section))
                             {
-                                client = new RMIClient();
-                                client.sendTurn(new Point(6,0), section.getID(), "timer");
+                                client = new ClientApp();
+                                client.sendTurn(firstSection.getID(), section.getID(), game.getTime());
                                 firstSection = null;
                                 piece = null;
                                 if (game.draw())
