@@ -8,6 +8,7 @@ package Shared;
 import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
@@ -19,4 +20,5 @@ public interface IrmiServer extends Remote
     
     public void test() throws RemoteException;
     
+    public List<IGameLobby> GameLobbys();
 }
