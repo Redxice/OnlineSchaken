@@ -33,7 +33,7 @@ public class RmiServer implements IrmiServer
         System.out.println("works");
     }
 
-    @Override
+    /*@Override
     public List<IGameLobby> GameLobbys() throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -43,6 +43,6 @@ public class RmiServer implements IrmiServer
     public IGameLobby GetIGameLobby(Gamelobby gamelobby) throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }*/
     
 }
