@@ -24,7 +24,7 @@ public class Gamelobby extends UnicastRemoteObject
     private Player player2;
     private List<Player> spectators;
 
-    public Gamelobby(String naam, Player player1,int id)
+    public Gamelobby(String naam, Player player1,int id)throws RemoteException
 
     {
         this.naam= naam;
@@ -33,7 +33,7 @@ public class Gamelobby extends UnicastRemoteObject
         this.id = id;
     }   
     
-    public Gamelobby(String naam, Player player1, Player player2, int id)
+    public Gamelobby(String naam, Player player1, Player player2, int id)throws RemoteException
 
     {
         this.naam= naam;
@@ -43,7 +43,7 @@ public class Gamelobby extends UnicastRemoteObject
         this.id = id;
     }   
     
-    public Gamelobby(String naam, Player player1)
+    public Gamelobby(String naam, Player player1)throws RemoteException
     {
         this.naam= naam;
         this.player1 = player1;
