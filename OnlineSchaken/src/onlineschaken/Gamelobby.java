@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 {
+
     private String naam;
     private int maxPlayers = 2;
     private int id;
@@ -24,6 +25,8 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     private List<Chatline> chatLines = new ArrayList<>();
     private Player player1;
     private Player player2;
+    private boolean p1Ready;
+    private boolean p2Ready;
     private List<Player> spectators;
 
     public Gamelobby(String naam, Player player1, int id) throws RemoteException
@@ -92,8 +95,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     {
         return player2;
     }
-    
-   
+
     public String getNaam()
     {
         return naam;
@@ -133,15 +135,28 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     }
 
     @Override
-    public void PlayerIsReady() throws RemoteException
+    public void PlayerIsReady(boolean ready, String lobbyName, String userName) throws RemoteException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (player1 != null && player2 != null)
+        {
+            if (userName == player1.getUsername())
+            {
+                p1Ready = ready;
+            } else if (userName == player2.getUsername())
+            {
+                p1Ready = ready;
+            }
+            if (p1Ready && p2Ready)
+            {
+
+            }
+        }
     }
 
     @Override
     public void SendMessage(Chatline message) throws RemoteException
     {
-       chatLines.add(message);
+        chatLines.add(message);
     }
 
     @Override

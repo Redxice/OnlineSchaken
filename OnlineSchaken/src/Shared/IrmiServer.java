@@ -30,4 +30,6 @@ public interface IrmiServer extends Remote
     public void CreateGameLobby(String naam, Player player1)throws RemoteException;
     
     public void SendMessage(Chatline message,String naamLobby)throws RemoteException;
+    
+    public void playerReady(boolean ready,String naamLobby, String userName)throws RemoteException;
 }

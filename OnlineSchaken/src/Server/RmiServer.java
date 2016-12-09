@@ -85,5 +85,23 @@ public class RmiServer implements IrmiServer
         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void playerReady(boolean ready,String lobbyName, String userName) throws RemoteException
+    {
+        try
+        {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+        IGameLobby lobby = (IGameLobby)registry.lookup(lobbyName);
+        System.out.println(ready + lobbyName + userName);
+        lobby.PlayerIsReady(ready,lobbyName,userName);
+        } catch (NotBoundException ex)
+        {
+        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex)
+        {
+        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
     
 }

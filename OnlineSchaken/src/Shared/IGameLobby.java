@@ -33,7 +33,7 @@ public interface IGameLobby extends Remote
      * Deze methode moet worden gebruikt wanneer de clients in 
      * de gamelobby ui op de Btn_Ready clicken.
      */
-    public void PlayerIsReady()throws RemoteException;;
+    public void PlayerIsReady(boolean ready,String lobbyName, String userName)throws RemoteException;;
     
     /**
      * Deze Chatline wordt geadd in  List Chat van de Gamelobby klassen
