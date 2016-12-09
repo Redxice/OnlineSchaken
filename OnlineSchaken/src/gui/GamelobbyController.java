@@ -33,7 +33,7 @@ import onlineschaken.Player;
 public class GamelobbyController implements Initializable
 {
     private Gamelobby gameLobby;
-    private String lobbyName = "r";
+    private String lobbyName;
     private Player LoggedInUser;
     @FXML
     private Button Btn_Send;
@@ -109,7 +109,7 @@ public class GamelobbyController implements Initializable
      * @param p_player 
      */
     public void createGameLobby(String LobbyNaam,Player p_player){
-       //lobbyName = LobbyNaam;
+       lobbyName = LobbyNaam;
        ClientApp client = new ClientApp();
        client.createGameLobby(LobbyNaam,p_player);
        this.LoggedInUser = p_player;

@@ -101,7 +101,7 @@ public class ClientApp
             }
            return null;
     }
-}
+
 
     public void SendMessage(Chatline chatline, String naamLobby)
     {
