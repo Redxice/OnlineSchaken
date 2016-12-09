@@ -5,13 +5,19 @@
  */
 package Server;
 
+import Shared.IGameLobby;
 import Shared.IrmiServer;
 import java.awt.Point;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import onlineschaken.Gamelobby;
+import onlineschaken.Player;
 
 /**
  *
@@ -19,8 +25,15 @@ import onlineschaken.Gamelobby;
  */
 public class ClientApp
 {
-    public void createGameLobby(Gamelobby gamelobby){
-         String ip = "127.0.0.1";/*"169.254.183.180";*/
+    private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
+    private String ip = "127.0.0.1";/*"169.254.183.180";*/
+    /**
+     * Wordt aangeroepen in de GameLobbyController in de create GameLobby methode.
+     * @param LobbyName
+     * @param host 
+     */
+    public void createGameLobby(String LobbyName,Player host){
+       
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
@@ -28,7 +41,7 @@ public class ClientApp
             try
             {
                 stub = (IrmiServer) registry.lookup("setTurn");
-                stub.CreateGameLobby(gamelobby.getName(), gamelobby.getPlayer1());
+                stub.CreateGameLobby(LobbyName,host);
                 
             } catch (NotBoundException e)
             {
@@ -62,5 +75,29 @@ public class ClientApp
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
+    }
+    /**
+     * haalt van de server al zijn gamelobbys op en returned deze. Deze methode wordt aangeroepen in de initialize van de LobbyController.
+     * @return 
+     */
+    public ArrayList<String> GetGameLobbys(){
+            try
+            {
+                Registry registry = LocateRegistry.getRegistry(ip, 666);
+                IrmiServer stub;
+                try
+                {
+                 stub = (IrmiServer) registry.lookup("setTurn");
+                 return stub.GetGameLobbys();
+                } catch (NotBoundException e)
+                {
+                    System.err.println("Client exception:" + e.toString());
+                    e.printStackTrace();
+                }
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           return null;
     }
 }

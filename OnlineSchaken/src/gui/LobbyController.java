@@ -5,6 +5,8 @@
  */
 package gui;
 
+import Server.ClientApp;
+import Shared.IGameLobby;
 import database.Database;
 import onlineschaken.*;
 import java.io.IOException;
@@ -39,7 +41,8 @@ import javax.swing.JOptionPane;
 public class LobbyController implements Initializable
 {    
     private Database db = new Database();
-    private ObservableList<Gamelobby> gameList = FXCollections.observableArrayList();
+    private ClientApp client = new ClientApp();
+    private ObservableList gameList = FXCollections.observableArrayList();
     private List<String> test = new ArrayList<String>();
     private Player player;
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
@@ -61,17 +64,13 @@ public class LobbyController implements Initializable
     /**
      * Initializes the controller class.
      */
+  
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {       
-        try
-        {
-            gameList = db.selectAllGameLobbys();
-        } catch (RemoteException ex)
-        {
-            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    {   if(client.GetGameLobbys()!= null){
+        gameList.setAll(client.GetGameLobbys());
         Lv_GameList.setItems(gameList);     
+    }
     }
 
     @FXML
@@ -125,8 +124,8 @@ public class LobbyController implements Initializable
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             GamelobbyController controller= fxmlLoader.<GamelobbyController>getController();
-            Gamelobby gameLobby = new Gamelobby(Tb_GameName.getText(),player);
-            controller.createGameLobby(gameLobby,player);
+            // Gamelobby gameLobby = new Gamelobby(Tb_GameName.getText(),player);
+            controller.createGameLobby(Tb_GameName.getText(),player);
             Scene scene = new Scene(root, Color.TRANSPARENT);
             stage.setScene(scene);
             stage.show();
@@ -138,7 +137,7 @@ public class LobbyController implements Initializable
         {
             LOGGER.log(Level.FINE, ex.getMessage());
         }
-    db.insertLobby(player.getUsername(),Tb_GameName.getText());
+    //db.insertLobby(player.getUsername(),Tb_GameName.getText());
     }
     public void setPlayer(Player p_player){
         this.player = p_player;

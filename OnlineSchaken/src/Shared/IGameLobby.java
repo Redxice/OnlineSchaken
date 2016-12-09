@@ -40,6 +40,5 @@ public interface IGameLobby extends Remote
      * @param message 
      */
     public void SendMessage(Chatline message)throws RemoteException;
-    
     public String getName()throws RemoteException;
 }

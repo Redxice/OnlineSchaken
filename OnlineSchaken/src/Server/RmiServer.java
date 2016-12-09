@@ -13,6 +13,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import onlineschaken.Gamelobby;
 import onlineschaken.Player;
 
@@ -21,7 +23,9 @@ import onlineschaken.Player;
  * @author Sander
  */
 public class RmiServer implements IrmiServer
-{  private ArrayList<Gamelobby> Gamelobbys = new ArrayList<>();
+{  
+    private ArrayList<String> GameLobbys = new ArrayList<>();
+    
     @Override
     public void doTurn(Point section1, Point section2, double time) throws RemoteException
     {
@@ -54,13 +58,19 @@ public class RmiServer implements IrmiServer
         Gamelobby lobby = new Gamelobby(lobbyNaam,player1);
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
         registry.rebind(lobby.getNaam(),(IGameLobby)lobby);
-        System.out.println(lobby.getNaam());
+        this.GameLobbys.add(lobby.getName());
     }
 
     @Override
     public String GetIGameLobby(Gamelobby gamelobby) throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> GetGameLobbys() throws RemoteException
+    {
+       return GameLobbys;
     }
     
 }

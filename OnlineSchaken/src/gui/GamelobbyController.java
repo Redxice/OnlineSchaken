@@ -104,10 +104,10 @@ public class GamelobbyController implements Initializable
      * @param p_GameLobby 
      * @param p_player 
      */
-    public void createGameLobby(Gamelobby p_GameLobby,Player p_player){
+    public void createGameLobby(String LobbyNaam,Player p_player){
+       //lobbyName = LobbyNaam;
        ClientApp client = new ClientApp();
-       client.createGameLobby(p_GameLobby);
-       this.gameLobby = p_GameLobby;
+       client.createGameLobby(LobbyNaam,p_player);
        this.LoggedInUser = p_player;
        
     }
