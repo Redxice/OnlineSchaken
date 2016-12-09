@@ -5,6 +5,7 @@
  */
 package gui;
 
+import Server.ClientApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -104,6 +105,8 @@ public class GamelobbyController implements Initializable
      * @param p_player 
      */
     public void createGameLobby(Gamelobby p_GameLobby,Player p_player){
+       ClientApp client = new ClientApp();
+       client.createGameLobby(p_GameLobby);
        this.gameLobby = p_GameLobby;
        this.LoggedInUser = p_player;
        

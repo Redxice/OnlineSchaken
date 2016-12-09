@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 {
-
     private String naam;
     private int maxPlayers = 2;
     private int id;
@@ -92,8 +91,9 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     {
         return player2;
     }
-
-    public String getNaam()
+    
+    @Override
+    public String getNaam()throws RemoteException
     {
         return naam;
     }
