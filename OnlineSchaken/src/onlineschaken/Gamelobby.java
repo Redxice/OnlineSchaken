@@ -8,6 +8,7 @@ package onlineschaken;
 import Shared.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     private int maxPlayers = 2;
     private int id;
     private int currentPlayers;
-    private List<Chatline> chatLines;
+    private List<Chatline> chatLines = new ArrayList<>();
     private Player player1;
     private Player player2;
     private List<Player> spectators;
@@ -140,7 +141,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     @Override
     public void SendMessage(Chatline message) throws RemoteException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       chatLines.add(message);
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import onlineschaken.Chatline;
 import onlineschaken.Gamelobby;
 import onlineschaken.Player;
 
@@ -27,4 +28,6 @@ public interface IrmiServer extends Remote
     public String GetIGameLobby(Gamelobby gamelobby)throws RemoteException;
     
     public void CreateGameLobby(String naam, Player player1)throws RemoteException;
+    
+    public void SendMessage(Chatline message,String naamLobby)throws RemoteException;
 }
