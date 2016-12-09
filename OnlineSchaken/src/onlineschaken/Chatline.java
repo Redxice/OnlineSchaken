@@ -13,37 +13,18 @@ import java.io.Serializable;
  */
 public class Chatline implements Serializable
 {
-
     private String userName;
     private String message;
-    private Game game;
-    private Gamelobby gameLobby;
     private long time;
 
     /**
-     *
      * @param userName
      * @param message
-     * @param game
      */
-    public Chatline(String userName, String message, Game game)
-    {
-        time = System.currentTimeMillis();;
-        this.userName = userName;
-        this.message = message;
-        this.game = game;
-    }
-/**
-     *
-     * @param userName
-     * @param message
-     * @param gameLobby
-     */
-    public Chatline(String userName, String message, Gamelobby gameLobby)
+    public Chatline(String userName, String message)
     {
         this.userName = userName;
         this.message = message;
-        this.gameLobby = gameLobby;
     }
 
     public String getUserName()
@@ -59,7 +40,7 @@ public class Chatline implements Serializable
     @Override
     public String toString()
     {
-        return System.currentTimeMillis() + this.userName + this.message;
+        return this.userName + this.message;
     }
 
 }

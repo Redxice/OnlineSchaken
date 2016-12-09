@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
-import onlineschaken.Gamelobby;
-import onlineschaken.Player;
+import onlineschaken.*;
+
 
 /**
  *
@@ -76,6 +76,7 @@ public class ClientApp
             e.printStackTrace();
         }
     }
+
     /**
      * haalt van de server al zijn gamelobbys op en returned deze. Deze methode wordt aangeroepen in de initialize van de LobbyController.
      * @return 
@@ -101,3 +102,54 @@ public class ClientApp
            return null;
     }
 }
+
+    public void SendMessage(Chatline chatline, String naamLobby)
+    {
+        String ip = "127.0.0.1";/*"169.254.183.180";*/
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("setTurn");
+                stub.SendMessage(chatline, naamLobby);
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    }
+    
+    public void playerReady(boolean ready,String lobbyName, String userName)
+    {
+        String ip = "127.0.0.1";/*"169.254.183.180";*/
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("setTurn");
+                stub.playerReady(ready,lobbyName,userName);
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    }
+    
+}
+

@@ -9,12 +9,17 @@ import Shared.IGameLobby;
 import java.awt.Point;
 import java.rmi.RemoteException;
 import Shared.IrmiServer;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import onlineschaken.Chatline;
 import onlineschaken.Gamelobby;
 import onlineschaken.Player;
 
@@ -68,9 +73,45 @@ public class RmiServer implements IrmiServer
     }
 
     @Override
+
     public ArrayList<String> GetGameLobbys() throws RemoteException
     {
        return GameLobbys;
+    }
+    public void SendMessage(Chatline message, String naamLobby) throws RemoteException
+    {        
+        try
+        {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+        IGameLobby lobby = (IGameLobby)registry.lookup(naamLobby);
+        System.out.println(message.getMessage());
+        lobby.SendMessage(message);
+        } catch (NotBoundException ex)
+        {
+        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex)
+        {
+        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void playerReady(boolean ready,String lobbyName, String userName) throws RemoteException
+    {
+        try
+        {
+        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+        IGameLobby lobby = (IGameLobby)registry.lookup(lobbyName);
+        System.out.println(ready + lobbyName + userName);
+        lobby.PlayerIsReady(ready,lobbyName,userName);
+        } catch (NotBoundException ex)
+        {
+        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex)
+        {
+        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+
     }
     
 }

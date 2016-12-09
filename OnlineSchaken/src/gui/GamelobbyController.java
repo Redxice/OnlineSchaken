@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import onlineschaken.Chatline;
 import onlineschaken.Gamelobby;
 import onlineschaken.Player;
 
@@ -32,7 +33,7 @@ import onlineschaken.Player;
 public class GamelobbyController implements Initializable
 {
     private Gamelobby gameLobby;
-    
+    private String lobbyName = "r";
     private Player LoggedInUser;
     @FXML
     private Button Btn_Send;
@@ -55,6 +56,9 @@ public class GamelobbyController implements Initializable
     public void HandleReadyBtn(ActionEvent event){
         try
         {
+            ClientApp client = new ClientApp();
+            boolean ready = true;
+            client.playerReady(ready,lobbyName,LoggedInUser.toString());
             Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
             Parent root = (Parent)fxmlLoader.load();
@@ -120,4 +124,11 @@ public class GamelobbyController implements Initializable
         // TODO
     }    
     
+    @FXML
+    public void HandleSendBtn(ActionEvent event)
+    {
+        ClientApp client = new ClientApp();
+        Chatline chatLine = new Chatline(LoggedInUser.getUsername(),Chatline_TxtField.getText());
+        client.SendMessage(chatLine,lobbyName);
+    }
 }
