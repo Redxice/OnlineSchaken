@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author redxice
  */
-public class Player
+public class Player implements Serializable
 {
 
     //fields

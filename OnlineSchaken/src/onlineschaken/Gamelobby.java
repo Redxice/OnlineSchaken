@@ -92,8 +92,8 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
         return player2;
     }
     
-    @Override
-    public String getNaam()throws RemoteException
+   
+    public String getNaam()
     {
         return naam;
     }
@@ -141,6 +141,12 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     public void SendMessage(Chatline message) throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getName() throws RemoteException
+    {
+        return this.naam;
     }
 
 }

@@ -5,21 +5,21 @@
  */
 package Server;
 
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import Shared.IrmiServer;
 
+
 /**
  *
  * @author Sander
  */
-public class Server
+public  class Server 
 {
-
-    public Server()
-    {
-    }
+  private static Registry registry;
+  private static RmiServer t1 = new RmiServer();
 
     /**
      * @param args the command line arguments
@@ -28,19 +28,19 @@ public class Server
     {
         try
         {
-            RmiServer t1 = new RmiServer();
-            IrmiServer stub = (IrmiServer) UnicastRemoteObject.exportObject(t1, 0);
-
+            t1 = new RmiServer();
+            IrmiServer stub = (IrmiServer) UnicastRemoteObject.exportObject(t1,0);
             //Bind the remote object stub in the registry
-            Registry registry = LocateRegistry.createRegistry(666);
+            registry = LocateRegistry.createRegistry(666);
             registry.bind("setTurn", stub);
-
             System.err.println("Server ready");
+            
         } catch (Exception e)
         {
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
+       
     }
 
 }

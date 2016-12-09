@@ -28,7 +28,7 @@ public class ClientApp
             try
             {
                 stub = (IrmiServer) registry.lookup("setTurn");
-                stub.CreateGameLobby(gamelobby.getNaam(), gamelobby.getPlayer1());
+                stub.CreateGameLobby(gamelobby.getName(), gamelobby.getPlayer1());
                 
             } catch (NotBoundException e)
             {
