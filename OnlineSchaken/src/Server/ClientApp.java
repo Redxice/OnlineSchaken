@@ -6,13 +6,17 @@
 package Server;
 
 import Shared.IGameLobby;
+import Shared.ILobbyController;
+import Shared.IrmiClient;
 import Shared.IrmiServer;
+import gui.LobbyController;
 import java.awt.Point;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +28,13 @@ import onlineschaken.*;
  *
  * @author Sander
  */
-public class ClientApp
+public class ClientApp implements IrmiClient
 {
     private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
+    private ILobbyController lobbyController ;
     private String ip = "127.0.0.1";/*"169.254.183.180";*/
+    
+
     /**
      * Wordt aangeroepen in de GameLobbyController in de create GameLobby methode.
      * @param LobbyName
@@ -56,6 +63,7 @@ public class ClientApp
         }
        return false;
     }
+   
     public void sendTurn(Point prev, Point next, double time)
     {
         String ip = "127.0.0.1";/*"169.254.183.180";*/
@@ -104,7 +112,6 @@ public class ClientApp
            return null;
     }
 
-
     public void SendMessage(Chatline chatline, String naamLobby)
     {
         String ip = "127.0.0.1";/*"169.254.183.180";*/
@@ -128,7 +135,6 @@ public class ClientApp
             e.printStackTrace();
         }
     }
-    
     public void playerReady(boolean ready,String lobbyName, String userName)
     {
         String ip = "127.0.0.1";/*"169.254.183.180";*/
@@ -152,7 +158,6 @@ public class ClientApp
             e.printStackTrace();
         }
     }
-    
     public IGameLobby GetGameLobby(String LobbyName){
         IGameLobby lobby =null ;
         try
@@ -176,7 +181,6 @@ public class ClientApp
         }
         return lobby;
     }
-    
     public void unBindLobby(String lobbyName)
     {
         try
@@ -205,7 +209,33 @@ public class ClientApp
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
-    
+    }
+    @Override
+    public void getTurn(Point section1, Point section2, double time) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addController(ILobbyController controller) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<ILobbyController> GetLobbyControllers() throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void UpdateLobbyController() throws RemoteException
+    {
+        
+    }
+    @Override
+    public void setLobbyController(ILobbyController controller)throws RemoteException{
+        this.lobbyController = controller;
     }
 }
 

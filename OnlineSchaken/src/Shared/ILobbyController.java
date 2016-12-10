@@ -5,6 +5,7 @@
  */
 package Shared;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -12,12 +13,12 @@ import java.util.ArrayList;
  *
  * @author redxice
  */
-public interface ILobbyController
+public interface ILobbyController extends Remote
 {
       /**
      * wordt aangeroepen wanneer er 
      * veranderingen zijn in de het aantal gamelobbys
      */
-    public void UpdateGameLobbys(ArrayList<String> lobbys)throws RemoteException;
+    public void UpdateGameLobbys()throws RemoteException;
     
 }

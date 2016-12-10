@@ -5,6 +5,7 @@
  */
 package gui;
 
+import Server.ClientApp;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ import onlineschaken.Player;
  */
 public class IngameController implements Initializable
 {
+    private ClientApp client;
     @FXML 
     private SubScene GameBoard;
 
@@ -50,5 +52,10 @@ public class IngameController implements Initializable
         
   
     }    
+
+    public void setClient(ClientApp client)
+    {
+       this.client = client;
+    }
     
 }

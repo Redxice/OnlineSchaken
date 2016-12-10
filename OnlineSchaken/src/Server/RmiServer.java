@@ -6,6 +6,7 @@
 package Server;
 
 import Shared.IGameLobby;
+import Shared.ILobbyController;
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.rmi.RemoteException;
@@ -31,7 +32,7 @@ import onlineschaken.Player;
 public class RmiServer implements IrmiServer {
 
     private ArrayList<String> GameLobbys = new ArrayList<>();
-
+    private ArrayList<IrmiClient> Clients = new ArrayList<>();
     @Override
     public void doTurn(Point section1, Point section2, double time) throws RemoteException {
         try {
@@ -81,6 +82,7 @@ public class RmiServer implements IrmiServer {
         } catch (NotBoundException | AccessException ex) {
             registry.rebind(lobby.getNaam(), (IGameLobby) lobby);
             this.GameLobbys.add(lobby.getName());
+            UpdateClients();
             return true;
 
         }
@@ -147,6 +149,28 @@ public class RmiServer implements IrmiServer {
     public void removeGameLobby(String gameLobbyname) throws RemoteException 
     {
         GameLobbys.remove(gameLobbyname);
+        UpdateClients();
+    }
+    
+    public void UpdateClients(){
+        
+            for(IrmiClient client:Clients)
+            {
+                try
+                {
+                    client.UpdateLobbyController();
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+    }
+    
+
+    @Override
+    public void registerClient(IrmiClient client)throws RemoteException 
+    {
+        Clients.add(client);
     }
 
 }

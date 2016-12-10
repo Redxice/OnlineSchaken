@@ -40,7 +40,7 @@ public class GamelobbyController implements Initializable
     private IGameLobby GameLobby=null;
     private String lobbyName;
     private Player LoggedInUser;
-    private ClientApp client = new ClientApp();
+    private ClientApp client;
     private ObservableList playerList = FXCollections.observableArrayList();
     @FXML
     private Button Btn_Send;
@@ -70,6 +70,7 @@ public class GamelobbyController implements Initializable
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             IngameController controller= fxmlLoader.<IngameController>getController();
+            controller.setClient(client);
             LoginStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -98,6 +99,7 @@ public class GamelobbyController implements Initializable
             Parent root = (Parent)fxmlLoader.load();
             LobbyController controller= fxmlLoader.<LobbyController>getController();
             controller.setPlayer(this.LoggedInUser);
+            controller.setClient(client);
             LoginStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -163,8 +165,11 @@ public class GamelobbyController implements Initializable
     @FXML
     public void HandleSendBtn(ActionEvent event)
     {
-        ClientApp client = new ClientApp();
+        
         Chatline chatLine = new Chatline(LoggedInUser.getUsername(),Chatline_TxtField.getText());
         client.SendMessage(chatLine,lobbyName);
+    }
+    public void setClient(ClientApp client){
+        this.client = client;
     }
 }

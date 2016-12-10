@@ -8,6 +8,7 @@ package onlineschaken;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
+import gui.LobbyController;
 import java.awt.Point;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  */
 public class RMIClient implements IrmiClient
 {
-   private ArrayList<ILobbyController> LobbyControllers= new ArrayList<>();
+    private ArrayList<ILobbyController> LobbyControllers= new ArrayList<>();
  
     @Override
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
@@ -49,6 +50,31 @@ public class RMIClient implements IrmiClient
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addController(ILobbyController controller) throws RemoteException
+    {  
+        System.out.println("Controler added");
+        this.LobbyControllers.add(controller);
+    }
+
+    @Override
+    public ArrayList<ILobbyController> GetLobbyControllers() throws RemoteException
+    {
+       return this.LobbyControllers;
+    }
+
+    @Override
+    public void UpdateLobbyController() throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setLobbyController(ILobbyController controller) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
