@@ -120,7 +120,7 @@ public class LobbyController implements Initializable
                 stage.show(); 
                 }
                 else{
-                    JOptionPane.showConfirmDialog(null, "Failed to join the lobby");
+                    JOptionPane.showMessageDialog(null, "Failed to join the lobby");
                 }
                
             } catch (RemoteException ex) {
@@ -131,7 +131,7 @@ public class LobbyController implements Initializable
             }
         }
         else{
-            JOptionPane.showConfirmDialog(null, "Select a Lobby");        
+            JOptionPane.showMessageDialog(null, "Select a Lobby");        
             }
     }
 
