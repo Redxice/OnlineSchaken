@@ -63,7 +63,7 @@ public class ClientApp
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
-            {
+            {   
                 stub = (IrmiServer) registry.lookup("setTurn");
                 stub.doTurn(prev, next, time);
             } catch (NotBoundException e)

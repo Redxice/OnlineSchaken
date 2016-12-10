@@ -7,6 +7,7 @@ package Shared;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import onlineschaken.Chatline;
 import onlineschaken.Player;
 
@@ -43,5 +44,6 @@ public interface IGameLobby extends Remote
     
     public Player GetPlayer1()throws RemoteException;
     public Player GetPlayer2()throws RemoteException;
+    public ArrayList<String> GetPlayerNames()throws RemoteException;
     public String getName()throws RemoteException;
 }

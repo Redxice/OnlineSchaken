@@ -10,9 +10,12 @@ import Shared.IGameLobby;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +41,7 @@ public class GamelobbyController implements Initializable
     private String lobbyName;
     private Player LoggedInUser;
     private ClientApp client = new ClientApp();
-    
+    private ObservableList playerList = FXCollections.observableArrayList();
     @FXML
     private Button Btn_Send;
     @FXML
@@ -108,8 +111,9 @@ public class GamelobbyController implements Initializable
         {
             lobbyName = lobby.getName();
             GameLobby= lobby;
-            
-            
+            this.GameLobby = lobby;
+            playerList.setAll(lobby.GetPlayerNames());
+            SpelerBox.setItems(playerList);
         } catch (RemoteException ex)
         {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,7 +133,10 @@ public class GamelobbyController implements Initializable
             lobbyName = lobby.getName();
             System.out.println(lobbyName);
             LoggedInUser = lobby.GetPlayer2();
-            this.GameLobby = lobby; 
+            this.GameLobby = lobby;
+            playerList.setAll(lobby.GetPlayerNames());
+            System.out.println("Ingame : "+lobby.GetPlayerNames());
+            SpelerBox.setItems(playerList);
         } catch (RemoteException ex)
         {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);

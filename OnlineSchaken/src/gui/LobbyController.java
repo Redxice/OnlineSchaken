@@ -101,6 +101,7 @@ public class LobbyController implements Initializable
     private void joinGame(ActionEvent event)
     {
         String selectedLobby = (String) Lv_GameList.getSelectionModel().getSelectedItem();
+        System.out.println(selectedLobby);
         if (selectedLobby != null)
         {
             try {
@@ -113,7 +114,7 @@ public class LobbyController implements Initializable
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
-                controller.JoinGameLobby(player);
+                controller.JoinGameLobby(lobby);
                 Scene scene = new Scene(root, Color.TRANSPARENT);
                 stage.setScene(scene);
                 stage.show(); 

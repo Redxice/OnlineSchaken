@@ -171,4 +171,22 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
        return this.player1;
     }
 
+    @Override
+    public Player GetPlayer2() throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> GetPlayerNames() throws RemoteException
+    {
+      ArrayList<String> players = new ArrayList<>();
+      if (player2!=null)
+        {
+             players.add(player2.getUsername());
+        }
+      players.add(player1.getUsername());
+      return players;
+    }
+
 }
