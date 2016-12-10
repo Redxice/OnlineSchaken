@@ -100,10 +100,34 @@ public class LobbyController implements Initializable
     @FXML
     private void joinGame(ActionEvent event)
     {
-        String selectedLobby =(String)Lv_GameList.getSelectionModel().getSelectedItem();
-        if (selectedLobby!=null)
+        String selectedLobby = (String) Lv_GameList.getSelectionModel().getSelectedItem();
+        if (selectedLobby != null)
         {
-           IGameLobby lobby = client.GetGameLobby(selectedLobby);
+            try {
+                IGameLobby lobby = client.GetGameLobby(selectedLobby);
+                if (lobby.joinGameLobby(player))
+                {
+                Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
+                CurrentStage.close();
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
+                controller.JoinGameLobby(player);
+                Scene scene = new Scene(root, Color.TRANSPARENT);
+                stage.setScene(scene);
+                stage.show(); 
+                }
+                else{
+                    JOptionPane.showConfirmDialog(null, "Failed to join the lobby");
+                }
+               
+            } catch (RemoteException ex) {
+                Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex)
+            {
+                Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -168,9 +192,9 @@ public class LobbyController implements Initializable
             lobby = client.GetGameLobby(lobbyName);
         } else
         {
-          JOptionPane.showMessageDialog(null, "Lobby naam moet uniek zijn");
+            JOptionPane.showMessageDialog(null, "Lobby naam moet uniek zijn");
         }
-     return lobby;
+        return lobby;
     }
 
 }

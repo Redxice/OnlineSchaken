@@ -21,7 +21,7 @@ public interface IGameLobby extends Remote
      * Check of de gameLobby niet vol zit. 
      * @param player 
      */
-    public boolean joinGameLobby(Player player,String GameLobbyName)throws RemoteException;;
+    public boolean joinGameLobby(Player player)throws RemoteException;;
     /**
      * Deze methode moet de speler verwijderen uit de gamelobby.
      * Check of de gameLobby leeg is na het verwijderen van de speler. 
@@ -40,7 +40,8 @@ public interface IGameLobby extends Remote
      * @param message 
      */
     public void SendMessage(Chatline message)throws RemoteException;
-   
+    
     public Player GetPlayer1()throws RemoteException;
+    public Player GetPlayer2()throws RemoteException;
     public String getName()throws RemoteException;
 }

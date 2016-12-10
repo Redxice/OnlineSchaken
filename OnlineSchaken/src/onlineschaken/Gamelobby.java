@@ -118,7 +118,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     }
 
     @Override
-    public boolean joinGameLobby(Player player,String LobbyName) throws RemoteException
+    public boolean joinGameLobby(Player player) throws RemoteException
     {
         if (player2 != null)
         {

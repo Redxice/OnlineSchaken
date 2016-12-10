@@ -37,8 +37,8 @@ public class GamelobbyController implements Initializable
     private IGameLobby GameLobby=null;
     private String lobbyName;
     private Player LoggedInUser;
-    private  ClientApp client = new ClientApp();
-   
+    private ClientApp client = new ClientApp();
+    
     @FXML
     private Button Btn_Send;
     @FXML
@@ -103,7 +103,18 @@ public class GamelobbyController implements Initializable
     * moet worden aangeroepen wanneer een player wilt joinen
     * op een bestaande GameLobby .
     */
-    public void JoinGameLobby(Player p_player){
+    public void JoinGameLobby(IGameLobby lobby){
+        try
+        {
+            lobbyName = lobby.getName();
+            GameLobby= lobby;
+            
+            
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     /**
@@ -117,7 +128,7 @@ public class GamelobbyController implements Initializable
         {
             lobbyName = lobby.getName();
             System.out.println(lobbyName);
-            LoggedInUser = lobby.GetPlayer1();
+            LoggedInUser = lobby.GetPlayer2();
             this.GameLobby = lobby; 
         } catch (RemoteException ex)
         {
