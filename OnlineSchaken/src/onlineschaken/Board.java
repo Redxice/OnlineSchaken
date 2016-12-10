@@ -385,9 +385,14 @@ public class Board implements IrmiClient
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
         System.out.println(section1.toString() + " " + section2.toString());
-        /*
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
-        getSections(xValue, yValue).getPiece().move(getSections((int)section2.getX(), (int)section2.getY()));*/
+        
+        System.out.println(yValue);
+        System.out.println(xValue);
+        System.out.println(getSections(xValue, yValue));
+        System.out.println(getSections(xValue, yValue).getPiece());
+        
+        getSections(xValue, yValue).getPiece().move(getSections((int)section2.getX(), (int)section2.getY()));
     }
 }
