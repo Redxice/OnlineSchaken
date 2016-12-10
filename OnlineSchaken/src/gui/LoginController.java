@@ -67,6 +67,7 @@ public class LoginController implements Initializable
     {
         Warning_Login.setText(null);
         if (1==1 /*CheckIfValidUser()*/)
+        if (true)
         {
             try
             {               
@@ -74,11 +75,13 @@ public class LoginController implements Initializable
                 player = new Player(TxtField_Username.getText(),TxtField_Password.getText(),10);
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+
                 Parent root = (Parent) fxmlLoader.load();
                 LobbyController controller = fxmlLoader.<LobbyController>getController();
                 controller.setPlayer(this.player);
                 controller.setClient(client);
                 controller.setIClient(client);
+                
                 LoginStage.close();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
@@ -122,6 +125,7 @@ public class LoginController implements Initializable
      *
      * @return
      */
+
     private boolean CheckIfValidUser()
     {
         db = new Database();

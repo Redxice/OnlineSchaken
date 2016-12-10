@@ -39,8 +39,8 @@ public class RmiServer implements IrmiServer {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 600);
             IrmiClient stub;
             try {
-                stub = (IrmiClient) registry.lookup("recieveTurn");
-                stub.getTurn(section1, section2, 3.00);
+                stub = (IrmiClient) registry.lookup("Client");
+                stub.getTurn(new Point(5,0), new Point(7,2), 3.00);
             } catch (NotBoundException e) {
                 System.err.println("Client exception:" + e.toString());
                 e.printStackTrace();
