@@ -32,7 +32,7 @@ public class ClientApp
      * @param LobbyName
      * @param host 
      */
-    public void createGameLobby(String LobbyName,Player host){
+    public boolean createGameLobby(String LobbyName,Player host){
        
         try
         {
@@ -41,7 +41,7 @@ public class ClientApp
             try
             {
                 stub = (IrmiServer) registry.lookup("setTurn");
-                stub.CreateGameLobby(LobbyName,host);
+              return stub.CreateGameLobby(LobbyName,host);
                 
             } catch (NotBoundException e)
             {
@@ -53,6 +53,7 @@ public class ClientApp
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
+       return false;
     }
     public void sendTurn(Point prev, Point next, double time)
     {
@@ -151,5 +152,28 @@ public class ClientApp
         }
     }
     
+    public IGameLobby GetGameLobby(String LobbyName){
+        IGameLobby lobby =null ;
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("setTurn");
+                lobby = stub.GetIGameLobby(LobbyName);
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+        return lobby;
+    }
 }
 

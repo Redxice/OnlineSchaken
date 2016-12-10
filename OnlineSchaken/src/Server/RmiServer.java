@@ -58,18 +58,48 @@ public class RmiServer implements IrmiServer
  * @throws RemoteException 
  */
     @Override
-    public void CreateGameLobby(String lobbyNaam, Player player1) throws RemoteException
+    public boolean CreateGameLobby(String lobbyNaam, Player player1) throws RemoteException
     {   
-        Gamelobby lobby = new Gamelobby(lobbyNaam,player1);
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
-        registry.rebind(lobby.getNaam(),(IGameLobby)lobby);
-        this.GameLobbys.add(lobby.getName());
+        
+            Gamelobby lobby = new Gamelobby(lobbyNaam,player1);            
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+            IGameLobby LobbyCheck=null;
+        try
+        {
+            LobbyCheck = (IGameLobby)registry.lookup(lobbyNaam);
+             return false;
+        } catch (NotBoundException | AccessException ex)
+        {
+            registry.rebind(lobby.getNaam(),(IGameLobby)lobby);
+            this.GameLobbys.add(lobby.getName());
+            return true;
+            
+        }
     }
-
+/**
+ * Deze methode wordt gebruikt om een gamelobby te vinden en te returnen aan de gebruiker. 
+ * Care als deze methode niks kan vinden returned hij null. Check dus altijd van te voren 
+ * of de return waarde niet null is.
+ * @param gamelobbyName
+ * @return
+ * @throws RemoteException 
+ */
     @Override
-    public String GetIGameLobby(Gamelobby gamelobby) throws RemoteException
+    public IGameLobby GetIGameLobby(String gamelobbyName) throws RemoteException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+            IGameLobby lobby = (IGameLobby)registry.lookup(gamelobbyName);
+            return lobby;
+        } catch (NotBoundException ex)
+        {
+            Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex)
+        {
+            Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return null;
     }
 
     @Override

@@ -39,8 +39,10 @@ import javax.swing.JOptionPane;
  * @author redxice
  */
 public class LobbyController implements Initializable
-{    
+{
+
     private Database db = new Database();
+    private IGameLobby lobby;
     private ClientApp client = new ClientApp();
     private ObservableList gameList = FXCollections.observableArrayList();
     private List<String> test = new ArrayList<String>();
@@ -64,13 +66,14 @@ public class LobbyController implements Initializable
     /**
      * Initializes the controller class.
      */
-  
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {   if(client.GetGameLobbys()!= null){
-        gameList.setAll(client.GetGameLobbys());
-        Lv_GameList.setItems(gameList);     
-    }
+    {
+        if (client.GetGameLobbys() != null)
+        {
+            gameList.setAll(client.GetGameLobbys());
+            Lv_GameList.setItems(gameList);
+        }
     }
 
     @FXML
@@ -80,8 +83,8 @@ public class LobbyController implements Initializable
         {
             Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
-            Parent root = (Parent)fxmlLoader.load();
-            ProfileController controller= fxmlLoader.<ProfileController>getController();
+            Parent root = (Parent) fxmlLoader.load();
+            ProfileController controller = fxmlLoader.<ProfileController>getController();
             controller.setPlayer(this.player);
             CurrentStage.close();
             Stage stage = new Stage();
@@ -97,7 +100,7 @@ public class LobbyController implements Initializable
     @FXML
     private void joinGame(ActionEvent event)
     {
-       
+
     }
 
     @FXML
@@ -114,38 +117,56 @@ public class LobbyController implements Initializable
     @FXML
     private void HandleCreateGame(ActionEvent event)
     {
-       try
+        try
         {
-            if(!Tb_GameName.getText().isEmpty())
+            if (!Tb_GameName.getText().isEmpty())
             {
-            Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
-            CurrentStage.close();
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
-            Parent root = (Parent)fxmlLoader.load();
-            GamelobbyController controller= fxmlLoader.<GamelobbyController>getController();
-            // Gamelobby gameLobby = new Gamelobby(Tb_GameName.getText(),player);
-            controller.createGameLobby(Tb_GameName.getText(),player);
-            Scene scene = new Scene(root, Color.TRANSPARENT);
-            stage.setScene(scene);
-            stage.show();
-            }
-            else{
-            JOptionPane.showMessageDialog(null,"Geen gamenaam ingevoerd");
+                IGameLobby lobby = TryTocreateGameLobby(Tb_GameName.getText(), this.player);
+                if (lobby != null)
+                {
+                    Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
+                    CurrentStage.close();
+                    Stage stage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
+                    controller.createGameLobby(lobby);
+                    Scene scene = new Scene(root, Color.TRANSPARENT);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+
+            } else
+            {
+                JOptionPane.showMessageDialog(null, "Geen gamenaam ingevoerd");
             }
         } catch (IOException ex)
         {
             LOGGER.log(Level.FINE, ex.getMessage());
         }
-    //db.insertLobby(player.getUsername(),Tb_GameName.getText());
+        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
     }
-    public void setPlayer(Player p_player){
+
+    public void setPlayer(Player p_player)
+    {
         this.player = p_player;
     }
+
     public Player getPlayer()
     {
         return player;
     }
-  
-    
+
+    public IGameLobby TryTocreateGameLobby(String lobbyName, Player p_player)
+    {
+        if (client.createGameLobby(lobbyName, p_player))
+        {
+            lobby = client.GetGameLobby(lobbyName);
+        } else
+        {
+          JOptionPane.showMessageDialog(null, "Lobby naam moet uniek zijn");
+        }
+     return lobby;
+    }
+
 }

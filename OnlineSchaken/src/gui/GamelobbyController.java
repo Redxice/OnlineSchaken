@@ -6,8 +6,10 @@
 package gui;
 
 import Server.ClientApp;
+import Shared.IGameLobby;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,9 +34,10 @@ import onlineschaken.Player;
  */
 public class GamelobbyController implements Initializable
 {
-    private Gamelobby gameLobby;
+    private IGameLobby GameLobby;
     private String lobbyName;
     private Player LoggedInUser;
+   
     @FXML
     private Button Btn_Send;
     @FXML
@@ -100,19 +103,25 @@ public class GamelobbyController implements Initializable
     * op een bestaande GameLobby .
     */
     public void JoinGameLobby(Player p_player){
-      gameLobby.setPlayer2(p_player);
     }
     
     /**
      * Deze methode moet worden aangeroepen voor dat je een gameLobby aanmaakt.
+     * Hier wordt de IGameLobby vast gezet voor verder gebruik in deze classen in de variabel GameLobby.
      * @param p_GameLobby 
      * @param p_player 
      */
-    public void createGameLobby(String LobbyNaam,Player p_player){
-       lobbyName = LobbyNaam;
-       ClientApp client = new ClientApp();
-       client.createGameLobby(LobbyNaam,p_player);
-       this.LoggedInUser = p_player;
+    public void createGameLobby(IGameLobby lobby){
+        try
+        {
+            lobbyName = lobby.getName();
+            System.out.println(lobbyName);
+            LoggedInUser = lobby.GetPlayer1();
+            this.GameLobby = lobby; 
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
     }
     /**

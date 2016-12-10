@@ -27,9 +27,14 @@ public interface IrmiServer extends Remote
     
     public List<IGameLobby> GameLobbys()throws RemoteException;
     
-    public String GetIGameLobby(Gamelobby gamelobby)throws RemoteException;
-    
-    public void CreateGameLobby(String naam, Player player1)throws RemoteException;
+    public IGameLobby GetIGameLobby(String gamelobbyName)throws RemoteException;
+    /**
+     * 
+     * @param naam
+     * @param player1
+     * @throws RemoteException 
+     */
+    public boolean CreateGameLobby(String naam, Player player1)throws RemoteException;
    
     public ArrayList<String> GetGameLobbys()throws RemoteException;
     

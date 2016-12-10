@@ -118,7 +118,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     }
 
     @Override
-    public boolean joinGameLobby(Player player) throws RemoteException
+    public boolean joinGameLobby(Player player,String LobbyName) throws RemoteException
     {
         if (player2 != null)
         {
@@ -163,6 +163,12 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     public String getName() throws RemoteException
     {
         return this.naam;
+    }
+
+    @Override
+    public Player GetPlayer1() throws RemoteException
+    {
+       return this.player1;
     }
 
 }
