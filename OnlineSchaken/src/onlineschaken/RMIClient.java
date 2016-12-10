@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
 import java.awt.Point;
@@ -12,6 +13,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +21,8 @@ import java.rmi.registry.Registry;
  */
 public class RMIClient implements IrmiClient
 {
-
+   private ArrayList<ILobbyController> LobbyControllers= new ArrayList<>();
+ 
     @Override
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
@@ -34,7 +37,7 @@ public class RMIClient implements IrmiClient
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Servers");
                 stub.doTurn(section1, section2, 3000);
             } catch (NotBoundException e)
             {

@@ -32,7 +32,7 @@ public  class Server
             IrmiServer stub = (IrmiServer) UnicastRemoteObject.exportObject(t1,0);
             //Bind the remote object stub in the registry
             registry = LocateRegistry.createRegistry(666);
-            registry.bind("setTurn", stub);
+            registry.bind("Server", stub);
             System.err.println("Server ready");
             
         } catch (Exception e)

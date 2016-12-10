@@ -32,7 +32,7 @@ public class start
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
                 stub.doTurn(new Point(3,6), new Point(3,3), 3.00);
             } catch (NotBoundException e)
             {

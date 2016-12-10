@@ -147,10 +147,6 @@ public class RmiServer implements IrmiServer {
     public void removeGameLobby(String gameLobbyname) throws RemoteException 
     {
         GameLobbys.remove(gameLobbyname);
-        System.out.println("meegegeven" + gameLobbyname);
-        for(String i : GameLobbys){
-        System.out.println("Lijst :" + i);
-        }
     }
 
 }

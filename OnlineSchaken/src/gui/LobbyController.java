@@ -7,6 +7,8 @@ package gui;
 
 import Server.ClientApp;
 import Shared.IGameLobby;
+import Shared.ILobby;
+import Shared.ILobbyController;
 import database.Database;
 import onlineschaken.*;
 import java.io.IOException;
@@ -38,7 +40,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class LobbyController implements Initializable
+public class LobbyController implements Initializable, ILobbyController
 {
 
     private Database db = new Database();
@@ -101,38 +103,40 @@ public class LobbyController implements Initializable
     private void joinGame(ActionEvent event)
     {
         String selectedLobby = (String) Lv_GameList.getSelectionModel().getSelectedItem();
-        System.out.println("SelectedLobby: "+selectedLobby);
+        System.out.println("SelectedLobby: " + selectedLobby);
         if (selectedLobby != null)
         {
-            try {
+            try
+            {
                 IGameLobby lobby = client.GetGameLobby(selectedLobby);
                 if (lobby.joinGameLobby(player))
                 {
-                Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
-                CurrentStage.close();
-                Stage stage = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
-                controller.JoinGameLobby(lobby);
-                Scene scene = new Scene(root, Color.TRANSPARENT);
-                stage.setScene(scene);
-                stage.show(); 
-                }
-                else{
+                    Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
+                    CurrentStage.close();
+                    Stage stage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
+                    controller.JoinGameLobby(lobby);
+                    Scene scene = new Scene(root, Color.TRANSPARENT);
+                    stage.setScene(scene);
+                    stage.show();
+                } else
+                {
                     JOptionPane.showMessageDialog(null, "Failed to join the lobby");
                 }
-               
-            } catch (RemoteException ex) {
+
+            } catch (RemoteException ex)
+            {
                 Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex)
             {
                 Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else
+        {
+            JOptionPane.showMessageDialog(null, "Select a Lobby");
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Select a Lobby");        
-            }
     }
 
     @FXML
@@ -199,6 +203,12 @@ public class LobbyController implements Initializable
             JOptionPane.showMessageDialog(null, "Lobby naam moet uniek zijn");
         }
         return lobby;
+    }
+
+    @Override
+    public void UpdateGameLobbys(ArrayList<String> lobbys) throws RemoteException
+    {
+        
     }
 
 }
