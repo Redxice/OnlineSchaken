@@ -6,6 +6,7 @@
 package Server;
 
 import Shared.IGameLobby;
+import Shared.IGameLobbyController;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
@@ -32,8 +33,9 @@ public class ClientApp implements IrmiClient
 {
     private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
     private ILobbyController lobbyController ;
+    private IGameLobbyController gameLobbyController;
     private String ip = "127.0.0.1";/*"169.254.183.180";*/
-    
+    private String userName;
 
     /**
      * Wordt aangeroepen in de GameLobbyController in de create GameLobby methode.
@@ -237,5 +239,32 @@ public class ClientApp implements IrmiClient
     public void setLobbyController(ILobbyController controller)throws RemoteException{
         this.lobbyController = controller;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public IGameLobbyController getGameLobbyController() {
+        System.out.println("GameLobbyController opgehaald uit de clientapp = " + gameLobbyController);
+        return gameLobbyController;
+    }
+
+    @Override
+    public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
+    this.gameLobbyController = gameLobbyController;
+    System.out.println("Test set gamelobby= "+gameLobbyController);
+    }
+
+    @Override
+    public void updateChat() throws RemoteException {
+        gameLobbyController.updateChat();
+    }
+    
+    
+    
 }
 

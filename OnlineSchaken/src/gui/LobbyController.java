@@ -108,7 +108,6 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     private void joinGame(ActionEvent event)
     {
         String selectedLobby = (String) Lv_GameList.getSelectionModel().getSelectedItem();
-        System.out.println("SelectedLobby: " + selectedLobby);
         if (selectedLobby != null)
         {
             try
@@ -123,6 +122,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     Parent root = (Parent) fxmlLoader.load();
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
                     controller.JoinGameLobby(lobby);
+                    controller.setIClient(IClient);
+                    controller.setClient(client);
                     Scene scene = new Scene(root, Color.TRANSPARENT);
                     stage.setScene(scene);
                     stage.show();
@@ -173,6 +174,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
                     controller.createGameLobby(lobby);
                     controller.setClient(client);
+                    controller.setIClient(IClient);
                     Scene scene = new Scene(root, Color.TRANSPARENT);
                     stage.setScene(scene);
                     stage.show();

@@ -7,9 +7,12 @@ package gui;
 
 import Server.ClientApp;
 import Shared.IGameLobby;
+import Shared.IGameLobbyController;
+import Shared.IrmiClient;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -35,12 +38,13 @@ import onlineschaken.Player;
  *
  * @author redxice
  */
-public class GamelobbyController implements Initializable
+public class GamelobbyController extends UnicastRemoteObject implements Initializable, IGameLobbyController
 {
     private IGameLobby GameLobby=null;
     private String lobbyName;
     private Player LoggedInUser;
     private ClientApp client;
+    private IrmiClient IClient;
     private ObservableList playerList = FXCollections.observableArrayList();
     @FXML
     private Button Btn_Send;
@@ -59,6 +63,12 @@ public class GamelobbyController implements Initializable
     @FXML
     private TextField Chatline_TxtField;
    
+    
+    public GamelobbyController()throws RemoteException
+    {
+        
+    }
+    
     @FXML 
     public void HandleReadyBtn(ActionEvent event){
         try
@@ -141,11 +151,9 @@ public class GamelobbyController implements Initializable
         try
         {
             lobbyName = lobby.getName();
-            System.out.println(lobbyName);
             LoggedInUser = lobby.GetPlayer1();
             this.GameLobby = lobby;
             playerList.setAll(lobby.GetPlayerNames());
-            System.out.println("Ingame : "+lobby.GetPlayerNames());
             SpelerBox.setItems(playerList);
         } catch (RemoteException ex)
         {
@@ -164,12 +172,43 @@ public class GamelobbyController implements Initializable
     
     @FXML
     public void HandleSendBtn(ActionEvent event)
-    {
-        
+    {        
         Chatline chatLine = new Chatline(LoggedInUser.getUsername(),Chatline_TxtField.getText());
         client.SendMessage(chatLine,lobbyName);
     }
+    
     public void setClient(ClientApp client){
-        this.client = client;
+        this.client = client;    
+        try {
+            client.setGameLobbyController(this);
+            System.out.println("client = "+this);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public IrmiClient getIClient() {
+        return IClient;
+    }
+
+    public void setIClient(IrmiClient IClient) {
+        this.IClient = IClient;
+        try
+        {
+            IClient.setGameLobbyController(this);
+            System.out.println("Iclient = "+this);
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void updateChat() throws RemoteException {
+       
+       for(Chatline c :GameLobby.getChatLines())
+       {
+           System.out.println("Chatline in controller" + c);
+       }
     }
 }

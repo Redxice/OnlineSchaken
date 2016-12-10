@@ -66,10 +66,12 @@ public class LoginController implements Initializable
     private void HandleLoginBTN(ActionEvent event)
     {
         Warning_Login.setText(null);
-        if (CheckIfValidUser())
+        if (1==1 /*CheckIfValidUser()*/)
         {
             try
-            {
+            {               
+                client.setUserName(TxtField_Username.getText());
+                player = new Player(TxtField_Username.getText(),TxtField_Password.getText(),10);
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
                 Parent root = (Parent) fxmlLoader.load();

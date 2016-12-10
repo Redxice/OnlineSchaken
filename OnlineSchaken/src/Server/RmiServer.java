@@ -36,7 +36,6 @@ public class RmiServer implements IrmiServer {
     @Override
     public void doTurn(Point section1, Point section2, double time) throws RemoteException {
         try {
-            System.out.println(section1);
             Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 600);
             IrmiClient stub;
             try {
@@ -121,8 +120,24 @@ public class RmiServer implements IrmiServer {
         try {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(naamLobby);
-            System.out.println(message.getMessage());
             lobby.SendMessage(message);
+            for(IrmiClient i : Clients)
+            {
+                if(i.getUserName().equals(lobby.GetPlayer1().getUsername()))
+                {
+                    System.out.println("user 1 is de gebruiker RMIServer");
+                    System.out.println("IrmiClient = "+ i);                    
+                    System.out.println("IrmiClient zijn gamelobbycontroller = "+ i.getGameLobbyController());
+                    i.updateChat();
+                }
+                if(i.getUserName().equals(lobby.GetPlayer2().getUsername()))
+                {
+                    System.out.println("user 2 is de gebruiker RMIServer");
+                    System.out.println("IrmiClient = "+ i);                    
+                    System.out.println("IrmiClient zijn gamelobbycontroller = "+ i.getGameLobbyController());
+                    i.updateChat();
+                }
+            }
         } catch (NotBoundException ex) {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AccessException ex) {
@@ -135,7 +150,6 @@ public class RmiServer implements IrmiServer {
         try {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
-            System.out.println(ready + lobbyName + userName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
         } catch (NotBoundException ex) {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);

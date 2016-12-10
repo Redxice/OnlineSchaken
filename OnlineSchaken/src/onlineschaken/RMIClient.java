@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import Shared.IGameLobbyController;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
@@ -55,7 +56,7 @@ public class RMIClient implements IrmiClient
     @Override
     public void addController(ILobbyController controller) throws RemoteException
     {  
-        System.out.println("Controler added");
+        System.out.println("Controler added"+controller);
         this.LobbyControllers.add(controller);
     }
 
@@ -74,6 +75,31 @@ public class RMIClient implements IrmiClient
     @Override
     public void setLobbyController(ILobbyController controller) throws RemoteException
     {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getUserName() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setUserName(String userName) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public IGameLobbyController getGameLobbyController() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateChat() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
