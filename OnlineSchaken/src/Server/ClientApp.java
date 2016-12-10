@@ -41,7 +41,7 @@ public class ClientApp
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
               return stub.CreateGameLobby(LobbyName,host);
                 
             } catch (NotBoundException e)
@@ -65,7 +65,7 @@ public class ClientApp
             IrmiServer stub;
             try
             {   
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
                 stub.doTurn(prev, next, time);
             } catch (NotBoundException e)
             {
@@ -90,7 +90,7 @@ public class ClientApp
                 IrmiServer stub;
                 try
                 {
-                 stub = (IrmiServer) registry.lookup("setTurn");
+                 stub = (IrmiServer) registry.lookup("Server");
                  return stub.GetGameLobbys();
                 } catch (NotBoundException e)
                 {
@@ -114,7 +114,7 @@ public class ClientApp
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
                 stub.SendMessage(chatline, naamLobby);
                 
             } catch (NotBoundException e)
@@ -138,7 +138,7 @@ public class ClientApp
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
                 stub.playerReady(ready,lobbyName,userName);
                 
             } catch (NotBoundException e)
@@ -161,7 +161,7 @@ public class ClientApp
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
                 lobby = stub.GetIGameLobby(LobbyName);
                 
             } catch (NotBoundException e)
@@ -185,7 +185,7 @@ public class ClientApp
             IrmiServer stub;
             try
             {
-                stub = (IrmiServer) registry.lookup("setTurn");
+                stub = (IrmiServer) registry.lookup("Server");
                 stub.removeGameLobby(lobbyName);
                 
             } catch (NotBoundException e)

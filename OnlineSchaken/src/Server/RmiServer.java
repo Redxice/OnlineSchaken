@@ -146,7 +146,11 @@ public class RmiServer implements IrmiServer {
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException 
     {
+        System.out.println("Batman was here");
         GameLobbys.remove(gameLobbyname);
+        System.out.println("Removed lobbyNaam :"+gameLobbyname);
+        System.out.println("This has to be empty: "+GameLobbys);
+                
     }
 
 }
