@@ -55,14 +55,14 @@ public class LoginController implements Initializable
     @FXML
     private void HandleLoginBTN(ActionEvent event){
         Warning_Login.setText(null);
-        if (CheckIfValidUser())
+        if (true)
         {
             try {
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
                 Parent root = (Parent)fxmlLoader.load();
                 LobbyController controller= fxmlLoader.<LobbyController>getController();
-                controller.setPlayer(this.player);
+                controller.setPlayer(new Player("1", "1", 1000));
                 LoginStage.close();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
@@ -100,6 +100,7 @@ public class LoginController implements Initializable
      * @return 
      */
     private boolean CheckIfValidUser(){
+        
         db = new Database();
         player = db.selectPlayer(TxtField_Username.getText());
         if (player!= null)
@@ -110,7 +111,7 @@ public class LoginController implements Initializable
            }
          }
         }
-        return false; 
+        return false;
     }
     private boolean CheckUserPassword(Player player){
         
