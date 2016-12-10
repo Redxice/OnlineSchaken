@@ -5,6 +5,7 @@
  */
 package gui;
 
+import Server.ClientApp;
 import database.Database;
 import java.io.IOException;
 import java.net.URL;
@@ -34,8 +35,8 @@ import onlineschaken.Player;
  */
 public class RegisterController implements Initializable
 {
-    
-    
+
+    private ClientApp client;
     private static final Logger LOGGER = Logger.getLogger(RegisterController.class.getName());
     /**
      * Initializes the controller class.
@@ -59,54 +60,57 @@ public class RegisterController implements Initializable
     private Label WarningLabel_Password;
     @FXML
     private Label WarningLabel_RePassword;
-   
-    private  ArrayList<Label> labels = new ArrayList<>(Arrays.asList(WarningLabel_Username));
-    
+
+    private ArrayList<Label> labels = new ArrayList<>(Arrays.asList(WarningLabel_Username));
+
     @FXML
     private void RegisterAccount(ActionEvent event)
-    {   
+    {
         WarningLabel_Username.setText(null);
         WarningLabel_Email.setText(null);
         WarningLabel_Password.setText(null);
         WarningLabel_RePassword.setText(null);
         if (CheckTextFields())
-        {  
-           db = new Database();
-           db.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(),TxtField_Email.getText());
-            
+        {
+            db = new Database();
+            db.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
+
             try
             {
                 Stage CurrentStage = (Stage) Btn_Register.getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                LoginController controller = fxmlLoader.<LoginController>getController();
+                controller.setClient(client);
                 CurrentStage.close();
                 Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-                Scene scene = new Scene(root, Color.TRANSPARENT);
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-                }
-                catch (IOException ex)
+            } catch (IOException ex)
             {
                 LOGGER.log(Level.FINE, ex.getMessage());
             }
         }
-     }
- /**
-  * Checked of allen fields correct in zijn gevult.
-  * @return true wanneer alles correct is in gevult.
-  */      
-private boolean CheckTextFields()
+    }
+
+    /**
+     * Checked of allen fields correct in zijn gevult.
+     *
+     * @return true wanneer alles correct is in gevult.
+     */
+    private boolean CheckTextFields()
     {
         boolean FieldsAreCorrect = true;
         if (TxtField_Username.getText().isEmpty())
         {
             WarningLabel_Username.setText("Plz insert a username");
-           
+
             FieldsAreCorrect = false;
-        }
-       else if (!CheckTxtFieldUsername())
+        } else if (!CheckTxtFieldUsername())
         {
-             TxtField_Username.setText("");
-             WarningLabel_Username.setText("Username already in use");
+            TxtField_Username.setText("");
+            WarningLabel_Username.setText("Username already in use");
             FieldsAreCorrect = false;
         }
         if (!CheckTxtFieldEmail())
@@ -118,54 +122,58 @@ private boolean CheckTextFields()
         {
             WarningLabel_Password.setText("Please insert a password");
             FieldsAreCorrect = false;
-            
+
         }
-        if(!CheckTxtFieldRePassword()&&!TxtField_Password.getText().isEmpty()){
+        if (!CheckTxtFieldRePassword() && !TxtField_Password.getText().isEmpty())
+        {
             FieldsAreCorrect = false;
-           }
-        
-        
+        }
+
         return FieldsAreCorrect;
     }
 
-    private boolean CheckTxtFieldUsername(){
-    db = new Database();   
-    Player player = db.selectPlayer(TxtField_Username.getText());
-    System.out.println(TxtField_Username.getText()+" database:"+player.getUsername());
+    private boolean CheckTxtFieldUsername()
+    {
+        db = new Database();
+        Player player = db.selectPlayer(TxtField_Username.getText());
+        System.out.println(TxtField_Username.getText() + " database:" + player.getUsername());
         if (player != null)
         {
-            if (player.getUsername()==TxtField_Username.getText())
+            if (player.getUsername() == TxtField_Username.getText())
             {
-            
-              return false;  
-            }     
+
+                return false;
+            }
         }
-           
-     return true;
+
+        return true;
     }
-/**
- * 
- * @return 
- */
+
+    /**
+     *
+     * @return
+     */
     private boolean CheckTxtFieldRePassword()
     {
         if (TxtField_RePassword.getText().isEmpty())
         {
             WarningLabel_RePassword.setText("Please re enter your password");
             return false;
-        }
-        else if(!TxtField_RePassword.getText().matches(TxtField_Password.getText())){
+        } else if (!TxtField_RePassword.getText().matches(TxtField_Password.getText()))
+        {
             WarningLabel_RePassword.setText("Passwords don't match");
             return false;
-    }
+        }
         return true;
     }
-/**
- * Checked of het Email text field niet leeg is. 
- * Als hij niet leeg is wordt er gekeken of het een valide 
- * e-mail adress is.Als dit valide is wordt er true gereturned anders altijd false;
- * @return 
- */
+
+    /**
+     * Checked of het Email text field niet leeg is. Als hij niet leeg is wordt
+     * er gekeken of het een valide e-mail adress is.Als dit valide is wordt er
+     * true gereturned anders altijd false;
+     *
+     * @return
+     */
     private boolean CheckTxtFieldEmail()
     {
         if (TxtField_Email.getText().isEmpty())
@@ -185,6 +193,11 @@ private boolean CheckTextFields()
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
+    }
+
+    public void setClient(ClientApp client)
+    {
+        this.client = client;
     }
 
 }

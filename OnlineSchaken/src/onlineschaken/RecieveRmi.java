@@ -20,19 +20,27 @@ public class RecieveRmi
 {
     private static Registry registry;
     private static Board t1;
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args)
     {
         try
-        {
-            t1 = new Board();
-            IrmiClient stub = (IrmiClient) UnicastRemoteObject.exportObject(t1,0);
-            //Bind the remote object stub in the registry
-            registry = LocateRegistry.createRegistry(600);
-            registry.bind("Client", stub);
-            System.err.println("Server ready");
+        {     
+              RMIClient client = new RMIClient();
+              IrmiClient stub = (IrmiClient)UnicastRemoteObject.exportObject(client,0);
+              registry = LocateRegistry.createRegistry(667);
+              registry.bind("Client", stub);
+              System.err.println("Client ready");
+              
+//            t1 = new Board();
+//            IrmiClient stub = (IrmiClient) UnicastRemoteObject.exportObject(t1,0);
+//            //Bind the remote object stub in the registry
+//            registry = LocateRegistry.createRegistry(600);
+//            registry.bind("Client", stub);
+//            System.err.println("Server ready");
             
         } catch (Exception e)
         {

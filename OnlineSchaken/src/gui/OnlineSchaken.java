@@ -27,7 +27,7 @@ import onlineschaken.Game;
  */
 public class OnlineSchaken extends Application
 {
-
+    public static int count = 1;
     private static final Logger LOGGER = Logger.getLogger(OnlineSchaken.class.getName());
     private Game game;
     private Label timerBlack;
@@ -35,15 +35,18 @@ public class OnlineSchaken extends Application
     private Timer timer;
     private VBox vb;
     private Button drawButton;
-
+    
     @Override
     public void start(Stage primaryStage)
-    {
+    {  count++;
         try
         {
             //System.out.println(getClass().getResource("Gamelobby.fxml"));
             //System.out.println(getClass().getResource("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\Login.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Parent root = (Parent)fxmlLoader.load();
+            LoginController controller= fxmlLoader.<LoginController>getController();
+            controller.setCount(count);
             //System.out.println(getClass().getResource("gui/Login.fxml"));
             Scene scene = new Scene(root);
 

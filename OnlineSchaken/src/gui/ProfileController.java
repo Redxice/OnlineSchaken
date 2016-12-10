@@ -5,6 +5,7 @@
  */
 package gui;
 
+import Server.ClientApp;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +32,7 @@ public class ProfileController implements Initializable
 {
 
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
+    private ClientApp client;
     @FXML
     private Button Btn_Back;
     @FXML
@@ -53,9 +55,12 @@ public class ProfileController implements Initializable
         try
         {
             Stage CurrentStage = (Stage) Btn_Back.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Lobby.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            ProfileController controller = fxmlLoader.<ProfileController>getController();
+            controller.setClient(client);
             CurrentStage.close();
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("lobby.fxml"));
             Scene scene = new Scene(root, Color.TRANSPARENT);
             stage.setScene(scene);
             stage.show();
@@ -76,5 +81,7 @@ public class ProfileController implements Initializable
         this.player = player;
         lbNaam.setText(player.getUsername());
     }
-
+    public void setClient(ClientApp client){
+        this.client = client;
+    }
 }

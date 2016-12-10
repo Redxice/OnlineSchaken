@@ -9,11 +9,13 @@ import Server.ClientApp;
 import Shared.IGameLobby;
 import Shared.ILobby;
 import Shared.ILobbyController;
+import Shared.IrmiClient;
 import database.Database;
 import onlineschaken.*;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,15 +42,16 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class LobbyController implements Initializable, ILobbyController
+public class LobbyController extends UnicastRemoteObject implements Initializable,ILobbyController 
 {
 
     private Database db = new Database();
     private IGameLobby lobby;
-    private ClientApp client = new ClientApp();
+    private ClientApp client;
     private ObservableList gameList = FXCollections.observableArrayList();
     private List<String> test = new ArrayList<String>();
     private Player player;
+    private IrmiClient IClient;
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     @FXML
     private Button Btn_Join;
@@ -65,17 +68,18 @@ public class LobbyController implements Initializable, ILobbyController
     @FXML
     private ListView Lv_GameList;
 
+    public LobbyController()throws RemoteException{
+        
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        if (client.GetGameLobbys() != null)
-        {
-            gameList.setAll(client.GetGameLobbys());
-            Lv_GameList.setItems(gameList);
-        }
+        
+        
     }
 
     @FXML
@@ -88,6 +92,7 @@ public class LobbyController implements Initializable, ILobbyController
             Parent root = (Parent) fxmlLoader.load();
             ProfileController controller = fxmlLoader.<ProfileController>getController();
             controller.setPlayer(this.player);
+            controller.setClient(client);
             CurrentStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -167,6 +172,7 @@ public class LobbyController implements Initializable, ILobbyController
                     Parent root = (Parent) fxmlLoader.load();
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
                     controller.createGameLobby(lobby);
+                    controller.setClient(client);
                     Scene scene = new Scene(root, Color.TRANSPARENT);
                     stage.setScene(scene);
                     stage.show();
@@ -206,9 +212,32 @@ public class LobbyController implements Initializable, ILobbyController
     }
 
     @Override
-    public void UpdateGameLobbys(ArrayList<String> lobbys) throws RemoteException
+    public void UpdateGameLobbys() throws RemoteException
     {
-        
+        if (client.GetGameLobbys() != null)
+        {
+            gameList.setAll(client.GetGameLobbys());
+            Lv_GameList.setItems(gameList);
+        }
+    }
+    public void setClient(ClientApp client){
+        this.client= client;
+        if (client.GetGameLobbys() != null)
+        {
+            gameList.setAll(client.GetGameLobbys());
+            Lv_GameList.setItems(gameList);
+        }
+       
+    }
+    public void setIClient(IrmiClient IClient){
+        this.IClient = IClient;
+         try
+        {
+            IClient.setLobbyController(this);
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -9,6 +9,8 @@ import Server.ClientApp;
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Board implements IrmiClient
+public class Board //implements IrmiClient
 {
 
     private int TILE_SIZE = 80;
@@ -67,7 +69,9 @@ public class Board implements IrmiClient
                             Point point = new Point(firstSection.getID());
                             if (piece.move(section))
                             {
-                                client = new ClientApp();
+                                
+                               client = new ClientApp();
+                                
                                 client.sendTurn(point, section.getID(), game.getTime());
                                 firstSection = null;
                                 piece = null;
@@ -158,7 +162,9 @@ public class Board implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 if (piece.move(section))
                                 {
-                                    client = new ClientApp();
+                                    
+                                        client = new ClientApp();
+                                    
                                     client.sendTurn(point, section.getID(), game.getTime());
                                     firstSection = null;
                                     piece = null;
@@ -381,13 +387,13 @@ public class Board implements IrmiClient
         return turn;
     }
 
-    @Override
-    public void getTurn(Point section1, Point section2, double time) throws RemoteException
-    {
-        System.out.println(section1.toString() + " " + section2.toString());
-        /*
-        int xValue = (int) section1.getX();
-        int yValue = (int) section1.getY();
-        getSections(xValue, yValue).getPiece().move(getSections((int)section2.getX(), (int)section2.getY()));*/
-    }
+//    @Override
+//    public void getTurn(Point section1, Point section2, double time) throws RemoteException
+//    {
+//        System.out.println(section1.toString() + " " + section2.toString());
+//        /*
+//        int xValue = (int) section1.getX();
+//        int yValue = (int) section1.getY();
+//        getSections(xValue, yValue).getPiece().move(getSections((int)section2.getX(), (int)section2.getY()));*/
+//    }
 }
