@@ -42,8 +42,28 @@ public interface IGameLobby extends Remote
      */
     public void SendMessage(Chatline message)throws RemoteException;
     
+    /**
+     * Haalt player1 op
+     * @return een player object van de eerste speler
+     * @throws RemoteException 
+     */
     public Player GetPlayer1()throws RemoteException;
+    
+    /**
+     * haalt player2 op
+     * @return een player object van de tweede speler
+     * @throws RemoteException 
+     */
     public Player GetPlayer2()throws RemoteException;
+
     public ArrayList<String> GetPlayerNames()throws RemoteException;
+
+    
+    /**
+     * Haalt de naam van de gamelobby op
+     * @return de naam van de gamelobby
+     * @throws RemoteException 
+     */
+
     public String getName()throws RemoteException;
 }

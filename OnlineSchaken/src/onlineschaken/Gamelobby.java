@@ -130,8 +130,17 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 
     @Override
     public boolean leaveGameLobby(Player player) throws RemoteException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    {        
+            if (player.getUsername() == player1.getUsername())
+            {
+                player1 = null;
+                return true;
+            } else if (player.getUsername() == player2.getUsername())
+            {
+                player2 = null;
+                return true;
+            }
+        return false;
     }
 
     @Override
@@ -171,11 +180,6 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
        return this.player1;
     }
 
-    @Override
-    public Player GetPlayer2() throws RemoteException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public ArrayList<String> GetPlayerNames() throws RemoteException
@@ -187,6 +191,9 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
         }
       players.add(player1.getUsername());
       return players;
+
+    public Player GetPlayer2() throws RemoteException {
+       return this.player2;
     }
 
 }

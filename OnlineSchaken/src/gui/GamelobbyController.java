@@ -86,6 +86,13 @@ public class GamelobbyController implements Initializable
     public void HandleLeaveBtn(ActionEvent event){
         try
         {
+            if(GameLobby.leaveGameLobby(LoggedInUser))
+            {
+                if(GameLobby.GetPlayer1() == null && GameLobby.GetPlayer2() == null)
+                {
+                    client.unBindLobby(lobbyName);
+                }
+            }   
             Stage LoginStage = (Stage) Btn_Leave.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
             Parent root = (Parent)fxmlLoader.load();

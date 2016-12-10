@@ -8,6 +8,7 @@ package Server;
 import Shared.IGameLobby;
 import Shared.IrmiServer;
 import java.awt.Point;
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -174,6 +175,26 @@ public class ClientApp
             e.printStackTrace();
         }
         return lobby;
+    }
+    
+    public void unBindLobby(String lobbyName)
+    {
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            try {
+                registry.unbind(lobbyName);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (AccessException ex) {
+                Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    
     }
 }
 
