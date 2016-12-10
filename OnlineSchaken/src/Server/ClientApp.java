@@ -193,7 +193,6 @@ public class ClientApp
                 System.err.println("Client exception:" + e.toString());
                 e.printStackTrace();
             }
-            registry = LocateRegistry.getRegistry(ip, 666);
             try {
                 registry.unbind(lobbyName);
             } catch (NotBoundException ex) {

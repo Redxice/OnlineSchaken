@@ -10,13 +10,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author redxice
  */
-public class Gamelobby extends UnicastRemoteObject implements IGameLobby
-{
+public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
 
     private String naam;
     private int maxPlayers = 2;
@@ -29,18 +29,14 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     private boolean p2Ready;
     private List<Player> spectators;
 
-    public Gamelobby(String naam, Player player1, int id) throws RemoteException
-
-    {
+    public Gamelobby(String naam, Player player1, int id) throws RemoteException {
         this.naam = naam;
         this.player1 = player1;
         currentPlayers = 1;
         this.id = id;
     }
 
-    public Gamelobby(String naam, Player player1, Player player2, int id) throws RemoteException
-
-    {
+    public Gamelobby(String naam, Player player1, Player player2, int id) throws RemoteException {
         this.naam = naam;
         this.player1 = player1;
         this.player2 = player2;
@@ -48,80 +44,70 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
         this.id = id;
     }
 
-    public Gamelobby(String naam, Player player1) throws RemoteException
-    {
+    public Gamelobby(String naam, Player player1) throws RemoteException {
         this.naam = naam;
         this.player1 = player1;
         currentPlayers = 1;
     }
 
-    public int getMaxPlayers()
-    {
+    public int getMaxPlayers() {
         return this.maxPlayers;
     }
 
-    public void addChatLine(Chatline message)
-    {
+    public void addChatLine(Chatline message) {
         chatLines.add(message);
     }
 
-    public void addSpectator(Player spectator)
-    {
+    public void addSpectator(Player spectator) {
         spectators.add(spectator);
     }
 
-    public void setPlayer2(Player player2)
-    {
+    public void setPlayer2(Player player2) {
         this.player2 = player2;
         currentPlayers = 2;
     }
 
-    public int getCurrentPlayers()
-    {
+    public int getCurrentPlayers() {
         return currentPlayers;
     }
 
-    public List<Chatline> getChatLines()
-    {
+    public List<Chatline> getChatLines() {
         return chatLines;
     }
 
-    public Player getPlayer1()
-    {
+    public Player getPlayer1() {
         return player1;
     }
 
-    public Player getPlayer2()
-    {
+    public Player getPlayer2() {
         return player2;
     }
 
-    public String getNaam()
-    {
+    public String getNaam() {
         return naam;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public List<Player> getSpectators()
-    {
+    public List<Player> getSpectators() {
         return spectators;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "ID=" + id + ", Naam=" + naam + ", Players=" + currentPlayers + "/" + maxPlayers;
     }
 
     @Override
-    public boolean joinGameLobby(Player player) throws RemoteException
-    {
-        if (player2 == null)
+    public boolean joinGameLobby(Player player) throws RemoteException {
+        if(player1 == null)
         {
+            player1 = player;
+            return true;
+        }
+        if (player2 == null) {
             player2 = player;
             return true;
         }
@@ -129,80 +115,62 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     }
 
     @Override
-    public boolean leaveGameLobby(Player player) throws RemoteException
-    {
-        System.out.println(player1.toString());
-        if (player1 == null)
-        {
-            return true;
+    public boolean leaveGameLobby(Player player) throws RemoteException {
+        if (player1 != null) {
+            if (player.getUsername().equals(player1.getUsername())) {
+                player1 = null;
+                return true;
+            }
         }
-        if (player.getUsername() == player1.getUsername())
-        {
-            player1 = null;
-            return true;
-        }
-        if (player2 == null)
-        {
-            return true;
-        } else if (player.getUsername() == player2.getUsername())
-        {
-            player2 = null;
-            return true;
+        if (player2 != null) {
+            if (player.getUsername().equals(player2.getUsername())) {
+                player2 = null;
+                return true;
+            }
         }
         return false;
     }
 
     @Override
-    public void PlayerIsReady(boolean ready, String lobbyName, String userName) throws RemoteException
-    {
-        if (player1 != null && player2 != null)
-        {
-            if (userName == player1.getUsername())
-            {
+    public void PlayerIsReady(boolean ready, String lobbyName, String userName) throws RemoteException {
+        if (player1 != null && player2 != null) {
+            if (userName == player1.getUsername()) {
                 p1Ready = ready;
-            } else if (userName == player2.getUsername())
-            {
+            } else if (userName == player2.getUsername()) {
                 p1Ready = ready;
             }
-            if (p1Ready && p2Ready)
-            {
+            if (p1Ready && p2Ready) {
 
             }
         }
     }
 
     @Override
-    public void SendMessage(Chatline message) throws RemoteException
-    {
+    public void SendMessage(Chatline message) throws RemoteException {
         chatLines.add(message);
     }
 
     @Override
-    public String getName() throws RemoteException
-    {
+    public String getName() throws RemoteException {
         return this.naam;
     }
 
     @Override
-    public Player GetPlayer1() throws RemoteException
-    {
+    public Player GetPlayer1() throws RemoteException {
         return this.player1;
     }
 
     @Override
-    public ArrayList<String> GetPlayerNames() throws RemoteException
-    {
+    public ArrayList<String> GetPlayerNames() throws RemoteException {
         ArrayList<String> players = new ArrayList<>();
-        if (player2 != null)
-        {
+        if (player2 != null) {
             players.add(player2.getUsername());
         }
         players.add(player1.getUsername());
         return players;
     }
 
-    public Player GetPlayer2() throws RemoteException
-    {
+    public Player GetPlayer2() throws RemoteException {
         return this.player2;
     }
 
