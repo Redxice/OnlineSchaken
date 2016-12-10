@@ -101,7 +101,7 @@ public class LobbyController implements Initializable
     private void joinGame(ActionEvent event)
     {
         String selectedLobby = (String) Lv_GameList.getSelectionModel().getSelectedItem();
-        System.out.println(selectedLobby);
+        System.out.println("SelectedLobby: "+selectedLobby);
         if (selectedLobby != null)
         {
             try {
@@ -130,6 +130,9 @@ public class LobbyController implements Initializable
                 Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else{
+            JOptionPane.showConfirmDialog(null, "Select a Lobby");        
+            }
     }
 
     @FXML

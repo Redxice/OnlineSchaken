@@ -24,7 +24,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     private int currentPlayers;
     private List<Chatline> chatLines = new ArrayList<>();
     private Player player1;
-    private Player player2;
+    private Player player2 = null;
     private boolean p1Ready;
     private boolean p2Ready;
     private List<Player> spectators;
@@ -119,8 +119,8 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 
     @Override
     public boolean joinGameLobby(Player player) throws RemoteException
-    {
-        if (player2 != null)
+    { 
+        if (player2 == null)
         {
             player2 = player;
             return true;

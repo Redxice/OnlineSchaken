@@ -22,19 +22,19 @@ public interface IGameLobby extends Remote
      * Check of de gameLobby niet vol zit. 
      * @param player 
      */
-    public boolean joinGameLobby(Player player)throws RemoteException;;
+    public boolean joinGameLobby(Player player)throws RemoteException;
     /**
      * Deze methode moet de speler verwijderen uit de gamelobby.
      * Check of de gameLobby leeg is na het verwijderen van de speler. 
      * Als de gameLobby leeg is moet hij worden verwijdert uit de database.
      * @param player 
      */
-    public boolean leaveGameLobby(Player player)throws RemoteException;;
+    public boolean leaveGameLobby(Player player)throws RemoteException;
     /**
      * Deze methode moet worden gebruikt wanneer de clients in 
      * de gamelobby ui op de Btn_Ready clicken.
      */
-    public void PlayerIsReady(boolean ready,String lobbyName, String userName)throws RemoteException;;
+    public void PlayerIsReady(boolean ready,String lobbyName, String userName)throws RemoteException;
     
     /**
      * Deze Chatline wordt geadd in  List Chat van de Gamelobby klassen
