@@ -180,8 +180,20 @@ public class ClientApp
     public void unBindLobby(String lobbyName)
     {
         try
-        {
+        {            
             Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("setTurn");
+                stub.removeGameLobby(lobbyName);
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+            registry = LocateRegistry.getRegistry(ip, 666);
             try {
                 registry.unbind(lobbyName);
             } catch (NotBoundException ex) {

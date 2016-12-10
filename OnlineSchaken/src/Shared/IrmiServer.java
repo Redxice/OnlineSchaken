@@ -77,4 +77,6 @@ public interface IrmiServer extends Remote
      * @throws RemoteException 
      */
     public void playerReady(boolean ready,String naamLobby, String userName)throws RemoteException;
+    
+    public void removeGameLobby(String gameLobbyname)throws RemoteException;
 }
