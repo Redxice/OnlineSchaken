@@ -34,9 +34,10 @@ import onlineschaken.Player;
  */
 public class GamelobbyController implements Initializable
 {
-    private IGameLobby GameLobby;
+    private IGameLobby GameLobby=null;
     private String lobbyName;
     private Player LoggedInUser;
+    private  ClientApp client = new ClientApp();
    
     @FXML
     private Button Btn_Send;
@@ -59,7 +60,7 @@ public class GamelobbyController implements Initializable
     public void HandleReadyBtn(ActionEvent event){
         try
         {
-            ClientApp client = new ClientApp();
+           
             boolean ready = true;
             client.playerReady(ready,lobbyName,LoggedInUser.toString());
             Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();

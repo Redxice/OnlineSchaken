@@ -100,7 +100,11 @@ public class LobbyController implements Initializable
     @FXML
     private void joinGame(ActionEvent event)
     {
-
+        String selectedLobby =(String)Lv_GameList.getSelectionModel().getSelectedItem();
+        if (selectedLobby!=null)
+        {
+           IGameLobby lobby = client.GetGameLobby(selectedLobby);
+        }
     }
 
     @FXML
@@ -121,7 +125,7 @@ public class LobbyController implements Initializable
         {
             if (!Tb_GameName.getText().isEmpty())
             {
-                IGameLobby lobby = TryTocreateGameLobby(Tb_GameName.getText(), this.player);
+                IGameLobby lobby = TryToCreateGameLobby(Tb_GameName.getText(), this.player);
                 if (lobby != null)
                 {
                     Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
@@ -157,7 +161,7 @@ public class LobbyController implements Initializable
         return player;
     }
 
-    public IGameLobby TryTocreateGameLobby(String lobbyName, Player p_player)
+    public IGameLobby TryToCreateGameLobby(String lobbyName, Player p_player)
     {
         if (client.createGameLobby(lobbyName, p_player))
         {
