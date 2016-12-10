@@ -171,7 +171,6 @@ public class RmiServer implements IrmiServer {
     public void registerClient(IrmiClient client)throws RemoteException 
     {
         Clients.add(client);
-        System.out.println("added client");
     }
 
 }

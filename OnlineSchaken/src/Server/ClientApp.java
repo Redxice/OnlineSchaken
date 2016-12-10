@@ -197,7 +197,6 @@ public class ClientApp implements IrmiClient
                 System.err.println("Client exception:" + e.toString());
                 e.printStackTrace();
             }
-            registry = LocateRegistry.getRegistry(ip, 666);
             try {
                 registry.unbind(lobbyName);
             } catch (NotBoundException ex) {
