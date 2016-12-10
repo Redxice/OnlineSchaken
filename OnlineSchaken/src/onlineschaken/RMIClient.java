@@ -21,16 +21,16 @@ public class RMIClient implements IrmiClient
 {
 
     @Override
-    public void getTurn(Point section1, Point section2, String time) throws RemoteException
+    public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
-
+        System.out.println(section1.toString() + " " + section2.toString() + " " + time);
     }
-    
+
     public void sendTurn(Point section1, Point section2, String time)
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("169.254.183.180", 666);
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 666);
             IrmiServer stub;
             try
             {

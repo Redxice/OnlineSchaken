@@ -15,5 +15,5 @@ import java.rmi.RemoteException;
  */
 public interface IrmiClient extends Remote
 {
-    public void getTurn(Point section1, Point section2, String time) throws RemoteException;
+    public void getTurn(Point section1, Point section2, double time) throws RemoteException;
 }

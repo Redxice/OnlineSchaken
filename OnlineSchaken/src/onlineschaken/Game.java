@@ -53,6 +53,8 @@ public class Game extends UnicastRemoteObject
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
         board.setGame(this);
+        //RecieveRmi rmi = new RecieveRmi();
+        RecieveRmi.main(null);
     }
 
     //zonder timer

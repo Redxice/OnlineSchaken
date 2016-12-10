@@ -6,7 +6,9 @@
 package onlineschaken;
 
 import Server.ClientApp;
+import Shared.IrmiClient;
 import java.awt.Point;
+import java.rmi.RemoteException;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -19,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Board
+public class Board implements IrmiClient
 {
 
     private int TILE_SIZE = 80;
@@ -377,5 +379,15 @@ public class Board
     public String getTurn()
     {
         return turn;
+    }
+
+    @Override
+    public void getTurn(Point section1, Point section2, double time) throws RemoteException
+    {
+        System.out.println(section1.toString() + " " + section2.toString());
+        /*
+        int xValue = (int) section1.getX();
+        int yValue = (int) section1.getY();
+        getSections(xValue, yValue).getPiece().move(getSections((int)section2.getX(), (int)section2.getY()));*/
     }
 }

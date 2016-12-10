@@ -57,7 +57,7 @@ public class ClientApp
     }
     public void sendTurn(Point prev, Point next, double time)
     {
-        String ip = /*"127.0.0.1";*/"169.254.183.180";
+        String ip = "127.0.0.1";/*"169.254.183.180";*/
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);

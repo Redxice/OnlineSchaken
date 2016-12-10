@@ -6,6 +6,7 @@
 package Server;
 
 import Shared.IGameLobby;
+import Shared.IrmiClient;
 import java.awt.Point;
 import java.rmi.RemoteException;
 import Shared.IrmiServer;
@@ -34,7 +35,24 @@ public class RmiServer implements IrmiServer
     @Override
     public void doTurn(Point section1, Point section2, double time) throws RemoteException
     {
-        System.out.println(section1.toString() + section2.toString() + time);
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 600);
+            IrmiClient stub;
+            try
+            {
+                stub = (IrmiClient) registry.lookup("recieveTurn");
+                stub.getTurn(section1, section2, 3000);
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
     }
 
     @Override
