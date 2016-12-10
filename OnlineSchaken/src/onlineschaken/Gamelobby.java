@@ -191,7 +191,8 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
         }
       players.add(player1.getUsername());
       return players;
-
+    }
+    
     public Player GetPlayer2() throws RemoteException {
        return this.player2;
     }
