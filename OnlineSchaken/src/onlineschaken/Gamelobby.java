@@ -119,7 +119,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 
     @Override
     public boolean joinGameLobby(Player player) throws RemoteException
-    { 
+    {
         if (player2 == null)
         {
             player2 = player;
@@ -130,16 +130,25 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 
     @Override
     public boolean leaveGameLobby(Player player) throws RemoteException
-    {       System.out.println(player1.toString());
-            if (player.getUsername() == player1.getUsername())
-            {
-                player1 = null;
-                return true;
-            } else if (player.getUsername() == player2.getUsername())
-            {
-                player2 = null;
-                return true;
-            }
+    {
+        System.out.println(player1.toString());
+        if (player1 == null)
+        {
+            return true;
+        }
+        if (player.getUsername() == player1.getUsername())
+        {
+            player1 = null;
+            return true;
+        }
+        if (player2 == null)
+        {
+            return true;
+        } else if (player.getUsername() == player2.getUsername())
+        {
+            player2 = null;
+            return true;
+        }
         return false;
     }
 
@@ -177,24 +186,24 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
     @Override
     public Player GetPlayer1() throws RemoteException
     {
-       return this.player1;
+        return this.player1;
     }
-
 
     @Override
     public ArrayList<String> GetPlayerNames() throws RemoteException
     {
-      ArrayList<String> players = new ArrayList<>();
-      if (player2!=null)
+        ArrayList<String> players = new ArrayList<>();
+        if (player2 != null)
         {
-             players.add(player2.getUsername());
+            players.add(player2.getUsername());
         }
-      players.add(player1.getUsername());
-      return players;
+        players.add(player1.getUsername());
+        return players;
     }
-    
-    public Player GetPlayer2() throws RemoteException {
-       return this.player2;
+
+    public Player GetPlayer2() throws RemoteException
+    {
+        return this.player2;
     }
 
 }
