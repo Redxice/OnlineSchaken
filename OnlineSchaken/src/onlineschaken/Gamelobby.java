@@ -130,7 +130,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby
 
     @Override
     public boolean leaveGameLobby(Player player) throws RemoteException
-    {        
+    {       System.out.println(player1.toString());
             if (player.getUsername() == player1.getUsername())
             {
                 player1 = null;

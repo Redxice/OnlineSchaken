@@ -118,6 +118,7 @@ public class GamelobbyController implements Initializable
         {
             lobbyName = lobby.getName();
             GameLobby= lobby;
+            LoggedInUser = lobby.GetPlayer2();
             this.GameLobby = lobby;
             playerList.setAll(lobby.GetPlayerNames());
             SpelerBox.setItems(playerList);
@@ -139,7 +140,7 @@ public class GamelobbyController implements Initializable
         {
             lobbyName = lobby.getName();
             System.out.println(lobbyName);
-            LoggedInUser = lobby.GetPlayer2();
+            LoggedInUser = lobby.GetPlayer1();
             this.GameLobby = lobby;
             playerList.setAll(lobby.GetPlayerNames());
             System.out.println("Ingame : "+lobby.GetPlayerNames());
