@@ -17,6 +17,8 @@ import java.util.ArrayList;
  */
 public interface IrmiClient extends Remote {
 
+    public void sendTurn(Point prev, Point next, double time) throws RemoteException;
+    
     public void getTurn(Point section1, Point section2, double time) throws RemoteException;
 
     public void addController(ILobbyController controller) throws RemoteException;

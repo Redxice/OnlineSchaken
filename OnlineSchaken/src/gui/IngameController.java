@@ -6,6 +6,7 @@
 package gui;
 
 import Server.ClientApp;
+import Shared.IrmiClient;
 import java.awt.Point;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -27,6 +28,7 @@ import onlineschaken.Player;
 public class IngameController implements Initializable
 {
     private ClientApp client;
+    private IrmiClient Iclient;
     @FXML 
     private SubScene GameBoard;
     private Game game;
@@ -40,7 +42,7 @@ public class IngameController implements Initializable
         ClientApp client = new ClientApp();
         client.setGame(this);
         System.out.println(client.getGame());
-        game = new Game(p1, p2, client);
+        game = new Game(p1, p2, Iclient);
         System.out.println("IngameController: " + client);
         GameBoard.setRoot(root);
         game.getBoard().createContent();
@@ -58,6 +60,11 @@ public class IngameController implements Initializable
   
     }    
 
+    public void setIClient(IrmiClient iClient)
+    {
+       this.Iclient = iClient;
+    }
+    
     public void setClient(ClientApp client)
     {
        this.client = client;

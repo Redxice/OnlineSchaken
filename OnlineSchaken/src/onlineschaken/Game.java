@@ -6,6 +6,7 @@
 package onlineschaken;
 
 import Server.ClientApp;
+import Shared.IrmiClient;
 import gui.OnlineSchaken;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -58,7 +59,7 @@ public class Game extends UnicastRemoteObject
     }
 
     //zonder timer
-    public Game(Player p_player1, Player p_player2, ClientApp client)throws RemoteException
+    public Game(Player p_player1, Player p_player2, IrmiClient client)throws RemoteException
     {
         this.player1 = p_player1;
         this.player2 = p_player2;

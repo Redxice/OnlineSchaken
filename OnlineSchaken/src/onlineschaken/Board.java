@@ -38,14 +38,14 @@ public class Board //implements IrmiClient
     //Moet nog een enum van worden gemaakt
     private String turn = "white";
     private Game game;
-    private ClientApp client;
+    private IrmiClient client;
 
-    public Board(ClientApp client)
+    public Board(IrmiClient client)
     {
         System.out.println("Board: " + client);
         this.client = client;
     }
-    
+
     public Parent createContent()
     {
         root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
@@ -75,10 +75,15 @@ public class Board //implements IrmiClient
                             Point point = new Point(firstSection.getID());
                             if (piece.move(section))
                             {
-                                
-                               //client = new ClientApp();
-                                System.out.println("BoardSend: " + client.getGame());
-                                client.sendTurn(point, section.getID(), game.getTime());
+                                try
+                                {
+                                    //client = new ClientApp();
+                                    System.out.println("BoardSend: " + client.getGame());
+                                    client.sendTurn(point, section.getID(), game.getTime());
+                                } catch (Exception e)
+                                {
+
+                                }
                                 firstSection = null;
                                 piece = null;
                                 if (game.draw())
@@ -168,10 +173,15 @@ public class Board //implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 if (piece.move(section))
                                 {
-                                    
-                                        //client = new ClientApp();
-                                    
-                                    client.sendTurn(point, section.getID(), game.getTime());
+
+                                    //client = new ClientApp();
+                                    try
+                                    {
+                                        client.sendTurn(point, section.getID(), game.getTime());
+                                    } catch (Exception e)
+                                    {
+
+                                    }
                                     firstSection = null;
                                     piece = null;
                                     if (game.draw())
