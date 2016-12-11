@@ -32,7 +32,7 @@ import onlineschaken.Player;
  */
 public class IngameController extends UnicastRemoteObject implements Initializable, IinGameController
 {
-
+    private boolean isMyTurn;
     private ClientApp client;
     private IrmiClient Iclient;
     @FXML
@@ -72,13 +72,20 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
+     
     }
 
     @Override
     public void setIClient(IrmiClient iClient) throws RemoteException
     {
         this.Iclient = iClient;
+        if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
+        {
+            this.isMyTurn = true;
+        }
+        else{
+            this.isMyTurn = false;
+        }
     }
 
     @Override
@@ -102,6 +109,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void move(Point section1, Point section2, double time) throws RemoteException
     {
+        
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
@@ -119,6 +127,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     {
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         {
+                           isMyTurn = true;
                             if (game.getBoard().getTurn().equals("white"))
                             {
                                 game.getBoard().setTurn("black");
@@ -157,6 +166,18 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void setPlayer2(String player2)
     {
         this.player2 = player2;
+    }
+
+    @Override
+    public boolean getMyTurn() throws RemoteException
+    {
+        return this.isMyTurn;
+    }
+
+    @Override
+    public void setMyturn() throws RemoteException
+    {
+      this.isMyTurn=false;
     }
 
 }

@@ -7,6 +7,7 @@ package Server;
 
 import Shared.IGameLobby;
 import Shared.ILobbyController;
+import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.rmi.RemoteException;
@@ -299,5 +300,6 @@ public class RmiServer implements IrmiServer
         }
        return this.Clients.size()+1;
     }
+
 
 }

@@ -358,4 +358,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             }
         }).start();
     }
+    public void setPlayerAndTurn(){
+        
+    }
 }

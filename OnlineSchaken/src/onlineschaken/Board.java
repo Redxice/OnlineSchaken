@@ -73,46 +73,56 @@ public class Board //implements IrmiClient
                         } else if (firstSection != null)
                         {
                             Point point = new Point(firstSection.getID());
-                            if (piece.move(section))
+                            try
                             {
-                                try
+                                if (client.GetGameController().getMyTurn())
                                 {
-                                    //client = new ClientApp();
-                                    System.out.println("BoardSend: " + client.GetGameController());
-                                    client.sendTurn(point, section.getID(), game.getTime());
-                                } catch (Exception e)
-                                {
-
-                                }
-                                firstSection = null;
-                                piece = null;
-                                if (game.draw())
-                                {
-                                    JOptionPane.showMessageDialog(null, "draw");
-                                }
-                                if (game.checkMate())
-                                {
-                                    if (turn == "white")
+                                    if (piece.move(section))
                                     {
-                                        game.setWinner(game.getPlayer1());
+                                        client.GetGameController().setMyturn();
+                                        try
+                                        {
+                                            //client = new ClientApp();
+                                            System.out.println("BoardSend: " + client.GetGameController());
+                                            client.sendTurn(point, section.getID(), game.getTime());
+                                        } catch (Exception e)
+                                        {
+
+                                        }
+                                        firstSection = null;
+                                        piece = null;
+                                        if (game.draw())
+                                        {
+                                            JOptionPane.showMessageDialog(null, "draw");
+                                        }
+                                        if (game.checkMate())
+                                        {
+                                            if (turn == "white")
+                                            {
+                                                game.setWinner(game.getPlayer1());
+                                            } else
+                                            {
+                                                game.setWinner(game.getPlayer2());
+                                            }
+                                            game.setFinished(true);
+                                        }
+                                        if (turn == "white")
+                                        {
+                                            turn = "black";
+                                        } else
+                                        {
+                                            turn = "white";
+                                        }
                                     } else
                                     {
-                                        game.setWinner(game.getPlayer2());
+                                        firstSection = null;
                                     }
-                                    game.setFinished(true);
-                                }
-                                if (turn == "white")
-                                {
-                                    turn = "black";
-                                } else
-                                {
-                                    turn = "white";
-                                }
-                            } else
-                            {
-                                firstSection = null;
-                            }
 
+                                }
+                            } catch (RemoteException ex)
+                            {
+                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                     }
                 });
@@ -171,44 +181,53 @@ public class Board //implements IrmiClient
                             } else if (firstSection != null)
                             {
                                 Point point = new Point(firstSection.getID());
-                                if (piece.move(section))
+                                try
                                 {
-
-                                    //client = new ClientApp();
-                                    try
+                                    if (client.GetGameController().getMyTurn())
                                     {
-                                        client.sendTurn(point, section.getID(), game.getTime());
-                                    } catch (Exception e)
-                                    {
-
-                                    }
-                                    firstSection = null;
-                                    piece = null;
-                                    if (game.draw())
-                                    {
-                                        JOptionPane.showMessageDialog(null, "draw");
-                                    }
-                                    if (game.checkMate())
-                                    {
-                                        if (turn == "white")
+                                        if (piece.move(section))
                                         {
-                                            game.setWinner(game.getPlayer1());
+                                            client.GetGameController().setMyturn();
+                                            //client = new ClientApp();
+                                            try
+                                            {
+                                                client.sendTurn(point, section.getID(), game.getTime());
+                                            } catch (Exception e)
+                                            {
+
+                                            }
+                                            firstSection = null;
+                                            piece = null;
+                                            if (game.draw())
+                                            {
+                                                JOptionPane.showMessageDialog(null, "draw");
+                                            }
+                                            if (game.checkMate())
+                                            {
+                                                if (turn == "white")
+                                                {
+                                                    game.setWinner(game.getPlayer1());
+                                                } else
+                                                {
+                                                    game.setWinner(game.getPlayer2());
+                                                }
+                                                game.setFinished(true);
+                                            }
+                                            if (getTurn() == "white")
+                                            {
+                                                turn = "black";
+                                            } else
+                                            {
+                                                turn = "white";
+                                            }
                                         } else
                                         {
-                                            game.setWinner(game.getPlayer2());
+                                            firstSection = null;
                                         }
-                                        game.setFinished(true);
                                     }
-                                    if (getTurn() == "white")
-                                    {
-                                        turn = "black";
-                                    } else
-                                    {
-                                        turn = "white";
-                                    }
-                                } else
+                                } catch (RemoteException ex)
                                 {
-                                    firstSection = null;
+                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                                 }
 
                             }
@@ -262,44 +281,54 @@ public class Board //implements IrmiClient
                             } else if (firstSection != null)
                             {
                                 Point point = new Point(firstSection.getID());
-                                if (piece.move(section))
+                                try
                                 {
-                                    try
+                                    if (client.GetGameController().getMyTurn())
                                     {
-                                        //client = new ClientApp();
-                                        client.sendTurn(point, section.getID(), game.getTime());
-                                    } catch (Exception e)
-                                    {
-                                        System.out.println(e.getMessage());
-                                    }
-                                    firstSection = null;
-                                    piece = null;
-                                    if (game.draw())
-                                    {
-                                        JOptionPane.showMessageDialog(null, "draw");
-                                    }
-                                    if (game.checkMate())
-                                    {
-                                        if (turn == "white")
+                                        if (piece.move(section))
                                         {
-                                            game.setWinner(game.getPlayer1());
+                                            client.GetGameController().setMyturn();
+                                            try
+                                            {
+                                                //client = new ClientApp();
+                                                client.sendTurn(point, section.getID(), game.getTime());
+                                            } catch (Exception e)
+                                            {
+                                                System.out.println(e.getMessage());
+                                            }
+                                            firstSection = null;
+                                            piece = null;
+                                            if (game.draw())
+                                            {
+                                                JOptionPane.showMessageDialog(null, "draw");
+                                            }
+                                            if (game.checkMate())
+                                            {
+                                                if (turn == "white")
+                                                {
+                                                    game.setWinner(game.getPlayer1());
+                                                } else
+                                                {
+                                                    game.setWinner(game.getPlayer2());
+                                                }
+                                                game.setFinished(true);
+
+                                            }
+                                            if (getTurn() == "white")
+                                            {
+                                                turn = "black";
+                                            } else
+                                            {
+                                                turn = "white";
+                                            }
                                         } else
                                         {
-                                            game.setWinner(game.getPlayer2());
+                                            firstSection = null;
                                         }
-                                        game.setFinished(true);
-
                                     }
-                                    if (getTurn() == "white")
-                                    {
-                                        turn = "black";
-                                    } else
-                                    {
-                                        turn = "white";
-                                    }
-                                } else
+                                } catch (RemoteException ex)
                                 {
-                                    firstSection = null;
+                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                                 }
 
                             }
@@ -402,7 +431,7 @@ public class Board //implements IrmiClient
     {
         return turn;
     }
-    
+
     public void setTurn(String turn)
     {
         this.turn = turn;

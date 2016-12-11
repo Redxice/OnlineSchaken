@@ -24,4 +24,6 @@ public interface IinGameController extends Remote
     public void setClient(ClientApp client) throws RemoteException;
     public String getPlayer1() throws RemoteException;
     public String getPlayer2() throws RemoteException;
+    public boolean getMyTurn() throws RemoteException;
+    public void setMyturn() throws RemoteException;
 }

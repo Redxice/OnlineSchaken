@@ -89,26 +89,25 @@ public class ClientApp implements IrmiClient
     @Override
     public void sendTurn(Point prev, Point next, double time)
     {
-        
         try
         {
-            Registry registry = LocateRegistry.getRegistry(ip, 666);
-            IrmiServer stub;
-            try
-            {   
+            if (this.game.getMyTurn())
+            {
+                Registry registry = LocateRegistry.getRegistry(ip, 666);
+                IrmiServer stub;
+                
                 System.out.println("Before lookup" + game);
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.doTurn(prev, next, time,this.userName);
-            } catch (NotBoundException e)
-            {
-                System.err.println("Client exception:" + e.toString());
-                e.printStackTrace();
+           
             }
-        } catch (RemoteException e)
+        } catch (RemoteException ex)
         {
-            System.err.println("Server exception:" + e.toString());
-            e.printStackTrace();
-        }
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex)
+        {
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     /**
@@ -349,5 +348,7 @@ public class ClientApp implements IrmiClient
     public void updateReady() throws RemoteException {
         this.gameLobbyController.ready();
     }
+
+   
 }
 
