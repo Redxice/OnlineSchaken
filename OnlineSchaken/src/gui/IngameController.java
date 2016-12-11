@@ -120,15 +120,15 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         {
-                            System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
-                        }
-                        if (game.getBoard().getTurn().equals("white"))
+                            if (game.getBoard().getTurn().equals("white"))
                         {
                             game.getBoard().setTurn("black");
                         } else if (game.getBoard().getTurn().equals("black"))
                         {
                             game.getBoard().setTurn("black");
                         }
+                        }
+                        
 
                     }
                 });
