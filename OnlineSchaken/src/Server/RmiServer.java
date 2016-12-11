@@ -203,7 +203,9 @@ public class RmiServer implements IrmiServer
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
+        System.out.println("Before "+GameLobbys);
         GameLobbys.remove(gameLobbyname);
+        System.out.println("After "+GameLobbys);
         updateLobbysClients();
     }
 
@@ -212,9 +214,9 @@ public class RmiServer implements IrmiServer
      */
     public void updateLobbysClients()
     {
-
+        
         for (IrmiClient client : Clients)
-        {
+        { 
             try
             {
                 if (client.getLobbyController() != null)

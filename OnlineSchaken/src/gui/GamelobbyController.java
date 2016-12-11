@@ -120,8 +120,9 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             if (GameLobby.leaveGameLobby(LoggedInUser))
             {
                 if (GameLobby.GetPlayer1() == null && GameLobby.GetPlayer2() == null)
-                {
+                {   System.out.println("Gandalf was here");
                     client.unBindLobby(lobbyName);
+                    
                 }
             }
             Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
@@ -131,8 +132,11 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             controller.setPlayer(this.LoggedInUser);
             controller.setClient(client);
             controller.setIClient(IClient);
-            CurrentStage.close();
+            if (GameLobby.GetPlayer1() != null && GameLobby.GetPlayer2() != null){
             IClient.RefreshGameLobby();
+            IClient.setGameLobbyController(null);
+            }
+            CurrentStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);

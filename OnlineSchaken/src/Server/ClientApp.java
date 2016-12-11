@@ -252,9 +252,12 @@ public class ClientApp implements IrmiClient
 
     @Override
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
-    this.gameLobbyController = controller;
-     
+        
+        this.gameLobbyController = controller;
+        System.out.println("Dit moet null zijn ;"+controller);
+        if(this.gameLobbyController!= null){
         RefreshGameLobby();
+        }
     
     }
     
