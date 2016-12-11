@@ -176,6 +176,20 @@ public class RmiServer implements IrmiServer
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
+            for (IrmiClient i : Clients)
+            {
+                if(lobby.checkPlayer1Exists() && lobby.checkPlayer2Exists())
+                {
+                    if (i.getUserName().equals(lobby.GetPlayer1().getUsername()) && userName.equals(lobby.GetPlayer2().getUsername()))
+                    {
+                        i.updateReady();
+                    }
+                    else if (i.getUserName().equals(lobby.GetPlayer2().getUsername()) && userName.equals(lobby.GetPlayer1().getUsername()))
+                    {
+                        i.updateReady();
+                    }
+                }
+            }
         } catch (NotBoundException ex)
         {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);

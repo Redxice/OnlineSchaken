@@ -292,8 +292,13 @@ public class ClientApp implements IrmiClient
     {
         this.gameLobbyController.updatePlayerList();
     }
+
+    @Override
+    public void updateReady() throws RemoteException {
+        this.gameLobbyController.ready();
+    }
     
-    
+       
     
 }
 
