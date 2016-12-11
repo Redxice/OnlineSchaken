@@ -65,6 +65,7 @@ public class Game
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.javaFX = javaFX;
+        System.out.println("Game: " + client);
         board = new Board(client);
         board.setGame(this);
     }

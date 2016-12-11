@@ -136,6 +136,7 @@ public class RegisterController implements Initializable
     {
         db = new Database();
         Player player = db.selectPlayer(TxtField_Username.getText());
+        System.out.println(TxtField_Username.getText() + " database:" + player.getUsername());
         if (player != null)
         {
             if (player.getUsername() == TxtField_Username.getText())

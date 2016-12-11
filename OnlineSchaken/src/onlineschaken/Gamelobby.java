@@ -118,11 +118,14 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     public boolean leaveGameLobby(Player player) throws RemoteException {
         if (player1 != null) {
             if (player.getUsername().equals(player1.getUsername())) {
+                System.out.println("player 1 is removed");
+                player1 = null;
                 return true;
             }
         }
         if (player2 != null) {
             if (player.getUsername().equals(player2.getUsername())) {
+                System.out.println("Player2 is removed");
                 player2 = null;
                 return true;
             }

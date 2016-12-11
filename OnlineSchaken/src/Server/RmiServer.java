@@ -48,7 +48,10 @@ public class RmiServer implements IrmiServer
                 {
                 try
                 {
+                    System.out.println("Client op server :" + i);
+                    System.out.println("Controller op server :" + i.GetGameController());
                     i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    System.out.println("it moves 0.o");
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +61,10 @@ public class RmiServer implements IrmiServer
                 {
                    try
                 {
+                    System.out.println("Client op server :" + i);
+                    System.out.println("Controller op server :" + i.GetGameController());
                     i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    System.out.println("it moves 0.o");
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,7 +80,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void test() throws RemoteException
     {
-        
+        System.out.println("works");
     }
 
     @Override
@@ -217,7 +223,9 @@ public class RmiServer implements IrmiServer
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
+        System.out.println("Before "+GameLobbys);
         GameLobbys.remove(gameLobbyname);
+        System.out.println("After "+GameLobbys);
         updateLobbysClients();
     }
     
