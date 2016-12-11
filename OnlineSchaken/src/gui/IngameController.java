@@ -104,4 +104,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
         System.out.println("gelukt");
     }
+
+    @Override
+    public Game GetGame() throws RemoteException
+    {
+        return this.game;
+    }
 }

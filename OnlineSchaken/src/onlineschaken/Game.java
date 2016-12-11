@@ -8,6 +8,7 @@ package onlineschaken;
 import Server.ClientApp;
 import Shared.IrmiClient;
 import gui.OnlineSchaken;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Game extends UnicastRemoteObject
+public class Game implements Serializable
 {
 
     //fields
@@ -44,7 +45,7 @@ public class Game extends UnicastRemoteObject
     private boolean player2Draw = false;
 
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client) throws RemoteException
+    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client)
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -59,7 +60,7 @@ public class Game extends UnicastRemoteObject
     }
 
     //zonder timer
-    public Game(Player p_player1, Player p_player2, IrmiClient client)throws RemoteException
+    public Game(Player p_player1, Player p_player2, IrmiClient client)
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -71,7 +72,7 @@ public class Game extends UnicastRemoteObject
 
     //constructor vor een game die deel is van een tournament
     public Game(int p_time, Player p_player1, Player p_player2,
-            Tournament p_tournament, OnlineSchaken javaFX, ClientApp client)throws RemoteException
+            Tournament p_tournament, OnlineSchaken javaFX, ClientApp client)
     {
 
         this.player1 = p_player1;

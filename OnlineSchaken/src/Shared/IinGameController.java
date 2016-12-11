@@ -9,6 +9,7 @@ import Server.ClientApp;
 import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import onlineschaken.Game;
 
 /**
  *
@@ -21,4 +22,5 @@ public interface IinGameController extends Remote
     public IrmiClient getClient() throws RemoteException;
     public void setIClient(IrmiClient iClient) throws RemoteException;
     public void setClient(ClientApp client) throws RemoteException;
+    public Game GetGame() throws RemoteException;
 }
