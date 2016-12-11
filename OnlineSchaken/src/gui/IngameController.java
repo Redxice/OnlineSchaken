@@ -118,7 +118,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     public void run()
                     {
 
+
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())) == true)
+                        if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
+
                         {
                             if (game.getBoard().getTurn().equals("white"))
                             {

@@ -70,7 +70,8 @@ public class LoginController implements Initializable
         if (true)
         {
             try
-            {               
+            {  
+                client = new ClientApp();            
                 client.setUserName(TxtField_Username.getText());
                 player = new Player((String)TxtField_Username.getText(),(String)TxtField_Password.getText(),10);
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
@@ -155,21 +156,9 @@ public class LoginController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {   
-        try
-        {
-            client = new ClientApp();
-            IrmiClient Test = this.client;
-            UnicastRemoteObject.exportObject(Test, count);
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 666);
-            IrmiServer stub = (IrmiServer)registry.lookup("Server");
-            stub.registerClient(client);
-        } catch (RemoteException ex)
-        {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex)
-        {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        
+         
+        
     }
          
     
