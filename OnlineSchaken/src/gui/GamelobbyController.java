@@ -88,6 +88,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             {
                 player2Ready = true;
             }
+            System.out.println("Local player ready player1 = " + player1Ready + " player2 = "+ player2Ready);
             try
             {    client.playerReady(true, lobbyName, LoggedInUser.getUsername());               
                 if(player1Ready == true && player2Ready == true)

@@ -41,10 +41,13 @@ public class OnlineSchaken extends Application
     {  
         try
         {   count++;
+            //System.out.println(getClass().getResource("Gamelobby.fxml"));
+            //System.out.println(getClass().getResource("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\Login.fxml"));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             LoginController controller= fxmlLoader.<LoginController>getController();
             controller.setCount(count);
+            //System.out.println(getClass().getResource("gui/Login.fxml"));
             Scene scene = new Scene(root);
 
             primaryStage.setTitle("GameLobby");
@@ -53,6 +56,7 @@ public class OnlineSchaken extends Application
         } catch (Exception e)
         {
             Logger.getLogger(OnlineSchaken.class.getName()).log(Level.SEVERE, null, e);
+            //System.out.println(e.getMessage());
         }
 
         /*

@@ -42,6 +42,7 @@ public class Board //implements IrmiClient
 
     public Board(IrmiClient client)
     {
+        System.out.println("Board: " + client);
         this.client = client;
     }
 
@@ -74,6 +75,8 @@ public class Board //implements IrmiClient
                             Point point = new Point(firstSection.getID());
                             try
                             {
+                                System.out.println("My trun = " + client.GetGameController().getMyTurn());
+                                System.out.println("trun = " + turn);
                                 if (client.GetGameController().getMyTurn())
                                 {
                                     if (piece.move(section))
@@ -81,6 +84,8 @@ public class Board //implements IrmiClient
                                         try
                                         {
                                             //client = new ClientApp();
+                                            System.out.println("BoardSend: " + client.GetGameController());       
+                                            System.out.println("!!!!!!!!!!!!!!!!!!! Ik kom bij sendturn !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                             client.sendTurn(point, section.getID(), game.getTime());
                                             client.GetGameController().setMyturn();
                                         } catch (Exception e)
@@ -181,6 +186,8 @@ public class Board //implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
+                                    System.out.println("My trun = " + client.GetGameController().getMyTurn());
+                                    System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
                                         if (piece.move(section))
@@ -189,6 +196,7 @@ public class Board //implements IrmiClient
                                             //client = new ClientApp();
                                             try
                                             {
+                                                System.out.println("!!!!!!!!!!!!!!!!!!! Ik kom bij sendturn !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                                 client.sendTurn(point, section.getID(), game.getTime());
                                                 client.GetGameController().setMyturn();
                                             } catch (Exception e)
@@ -282,6 +290,8 @@ public class Board //implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
+                                    System.out.println("My trun = " + client.GetGameController().getMyTurn());
+                                    System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
                                         if (piece.move(section))
@@ -290,10 +300,12 @@ public class Board //implements IrmiClient
                                             try
                                             {
                                                 //client = new ClientApp();
+                                                System.out.println("!!!!!!!!!!!!!!!!!!! Ik kom bij sendturn !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                                 client.sendTurn(point, section.getID(), game.getTime());
                                                 client.GetGameController().setMyturn();
                                             } catch (Exception e)
                                             {
+                                                System.out.println(e.getMessage());
                                             }
                                             firstSection = null;
                                             piece = null;
@@ -438,6 +450,7 @@ public class Board //implements IrmiClient
 //    @Override
 //    public void getTurn(Point section1, Point section2, double time) throws RemoteException
 //    {
+//        System.out.println(section1.toString() + " " + section2.toString());
 //        /*
 //        int xValue = (int) section1.getX();
 //        int yValue = (int) section1.getY();
