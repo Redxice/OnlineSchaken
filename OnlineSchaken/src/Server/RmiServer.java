@@ -47,7 +47,8 @@ public class RmiServer implements IrmiServer
                 {
                     System.out.println("Client op server :" + i);
                     System.out.println("Controller op server :" + i.getGame());
-                    i.getTurn(section1, section2, time);
+                    i.getGame().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    System.out.println("it moves 0.o");
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
