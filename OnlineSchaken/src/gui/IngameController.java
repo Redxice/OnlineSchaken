@@ -64,6 +64,13 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         game.setPieces();
         game.getBoard().createContent2();
         root.getChildren().add(game.getBoard().getRoot());
+        if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
+        {
+            this.isMyTurn = true;
+        }
+        else{
+            this.isMyTurn = false;
+        }
     }
 
     /**
@@ -80,13 +87,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         this.Iclient = iClient;
         this.Iclient.setIinGameController(this);
-        if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
-        {
-            this.isMyTurn = true;
-        }
-        else{
-            this.isMyTurn = false;
-        }
+        
     }
 
     @Override
