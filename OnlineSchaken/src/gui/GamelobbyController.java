@@ -106,7 +106,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    controller.DrawBoard();
+                    controller.DrawBoard(GameLobby.GetPlayer1(),GameLobby.GetPlayer2());
                 }
             } catch (IOException ex)
             {
@@ -347,7 +347,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    controller.DrawBoard();
+                    controller.DrawBoard(GameLobby.GetPlayer1(),GameLobby.GetPlayer2());
                 }
             } catch (IOException ex)
             {

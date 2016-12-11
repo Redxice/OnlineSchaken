@@ -50,10 +50,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
      * moet nog verder worden uitgewerkt. De players moeten worden geadd in de
      * game.
      */
-    public void DrawBoard() throws RemoteException
+    public void DrawBoard(Player p1 ,Player p2) throws RemoteException
     {
-        Player p1 = new Player("White", "ww", 0);
-        Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         client.setGame(this);
         System.out.println(client.GetGameController());
