@@ -122,6 +122,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
                         }
+
+
+
                     }
                 });
             }
