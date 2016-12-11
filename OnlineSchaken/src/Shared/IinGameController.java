@@ -9,6 +9,7 @@ import Server.ClientApp;
 import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import onlineschaken.Chatline;
 import onlineschaken.Game;
 
 /**
@@ -26,4 +27,5 @@ public interface IinGameController extends Remote
     public String getPlayer2() throws RemoteException;
     public boolean getMyTurn() throws RemoteException;
     public void setMyturn() throws RemoteException;
+    public void updateChat(Chatline message)throws RemoteException;
 }

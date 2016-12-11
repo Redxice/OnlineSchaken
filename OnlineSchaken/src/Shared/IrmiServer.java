@@ -82,4 +82,5 @@ public interface IrmiServer extends Remote
     public void removeGameLobby(String gameLobbyname)throws RemoteException;
     public void updateGameLobbyClient(IGameLobby lobby)throws RemoteException;
     public int IrmiClientCounter()throws RemoteException;
+    public void SendInGameMessage(IinGameController controller,Chatline message)throws RemoteException;
 }

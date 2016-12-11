@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import onlineschaken.Chatline;
 
 /**
  *
@@ -51,4 +52,7 @@ public interface IrmiClient extends Remote {
 
     public void updateReady() throws RemoteException;
     
+    public void UpdateInGameChat(Chatline message)throws RemoteException;
+    
+    public void sendInGameMessage(Chatline message)throws RemoteException;
 }
