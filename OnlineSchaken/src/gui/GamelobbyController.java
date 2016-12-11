@@ -136,8 +136,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             GameLobby = lobby;
             LoggedInUser = lobby.GetPlayer2();
             this.GameLobby = lobby;
-            playerList.setAll(lobby.GetPlayerNames());
-            SpelerBox.setItems(playerList);
         } catch (RemoteException ex)
         {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,8 +158,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             lobbyName = lobby.getName();
             LoggedInUser = lobby.GetPlayer1();
             this.GameLobby = lobby;
-            playerList.setAll(lobby.GetPlayerNames());
-            SpelerBox.setItems(playerList);
         } catch (RemoteException ex)
         {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -239,5 +235,39 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             }
         }).start();
 
+    }
+
+    @Override
+    public void updatePlayerList() throws RemoteException
+    {
+        
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                           playerList.setAll(GameLobby.GetPlayerNames());
+                           SpelerBox.setItems(playerList);
+                        } catch (RemoteException ex)
+                        {
+                            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    @Override
+    public IGameLobby getIGameLobby() throws RemoteException
+    {
+      return this.GameLobby;
     }
 }

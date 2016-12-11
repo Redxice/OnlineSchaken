@@ -9,7 +9,6 @@ import Shared.IGameLobbyController;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
-import gui.LobbyController;
 import java.awt.Point;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -105,6 +104,12 @@ public class RMIClient implements IrmiClient
 
     @Override
     public ILobbyController getLobbyController() throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updatePlayerList() throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

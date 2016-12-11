@@ -93,7 +93,7 @@ public class RmiServer implements IrmiServer
         {
             registry.rebind(lobby.getNaam(), (IGameLobby) lobby);
             this.GameLobbys.add(lobby.getName());
-            UpdateClients();
+            updateLobbysClients();
             return true;
 
         }
@@ -190,18 +190,22 @@ public class RmiServer implements IrmiServer
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
         GameLobbys.remove(gameLobbyname);
-        UpdateClients();
+        updateLobbysClients();
     }
 
-    public void UpdateClients()
+    /**
+     * stuur naar elke IrmiClient die een lobby controller heeft een update.
+     */
+    public void updateLobbysClients()
     {
 
         for (IrmiClient client : Clients)
         {
             try
-            { if (client.getLobbyController()!= null)
+            {
+                if (client.getLobbyController() != null)
                 {
-                   client.UpdateLobbyController(); 
+                    client.UpdateLobbyController();
                 }
             } catch (RemoteException ex)
             {
@@ -209,11 +213,45 @@ public class RmiServer implements IrmiServer
             }
         }
     }
+    @Override
+    public void updateGameLobbyClient(IGameLobby lobby)throws RemoteException
+    {
+
+        for (IrmiClient client : Clients)
+        {
+
+            for (IrmiClient i : Clients)
+            {
+                try
+                {
+                    System.out.println("Controller op server :" + i.getGameLobbyController());
+                    if (lobby.checkPlayer1Exists())
+                    {
+                        if (i.getUserName().equals(lobby.GetPlayer1().getUsername()))
+                        {
+                            i.updatePlayerList();
+                        }
+                    }
+                    if (lobby.checkPlayer2Exists())
+                    {
+                        if (i.getUserName().equals(lobby.GetPlayer2().getUsername()))
+                        {
+                            i.updatePlayerList();
+                        }
+                    }
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        }
+    }
 
     @Override
     public void registerClient(IrmiClient client) throws RemoteException
     {
-
         Clients.add(client);
     }
 

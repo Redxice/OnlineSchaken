@@ -115,7 +115,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             {
                 IGameLobby lobby = client.GetGameLobby(selectedLobby);
                 if (lobby.joinGameLobby(player))
-                {
+                {   
                     Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
                     CurrentStage.close();
                     Stage stage = new Stage();
@@ -125,7 +125,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     controller.JoinGameLobby(lobby);
                     controller.setIClient(IClient);
                     controller.setClient(client);
-                    Scene scene = new Scene(root, Color.TRANSPARENT);
+                    IClient.updatePlayerList();
+                    Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
                 } else

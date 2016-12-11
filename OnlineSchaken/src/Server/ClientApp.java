@@ -10,18 +10,15 @@ import Shared.IGameLobbyController;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
-import gui.LobbyController;
 import java.awt.Point;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import onlineschaken.*;
 
 
@@ -122,8 +119,7 @@ public class ClientApp implements IrmiClient
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
-            {   System.out.println("Deze chatline zit in IClient"+chatline.getMessage());
-                System.out.println("Als dit null is haat ik mezelf :"+naamLobby);
+            {  
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.SendMessage(chatline, naamLobby);
                 
@@ -257,6 +253,27 @@ public class ClientApp implements IrmiClient
     @Override
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
     this.gameLobbyController = controller;
+     
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+              stub = (IrmiServer) registry.lookup("Server");
+              stub.updateGameLobbyClient(controller.getIGameLobby());
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    
     }
 
     @Override
@@ -268,6 +285,12 @@ public class ClientApp implements IrmiClient
     public ILobbyController getLobbyController() throws RemoteException
     {
         return this.lobbyController;
+    }
+
+    @Override
+    public void updatePlayerList() throws RemoteException
+    {
+        this.gameLobbyController.updatePlayerList();
     }
     
     

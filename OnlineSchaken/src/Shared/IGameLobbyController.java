@@ -15,4 +15,6 @@ import java.rmi.RemoteException;
 public interface IGameLobbyController extends Remote{
     
     public void updateChat()throws RemoteException;
+    public void updatePlayerList()throws RemoteException;
+    public IGameLobby getIGameLobby()throws RemoteException;
 }
