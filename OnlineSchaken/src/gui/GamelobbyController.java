@@ -262,8 +262,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     @Override
     public void updatePlayerList() throws RemoteException
-    {
-        
+    {        
         new Thread(new Runnable()
         {
             @Override
@@ -310,14 +309,24 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         System.out.println("Remote player ready player1 = " + player1Ready + "player2 = " + player2Ready);
         if(player1Ready && player2Ready)
         {
-        //drawBoard();
+        drawBoard();
         }
     }
     
-    @FXML
+    
     public void drawBoard()
     {
-    try
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {                        
+            try
             {                
                 if(player1Ready == true && player2Ready == true)
                 {
@@ -338,6 +347,9 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             {
                 Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
             }
+                    }
+                });
+            }
+        }).start();
     }
-    
 }
