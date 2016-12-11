@@ -93,9 +93,15 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void move(Point section1, Point section2, double time)
     {
+        System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
-        game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int)section2.getX(), (int)section2.getY()));
+        System.out.println(game.getBoard().getSections(xValue, yValue).getPiece().toString());
+        System.out.println(game.getBoard().getSections((int)section2.getX(), (int)section2.getY()).getID());
+        if(game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int)section2.getX(), (int)section2.getY())) == false)
+        {
+            System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
+        }
         System.out.println("gelukt");
     }
 }

@@ -121,7 +121,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             if (GameLobby.leaveGameLobby(LoggedInUser))
             {
                 if (GameLobby.GetPlayer1() == null && GameLobby.GetPlayer2() == null)
-                {   System.out.println("Gandalf was here");
+                {   
                     client.unBindLobby(lobbyName);
                     
                 }
@@ -221,7 +221,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         this.IClient = IClient;
         try
         {
-            System.out.println("De GameLobby die mee wordt gegeven aan de IClient " + (IGameLobbyController) this);
             this.IClient.setGameLobbyController((IGameLobbyController) this);
         } catch (RemoteException ex)
         {
@@ -307,7 +306,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                 player1Ready = true;
             }
         }
-        System.out.println("Remote player ready player1 = " + player1Ready + "player2 = " + player2Ready);
         if(player1Ready && player2Ready)
         {
         drawBoard();
@@ -331,7 +329,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             {                
                 if(player1Ready == true && player2Ready == true)
                 {
-                    System.out.println("Board tekenen probeersel");
                     Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
