@@ -357,6 +357,36 @@ public class ClientApp implements IrmiClient
         this.game=controller;
     }
 
+    @Override
+    public void UpdateInGameChat(Chatline message) throws RemoteException
+    {
+       this.game.updateChat(message);
+    }
+
+    @Override
+    public void sendInGameMessage(Chatline message) throws RemoteException
+    {
+         try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+              stub = (IrmiServer) registry.lookup("Server");
+              stub.SendInGameMessage(game, message);
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    }
+
    
 }
 

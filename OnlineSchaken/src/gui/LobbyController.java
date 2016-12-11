@@ -7,7 +7,6 @@ package gui;
 
 import Server.ClientApp;
 import Shared.IGameLobby;
-import Shared.ILobby;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import database.Database;

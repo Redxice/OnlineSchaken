@@ -9,9 +9,8 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="805.0" prefWidth="1318.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.IngameController">
    <children>
-      <TextArea layoutX="911.0" layoutY="313.0" prefHeight="169.0" prefWidth="202.0" promptText="Chat" />
-      <TextField layoutX="911.0" layoutY="494.0" promptText="Type your message" />
-      <Button layoutX="1062.0" layoutY="494.0" mnemonicParsing="false" text="Send" />
+      <TextField fx:id="Txt_Message" layoutX="962.0" layoutY="560.0" promptText="Type your message" />
+      <Button fx:id="Btn_Send" layoutX="1113.0" layoutY="560.0" mnemonicParsing="false" onAction="#sendMessage" text="Send" />
       <Text layoutX="904.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 2" />
       <Text layoutX="911.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player 1" />
       <TextArea layoutX="904.0" layoutY="175.0" prefHeight="49.0" prefWidth="187.0" promptText="Geslagen stukken" />
@@ -25,5 +24,6 @@
           <Region />
         </root>
       </SubScene>
+      <ListView fx:id="Chatbox" layoutX="953.0" layoutY="325.0" prefHeight="228.0" prefWidth="198.0" />
    </children>
 </Pane>

@@ -300,6 +300,25 @@ public class RmiServer implements IrmiServer
         }
        return this.Clients.size()+1;
     }
-
+    @Override
+    public void SendInGameMessage(IinGameController controller,Chatline message){
+        for (IrmiClient client: Clients)
+        {
+            try
+            {
+                if (client.GetGameController().getPlayer1().equals(message.getUserName()))
+                {
+                    client.UpdateInGameChat(message);
+                }
+                else if (client.GetGameController().getPlayer2().equals(message.getUserName()))
+                {
+                    client.UpdateInGameChat(message);
+                }
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
 }

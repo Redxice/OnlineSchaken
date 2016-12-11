@@ -12,14 +12,20 @@ import java.awt.Point;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.SubScene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import onlineschaken.Chatline;
 
 import onlineschaken.Game;
@@ -32,9 +38,18 @@ import onlineschaken.Player;
  */
 public class IngameController extends UnicastRemoteObject implements Initializable, IinGameController
 {
+
     private boolean isMyTurn;
     private ClientApp client;
     private IrmiClient Iclient;
+    private ArrayList<Chatline> chatlines = new ArrayList<>();
+    private ObservableList chatList = FXCollections.observableArrayList();
+    @FXML
+    private TextField Txt_Message;
+    @FXML
+    private Button Btn_Send;
+    @FXML
+    private ListView Chatbox;
     @FXML
     private SubScene GameBoard;
     private Game game;
@@ -50,7 +65,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
      * moet nog verder worden uitgewerkt. De players moeten worden geadd in de
      * game.
      */
-    public void DrawBoard(Player p1 ,Player p2) throws RemoteException
+    public void DrawBoard(Player p1, Player p2) throws RemoteException
     {
         Group root = new Group();
         client.setGame(this);
@@ -65,8 +80,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
-        }
-        else{
+        } else
+        {
             this.isMyTurn = false;
         }
     }
@@ -77,7 +92,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-     
+
     }
 
     @Override
@@ -85,7 +100,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         this.Iclient = iClient;
         this.Iclient.setIinGameController(this);
-        
+
     }
 
     @Override
@@ -120,6 +135,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             public void run()
             {
                 Platform.runLater(new Runnable()
+
                 {
                     @Override
                     public void run()
@@ -129,6 +145,13 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         { 
                             System.out.println("????????????????? isMyTurn na aanroep board = " + isMyTurn);
+                     {   
+                        System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        isMyTurn = true;
+                        if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
+                        { 
+                            isMyTurn = true;
+
                         } else
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
@@ -171,7 +194,47 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void setMyturn() throws RemoteException
     {
-      this.isMyTurn=false;
+        this.isMyTurn = false;
     }
 
+    @FXML
+    public void sendMessage()
+    {
+        String message = Txt_Message.getText();
+        if (message == null)
+        {
+            Chatline chatLine = new Chatline(client.getUserName(), message);
+            try
+            {
+                client.sendInGameMessage(chatLine);
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public void updateChat(Chatline message) throws RemoteException
+    {
+        this.chatlines.add(message);
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                       chatList.setAll(chatlines);
+                       Chatbox.setItems(chatList);
+                       
+                    }
+                });
+            }
+        }).start();
+    }
 }
+
