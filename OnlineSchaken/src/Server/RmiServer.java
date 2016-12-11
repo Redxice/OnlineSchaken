@@ -38,24 +38,25 @@ public class RmiServer implements IrmiServer
     @Override
     public void doTurn(Point section1, Point section2, double time) throws RemoteException
     {
-        try
+        for (IrmiClient client : Clients)
         {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 600);
-            IrmiClient stub;
-            try
+
+            for (IrmiClient i : Clients)
             {
-                stub = (IrmiClient) registry.lookup("Client");
-                stub.getTurn(new Point(5, 0), new Point(7, 2), 3.00);
-            } catch (NotBoundException e)
-            {
-                System.err.println("Client exception:" + e.toString());
-                e.printStackTrace();
+                try
+                {
+                    System.out.println("Client op server :" + i);
+                    System.out.println("Controller op server :" + i.getGame());
+                    i.getTurn(section1, section2, time);
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-        } catch (RemoteException e)
-        {
-            System.err.println("Server exception:" + e.toString());
-            e.printStackTrace();
+
         }
+
     }
 
     @Override
@@ -192,7 +193,7 @@ public class RmiServer implements IrmiServer
         GameLobbys.remove(gameLobbyname);
         updateLobbysClients();
     }
-
+    
     /**
      * stuur naar elke IrmiClient die een lobby controller heeft een update.
      */

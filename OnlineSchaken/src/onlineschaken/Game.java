@@ -5,6 +5,7 @@
  */
 package onlineschaken;
 
+import Server.ClientApp;
 import gui.OnlineSchaken;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -42,12 +43,12 @@ public class Game extends UnicastRemoteObject
     private boolean player2Draw = false;
 
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX) throws RemoteException
+    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client) throws RemoteException
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.javaFX = javaFX;
-        board = new Board();
+        board = new Board(client);
         remaining1 = 1800;
         remaining2 = 1800;
         timer = new Timer();
@@ -57,18 +58,19 @@ public class Game extends UnicastRemoteObject
     }
 
     //zonder timer
-    public Game(Player p_player1, Player p_player2)throws RemoteException
+    public Game(Player p_player1, Player p_player2, ClientApp client)throws RemoteException
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.javaFX = javaFX;
-        board = new Board();
+        System.out.println("Game: " + client);
+        board = new Board(client);
         board.setGame(this);
     }
 
     //constructor vor een game die deel is van een tournament
     public Game(int p_time, Player p_player1, Player p_player2,
-            Tournament p_tournament, OnlineSchaken javaFX)throws RemoteException
+            Tournament p_tournament, OnlineSchaken javaFX, ClientApp client)throws RemoteException
     {
 
         this.player1 = p_player1;
@@ -78,7 +80,7 @@ public class Game extends UnicastRemoteObject
         this.remaining2 = p_time;
         this.tournament = p_tournament;
         this.javaFX = javaFX;
-        board = new Board();
+        board = new Board(client);
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
     }

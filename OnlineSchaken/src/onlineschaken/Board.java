@@ -40,6 +40,12 @@ public class Board //implements IrmiClient
     private Game game;
     private ClientApp client;
 
+    public Board(ClientApp client)
+    {
+        System.out.println("Board: " + client);
+        this.client = client;
+    }
+    
     public Parent createContent()
     {
         root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
@@ -70,8 +76,8 @@ public class Board //implements IrmiClient
                             if (piece.move(section))
                             {
                                 
-                               client = new ClientApp();
-                                
+                               //client = new ClientApp();
+                                System.out.println("BoardSend: " + client.getGame());
                                 client.sendTurn(point, section.getID(), game.getTime());
                                 firstSection = null;
                                 piece = null;
@@ -163,7 +169,7 @@ public class Board //implements IrmiClient
                                 if (piece.move(section))
                                 {
                                     
-                                        client = new ClientApp();
+                                        //client = new ClientApp();
                                     
                                     client.sendTurn(point, section.getID(), game.getTime());
                                     firstSection = null;
@@ -250,7 +256,7 @@ public class Board //implements IrmiClient
                                 {
                                     try
                                     {
-                                        client = new ClientApp();
+                                        //client = new ClientApp();
                                         client.sendTurn(point, section.getID(), game.getTime());
                                     } catch (Exception e)
                                     {

@@ -5,6 +5,7 @@
  */
 package Shared;
 
+import gui.IngameController;
 import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -39,4 +40,7 @@ public interface IrmiClient extends Remote {
     public void updateChat() throws RemoteException;
     
     public void updatePlayerList() throws RemoteException;
+    
+    public IngameController getGame() throws RemoteException;
+
 }

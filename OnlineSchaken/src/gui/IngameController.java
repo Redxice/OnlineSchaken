@@ -6,6 +6,7 @@
 package gui;
 
 import Server.ClientApp;
+import java.awt.Point;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -28,7 +29,7 @@ public class IngameController implements Initializable
     private ClientApp client;
     @FXML 
     private SubScene GameBoard;
-
+    private Game game;
    /**
     * moet nog verder worden uitgewerkt. De players moeten worden geadd in de game.
     */
@@ -36,7 +37,11 @@ public class IngameController implements Initializable
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
-        Game game = new Game(p1, p2);
+        ClientApp client = new ClientApp();
+        client.setGame(this);
+        System.out.println(client.getGame());
+        game = new Game(p1, p2, client);
+        System.out.println("IngameController: " + client);
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
@@ -58,4 +63,16 @@ public class IngameController implements Initializable
        this.client = client;
     }
     
+    public ClientApp getClient()
+    {
+       return client;
+    }
+    
+    public void move(Point section1, Point section2, double time)
+    {
+        int xValue = (int) section1.getX();
+        int yValue = (int) section1.getY();
+        game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int)section2.getX(), (int)section2.getY()));
+        System.out.println("gelukt");
+    }
 }

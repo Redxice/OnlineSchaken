@@ -10,6 +10,7 @@ import Shared.IGameLobbyController;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
+import gui.IngameController;
 import java.awt.Point;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
@@ -31,6 +32,7 @@ public class ClientApp implements IrmiClient
     private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
     private ILobbyController lobbyController ;
     private IGameLobbyController gameLobbyController;
+    private IngameController game;
     private String ip = "127.0.0.1";/*"169.254.183.180";*/
     private String userName;
 
@@ -72,6 +74,7 @@ public class ClientApp implements IrmiClient
             IrmiServer stub;
             try
             {   
+                System.out.println("Before lookup" + game);
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.doTurn(prev, next, time);
             } catch (NotBoundException e)
@@ -212,7 +215,9 @@ public class ClientApp implements IrmiClient
     @Override
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("ClientApp: " + game);
+        System.out.println("hoi:)");
+        game.move(section1, section2, time);
     }
 
     @Override
@@ -291,6 +296,22 @@ public class ClientApp implements IrmiClient
     public void updatePlayerList() throws RemoteException
     {
         this.gameLobbyController.updatePlayerList();
+    }
+
+    /**
+     * @return the game
+     */
+    public IngameController getGame()
+    {
+        return game;
+    }
+
+    /**
+     * @param game the game to set
+     */
+    public void setGame(IngameController game)
+    {
+        this.game = game;
     }
     
     
