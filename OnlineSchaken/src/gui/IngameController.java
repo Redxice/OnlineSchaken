@@ -139,13 +139,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 {
                     @Override
                     public void run()
-                    {   
-                        System.out.println("!!!!!!!!!!!!!!!!!!! isMyTurn voor aanroep board = " + isMyTurn);
-                        isMyTurn = true;
-                        if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
-                        { 
-                            System.out.println("????????????????? isMyTurn na aanroep board = " + isMyTurn);
-                     {   
+                    {  
                         System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
@@ -158,11 +152,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         }
                     }
                 });
-            }
+            }                
         }).start();
         System.out.println("gelukt");
     }
-
+    
     @Override
     public String getPlayer1() throws RemoteException
     {
