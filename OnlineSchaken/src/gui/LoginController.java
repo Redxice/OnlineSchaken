@@ -72,7 +72,7 @@ public class LoginController implements Initializable
             try
             {               
                 client.setUserName(TxtField_Username.getText());
-                player = new Player(TxtField_Username.getText(),TxtField_Password.getText(),10);
+                player = new Player((String)TxtField_Username.getText(),(String)TxtField_Password.getText(),10);
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
 
@@ -81,7 +81,6 @@ public class LoginController implements Initializable
                 controller.setPlayer(this.player);
                 controller.setClient(client);
                 controller.setIClient((IrmiClient)client);
-                
                 LoginStage.close();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);

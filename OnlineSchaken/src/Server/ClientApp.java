@@ -254,14 +254,20 @@ public class ClientApp implements IrmiClient
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
     this.gameLobbyController = controller;
      
-        try
+        RefreshGameLobby();
+    
+    }
+    
+    @Override
+    public void RefreshGameLobby( )throws RemoteException{
+         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
             {
               stub = (IrmiServer) registry.lookup("Server");
-              stub.updateGameLobbyClient(controller.getIGameLobby());
+              stub.updateGameLobbyClient(this.gameLobbyController.getIGameLobby());
                 
             } catch (NotBoundException e)
             {
@@ -273,7 +279,6 @@ public class ClientApp implements IrmiClient
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
-    
     }
 
     @Override

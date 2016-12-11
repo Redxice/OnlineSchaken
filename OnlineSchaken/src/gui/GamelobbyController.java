@@ -107,13 +107,15 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     client.unBindLobby(lobbyName);
                 }
             }
-            Stage LoginStage = (Stage) Btn_Leave.getScene().getWindow();
+            Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             LobbyController controller = fxmlLoader.<LobbyController>getController();
             controller.setPlayer(this.LoggedInUser);
             controller.setClient(client);
-            LoginStage.close();
+            controller.setIClient(IClient);
+            CurrentStage.close();
+            IClient.RefreshGameLobby();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
