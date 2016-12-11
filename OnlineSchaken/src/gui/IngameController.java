@@ -55,6 +55,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private Game game;
     private String player1;
     private String player2;
+    private boolean white;
 
     public IngameController() throws RemoteException
     {
@@ -80,9 +81,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
+            white = true;
         } else
         {
             this.isMyTurn = false;
+            white = false;
         }
     }
 
@@ -230,5 +233,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             }
         }).start();
     }
+
+    @Override
+    public boolean isWhite() throws RemoteException{
+        return white;
+    }
+    
+    
 }
 

@@ -28,4 +28,5 @@ public interface IinGameController extends Remote
     public boolean getMyTurn() throws RemoteException;
     public void setMyturn() throws RemoteException;
     public void updateChat(Chatline message)throws RemoteException;
+    public boolean isWhite()throws RemoteException;
 }
