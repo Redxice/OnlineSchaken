@@ -217,8 +217,11 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     @Override
     public void UpdateGameLobbys() throws RemoteException
-    {
-       
+    {  if (!gameList.isEmpty())
+        {
+            gameList.clear(); 
+        }
+      
         new Thread(new Runnable()
         {
             @Override
@@ -229,13 +232,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     @Override
                     public void run()
                     {
-                        
-                        for (String lobby : client.GetGameLobbys())
-                            {
-                               gameList.add(lobby);
-                            }
+                            gameList.setAll(client.GetGameLobbys());
                             Lv_GameList.setItems(gameList);
-                        
                     }
                 });
             }
