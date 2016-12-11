@@ -108,8 +108,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     @Override
     public void move(Point section1, Point section2, double time) throws RemoteException
-    {
-        
+    {        
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
@@ -124,17 +123,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 {
                     @Override
                     public void run()
-                    {
+                    {   
+                        System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
-                        {
-                           isMyTurn = true;
-                            if (game.getBoard().getTurn().equals("white"))
-                            {
-                                game.getBoard().setTurn("black");
-                            } else if (game.getBoard().getTurn().equals("black"))
-                            {
-                                game.getBoard().setTurn("black");
-                            }
+                        { 
+                            isMyTurn = true;
                         } else
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");

@@ -93,6 +93,7 @@ public class ClientApp implements IrmiClient
         {
             if (this.game.getMyTurn())
             {
+                System.out.println("!!!!!!!!!!!!!!!!!!! het is mijn zet !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 Registry registry = LocateRegistry.getRegistry(ip, 666);
                 IrmiServer stub;
                 
@@ -101,6 +102,7 @@ public class ClientApp implements IrmiClient
                 stub.doTurn(prev, next, time,this.userName);
            
             }
+            System.out.println("!!!!!!!!!!!!!!!!!!! het is NIET zet !!!!!!!!!!!!!!!!!!!!!!!!!!!");
         } catch (RemoteException ex)
         {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
