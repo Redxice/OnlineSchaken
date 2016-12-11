@@ -402,7 +402,11 @@ public class Board //implements IrmiClient
     {
         return turn;
     }
-
+    
+    public void setTurn(String turn)
+    {
+        this.turn = turn;
+    }
 //    @Override
 //    public void getTurn(Point section1, Point section2, double time) throws RemoteException
 //    {
