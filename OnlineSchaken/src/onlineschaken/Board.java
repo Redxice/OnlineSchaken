@@ -83,6 +83,7 @@ public class Board //implements IrmiClient
                                 System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
                                 if (client.GetGameController().getMyTurn())
                                 {
+                                    client.GetGameController().setMyturn();
                                     if (piece.move(section))
                                     {                                        
                                         try
@@ -90,7 +91,6 @@ public class Board //implements IrmiClient
                                             //client = new ClientApp();
                                             System.out.println("BoardSend: " + client.GetGameController());
                                             client.sendTurn(point, section.getID(), game.getTime());
-                                            client.GetGameController().setMyturn();
                                             System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                         } catch (Exception e)
                                         {
@@ -200,12 +200,11 @@ public class Board //implements IrmiClient
                                     {
                                         if (piece.move(section))
                                         {
-                                            
+                                            client.GetGameController().setMyturn();
                                             //client = new ClientApp();
                                             try
                                             {
                                                 client.sendTurn(point, section.getID(), game.getTime());
-                                                client.GetGameController().setMyturn();
                                                 System.out.println("????????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
@@ -306,13 +305,13 @@ public class Board //implements IrmiClient
                                     System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
+                                        client.GetGameController().setMyturn();
                                         if (piece.move(section))
                                         {
                                             
                                             try
                                             {
-                                                client.sendTurn(point, section.getID(), game.getTime());
-                                                client.GetGameController().setMyturn();
+                                                client.sendTurn(point, section.getID(), game.getTime());                                                
                                                 System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
