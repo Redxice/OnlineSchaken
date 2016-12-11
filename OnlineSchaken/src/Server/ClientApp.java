@@ -349,6 +349,12 @@ public class ClientApp implements IrmiClient
         this.gameLobbyController.ready();
     }
 
+    @Override
+    public void setIinGameController(IinGameController controller) throws RemoteException
+    {
+        this.game=controller;
+    }
+
    
 }
 

@@ -79,6 +79,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void setIClient(IrmiClient iClient) throws RemoteException
     {
         this.Iclient = iClient;
+        this.Iclient.setIinGameController(this);
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
