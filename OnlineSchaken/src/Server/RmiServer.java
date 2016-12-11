@@ -290,4 +290,14 @@ public class RmiServer implements IrmiServer
         Clients.add(client);
     }
 
+    @Override
+    public int IrmiClientCounter() throws RemoteException
+    {
+        if (this.Clients.size()==0)
+        {
+            return 1;
+        }
+       return this.Clients.size()+1;
+    }
+
 }

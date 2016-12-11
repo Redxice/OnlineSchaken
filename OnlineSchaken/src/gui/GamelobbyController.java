@@ -9,9 +9,12 @@ import Server.ClientApp;
 import Shared.IGameLobby;
 import Shared.IGameLobbyController;
 import Shared.IrmiClient;
+import Shared.IrmiServer;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -69,7 +72,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     public GamelobbyController() throws RemoteException
     {
-
+         
     }
 
     @FXML

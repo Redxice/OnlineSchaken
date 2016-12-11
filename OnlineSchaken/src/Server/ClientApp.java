@@ -18,6 +18,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,25 @@ public class ClientApp implements IrmiClient
     private String ip = "127.0.0.1";/*"169.254.183.180";*/
     private String userName;
 
+    public ClientApp(){
+        try
+        {   
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 666);
+            IrmiServer stub = (IrmiServer)registry.lookup("Server");
+            int count = stub.IrmiClientCounter();
+            IrmiClient Test = this;
+            UnicastRemoteObject.exportObject(Test, count);
+            stub.registerClient(this);
+            
+            
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex)
+        {
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Wordt aangeroepen in de GameLobbyController in de create GameLobby methode.
      * @param LobbyName

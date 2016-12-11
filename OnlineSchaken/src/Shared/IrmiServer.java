@@ -81,4 +81,5 @@ public interface IrmiServer extends Remote
     public void registerClient(IrmiClient client)throws RemoteException ;
     public void removeGameLobby(String gameLobbyname)throws RemoteException;
     public void updateGameLobbyClient(IGameLobby lobby)throws RemoteException;
+    public int IrmiClientCounter()throws RemoteException;
 }
