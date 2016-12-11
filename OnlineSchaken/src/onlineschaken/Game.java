@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Game implements Serializable
+public class Game 
 {
 
     //fields

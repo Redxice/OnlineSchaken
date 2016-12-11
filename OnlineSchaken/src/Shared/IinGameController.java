@@ -22,5 +22,6 @@ public interface IinGameController extends Remote
     public IrmiClient getClient() throws RemoteException;
     public void setIClient(IrmiClient iClient) throws RemoteException;
     public void setClient(ClientApp client) throws RemoteException;
-    public Game GetGame() throws RemoteException;
+    public String getPlayer1() throws RemoteException;
+    public String getPlayer2() throws RemoteException;
 }

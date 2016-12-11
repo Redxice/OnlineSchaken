@@ -34,6 +34,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @FXML 
     private SubScene GameBoard;
     private Game game;
+    private String player1;
+    private String player2;
     
     public IngameController()throws RemoteException
     {
@@ -104,10 +106,22 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
         System.out.println("gelukt");
     }
-
+    
     @Override
-    public Game GetGame() throws RemoteException
-    {
-        return this.game;
+    public String getPlayer1() throws RemoteException{
+        return player1;
     }
+    
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
+    }
+    @Override
+    public String getPlayer2() throws RemoteException{
+        return player2;
+    }
+
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
+    }
+    
 }

@@ -96,6 +96,8 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     IngameController controller = fxmlLoader.<IngameController>getController();
                     controller.setClient(client);
                     controller.setIClient(IClient);
+                    controller.setPlayer1(GameLobby.GetPlayer1().getUsername());
+                    controller.setPlayer2(GameLobby.GetPlayer2().getUsername());
                     LoginStage.close();
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
@@ -335,6 +337,8 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     IngameController controller = fxmlLoader.<IngameController>getController();
                     controller.setClient(client);
                     controller.setIClient(IClient);
+                    controller.setPlayer1(GameLobby.GetPlayer1().getUsername());
+                    controller.setPlayer2(GameLobby.GetPlayer2().getUsername());
                     LoginStage.close();
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);

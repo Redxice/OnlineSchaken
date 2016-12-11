@@ -43,7 +43,7 @@ public class RmiServer implements IrmiServer
 
             for (IrmiClient i : Clients)
             {
-                if (i.getUserName().equals(i.GetGameController().GetGame().getPlayer1().getUsername()) && userName.equals(i.GetGameController().GetGame().getPlayer2().getUsername()))
+                if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
                 {
                 try
                 {
@@ -56,7 +56,7 @@ public class RmiServer implements IrmiServer
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 }
-                else if (i.getUserName().equals(i.GetGameController().GetGame().getPlayer2().getUsername()) && userName.equals(i.GetGameController().GetGame().getPlayer1().getUsername()))
+                else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
                 {
                    try
                 {
