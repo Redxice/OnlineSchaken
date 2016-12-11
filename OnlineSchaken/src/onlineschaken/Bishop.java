@@ -82,9 +82,12 @@ public class Bishop extends Piece
             // kijkt of er een stuk in de weg staat
             for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
             {
-                if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                if(this.getSection().getID().x != 0 && this.getSection().getID().y != 0)
                 {
-                    return false;
+                    if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -104,9 +107,12 @@ public class Bishop extends Piece
             // kijkt of er een stuk in de weg staat
             for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
             {
+                if(this.getSection().getID().x != 0 && this.getSection().getID().y != 7)
+                {
                 if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y + i + 1].isOccupied() == true)
                 {
                     return false;
+                }
                 }
             }
             return true;
@@ -141,9 +147,12 @@ public class Bishop extends Piece
                 // kijkt of er een stuk in de weg staat
                 for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                 {
-                    if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                    if(this.getSection().getID().x != 7 && this.getSection().getID().y != 0)
                     {
-                        return false;
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                        {
+                            return false;
+                        }
                     }
                 }
                 return true;
@@ -163,9 +172,12 @@ public class Bishop extends Piece
                 // kijkt of er een stuk in de weg staat
                 for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
                 {
-                    if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y + i + 1].isOccupied() == true)
+                    if(this.getSection().getID().x != 7 && this.getSection().getID().y != 7)
                     {
-                        return false;
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y + i + 1].isOccupied() == true)
+                        {
+                            return false;
+                        }
                     }
                 }
                 return true;

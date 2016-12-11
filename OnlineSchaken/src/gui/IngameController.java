@@ -124,11 +124,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {   
-                        System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!! isMyTurn voor aanroep board = " + isMyTurn);
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         { 
-                            isMyTurn = true;
+                            System.out.println("????????????????? isMyTurn na aanroep board = " + isMyTurn);
                         } else
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
