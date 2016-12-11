@@ -11,6 +11,7 @@ import Shared.IrmiClient;
 import java.awt.Point;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,13 +27,18 @@ import onlineschaken.Player;
  *
  * @author redxice
  */
-public class IngameController implements Initializable, IinGameController
+public class IngameController extends UnicastRemoteObject implements Initializable, IinGameController
 {
     private ClientApp client;
     private IrmiClient Iclient;
     @FXML 
     private SubScene GameBoard;
     private Game game;
+    
+    public IngameController()throws RemoteException
+    {
+        
+    }
    /**
     * moet nog verder worden uitgewerkt. De players moeten worden geadd in de game.
     */
@@ -40,7 +46,6 @@ public class IngameController implements Initializable, IinGameController
         Player p1 = new Player("White", "ww", 0);
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
-        ClientApp client = new ClientApp();
         client.setGame(this);
         System.out.println(client.getGame());
         game = new Game(p1, p2, Iclient);
@@ -61,26 +66,31 @@ public class IngameController implements Initializable, IinGameController
   
     }    
 
+    @Override
     public void setIClient(IrmiClient iClient)
     {
        this.Iclient = iClient;
     }
     
+    @Override
     public void setClient(ClientApp client)
     {
        this.client = client;
     }
     
-    public ClientApp getClient()
+    @Override
+    public IrmiClient getClient()
     {
-       return client;
+       return (IrmiClient)client;
     }
     
+    @Override
     public IrmiClient getIClient()
     {
         return Iclient;
     }
     
+    @Override
     public void move(Point section1, Point section2, double time)
     {
         int xValue = (int) section1.getX();
