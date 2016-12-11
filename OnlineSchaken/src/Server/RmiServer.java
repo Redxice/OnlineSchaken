@@ -199,8 +199,10 @@ public class RmiServer implements IrmiServer
         for (IrmiClient client : Clients)
         {
             try
-            {
-                client.UpdateLobbyController();
+            { if (client.getLobbyController()!= null)
+                {
+                   client.UpdateLobbyController(); 
+                }
             } catch (RemoteException ex)
             {
                 Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);

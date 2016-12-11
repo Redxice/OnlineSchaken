@@ -234,10 +234,11 @@ public class ClientApp implements IrmiClient
     @Override
     public void UpdateLobbyController() throws RemoteException
     {
-        
+        lobbyController.UpdateGameLobbys();
     }
     @Override
     public void setLobbyController(ILobbyController controller)throws RemoteException{
+        System.out.println("Lobby is set in ICLient "+controller);
         this.lobbyController = controller;
     }
 
@@ -261,6 +262,12 @@ public class ClientApp implements IrmiClient
     @Override
     public void updateChat() throws RemoteException {
         gameLobbyController.updateChat();
+    }
+
+    @Override
+    public ILobbyController getLobbyController() throws RemoteException
+    {
+        return this.lobbyController;
     }
     
     

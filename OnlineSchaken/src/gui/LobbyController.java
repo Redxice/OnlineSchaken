@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -216,11 +217,28 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     @Override
     public void UpdateGameLobbys() throws RemoteException
     {
-        if (client.GetGameLobbys() != null)
+       
+        new Thread(new Runnable()
         {
-            gameList.setAll(client.GetGameLobbys());
-            Lv_GameList.setItems(gameList);
-        }
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        
+                        for (String lobby : client.GetGameLobbys())
+                            {
+                               gameList.add(lobby);
+                            }
+                            Lv_GameList.setItems(gameList);
+                        
+                    }
+                });
+            }
+        }).start();
     }
     public void setClient(ClientApp client){
         this.client= client;
@@ -235,7 +253,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         this.IClient = IClient;
          try
         {
-            IClient.setLobbyController(this);
+            IClient.setLobbyController((ILobbyController)this);
         } catch (RemoteException ex)
         {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);

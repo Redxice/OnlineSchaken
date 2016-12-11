@@ -25,6 +25,8 @@ public interface IrmiClient extends Remote {
     public void UpdateLobbyController() throws RemoteException;
 
     public void setLobbyController(ILobbyController controller) throws RemoteException;
+    
+    public ILobbyController getLobbyController()throws RemoteException;
 
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException;
     

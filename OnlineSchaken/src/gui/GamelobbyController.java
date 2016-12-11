@@ -212,7 +212,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @Override
     public void updateChat() throws RemoteException
     {  
-     final ObservableList gameList = FXCollections.observableArrayList();
+     final ObservableList chatList = FXCollections.observableArrayList();
         new Thread(new Runnable()
         {
             @Override
@@ -227,9 +227,9 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                         {
                             for (Chatline c : GameLobby.getChatLines())
                             {
-                               gameList.add(c);
+                               chatList.add(c);
                             }
-                            ChatBox.setItems(gameList);
+                            ChatBox.setItems(chatList);
                         } catch (RemoteException ex)
                         {
                             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);

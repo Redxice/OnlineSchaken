@@ -80,7 +80,7 @@ public class LoginController implements Initializable
                 LobbyController controller = fxmlLoader.<LobbyController>getController();
                 controller.setPlayer(this.player);
                 controller.setClient(client);
-                controller.setIClient(client);
+                controller.setIClient((IrmiClient)client);
                 
                 LoginStage.close();
                 Stage stage = new Stage();
