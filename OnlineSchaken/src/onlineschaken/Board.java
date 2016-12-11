@@ -65,14 +65,11 @@ public class Board //implements IrmiClient
                             try {
                                 if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
                                 {
-                                    if (getTurn() == section.getPiece().getColor())
-                                    {
                                         if (section.getPiece() != null)
                                         {
                                             firstSection = sections[section.getID().x][section.getID().y];
                                             piece = firstSection.getPiece();
                                         }
-                                    }
                                 }
                             } catch (RemoteException ex) {
                                 Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,14 +180,11 @@ public class Board //implements IrmiClient
                                 try {
                                     if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
                                     {
-                                        if (getTurn() == section.getPiece().getColor())
-                                        {
                                             if (section.getPiece() != null)
                                             {
                                                 firstSection = sections[section.getID().x][section.getID().y];
                                                 piece = firstSection.getPiece();
                                             }
-                                        }
                                     }
                                 } catch (RemoteException ex) {
                                     Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
@@ -294,14 +288,11 @@ public class Board //implements IrmiClient
                                 try {
                                     if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
                                     {
-                                        if (getTurn() == section.getPiece().getColor())
-                                        {
                                             if (section.getPiece() != null)
                                             {
                                                 firstSection = sections[section.getID().x][section.getID().y];
                                                 piece = firstSection.getPiece();
                                             }
-                                        }
                                     }
                                 } catch (RemoteException ex) {
                                     Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
