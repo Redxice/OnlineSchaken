@@ -177,15 +177,20 @@ public class RmiServer implements IrmiServer
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
             for (IrmiClient i : Clients)
-            {
+            {                
                 if(lobby.checkPlayer1Exists() && lobby.checkPlayer2Exists())
-                {
+                {      
+                    System.out.println("lobby player1 = " + lobby.GetPlayer1().getUsername());
+                    System.out.println("lobby player2 = " + lobby.GetPlayer2().getUsername());
+                    System.out.println("parameter user = " + userName);
                     if (i.getUserName().equals(lobby.GetPlayer1().getUsername()) && userName.equals(lobby.GetPlayer2().getUsername()))
                     {
+                        System.out.println("Pleyer 2 heeft het verstuurt player 1 ontvangt het");
                         i.updateReady();
                     }
                     else if (i.getUserName().equals(lobby.GetPlayer2().getUsername()) && userName.equals(lobby.GetPlayer1().getUsername()))
                     {
+                        System.out.println("Pleyer 1 heeft het verstuurt player 2 ontvangt het");
                         i.updateReady();
                     }
                 }

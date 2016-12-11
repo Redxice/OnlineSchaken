@@ -74,7 +74,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     @FXML
     public void HandleReadyBtn(ActionEvent event)
-    {
+    {        
         try
         {
             if(GameLobby.GetPlayer1().getUsername().equals(LoggedInUser.getUsername()))
@@ -85,11 +85,11 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             {
                 player2Ready = true;
             }
+            System.out.println("Local player ready player1 = " + player1Ready + " player2 = "+ player2Ready);
             try
-            {
+            {    client.playerReady(true, lobbyName, LoggedInUser.getUsername());               
                 if(player1Ready == true && player2Ready == true)
                 {
-                    client.playerReady(true, lobbyName, LoggedInUser.toString());
                     Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
@@ -307,6 +307,37 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                 player1Ready = true;
             }
         }
+        System.out.println("Remote player ready player1 = " + player1Ready + "player2 = " + player2Ready);
+        if(player1Ready && player2Ready)
+        {
+        //drawBoard();
+        }
+    }
+    
+    @FXML
+    public void drawBoard()
+    {
+    try
+            {                
+                if(player1Ready == true && player2Ready == true)
+                {
+                    System.out.println("Board tekenen probeersel");
+                    Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    IngameController controller = fxmlLoader.<IngameController>getController();
+                    controller.setClient(client);
+                    LoginStage.close();
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                    controller.DrawBoard();
+                }
+            } catch (IOException ex)
+            {
+                Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
 }
