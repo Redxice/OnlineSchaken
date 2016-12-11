@@ -8,6 +8,7 @@ package Server;
 import Shared.IGameLobby;
 import Shared.IGameLobbyController;
 import Shared.ILobbyController;
+import Shared.IinGameController;
 import Shared.IrmiClient;
 import Shared.IrmiServer;
 import gui.IngameController;
@@ -32,7 +33,7 @@ public class ClientApp implements IrmiClient
     private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
     private ILobbyController lobbyController ;
     private IGameLobbyController gameLobbyController;
-    private IngameController game;
+    private IinGameController game;
     private String ip = "127.0.0.1";/*"169.254.183.180";*/
     private String userName;
 
@@ -309,7 +310,8 @@ public class ClientApp implements IrmiClient
     /**
      * @return the game
      */
-    public IngameController getGame()
+    @Override
+    public IinGameController getGame()
     {
         return game;
     }

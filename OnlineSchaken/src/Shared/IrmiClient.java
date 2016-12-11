@@ -43,9 +43,10 @@ public interface IrmiClient extends Remote {
     
     public void updatePlayerList() throws RemoteException;
     
-    public IngameController getGame() throws RemoteException;
+    public IinGameController getGame() throws RemoteException;
 
     public void RefreshGameLobby()throws RemoteException;
 
     public void updateReady() throws RemoteException;
+    
 }

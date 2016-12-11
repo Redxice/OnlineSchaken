@@ -6,6 +6,7 @@
 package gui;
 
 import Server.ClientApp;
+import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.net.URL;
@@ -25,7 +26,7 @@ import onlineschaken.Player;
  *
  * @author redxice
  */
-public class IngameController implements Initializable
+public class IngameController implements Initializable, IinGameController
 {
     private ClientApp client;
     private IrmiClient Iclient;
@@ -73,6 +74,11 @@ public class IngameController implements Initializable
     public ClientApp getClient()
     {
        return client;
+    }
+    
+    public IrmiClient getIClient()
+    {
+        return Iclient;
     }
     
     public void move(Point section1, Point section2, double time)
