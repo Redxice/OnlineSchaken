@@ -36,7 +36,7 @@ public class RmiServer implements IrmiServer
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
 
     @Override
-    public void doTurn(Point section1, Point section2, double time) throws RemoteException
+    public void doTurn(Point section1, Point section2, double time,String Username) throws RemoteException
     {
         for (IrmiClient client : Clients)
         {
@@ -59,7 +59,6 @@ public class RmiServer implements IrmiServer
         }
 
     }
-
     @Override
     public void test() throws RemoteException
     {

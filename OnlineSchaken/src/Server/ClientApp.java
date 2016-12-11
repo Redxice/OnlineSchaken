@@ -66,9 +66,10 @@ public class ClientApp implements IrmiClient
        return false;
     }
    
+    @Override
     public void sendTurn(Point prev, Point next, double time)
     {
-        String ip = "127.0.0.1";/*"169.254.183.180";*/
+        
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
@@ -77,7 +78,7 @@ public class ClientApp implements IrmiClient
             {   
                 System.out.println("Before lookup" + game);
                 stub = (IrmiServer) registry.lookup("Server");
-                stub.doTurn(prev, next, time);
+                stub.doTurn(prev, next, time,this.userName);
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -117,7 +118,7 @@ public class ClientApp implements IrmiClient
 
     public void SendMessage(Chatline chatline, String naamLobby)
     {
-        String ip = "127.0.0.1";/*"169.254.183.180";*/
+        
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);

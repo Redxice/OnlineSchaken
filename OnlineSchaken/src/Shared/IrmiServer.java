@@ -26,9 +26,10 @@ public interface IrmiServer extends Remote
      * @param section1 de sectie waar het stuk op staat dat verplaatst moet worden
      * @param section2 de sectie waar het stuk naar toe verplaatst moet worden
      * @param time de tijd die de speler nog overheeft
+     * @param Username
      * @throws RemoteException 
      */
-    public void doTurn(Point section1, Point section2, double time) throws RemoteException;
+    public void doTurn(Point section1, Point section2, double time,String Username) throws RemoteException;
     
     public void test() throws RemoteException;
     
