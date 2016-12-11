@@ -67,31 +67,31 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     }    
 
     @Override
-    public void setIClient(IrmiClient iClient)
+    public void setIClient(IrmiClient iClient)throws RemoteException
     {
        this.Iclient = iClient;
     }
     
     @Override
-    public void setClient(ClientApp client)
+    public void setClient(ClientApp client)throws RemoteException
     {
        this.client = client;
     }
     
     @Override
-    public IrmiClient getClient()
+    public IrmiClient getClient()throws RemoteException
     {
        return (IrmiClient)client;
     }
     
     @Override
-    public IrmiClient getIClient()
+    public IrmiClient getIClient()throws RemoteException
     {
         return Iclient;
     }
     
     @Override
-    public void move(Point section1, Point section2, double time)
+    public void move(Point section1, Point section2, double time)throws RemoteException
     {
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
