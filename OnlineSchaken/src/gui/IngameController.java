@@ -47,7 +47,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         Player p2 = new Player("Black", "ww", 0);
         Group root = new Group();
         client.setGame(this);
-        System.out.println(client.getGame());
+        System.out.println(client.GetGameController());
         game = new Game(p1, p2, Iclient);
         System.out.println("IngameController: " + client);
         GameBoard.setRoot(root);

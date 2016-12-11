@@ -36,23 +36,40 @@ public class RmiServer implements IrmiServer
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
 
     @Override
-    public void doTurn(Point section1, Point section2, double time,String Username) throws RemoteException
+    public void doTurn(Point section1, Point section2, double time,String userName) throws RemoteException
     {
         for (IrmiClient client : Clients)
         {
 
             for (IrmiClient i : Clients)
             {
+                if (i.getUserName().equals(i.GetGameController().GetGame().getPlayer1().getUsername()) && userName.equals(i.GetGameController().GetGame().getPlayer2().getUsername()))
+                {
                 try
                 {
                     System.out.println("Client op server :" + i);
-                    System.out.println("Controller op server :" + i.getGame());
-                    i.getGame().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    System.out.println("Controller op server :" + i.GetGameController());
+                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
                     System.out.println("it moves 0.o");
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                }
+                else if (i.getUserName().equals(i.GetGameController().GetGame().getPlayer2().getUsername()) && userName.equals(i.GetGameController().GetGame().getPlayer1().getUsername()))
+                {
+                   try
+                {
+                    System.out.println("Client op server :" + i);
+                    System.out.println("Controller op server :" + i.GetGameController());
+                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    System.out.println("it moves 0.o");
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }     
+                }
+                
 
             }
 

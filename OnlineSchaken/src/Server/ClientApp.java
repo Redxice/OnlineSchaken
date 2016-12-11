@@ -312,7 +312,7 @@ public class ClientApp implements IrmiClient
      * @return the game
      */
     @Override
-    public IinGameController getGame()
+    public IinGameController GetGameController()
     {
         return game;
     }

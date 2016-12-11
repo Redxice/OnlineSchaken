@@ -78,7 +78,7 @@ public class Board //implements IrmiClient
                                 try
                                 {
                                     //client = new ClientApp();
-                                    System.out.println("BoardSend: " + client.getGame());
+                                    System.out.println("BoardSend: " + client.GetGameController());
                                     client.sendTurn(point, section.getID(), game.getTime());
                                 } catch (Exception e)
                                 {
