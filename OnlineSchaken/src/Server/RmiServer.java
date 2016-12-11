@@ -29,35 +29,44 @@ import onlineschaken.Player;
  *
  * @author Sander
  */
-public class RmiServer implements IrmiServer {
+public class RmiServer implements IrmiServer
+{
 
     private ArrayList<String> GameLobbys = new ArrayList<>();
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
+
     @Override
-    public void doTurn(Point section1, Point section2, double time) throws RemoteException {
-        try {
+    public void doTurn(Point section1, Point section2, double time) throws RemoteException
+    {
+        try
+        {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 600);
             IrmiClient stub;
-            try {
+            try
+            {
                 stub = (IrmiClient) registry.lookup("Client");
-                stub.getTurn(new Point(5,0), new Point(7,2), 3.00);
-            } catch (NotBoundException e) {
+                stub.getTurn(new Point(5, 0), new Point(7, 2), 3.00);
+            } catch (NotBoundException e)
+            {
                 System.err.println("Client exception:" + e.toString());
                 e.printStackTrace();
             }
-        } catch (RemoteException e) {
+        } catch (RemoteException e)
+        {
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
     }
 
     @Override
-    public void test() throws RemoteException {
+    public void test() throws RemoteException
+    {
         System.out.println("works");
     }
 
     @Override
-    public List<IGameLobby> GameLobbys() throws RemoteException {
+    public List<IGameLobby> GameLobbys() throws RemoteException
+    {
         return null;
     }
 
@@ -70,15 +79,18 @@ public class RmiServer implements IrmiServer {
      * @throws RemoteException
      */
     @Override
-    public boolean CreateGameLobby(String lobbyNaam, Player player1) throws RemoteException {
+    public boolean CreateGameLobby(String lobbyNaam, Player player1) throws RemoteException
+    {
 
         Gamelobby lobby = new Gamelobby(lobbyNaam, player1);
         Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
         IGameLobby LobbyCheck = null;
-        try {
+        try
+        {
             LobbyCheck = (IGameLobby) registry.lookup(lobbyNaam);
             return false;
-        } catch (NotBoundException | AccessException ex) {
+        } catch (NotBoundException | AccessException ex)
+        {
             registry.rebind(lobby.getNaam(), (IGameLobby) lobby);
             this.GameLobbys.add(lobby.getName());
             UpdateClients();
@@ -97,14 +109,18 @@ public class RmiServer implements IrmiServer {
      * @throws RemoteException
      */
     @Override
-    public IGameLobby GetIGameLobby(String gamelobbyName) throws RemoteException {
-        try {
+    public IGameLobby GetIGameLobby(String gamelobbyName) throws RemoteException
+    {
+        try
+        {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(gamelobbyName);
             return lobby;
-        } catch (NotBoundException ex) {
+        } catch (NotBoundException ex)
+        {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AccessException ex) {
+        } catch (AccessException ex)
+        {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -112,78 +128,90 @@ public class RmiServer implements IrmiServer {
 
     @Override
 
-    public ArrayList<String> GetGameLobbys() throws RemoteException {
+    public ArrayList<String> GetGameLobbys() throws RemoteException
+    {
         return GameLobbys;
     }
 
-    public void SendMessage(Chatline message, String naamLobby) throws RemoteException {
-        try {
+    public void SendMessage(Chatline message, String naamLobby) throws RemoteException
+    {
+        try
+        {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(naamLobby);
             lobby.SendMessage(message);
-            for(IrmiClient i : Clients)
+            for (IrmiClient i : Clients)
             {
-                if(i.getUserName().equals(lobby.GetPlayer1().getUsername()))
+                System.out.println("Controller op server :" + i.getGameLobbyController());
+                if (lobby.checkPlayer1Exists())
                 {
-                    System.out.println("user 1 is de gebruiker RMIServer");
-                    System.out.println("IrmiClient = "+ i);                    
-                    System.out.println("IrmiClient zijn gamelobbycontroller = "+ i.getGameLobbyController());
-                    i.updateChat();
+                    if (i.getUserName().equals(lobby.GetPlayer1().getUsername()))
+                    {
+                        i.updateChat();
+                    }
                 }
-                if(i.getUserName().equals(lobby.GetPlayer2().getUsername()))
+                if (lobby.checkPlayer2Exists())
                 {
-                    System.out.println("user 2 is de gebruiker RMIServer");
-                    System.out.println("IrmiClient = "+ i);                    
-                    System.out.println("IrmiClient zijn gamelobbycontroller = "+ i.getGameLobbyController());
-                    i.updateChat();
+                    if (i.getUserName().equals(lobby.GetPlayer2().getUsername()))
+                    {
+                        i.updateChat();
+                    }
                 }
+
             }
-        } catch (NotBoundException ex) {
+        } catch (NotBoundException ex)
+        {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AccessException ex) {
+        } catch (AccessException ex)
+        {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void playerReady(boolean ready, String lobbyName, String userName) throws RemoteException {
-        try {
+    public void playerReady(boolean ready, String lobbyName, String userName) throws RemoteException
+    {
+        try
+        {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
-        } catch (NotBoundException ex) {
+        } catch (NotBoundException ex)
+        {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AccessException ex) {
+        } catch (AccessException ex)
+        {
             Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     @Override
-    public void removeGameLobby(String gameLobbyname) throws RemoteException 
+    public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
         GameLobbys.remove(gameLobbyname);
         UpdateClients();
     }
-    
-    public void UpdateClients(){
-        
-            for(IrmiClient client:Clients)
+
+    public void UpdateClients()
+    {
+
+        for (IrmiClient client : Clients)
+        {
+            try
             {
-                try
-                {
-                    client.UpdateLobbyController();
-                } catch (RemoteException ex)
-                {
-                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                client.UpdateLobbyController();
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
     }
-    
 
     @Override
-    public void registerClient(IrmiClient client)throws RemoteException 
+    public void registerClient(IrmiClient client) throws RemoteException
     {
+
         Clients.add(client);
     }
 

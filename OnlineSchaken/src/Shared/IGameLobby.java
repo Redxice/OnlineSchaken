@@ -69,4 +69,7 @@ public interface IGameLobby extends Remote
     public String getName()throws RemoteException;
     
     public List<Chatline> getChatLines() throws RemoteException;
+    
+    public boolean checkPlayer2Exists()throws RemoteException;
+    public boolean checkPlayer1Exists()throws RemoteException;
 }

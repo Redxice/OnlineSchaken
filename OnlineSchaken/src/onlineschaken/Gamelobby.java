@@ -174,4 +174,22 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         return this.player2;
     }
 
+    @Override
+    public boolean checkPlayer2Exists() throws RemoteException
+    {
+        if(this.player2 == null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkPlayer1Exists() throws RemoteException
+    {
+         if(this.player1 == null){
+            return false;
+        }
+        return true;
+    }
+
 }

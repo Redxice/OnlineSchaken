@@ -40,7 +40,7 @@ public class Chatline implements Serializable
     @Override
     public String toString()
     {
-        return this.userName + this.message;
+        return this.userName+ ": "+ this.message;
     }
 
 }

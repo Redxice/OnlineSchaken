@@ -122,7 +122,8 @@ public class ClientApp implements IrmiClient
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
-            {
+            {   System.out.println("Deze chatline zit in IClient"+chatline.getMessage());
+                System.out.println("Als dit null is haat ik mezelf :"+naamLobby);
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.SendMessage(chatline, naamLobby);
                 
@@ -249,14 +250,12 @@ public class ClientApp implements IrmiClient
     }
 
     public IGameLobbyController getGameLobbyController() {
-        System.out.println("GameLobbyController opgehaald uit de clientapp = " + gameLobbyController);
         return gameLobbyController;
     }
 
     @Override
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
-    this.gameLobbyController = gameLobbyController;
-    System.out.println("Test set gamelobby= "+gameLobbyController);
+    this.gameLobbyController = controller;
     }
 
     @Override
