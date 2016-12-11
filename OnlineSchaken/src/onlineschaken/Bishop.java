@@ -64,7 +64,19 @@ public class Bishop extends Piece
     {
         if (this.getSection().getID().x > p_section.getID().x)
         { //checked of de bishop naar boven loopt
-            return CheckLeftUp(p_section) || CheckLeftDown(p_section);
+            if(this.getSection().getID().x > 0 && this.getSection().getID().y > 0 && this.getSection().getID().y < 7)
+            {
+                return CheckLeftUp(p_section) || CheckLeftDown(p_section);
+            }
+            if(this.getSection().getID().x > 0 && this.getSection().getID().y > 0)
+            {
+                return CheckLeftUp(p_section);
+            }
+            if(this.getSection().getID().x > 0 && this.getSection().getID().y < 7)
+            {
+                return CheckLeftDown(p_section);
+            }
+            
         }
         return false;
     }
@@ -129,7 +141,18 @@ public class Bishop extends Piece
     {
         if (this.getSection().getID().x < p_section.getID().x)
         {
-         return CheckRightUp(p_section)||CheckRightDown(p_section);
+            if(this.getSection().getID().x < 7 && this.getSection().getID().y > 0 && this.getSection().getID().y < 7)
+            {
+                return CheckRightUp(p_section)||CheckRightDown(p_section);
+            }
+            if(this.getSection().getID().x < 7 && this.getSection().getID().y > 0)
+            {
+                return CheckRightUp(p_section);
+            }
+            if(this.getSection().getID().x < 7 && this.getSection().getID().y < 7)
+            {
+                return CheckRightDown(p_section);
+            }
             
         }
         return false;
