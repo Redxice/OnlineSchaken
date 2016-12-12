@@ -377,7 +377,6 @@ public class ClientApp implements IrmiClient
     }
 
     @Override
-<<<<<<< HEAD
     public ArrayList<Point> getLastMove() throws RemoteException
     {
         try
@@ -401,11 +400,10 @@ public class ClientApp implements IrmiClient
             e.printStackTrace();
             return null;
         }
-=======
+    }
     public void castPiece(Piece piece) throws RemoteException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
->>>>>>> origin/master
     }
 
    
