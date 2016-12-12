@@ -215,7 +215,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     }
 
-    public Irmgftvyhujn m,iClient getIClient()
+    public IrmiClient getIClient()
     {
         return IClient;
     }
