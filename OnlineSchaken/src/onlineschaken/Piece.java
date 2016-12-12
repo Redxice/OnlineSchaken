@@ -6,6 +6,7 @@
 package onlineschaken;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 import javafx.scene.image.Image;
@@ -16,17 +17,17 @@ import java.util.logging.*;
  *
  * @author redxice
  */
-public abstract class Piece extends StackPane
+public abstract class Piece extends StackPane implements Serializable
 {
 
     //fields
-    private static final Logger LOGGER = Logger.getLogger( Piece.class.getName() );
-    private String color;
-    private Player player;
-    private Section section;
-    private Image img;
+    private transient static final Logger LOGGER = Logger.getLogger( Piece.class.getName() );
+    private transient String color;
+    private transient Player player;
+    private transient Section section;
+    private transient Image img;
     private boolean hasMoved;
-    private Section previousState;
+    private transient Section previousState;
 
     //constructor
     public Piece(String p_color, Player p_player, Section p_section)
@@ -340,7 +341,7 @@ public abstract class Piece extends StackPane
     }
 
     public void PawnPromotion(Section p_section)
-    {
+    {  
         if (this instanceof Pawn)
         {
             Pawn pawn = (Pawn) this;

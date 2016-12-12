@@ -384,6 +384,12 @@ public class ClientApp implements IrmiClient
         }
     }
 
+    @Override
+    public void castPiece(Piece piece) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
    
 }
 

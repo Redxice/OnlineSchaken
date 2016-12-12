@@ -39,7 +39,7 @@ import onlineschaken.Player;
  */
 public class IngameController extends UnicastRemoteObject implements Initializable, IinGameController
 {
-
+    private boolean MyRealTurn;
     private boolean isMyTurn;
     private ClientApp client;
     private IrmiClient Iclient;
@@ -82,10 +82,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
+            this.MyRealTurn=true;
             white = true;
         } else
         {
             this.isMyTurn = false;
+            this.MyRealTurn=false;
             white = false;
         }
     }
@@ -149,6 +151,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         { 
                             isMyTurn = true;
+                            MyRealTurn= true;
                             System.out.println("!!!!$$$$$!!!!!hij zet isMyTurn op true"+ isMyTurn);
                         } else
                         {
@@ -238,6 +241,18 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public boolean isWhite() throws RemoteException{
         return white;
+    }
+
+    @Override
+    public boolean getRealTurn() throws RemoteException
+    {
+      return  this.MyRealTurn;
+    }
+
+    @Override
+    public void SetRealTurn(boolean MyRealTurn) throws RemoteException
+    {
+       this.MyRealTurn = MyRealTurn;
     }
     
     
