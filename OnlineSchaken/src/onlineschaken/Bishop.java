@@ -64,7 +64,19 @@ public class Bishop extends Piece
     {
         if (this.getSection().getID().x > p_section.getID().x)
         { //checked of de bishop naar boven loopt
-            return CheckLeftUp(p_section) || CheckLeftDown(p_section);
+            if(this.getSection().getID().x > 0 && this.getSection().getID().y > 0 && this.getSection().getID().y < 7)
+            {
+                return CheckLeftUp(p_section) || CheckLeftDown(p_section);
+            }
+            if(this.getSection().getID().x > 0 && this.getSection().getID().y > 0)
+            {
+                return CheckLeftUp(p_section);
+            }
+            if(this.getSection().getID().x > 0 && this.getSection().getID().y < 7)
+            {
+                return CheckLeftDown(p_section);
+            }
+            
         }
         return false;
     }
@@ -82,9 +94,12 @@ public class Bishop extends Piece
             // kijkt of er een stuk in de weg staat
             for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
             {
-                if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                if(this.getSection().getID().x != 0 && this.getSection().getID().y != 0)
                 {
-                    return false;
+                    if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -104,9 +119,12 @@ public class Bishop extends Piece
             // kijkt of er een stuk in de weg staat
             for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
             {
+                if(this.getSection().getID().x != 0 && this.getSection().getID().y != 7)
+                {
                 if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y + i + 1].isOccupied() == true)
                 {
                     return false;
+                }
                 }
             }
             return true;
@@ -123,7 +141,18 @@ public class Bishop extends Piece
     {
         if (this.getSection().getID().x < p_section.getID().x)
         {
-         return CheckRightUp(p_section)||CheckRightDown(p_section);
+            if(this.getSection().getID().x < 7 && this.getSection().getID().y > 0 && this.getSection().getID().y < 7)
+            {
+                return CheckRightUp(p_section)||CheckRightDown(p_section);
+            }
+            if(this.getSection().getID().x < 7 && this.getSection().getID().y > 0)
+            {
+                return CheckRightUp(p_section);
+            }
+            if(this.getSection().getID().x < 7 && this.getSection().getID().y < 7)
+            {
+                return CheckRightDown(p_section);
+            }
             
         }
         return false;
@@ -141,9 +170,17 @@ public class Bishop extends Piece
                 // kijkt of er een stuk in de weg staat
                 for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                 {
-                    if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                    if(this.getSection().getID().x != 7 && this.getSection().getID().y != 0)
                     {
-                        return false;
+                        System.out.println("pre point boshiop : " + this.getSection().getID());
+                        System.out.println("pre point section : " + p_section.getID());
+                        System.out.println("pre de i :: " + i);
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                        {
+                        System.out.println("Post point boshiop : " + this.getSection().getID());
+                        System.out.println("Post point section : " + p_section.getID());
+                            return false;
+                        }
                     }
                 }
                 return true;
@@ -163,9 +200,12 @@ public class Bishop extends Piece
                 // kijkt of er een stuk in de weg staat
                 for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
                 {
-                    if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y + i + 1].isOccupied() == true)
+                    if(this.getSection().getID().x != 7 && this.getSection().getID().y != 7)
                     {
-                        return false;
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y + i + 1].isOccupied() == true)
+                        {
+                            return false;
+                        }
                     }
                 }
                 return true;

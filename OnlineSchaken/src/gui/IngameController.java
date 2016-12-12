@@ -55,6 +55,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private Game game;
     private String player1;
     private String player2;
+    private boolean white;
 
     public IngameController() throws RemoteException
     {
@@ -80,9 +81,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
+            white = true;
         } else
         {
             this.isMyTurn = false;
+            white = false;
         }
     }
 
@@ -139,24 +142,24 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 {
                     @Override
                     public void run()
-                     {   
-                        System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    {  
+                        
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         { 
                             isMyTurn = true;
-
+                            System.out.println("!!!!$$$$$!!!!!hij zet isMyTurn op true"+ isMyTurn);
                         } else
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
                         }
                     }
                 });
-            }
+            }                
         }).start();
         System.out.println("gelukt");
     }
-
+    
     @Override
     public String getPlayer1() throws RemoteException
     {
@@ -230,5 +233,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             }
         }).start();
     }
+
+    @Override
+    public boolean isWhite() throws RemoteException{
+        return white;
+    }
+    
+    
 }
 

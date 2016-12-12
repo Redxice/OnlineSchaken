@@ -61,33 +61,37 @@ public class Board //implements IrmiClient
                     public void handle(MouseEvent t)
                     {
                         if (firstSection == null && section.getPiece() != null)
-                        {
-                            if (getTurn() == section.getPiece().getColor())
-                            {
-                                if (section.getPiece() != null)
+                        {                            
+                            try {
+                                if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
                                 {
-                                    firstSection = sections[section.getID().x][section.getID().y];
-                                    piece = firstSection.getPiece();
+                                        if (section.getPiece() != null)
+                                        {
+                                            firstSection = sections[section.getID().x][section.getID().y];
+                                            piece = firstSection.getPiece();
+                                        }
                                 }
+                            } catch (RemoteException ex) {
+                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         } else if (firstSection != null)
                         {
                             Point point = new Point(firstSection.getID());
                             try
                             {
-                                System.out.println("My trun = " + client.GetGameController().getMyTurn());
                                 System.out.println("trun = " + turn);
+                                System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
                                 if (client.GetGameController().getMyTurn())
                                 {
+                                    client.GetGameController().setMyturn();
                                     if (piece.move(section))
                                     {                                        
                                         try
                                         {
                                             //client = new ClientApp();
-                                            System.out.println("BoardSend: " + client.GetGameController());       
-                                            System.out.println("!!!!!!!!!!!!!!!!!!! Ik kom bij sendturn !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                                            System.out.println("BoardSend: " + client.GetGameController());
                                             client.sendTurn(point, section.getID(), game.getTime());
-                                            client.GetGameController().setMyturn();
+                                            System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                         } catch (Exception e)
                                         {
 
@@ -173,32 +177,35 @@ public class Board //implements IrmiClient
                         {
                             if (firstSection == null && section.getPiece() != null)
                             {
-                                if (getTurn() == section.getPiece().getColor())
-                                {
-                                    if (section.getPiece() != null)
+                                try {
+                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
                                     {
-                                        firstSection = sections[section.getID().x][section.getID().y];
-                                        piece = firstSection.getPiece();
+                                            if (section.getPiece() != null)
+                                            {
+                                                firstSection = sections[section.getID().x][section.getID().y];
+                                                piece = firstSection.getPiece();
+                                            }
                                     }
+                                } catch (RemoteException ex) {
+                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             } else if (firstSection != null)
                             {
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
-                                    System.out.println("My trun = " + client.GetGameController().getMyTurn());
+                                    System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
                                     System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
                                         if (piece.move(section))
                                         {
-                                            
+                                            client.GetGameController().setMyturn();
                                             //client = new ClientApp();
                                             try
                                             {
-                                                System.out.println("!!!!!!!!!!!!!!!!!!! Ik kom bij sendturn !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                                                 client.sendTurn(point, section.getID(), game.getTime());
-                                                client.GetGameController().setMyturn();
+                                                System.out.println("????????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
 
@@ -277,32 +284,35 @@ public class Board //implements IrmiClient
                         {
                             if (firstSection == null && section.getPiece() != null)
                             {
-                                if (getTurn() == section.getPiece().getColor())
-                                {
-                                    if (section.getPiece() != null)
+                                try {
+                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
                                     {
-                                        firstSection = sections[section.getID().x][section.getID().y];
-                                        piece = firstSection.getPiece();
+                                            if (section.getPiece() != null)
+                                            {
+                                                firstSection = sections[section.getID().x][section.getID().y];
+                                                piece = firstSection.getPiece();
+                                            }
                                     }
+                                } catch (RemoteException ex) {
+                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             } else if (firstSection != null)
                             {
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
-                                    System.out.println("My trun = " + client.GetGameController().getMyTurn());
+                                    System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
                                     System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
+                                        client.GetGameController().setMyturn();
                                         if (piece.move(section))
                                         {
                                             
                                             try
                                             {
-                                                //client = new ClientApp();
-                                                System.out.println("!!!!!!!!!!!!!!!!!!! Ik kom bij sendturn !!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                                                client.sendTurn(point, section.getID(), game.getTime());
-                                                client.GetGameController().setMyturn();
+                                                client.sendTurn(point, section.getID(), game.getTime());                                                
+                                                System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
                                                 System.out.println(e.getMessage());
