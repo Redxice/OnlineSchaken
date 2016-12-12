@@ -172,13 +172,8 @@ public class Bishop extends Piece
                 {
                     if(this.getSection().getID().x != 7 && this.getSection().getID().y != 0)
                     {
-                        System.out.println("pre point boshiop : " + this.getSection().getID());
-                        System.out.println("pre point section : " + p_section.getID());
-                        System.out.println("pre de i :: " + i);
                         if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
                         {
-                        System.out.println("Post point boshiop : " + this.getSection().getID());
-                        System.out.println("Post point section : " + p_section.getID());
                             return false;
                         }
                     }

@@ -48,10 +48,7 @@ public class RmiServer implements IrmiServer
                 {
                 try
                 {
-                    System.out.println("Client op server :" + i);
-                    System.out.println("Controller op server :" + i.GetGameController());
                     i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
-                    System.out.println("it moves 0.o");
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,10 +58,7 @@ public class RmiServer implements IrmiServer
                 {
                    try
                 {
-                    System.out.println("Client op server :" + i);
-                    System.out.println("Controller op server :" + i.GetGameController());
                     i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
-                    System.out.println("it moves 0.o");
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -223,9 +217,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
-        System.out.println("Before "+GameLobbys);
         GameLobbys.remove(gameLobbyname);
-        System.out.println("After "+GameLobbys);
         updateLobbysClients();
     }
     
@@ -308,12 +300,10 @@ public class RmiServer implements IrmiServer
             {
                 if (client.GetGameController().getPlayer1().equals(message.getUserName()))
                 {
-                    System.out.println("player 1 verstuurd en ontvangt nu@@@@@@@@@@@@@@@@@");
                     client.UpdateInGameChat(message);
                 }
                 else if (client.GetGameController().getPlayer2().equals(message.getUserName()))
                 {
-                    System.out.println("player 2 verstuurd en ontvangt nu@@@@@@@@@@#########");
                     client.UpdateInGameChat(message);
                 }
             } catch (RemoteException ex)

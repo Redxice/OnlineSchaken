@@ -73,7 +73,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         client.setGame(this);
         System.out.println(client.GetGameController());
         game = new Game(p1, p2, Iclient);
-        System.out.println("IngameController: " + client);
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
@@ -130,11 +129,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void move(Point section1, Point section2, double time) throws RemoteException
     {        
-        System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
-        System.out.println(game.getBoard().getSections(xValue, yValue).getPiece().toString());
-        System.out.println(game.getBoard().getSections((int) section2.getX(), (int) section2.getY()).getID());
         new Thread(new Runnable()
         {
             @Override
@@ -152,11 +148,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         { 
                             isMyTurn = true;
                             MyRealTurn= true;
-                            System.out.println("!!!!$$$$$!!!!!hij zet isMyTurn op true"+ isMyTurn);
-                        } else
-                        {
-                            System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
-                        }
+                        } 
                     }
                 });
             }                
@@ -228,7 +220,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-                        System.out.println("Zet chatlist in controller#@#@$@@@@#@#@#");
                        chatList.setAll(chatlines);
                        Chatbox.setItems(chatList);
                        Txt_Message.setText("");

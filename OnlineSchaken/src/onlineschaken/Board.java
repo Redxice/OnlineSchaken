@@ -42,7 +42,6 @@ public class Board //implements IrmiClient
 
     public Board(IrmiClient client)
     {
-        System.out.println("Board: " + client);
         this.client = client;
     }
 
@@ -79,8 +78,7 @@ public class Board //implements IrmiClient
                             Point point = new Point(firstSection.getID());
                             try
                             {
-                                System.out.println("trun = " + turn);
-                                System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
+                                
                                 if (client.GetGameController().getMyTurn())
                                 {
                                     
@@ -88,10 +86,8 @@ public class Board //implements IrmiClient
                                     {                                        
                                         try
                                         {
-                                            //client = new ClientApp();
-                                            System.out.println("BoardSend: " + client.GetGameController());
                                             client.sendTurn(point, section.getID(), game.getTime());
-                                            System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
+                                          
                                         } catch (Exception e)
                                         {
 
@@ -194,8 +190,6 @@ public class Board //implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
-                                    System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
-                                    System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
                                         if (piece.move(section))
@@ -205,7 +199,6 @@ public class Board //implements IrmiClient
                                             try
                                             {
                                                 client.sendTurn(point, section.getID(), game.getTime());
-                                                System.out.println("????????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
 
@@ -301,8 +294,6 @@ public class Board //implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
-                                    System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
-                                    System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
                                        
@@ -311,8 +302,7 @@ public class Board //implements IrmiClient
                                             
                                             try
                                             {
-                                                client.sendTurn(point, section.getID(), game.getTime());                                                
-                                                System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
+                                                client.sendTurn(point, section.getID(), game.getTime());
                                             } catch (Exception e)
                                             {
                                                 System.out.println(e.getMessage());
