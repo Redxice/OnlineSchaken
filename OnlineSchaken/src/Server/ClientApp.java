@@ -91,16 +91,12 @@ public class ClientApp implements IrmiClient
     {
         try
         {
-                System.out.println("!!!!!!!!!!!!!!!!!!! het is mijn zet !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+               
                 Registry registry = LocateRegistry.getRegistry(ip, 666);
                 IrmiServer stub;
-                
-                System.out.println("Before lookup" + game);
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.doTurn(prev, next, time,this.userName);
-           
-            
-            System.out.println("!!!!!!!!!!!!!!!!!!! het is NIET zet !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+          
         } catch (RemoteException ex)
         {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -236,8 +232,6 @@ public class ClientApp implements IrmiClient
     @Override
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
-        System.out.println("ClientApp: " + game);
-        System.out.println("hoi:)");
         game.move(section1, section2, time);
     }
 
@@ -260,7 +254,6 @@ public class ClientApp implements IrmiClient
     }
     @Override
     public void setLobbyController(ILobbyController controller)throws RemoteException{
-        System.out.println("Lobby is set in ICLient "+controller);
         this.lobbyController = controller;
     }
 
@@ -280,7 +273,6 @@ public class ClientApp implements IrmiClient
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
         
         this.gameLobbyController = controller;
-        System.out.println("Dit moet null zijn ;"+controller);
         if(this.gameLobbyController!= null){
         RefreshGameLobby();
         }
@@ -372,7 +364,6 @@ public class ClientApp implements IrmiClient
             {
               stub = (IrmiServer) registry.lookup("Server");
               stub.SendInGameMessage(game, message);
-                
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -386,6 +377,7 @@ public class ClientApp implements IrmiClient
     }
 
     @Override
+<<<<<<< HEAD
     public ArrayList<Point> getLastMove() throws RemoteException
     {
         try
@@ -409,6 +401,11 @@ public class ClientApp implements IrmiClient
             e.printStackTrace();
             return null;
         }
+=======
+    public void castPiece(Piece piece) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+>>>>>>> origin/master
     }
 
    

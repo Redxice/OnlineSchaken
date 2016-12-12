@@ -32,4 +32,7 @@ public interface IinGameController extends Remote
     public boolean isWhite()throws RemoteException;
     public ArrayList<Point> getLocalLastMove() throws RemoteException;
     public void setLocalLastMove(Point p1, Point p2) throws RemoteException;
+    public boolean getRealTurn()throws RemoteException;
+    public void SetRealTurn(boolean MyRealTurn) throws RemoteException;
 }
+

@@ -41,8 +41,6 @@ public class OnlineSchaken extends Application
     {  
         try
         {   count++;
-            //System.out.println(getClass().getResource("Gamelobby.fxml"));
-            //System.out.println(getClass().getResource("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\Login.fxml"));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             LoginController controller= fxmlLoader.<LoginController>getController();

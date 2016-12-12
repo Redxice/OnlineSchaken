@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -41,6 +42,7 @@ import onlineschaken.TurnTimer;
 public class IngameController extends UnicastRemoteObject implements Initializable, IinGameController
 {
 
+    private boolean MyRealTurn;
     private boolean isMyTurn;
     private ClientApp client;
     private IrmiClient Iclient;
@@ -76,7 +78,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         client.setGame(this);
         System.out.println(client.GetGameController());
         game = new Game(p1, p2, Iclient);
-        System.out.println("IngameController: " + client);
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
@@ -85,10 +86,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
+            this.MyRealTurn = true;
             white = true;
         } else
         {
             this.isMyTurn = false;
+            this.MyRealTurn = false;
             white = false;
         }
         runTimer();
@@ -131,6 +134,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     @Override
     public void move(Point section1, Point section2, double time) throws RemoteException
+
     {
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
@@ -143,17 +147,16 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             public void run()
             {
                 Platform.runLater(new Runnable()
-
                 {
                     @Override
                     public void run()
                     {
-
+                        System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                         {
                             isMyTurn = true;
-                            System.out.println("!!!!$$$$$!!!!!hij zet isMyTurn op true" + isMyTurn);
+
                         } else
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
@@ -162,6 +165,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 });
             }
         }).start();
+        System.out.println("gelukt");
     }
 
     @Override
@@ -199,10 +203,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     }
 
     @FXML
-    public void sendMessage()
+    public void sendMessage(ActionEvent event)
     {
         String message = Txt_Message.getText();
-        if (message == null)
+        if (message != null)
         {
             Chatline chatLine = new Chatline(client.getUserName(), message);
             try
@@ -232,6 +236,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         chatList.setAll(chatlines);
                         Chatbox.setItems(chatList);
 
+                        chatList.setAll(chatlines);
+                        Chatbox.setItems(chatList);
+                        Txt_Message.setText("");
+
                     }
                 });
             }
@@ -242,6 +250,18 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public boolean isWhite() throws RemoteException
     {
         return white;
+    }
+
+    @Override
+    public boolean getRealTurn() throws RemoteException
+    {
+        return this.MyRealTurn;
+    }
+
+    @Override
+    public void SetRealTurn(boolean MyRealTurn) throws RemoteException
+    {
+        this.MyRealTurn = MyRealTurn;
     }
 
     @Override
@@ -265,5 +285,4 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         Timer timer = new Timer();
         timer.schedule(new TurnTimer(this, client), 0, 5000);
     }
-
 }

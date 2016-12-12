@@ -46,6 +46,7 @@ public class RmiServer implements IrmiServer
             {
                 if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
                 {
+<<<<<<< HEAD
                     try
                     {
                         System.out.println("Client op server :" + i);
@@ -57,6 +58,22 @@ public class RmiServer implements IrmiServer
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
+=======
+                try
+                {
+                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
+                else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
+                {
+                   try
+                {
+                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                } catch (RemoteException ex)
+>>>>>>> origin/master
                 {
                     try
                     {
@@ -221,9 +238,13 @@ public class RmiServer implements IrmiServer
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
+<<<<<<< HEAD
         System.out.println("Before " + GameLobbys);
         GameLobbys.remove(gameLobbyname);
         System.out.println("After " + GameLobbys);
+=======
+        GameLobbys.remove(gameLobbyname);
+>>>>>>> origin/master
         updateLobbysClients();
     }
 
