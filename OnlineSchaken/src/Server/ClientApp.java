@@ -35,13 +35,13 @@ public class ClientApp implements IrmiClient
     private ILobbyController lobbyController ;
     private IGameLobbyController gameLobbyController;
     private IinGameController game;
-    private String ip = "127.0.0.1";/*"169.254.183.180";*/
+    private String ip = "169.254.183.180";
     private String userName;
 
     public ClientApp(){
         try
         {   
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1"/*"169.254.183.180"*/, 666);
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub = (IrmiServer)registry.lookup("Server");
             int count = stub.IrmiClientCounter();
             IrmiClient Test = this;
@@ -156,7 +156,7 @@ public class ClientApp implements IrmiClient
     }
     public void playerReady(boolean ready,String lobbyName, String userName)
     {
-        String ip = "127.0.0.1";/*"169.254.183.180";*/
+        
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);

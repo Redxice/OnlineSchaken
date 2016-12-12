@@ -35,6 +35,7 @@ public class RmiServer implements IrmiServer
 
     private ArrayList<String> GameLobbys = new ArrayList<>();
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
+    private String ip = "169.254.183.180";
 
     @Override
     public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
@@ -95,7 +96,7 @@ public class RmiServer implements IrmiServer
     {
 
         Gamelobby lobby = new Gamelobby(lobbyNaam, player1);
-        Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+        Registry registry = LocateRegistry.getRegistry(ip, 666);
         IGameLobby LobbyCheck = null;
         try
         {
@@ -125,7 +126,7 @@ public class RmiServer implements IrmiServer
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(gamelobbyName);
             return lobby;
         } catch (NotBoundException ex)
@@ -149,7 +150,7 @@ public class RmiServer implements IrmiServer
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(naamLobby);
             lobby.SendMessage(message);
             for (IrmiClient i : Clients)
@@ -185,7 +186,7 @@ public class RmiServer implements IrmiServer
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 666);
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
             for (IrmiClient i : Clients)
