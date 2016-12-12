@@ -35,7 +35,7 @@ public class ClientApp implements IrmiClient
     private ILobbyController lobbyController ;
     private IGameLobbyController gameLobbyController;
     private IinGameController game;
-    private String ip = "169.254.183.180";
+    private String ip = "127.0.0.1"/*"169.254.183.180"*/;
     private String userName;
 
     public ClientApp(){
@@ -250,11 +250,16 @@ public class ClientApp implements IrmiClient
     @Override
     public void UpdateLobbyController() throws RemoteException
     {
-        lobbyController.UpdateGameLobbys();
+        if (lobbyController != null)
+        {
+          lobbyController.UpdateGameLobbys();
+        }
+        
     }
     @Override
     public void setLobbyController(ILobbyController controller)throws RemoteException{
         this.lobbyController = controller;
+        this.gameLobbyController = null;
     }
 
     public String getUserName() {
@@ -273,6 +278,7 @@ public class ClientApp implements IrmiClient
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
         
         this.gameLobbyController = controller;
+        this.lobbyController = null;
         if(this.gameLobbyController!= null){
         RefreshGameLobby();
         }

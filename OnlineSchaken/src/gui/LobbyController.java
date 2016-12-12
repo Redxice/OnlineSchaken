@@ -42,7 +42,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class LobbyController extends UnicastRemoteObject implements Initializable,ILobbyController 
+public class LobbyController extends UnicastRemoteObject implements Initializable, ILobbyController
 {
 
     private Database db = new Database();
@@ -68,18 +68,18 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     @FXML
     private ListView Lv_GameList;
 
-    public LobbyController()throws RemoteException{
-        
+    public LobbyController() throws RemoteException
+    {
+
     }
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
-        
+
     }
 
     @FXML
@@ -114,7 +114,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             {
                 IGameLobby lobby = client.GetGameLobby(selectedLobby);
                 if (lobby.joinGameLobby(player))
-                {   
+                {
                     Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
                     CurrentStage.close();
                     Stage stage = new Stage();
@@ -216,11 +216,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     @Override
     public void UpdateGameLobbys() throws RemoteException
-    {  if (!gameList.isEmpty())
-        {
-            gameList.clear(); 
-        }
-      
+    {
+
         new Thread(new Runnable()
         {
             @Override
@@ -231,27 +228,35 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     @Override
                     public void run()
                     {
-                            gameList.setAll(client.GetGameLobbys());
-                            Lv_GameList.setItems(gameList);
+                        if (!gameList.isEmpty())
+                        {
+                            gameList.clear();
+                        }
+                        gameList.setAll(client.GetGameLobbys());
+                        Lv_GameList.setItems(gameList);
                     }
                 });
             }
         }).start();
     }
-    public void setClient(ClientApp client){
-        this.client= client;
+
+    public void setClient(ClientApp client)
+    {
+        this.client = client;
         if (client.GetGameLobbys() != null)
         {
             gameList.setAll(client.GetGameLobbys());
             Lv_GameList.setItems(gameList);
         }
-       
+
     }
-    public void setIClient(IrmiClient IClient){
+
+    public void setIClient(IrmiClient IClient)
+    {
         this.IClient = IClient;
-         try
+        try
         {
-            IClient.setLobbyController((ILobbyController)this);
+            IClient.setLobbyController((ILobbyController) this);
         } catch (RemoteException ex)
         {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
