@@ -308,10 +308,12 @@ public class RmiServer implements IrmiServer
             {
                 if (client.GetGameController().getPlayer1().equals(message.getUserName()))
                 {
+                    System.out.println("player 1 verstuurd en ontvangt nu@@@@@@@@@@@@@@@@@");
                     client.UpdateInGameChat(message);
                 }
                 else if (client.GetGameController().getPlayer2().equals(message.getUserName()))
                 {
+                    System.out.println("player 2 verstuurd en ontvangt nu@@@@@@@@@@#########");
                     client.UpdateInGameChat(message);
                 }
             } catch (RemoteException ex)

@@ -127,8 +127,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             {
                 if (GameLobby.GetPlayer1() == null && GameLobby.GetPlayer2() == null)
                 {   
-                    client.unBindLobby(lobbyName);
-                    
+                    client.unBindLobby(lobbyName);                    
                 }
             }
             Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
@@ -208,6 +207,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     {
         Chatline chatLine = new Chatline(LoggedInUser.getUsername(), Chatline_TxtField.getText());
         client.SendMessage(chatLine, lobbyName);
+        Chatline_TxtField.setText("");
     }
 
     public void setClient(ClientApp client)

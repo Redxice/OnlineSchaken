@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -194,10 +195,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     }
 
     @FXML
-    public void sendMessage()
+    public void sendMessage(ActionEvent event)
     {
         String message = Txt_Message.getText();
-        if (message == null)
+        if (message != null)
         {
             Chatline chatLine = new Chatline(client.getUserName(), message);
             try
@@ -224,9 +225,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
+                        System.out.println("Zet chatlist in controller#@#@$@@@@#@#@#");
                        chatList.setAll(chatlines);
                        Chatbox.setItems(chatList);
-                       
+                       Txt_Message.setText("");
                     }
                 });
             }

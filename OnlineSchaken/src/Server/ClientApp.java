@@ -372,7 +372,6 @@ public class ClientApp implements IrmiClient
             {
               stub = (IrmiServer) registry.lookup("Server");
               stub.SendInGameMessage(game, message);
-                
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
