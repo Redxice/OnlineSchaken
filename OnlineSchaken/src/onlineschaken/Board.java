@@ -83,7 +83,7 @@ public class Board //implements IrmiClient
                                 System.out.println("!!!!!!!!!!!!!!!!!!! My turn voor verandering in board = " + client.GetGameController().getMyTurn());
                                 if (client.GetGameController().getMyTurn())
                                 {
-                                    client.GetGameController().setMyturn();
+                                    
                                     if (piece.move(section))
                                     {                                        
                                         try
@@ -200,7 +200,7 @@ public class Board //implements IrmiClient
                                     {
                                         if (piece.move(section))
                                         {
-                                            client.GetGameController().setMyturn();
+                                            
                                             //client = new ClientApp();
                                             try
                                             {
@@ -305,7 +305,7 @@ public class Board //implements IrmiClient
                                     System.out.println("trun = " + turn);
                                     if (client.GetGameController().getMyTurn())
                                     {
-                                        client.GetGameController().setMyturn();
+                                       
                                         if (piece.move(section))
                                         {
                                             
@@ -451,6 +451,10 @@ public class Board //implements IrmiClient
     public String getTurn()
     {
         return turn;
+    }
+    
+    public IrmiClient getClient(){
+        return this.client;
     }
 
     public void setTurn(String turn)

@@ -157,7 +157,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 });
             }                
         }).start();
-        System.out.println("gelukt");
     }
     
     @Override

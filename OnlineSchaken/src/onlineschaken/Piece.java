@@ -6,6 +6,7 @@
 package onlineschaken;
 
 import java.awt.Point;
+import java.rmi.RemoteException;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
@@ -156,6 +157,13 @@ public abstract class Piece extends StackPane
                 this.section = section.getBoard().getSections()[section.getID().x][section.getID().y];
                 PawnPromotion(p_section);
                 hasMoved = true;
+                try
+                {
+                    this.section.getBoard().getClient().GetGameController().setMyturn();
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 return true;
             }
             return false;
