@@ -91,6 +91,7 @@ public class Board //implements IrmiClient
                                             //client = new ClientApp();
                                             System.out.println("BoardSend: " + client.GetGameController());
                                             client.sendTurn(point, section.getID(), game.getTime());
+                                            client.GetGameController().setLocalLastMove(point, section.getID());
                                             System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                         } catch (Exception e)
                                         {
@@ -205,6 +206,7 @@ public class Board //implements IrmiClient
                                             try
                                             {
                                                 client.sendTurn(point, section.getID(), game.getTime());
+                                                client.GetGameController().setLocalLastMove(point, section.getID());
                                                 System.out.println("????????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
@@ -311,7 +313,8 @@ public class Board //implements IrmiClient
                                             
                                             try
                                             {
-                                                client.sendTurn(point, section.getID(), game.getTime());                                                
+                                                client.sendTurn(point, section.getID(), game.getTime()); 
+                                                client.GetGameController().setLocalLastMove(point, section.getID());
                                                 System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {

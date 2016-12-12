@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -30,6 +31,7 @@ import onlineschaken.Chatline;
 
 import onlineschaken.Game;
 import onlineschaken.Player;
+import onlineschaken.TurnTimer;
 
 /**
  * FXML Controller class
@@ -56,6 +58,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private String player1;
     private String player2;
     private boolean white;
+    private Point localStart;
+    private Point localEnd;
 
     public IngameController() throws RemoteException
     {
@@ -87,6 +91,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             this.isMyTurn = false;
             white = false;
         }
+        runTimer();
     }
 
     /**
@@ -126,7 +131,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     @Override
     public void move(Point section1, Point section2, double time) throws RemoteException
-    {        
+    {
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
@@ -142,23 +147,23 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 {
                     @Override
                     public void run()
-                    {  
-                        
+                    {
+
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
-                        { 
+                        {
                             isMyTurn = true;
-                            System.out.println("!!!!$$$$$!!!!!hij zet isMyTurn op true"+ isMyTurn);
+                            System.out.println("!!!!$$$$$!!!!!hij zet isMyTurn op true" + isMyTurn);
                         } else
                         {
                             System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
                         }
                     }
                 });
-            }                
+            }
         }).start();
     }
-    
+
     @Override
     public String getPlayer1() throws RemoteException
     {
@@ -224,9 +229,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-                       chatList.setAll(chatlines);
-                       Chatbox.setItems(chatList);
-                       
+                        chatList.setAll(chatlines);
+                        Chatbox.setItems(chatList);
+
                     }
                 });
             }
@@ -234,10 +239,31 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     }
 
     @Override
-    public boolean isWhite() throws RemoteException{
+    public boolean isWhite() throws RemoteException
+    {
         return white;
     }
-    
-    
-}
 
+    @Override
+    public ArrayList<Point> getLocalLastMove() throws RemoteException
+    {
+        ArrayList<Point> list = new ArrayList<Point>();
+        list.add(localStart);
+        list.add(localEnd);
+        return list;
+    }
+
+    @Override
+    public void setLocalLastMove(Point p1, Point p2) throws RemoteException
+    {
+        localStart = p1;
+        localEnd = p2;
+    }
+
+    public void runTimer()
+    {
+        Timer timer = new Timer();
+        timer.schedule(new TurnTimer(this, client), 0, 5000);
+    }
+
+}

@@ -9,6 +9,7 @@ import Server.ClientApp;
 import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import onlineschaken.Chatline;
 import onlineschaken.Game;
 
@@ -29,4 +30,6 @@ public interface IinGameController extends Remote
     public void setMyturn() throws RemoteException;
     public void updateChat(Chatline message)throws RemoteException;
     public boolean isWhite()throws RemoteException;
+    public ArrayList<Point> getLocalLastMove() throws RemoteException;
+    public void setLocalLastMove(Point p1, Point p2) throws RemoteException;
 }

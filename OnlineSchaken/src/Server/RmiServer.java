@@ -37,7 +37,7 @@ public class RmiServer implements IrmiServer
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
 
     @Override
-    public void doTurn(Point section1, Point section2, double time,String userName) throws RemoteException
+    public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
     {
         for (IrmiClient client : Clients)
         {
@@ -46,37 +46,36 @@ public class RmiServer implements IrmiServer
             {
                 if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
                 {
-                try
+                    try
+                    {
+                        System.out.println("Client op server :" + i);
+                        System.out.println("Controller op server :" + i.GetGameController());
+                        i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                        System.out.println("it moves 0.o");
+                    } catch (RemoteException ex)
+                    {
+                        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
                 {
-                    System.out.println("Client op server :" + i);
-                    System.out.println("Controller op server :" + i.GetGameController());
-                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
-                    System.out.println("it moves 0.o");
-                } catch (RemoteException ex)
-                {
-                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                    try
+                    {
+                        System.out.println("Client op server :" + i);
+                        System.out.println("Controller op server :" + i.GetGameController());
+                        i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                        System.out.println("it moves 0.o");
+                    } catch (RemoteException ex)
+                    {
+                        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                }
-                else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
-                {
-                   try
-                {
-                    System.out.println("Client op server :" + i);
-                    System.out.println("Controller op server :" + i.GetGameController());
-                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
-                    System.out.println("it moves 0.o");
-                } catch (RemoteException ex)
-                {
-                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-                }     
-                }
-                
 
             }
 
         }
 
     }
+
     @Override
     public void test() throws RemoteException
     {
@@ -161,7 +160,7 @@ public class RmiServer implements IrmiServer
             lobby.SendMessage(message);
             for (IrmiClient i : Clients)
             {
-                
+
                 if (lobby.checkPlayer1Exists())
                 {
                     if (i.getUserName().equals(lobby.GetPlayer1().getUsername()))
@@ -196,15 +195,14 @@ public class RmiServer implements IrmiServer
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
             for (IrmiClient i : Clients)
-            {                
-                if(lobby.checkPlayer1Exists() && lobby.checkPlayer2Exists())
-                {      
-                    
+            {
+                if (lobby.checkPlayer1Exists() && lobby.checkPlayer2Exists())
+                {
+
                     if (i.getUserName().equals(lobby.GetPlayer1().getUsername()) && userName.equals(lobby.GetPlayer2().getUsername()))
                     {
                         i.updateReady();
-                    }
-                    else if (i.getUserName().equals(lobby.GetPlayer2().getUsername()) && userName.equals(lobby.GetPlayer1().getUsername()))
+                    } else if (i.getUserName().equals(lobby.GetPlayer2().getUsername()) && userName.equals(lobby.GetPlayer1().getUsername()))
                     {
                         i.updateReady();
                     }
@@ -223,20 +221,20 @@ public class RmiServer implements IrmiServer
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
-        System.out.println("Before "+GameLobbys);
+        System.out.println("Before " + GameLobbys);
         GameLobbys.remove(gameLobbyname);
-        System.out.println("After "+GameLobbys);
+        System.out.println("After " + GameLobbys);
         updateLobbysClients();
     }
-    
+
     /**
      * stuur naar elke IrmiClient die een lobby controller heeft een update.
      */
     public void updateLobbysClients()
     {
-        
+
         for (IrmiClient client : Clients)
-        { 
+        {
             try
             {
                 if (client.getLobbyController() != null)
@@ -249,8 +247,9 @@ public class RmiServer implements IrmiServer
             }
         }
     }
+
     @Override
-    public void updateGameLobbyClient(IGameLobby lobby)throws RemoteException
+    public void updateGameLobbyClient(IGameLobby lobby) throws RemoteException
     {
 
         for (IrmiClient client : Clients)
@@ -260,22 +259,24 @@ public class RmiServer implements IrmiServer
             {
                 try
                 {
-                  if(i.getGameLobbyController()!=null){
-                    if (lobby.checkPlayer1Exists())
+                    if (i.getGameLobbyController() != null)
                     {
-                        if (i.getUserName().equals(lobby.GetPlayer1().getUsername()))
+                        if (lobby.checkPlayer1Exists())
                         {
-                            i.updatePlayerList();
+                            if (i.getUserName().equals(lobby.GetPlayer1().getUsername()))
+                            {
+                                i.updatePlayerList();
+                            }
+                        }
+                        if (lobby.checkPlayer2Exists())
+                        {
+                            if (i.getUserName().equals(lobby.GetPlayer2().getUsername()))
+                            {
+                                i.updatePlayerList();
+                            }
                         }
                     }
-                    if (lobby.checkPlayer2Exists())
-                    {
-                        if (i.getUserName().equals(lobby.GetPlayer2().getUsername()))
-                        {
-                            i.updatePlayerList();
-                        }
-                    }
-                  }} catch (RemoteException ex)
+                } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -294,23 +295,24 @@ public class RmiServer implements IrmiServer
     @Override
     public int IrmiClientCounter() throws RemoteException
     {
-        if (this.Clients.size()==0)
+        if (this.Clients.size() == 0)
         {
             return 1;
         }
-       return this.Clients.size()+1;
+        return this.Clients.size() + 1;
     }
+
     @Override
-    public void SendInGameMessage(IinGameController controller,Chatline message){
-        for (IrmiClient client: Clients)
+    public void SendInGameMessage(IinGameController controller, Chatline message)
+    {
+        for (IrmiClient client : Clients)
         {
             try
             {
                 if (client.GetGameController().getPlayer1().equals(message.getUserName()))
                 {
                     client.UpdateInGameChat(message);
-                }
-                else if (client.GetGameController().getPlayer2().equals(message.getUserName()))
+                } else if (client.GetGameController().getPlayer2().equals(message.getUserName()))
                 {
                     client.UpdateInGameChat(message);
                 }
@@ -321,4 +323,40 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    @Override
+    public ArrayList<Point> getLastMove(String userName) throws RemoteException
+    {
+        for (IrmiClient client : Clients)
+        {
+
+            for (IrmiClient i : Clients)
+            {
+                if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
+                {
+                    try
+                    {
+                        System.out.println("Client op server :" + i);
+                        System.out.println("Controller op server :" + i.GetGameController());
+                        return i.GetGameController().getLocalLastMove();
+                    } catch (RemoteException ex)
+                    {
+                        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                        return null;
+                    }
+                } else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
+                {
+                    try
+                    {
+                        return i.GetGameController().getLocalLastMove();
+                    } catch (RemoteException ex)
+                    {
+                        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                        return null;
+                    }
+                }
+                return null;
+            }
+        }
+        return null;
+    }
 }

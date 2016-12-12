@@ -385,6 +385,32 @@ public class ClientApp implements IrmiClient
         }
     }
 
+    @Override
+    public ArrayList<Point> getLastMove() throws RemoteException
+    {
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("Server");
+              return stub.getLastMove(userName);
+                
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+                return null;
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
    
 }
 
