@@ -86,6 +86,7 @@ public class Board //implements IrmiClient
                                     {                                        
                                         try
                                         {
+                                            System.out.println("EERSTE KEER LANGS !#!$@$@$@#@#@#@$@$@");
                                             client.sendTurn(point, section.getID(), game.getTime());
                                             client.GetGameController().setLocalLastMove(point, section.getID());
                                             System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
@@ -200,6 +201,7 @@ public class Board //implements IrmiClient
                                             //client = new ClientApp();
                                             try
                                             {
+                                                System.out.println("EERSTE KEER LANGS !#!$@$@$@#@#@#@$@$@");
                                                 client.sendTurn(point, section.getID(), game.getTime());
                                                 client.GetGameController().setLocalLastMove(point, section.getID());
                                                 System.out.println("????????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
@@ -307,6 +309,7 @@ public class Board //implements IrmiClient
                                             
                                             try
                                             {
+                                                System.out.println("EERSTE KEER LANGS !#!$@$@$@#@#@#@$@$@");
                                                 client.sendTurn(point, section.getID(), game.getTime()); 
                                                 client.GetGameController().setLocalLastMove(point, section.getID());
                                                 System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());

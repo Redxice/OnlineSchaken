@@ -53,6 +53,7 @@ public class RmiServer implements IrmiServer
                         System.out.println("Controller op server :" + i.GetGameController());
                         i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
                         System.out.println("it moves 0.o");
+                        return;
                     } catch (RemoteException ex)
                     {
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,6 +62,7 @@ public class RmiServer implements IrmiServer
                 try
                 {
                     i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    return;
                 } catch (RemoteException ex)
                 {
                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);

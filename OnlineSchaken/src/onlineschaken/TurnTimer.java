@@ -37,7 +37,7 @@ public class TurnTimer extends TimerTask
                 {
                     if (client.getLastMove().get(1) != controller.getLocalLastMove().get(1))
                     {
-                        controller.move(controller.getLocalLastMove().get(0), controller.getLocalLastMove().get(1), 4.00);
+                      controller.move(controller.getLocalLastMove().get(0), controller.getLocalLastMove().get(1), 4.00);
                     }
                 }
             }
