@@ -131,7 +131,7 @@ public class Game
         {
             setWinner(player2);
             setFinished(true);
-            timer.cancel();
+            //timer.cancel();
         }
     }
 
@@ -147,7 +147,7 @@ public class Game
         {
             setWinner(player1);
             setFinished(true);
-            timer.cancel();
+            //timer.cancel();
         }
     }
 
@@ -161,7 +161,7 @@ public class Game
         this.finished = finished;
         if (this.finished == true)
         {
-            timer.cancel();
+            //timer.cancel();
             int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             if (exit == 0)
             {
@@ -386,15 +386,15 @@ public class Game
     {
         if (staleMate())
         {
-            timer.cancel();
+            //timer.cancel();
             return true;
         } else if (impossibleCheckMate())
         {
-            timer.cancel();
+            //timer.cancel();
             return true;
         } else if (player1Draw == true && player2Draw == true)
         {
-            timer.cancel();
+            //timer.cancel();
             return true;
         }
         return false;
