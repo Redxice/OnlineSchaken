@@ -139,8 +139,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
-     //  System.out.println(game.getBoard().getSections(xValue, yValue).getPiece().toString());
-     //  System.out.println(game.getBoard().getSections((int) section2.getX(), (int) section2.getY()).getID());
+        //  System.out.println(game.getBoard().getSections(xValue, yValue).getPiece().toString());
+        //  System.out.println(game.getBoard().getSections((int) section2.getX(), (int) section2.getY()).getID());
         new Thread(new Runnable()
         {
             @Override
@@ -153,14 +153,18 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     {
                         System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         isMyTurn = true;
-                        if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
+                        if (game.getBoard().getSections(xValue, yValue).getPiece() != null)
                         {
-                            isMyTurn = true;
+                            if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
+                            {
+                                isMyTurn = true;
 
-                        } else
-                        {
-                            System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
+                            } else
+                            {
+                                System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
+                            }
                         }
+
                     }
                 });
             }
