@@ -109,7 +109,7 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return true;
+            return false;
         }
     }
 
@@ -140,7 +140,7 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return true;
+            return false;
         }
     }
 
@@ -200,7 +200,7 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return true;
+            return false;
         }
     }
 
@@ -231,7 +231,7 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return true;
+            return false;
         }
     }
 }
