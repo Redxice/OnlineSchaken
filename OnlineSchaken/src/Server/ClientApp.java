@@ -35,7 +35,7 @@ public class ClientApp implements IrmiClient
     private ILobbyController lobbyController ;
     private IGameLobbyController gameLobbyController;
     private IinGameController game;
-    private String ip =/* "127.0.0.1"*/"169.254.183.180";
+    private String ip = "127.0.0.1" /*"169.254.183.180"*/;
     private String userName;
 
     public ClientApp(){
