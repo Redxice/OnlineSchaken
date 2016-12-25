@@ -21,7 +21,7 @@ public abstract class Piece extends StackPane implements Serializable
 {
 
     //fields
-    private transient static final Logger LOGGER = Logger.getLogger( Piece.class.getName() );
+    private transient static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
     private transient String color;
     private transient Player player;
     private transient Section section;
@@ -188,7 +188,7 @@ public abstract class Piece extends StackPane implements Serializable
             this.section = section.getBoard().getSections()[section.getID().x][section.getID().y];
         } catch (NullPointerException e)
         {
-             LOGGER.log(Level.FINE, e.getMessage(), e);
+            LOGGER.log(Level.FINE, e.getMessage(), e);
         }
         hasMoved = true;
     }
@@ -341,7 +341,7 @@ public abstract class Piece extends StackPane implements Serializable
     }
 
     public void PawnPromotion(Section p_section)
-    {  
+    {
         if (this instanceof Pawn)
         {
             Pawn pawn = (Pawn) this;
