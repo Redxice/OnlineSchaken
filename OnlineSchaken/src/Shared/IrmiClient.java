@@ -58,6 +58,21 @@ public interface IrmiClient extends Remote {
     public void sendInGameMessage(Chatline message)throws RemoteException;
 
     public ArrayList<Point> getLastMove() throws RemoteException;
-    
+    /**
+     * wordt gebruikt door de player die mag promoten
+     * @param piece
+     * @throws RemoteException 
+     */
     public void castPiece(Piece piece)throws RemoteException;
+    /**
+     * wordt aangeroepen om bij de client die wacht op een promotie
+     * @param piece
+     * @throws RemoteException 
+     */
+    public void PromotePawn(Piece piece)throws RemoteException;
+
+    public void isPromoting()throws RemoteException;
+    
+    public void isWaitinPromotion(boolean bool)throws RemoteException;
+    
 }

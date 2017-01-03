@@ -24,7 +24,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import onlineschaken.Chatline;
 import onlineschaken.Gamelobby;
+import onlineschaken.Piece;
 import onlineschaken.Player;
+import onlineschaken.Section;
 
 /**
  *
@@ -35,7 +37,7 @@ public class RmiServer implements IrmiServer
 
     private ArrayList<String> GameLobbys = new ArrayList<>();
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
-    private String ip =/*"127.0.0.1"*/ "169.254.183.180";
+    private String ip ="127.0.0.1"/*"169.254.183.180"*/ ;
 
     @Override
     public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
@@ -49,24 +51,21 @@ public class RmiServer implements IrmiServer
                 {
                     try
                     {
-                        System.out.println("Client op server :" + i);
-                        System.out.println("Controller op server :" + i.GetGameController());
                         i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
-                        System.out.println("it moves 0.o");
-                        return;
                     } catch (RemoteException ex)
                     {
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
-                try
                 {
-                    i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
-                    return;
-                } catch (RemoteException ex)
-                {
-                    Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-                }                
+                    try
+                    {
+                        i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                    } catch (RemoteException ex)
+                    {
+                        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
 
         }
@@ -356,5 +355,44 @@ public class RmiServer implements IrmiServer
             }
         }
         return null;
+    }
+
+    @Override
+    public void PromotePawn(Piece piece,String receiver) throws RemoteException
+    {
+             for (IrmiClient c : Clients)
+            {
+                if (c.getUserName().equals(receiver))
+                {
+                    c.PromotePawn(piece);
+                    break;
+                }
+            }
+        }
+    
+
+    @Override
+    public void PlayerIsPromoting(IinGameController sender, String Username) throws RemoteException
+    {
+        String Receiver = null;
+        if (Username != null && sender.getPlayer1().equals(Username) || sender.getPlayer2().equals(Username))
+        {
+            if (sender.getPlayer1().equals(Username))
+            {
+                Receiver = sender.getPlayer2();
+            } else if (sender.getPlayer2().equals(Username))
+            {
+                Receiver = sender.getPlayer1();
+            }
+            for (IrmiClient c : Clients)
+            {
+                if (c.getUserName().equals(Receiver))
+                {
+                    c.isWaitinPromotion(true);
+                    break;
+                }
+            }
+        }
+
     }
 }

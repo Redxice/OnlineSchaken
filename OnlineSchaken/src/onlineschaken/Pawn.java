@@ -5,6 +5,9 @@
  */
 package onlineschaken;
 
+import Shared.IinGameController;
+import Shared.IrmiClient;
+import java.rmi.RemoteException;
 import java.util.Optional;
 import java.util.logging.Level;
 import javafx.geometry.Rectangle2D;
@@ -29,7 +32,7 @@ public class Pawn extends Piece
         Rook
     }
 
-    private Section prevSection;
+    private transient Section prevSection;
     private double prevX;
     private double prevY;
 
@@ -158,7 +161,7 @@ public class Pawn extends Piece
      * speler zijn lijst verwijdert en het aangegeven type piece wordt
      * toegevoegt aan de speler zijn lijst op de locatie van de pawn.
      */
-    public void menu()
+    public void menu(IinGameController controller, IrmiClient client) throws RemoteException
     {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         Pawn pawn = this;
@@ -181,14 +184,20 @@ public class Pawn extends Piece
             bishop.getPlayer().getPieces().remove(pawn);
             bishop.moveWithoutCheck(section);
             alert.close();
-        }else if (result.get() == Knight)
+            client.castPiece(bishop);
+            controller.setisPromoting(false);
+
+        } else if (result.get() == Knight)
         {
             Section section = pawn.getSection();
             Knight knight = new Knight(pawn.getColor(), pawn.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
             pawn.getPlayer().getPieces().add(knight);
             knight.getPlayer().getPieces().remove(pawn);
             knight.moveWithoutCheck(section);
+            client.castPiece(knight);
+            controller.setisPromoting(false);
             alert.close();
+
         } else if (result.get() == Queen)
         {
             Section section = pawn.getSection();
@@ -196,6 +205,8 @@ public class Pawn extends Piece
             pawn.getPlayer().getPieces().add(queen);
             queen.getPlayer().getPieces().remove(pawn);
             queen.moveWithoutCheck(section);
+            client.castPiece(queen);
+            controller.setisPromoting(false);
             alert.close();
         } else if (result.get() == Rook)
         {
@@ -204,7 +215,25 @@ public class Pawn extends Piece
             pawn.getPlayer().getPieces().add(rook);
             rook.getPlayer().getPieces().remove(pawn);
             rook.moveWithoutCheck(section);
+            client.castPiece(rook);
+            controller.setisPromoting(false);
             alert.close();
+        }
+    }
+
+    public void PromoteThisPawn(Piece piece)
+    {
+        if (piece instanceof Bishop)
+        {
+            Section section = this.getSection();
+            Bishop bishop = new Bishop(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            this.getPlayer().getPieces().add(bishop);
+            bishop.getPlayer().getPieces().remove(this);
+            bishop.moveWithoutCheck(section);
+        }
+        else if (piece instanceof Knight)
+        {
+            
         }
     }
 
@@ -242,7 +271,7 @@ public class Pawn extends Piece
             Rightsection = getSection().getBoard().getSections(getSection().getID().x + 1, getSection().getID().y);
         } catch (ArrayIndexOutOfBoundsException ex)
         {
-           getLOGGER().log(Level.FINE, ex.getMessage(), ex);
+            getLOGGER().log(Level.FINE, ex.getMessage(), ex);
         }
         if (p_section.getID().x == this.getSection().getID().x - 1 && p_section.getID().y == this.getSection().getID().y + 1)
         {
@@ -384,7 +413,7 @@ public class Pawn extends Piece
             Rightsection = getSection().getBoard().getSections(getSection().getID().x + 1, getSection().getID().y);
         } catch (ArrayIndexOutOfBoundsException ex)
         {
-       getLOGGER().log(Level.FINE, ex.getMessage(), ex);
+            getLOGGER().log(Level.FINE, ex.getMessage(), ex);
         }
         if (p_section.getID().x == this.getSection().getID().x + 1 && p_section.getID().y == this.getSection().getID().y - 1)
         {
@@ -447,15 +476,15 @@ public class Pawn extends Piece
             Pawn pawn = (Pawn) p_section.getPiece();
             if (pawn.getColor() == "black")
             {
-             
-                if ((int)pawn.getPrevSectionY() == 6)
+
+                if ((int) pawn.getPrevSectionY() == 6)
                 {
                     p_section.getBoard().ClearSection(p_section);
                     return true;
                 }
             } else if (pawn.getColor() == "white")
-            {   
-                if ((int)pawn.getPrevSectionY() == 1)
+            {
+                if ((int) pawn.getPrevSectionY() == 1)
                 {
                     p_section.getBoard().ClearSection(p_section);
                     return true;

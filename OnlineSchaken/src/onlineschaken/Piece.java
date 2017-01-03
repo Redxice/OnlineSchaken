@@ -5,6 +5,8 @@
  */
 package onlineschaken;
 
+import Shared.IinGameController;
+import Shared.IrmiClient;
 import java.awt.Point;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -21,10 +23,12 @@ public abstract class Piece extends StackPane implements Serializable
 {
 
     //fields
-    private transient static final Logger LOGGER = Logger.getLogger( Piece.class.getName() );
+    private transient static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
     private transient String color;
     private transient Player player;
     private transient Section section;
+    private int x;
+    private int y;
     private transient Image img;
     private boolean hasMoved;
     private transient Section previousState;
@@ -39,6 +43,8 @@ public abstract class Piece extends StackPane implements Serializable
         {
             this.section.setPiece(this);
         }
+        this.x = (int)p_section.getX();
+        this.y = (int)p_section.getY();
 
     }
 
@@ -188,7 +194,7 @@ public abstract class Piece extends StackPane implements Serializable
             this.section = section.getBoard().getSections()[section.getID().x][section.getID().y];
         } catch (NullPointerException e)
         {
-             LOGGER.log(Level.FINE, e.getMessage(), e);
+            LOGGER.log(Level.FINE, e.getMessage(), e);
         }
         hasMoved = true;
     }
@@ -341,15 +347,39 @@ public abstract class Piece extends StackPane implements Serializable
     }
 
     public void PawnPromotion(Section p_section)
-    {  
-        if (this instanceof Pawn)
+    {
+        try
         {
-            Pawn pawn = (Pawn) this;
-            if (pawn.Promotion(p_section))
-            {
-                pawn.menu();
-
+            IinGameController IngameController = this.section.getBoard().getClient().GetGameController();
+            if (this instanceof Pawn)
+            {   
+                Pawn pawn = (Pawn) this;
+                if (pawn.Promotion(p_section))
+                {    
+                   if(this.color=="white"&&IngameController.isWhite()==true||this.color=="black"&&IngameController.isWhite()==false){
+                    if (IngameController.getMyTurn())
+                    {
+                        IngameController.setisPromoting(true);
+                        pawn.menu(IngameController,this.section.getBoard().getClient());
+                    }
+                 }
+                }
             }
+        }catch (RemoteException ex)
+                {
+                    Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
+
+    public int getX()
+    {
+        return x;
     }
-}
+
+    public int getY()
+    {
+        return y;
+    }
+    
+    }
+

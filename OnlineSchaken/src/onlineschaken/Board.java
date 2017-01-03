@@ -193,7 +193,7 @@ public class Board //implements IrmiClient
                                 Point point = new Point(firstSection.getID());
                                 try
                                 {
-                                    if (client.GetGameController().getMyTurn())
+                                    if (client.GetGameController().getMyTurn()||client.GetGameController().isPromoting())
                                     {
                                         if (piece.move(section))
                                         {
@@ -456,11 +456,12 @@ public class Board //implements IrmiClient
     public IrmiClient getClient(){
         return this.client;
     }
-
+    
     public void setTurn(String turn)
     {
         this.turn = turn;
     }
+  
 //    @Override
 //    public void getTurn(Point section1, Point section2, double time) throws RemoteException
 //    {

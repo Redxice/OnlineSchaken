@@ -24,31 +24,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import onlineschaken.*;
 
-
 /**
  *
  * @author Sander
  */
 public class ClientApp implements IrmiClient
 {
+
     private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
-    private ILobbyController lobbyController ;
+    private ILobbyController lobbyController;
     private IGameLobbyController gameLobbyController;
     private IinGameController game;
-    private String ip =/* "127.0.0.1"*/"169.254.183.180";
+    private String ip = "127.0.0.1"/* "169.254.183.180"*/;
     private String userName;
 
-    public ClientApp(){
+    public ClientApp()
+    {
         try
-        {   
+        {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
-            IrmiServer stub = (IrmiServer)registry.lookup("Server");
+            IrmiServer stub = (IrmiServer) registry.lookup("Server");
             int count = stub.IrmiClientCounter();
             IrmiClient Test = this;
             UnicastRemoteObject.exportObject(Test, count);
             stub.registerClient(this);
-            
-            
+
         } catch (RemoteException ex)
         {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,13 +57,17 @@ public class ClientApp implements IrmiClient
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
-     * Wordt aangeroepen in de GameLobbyController in de create GameLobby methode.
+     * Wordt aangeroepen in de GameLobbyController in de create GameLobby
+     * methode.
+     *
      * @param LobbyName
-     * @param host 
+     * @param host
      */
-    public boolean createGameLobby(String LobbyName,Player host){
-       
+    public boolean createGameLobby(String LobbyName, Player host)
+    {
+
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
@@ -71,8 +75,8 @@ public class ClientApp implements IrmiClient
             try
             {
                 stub = (IrmiServer) registry.lookup("Server");
-              return stub.CreateGameLobby(LobbyName,host);
-                
+                return stub.CreateGameLobby(LobbyName, host);
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -83,66 +87,69 @@ public class ClientApp implements IrmiClient
             System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
-       return false;
+        return false;
     }
-   
+
     @Override
     public void sendTurn(Point prev, Point next, double time) throws RemoteException
     {
         try
         {
-               
-                Registry registry = LocateRegistry.getRegistry(ip, 666);
-                IrmiServer stub;
-                stub = (IrmiServer) registry.lookup("Server");
-                stub.doTurn(prev, next, time,this.userName);
-          
+
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            stub = (IrmiServer) registry.lookup("Server");
+            stub.doTurn(prev, next, time, this.userName);
+
         } catch (RemoteException ex)
         {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NotBoundException ex)
         {
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     /**
-     * haalt van de server al zijn gamelobbys op en returned deze. Deze methode wordt aangeroepen in de initialize van de LobbyController.
-     * @return 
+     * haalt van de server al zijn gamelobbys op en returned deze. Deze methode
+     * wordt aangeroepen in de initialize van de LobbyController.
+     *
+     * @return
      */
-    public ArrayList<String> GetGameLobbys(){
+    public ArrayList<String> GetGameLobbys()
+    {
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
             try
             {
-                Registry registry = LocateRegistry.getRegistry(ip, 666);
-                IrmiServer stub;
-                try
-                {
-                 stub = (IrmiServer) registry.lookup("Server");
-                 return stub.GetGameLobbys();
-                } catch (NotBoundException e)
-                {
-                    System.err.println("Client exception:" + e.toString());
-                    e.printStackTrace();
-                }
-            } catch (RemoteException ex)
+                stub = (IrmiServer) registry.lookup("Server");
+                return stub.GetGameLobbys();
+            } catch (NotBoundException e)
             {
-                Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
             }
-           return null;
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void SendMessage(Chatline chatline, String naamLobby)
     {
-        
+
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
-            {  
+            {
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.SendMessage(chatline, naamLobby);
-                
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -154,9 +161,10 @@ public class ClientApp implements IrmiClient
             e.printStackTrace();
         }
     }
-    public void playerReady(boolean ready,String lobbyName, String userName)
+
+    public void playerReady(boolean ready, String lobbyName, String userName)
     {
-        
+
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
@@ -164,8 +172,8 @@ public class ClientApp implements IrmiClient
             try
             {
                 stub = (IrmiServer) registry.lookup("Server");
-                stub.playerReady(ready,lobbyName,userName);
-                
+                stub.playerReady(ready, lobbyName, userName);
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -177,8 +185,10 @@ public class ClientApp implements IrmiClient
             e.printStackTrace();
         }
     }
-    public IGameLobby GetGameLobby(String LobbyName){
-        IGameLobby lobby =null ;
+
+    public IGameLobby GetGameLobby(String LobbyName)
+    {
+        IGameLobby lobby = null;
         try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
@@ -187,7 +197,7 @@ public class ClientApp implements IrmiClient
             {
                 stub = (IrmiServer) registry.lookup("Server");
                 lobby = stub.GetIGameLobby(LobbyName);
-                
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -200,27 +210,31 @@ public class ClientApp implements IrmiClient
         }
         return lobby;
     }
+
     public void unBindLobby(String lobbyName)
     {
         try
-        {            
+        {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
             {
                 stub = (IrmiServer) registry.lookup("Server");
                 stub.removeGameLobby(lobbyName);
-                
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
                 e.printStackTrace();
             }
-            try {
+            try
+            {
                 registry.unbind(lobbyName);
-            } catch (NotBoundException ex) {
+            } catch (NotBoundException ex)
+            {
                 Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (AccessException ex) {
+            } catch (AccessException ex)
+            {
                 Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (RemoteException e)
@@ -229,6 +243,7 @@ public class ClientApp implements IrmiClient
             e.printStackTrace();
         }
     }
+
     @Override
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
@@ -252,50 +267,58 @@ public class ClientApp implements IrmiClient
     {
         if (lobbyController != null)
         {
-          lobbyController.UpdateGameLobbys();
+            lobbyController.UpdateGameLobbys();
         }
-        
+
     }
+
     @Override
-    public void setLobbyController(ILobbyController controller)throws RemoteException{
+    public void setLobbyController(ILobbyController controller) throws RemoteException
+    {
         this.lobbyController = controller;
         this.gameLobbyController = null;
     }
 
-    public String getUserName() {
+    public String getUserName()
+    {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(String userName)
+    {
         this.userName = userName;
     }
 
-    public IGameLobbyController getGameLobbyController() {
+    public IGameLobbyController getGameLobbyController()
+    {
         return gameLobbyController;
     }
 
     @Override
-    public void setGameLobbyController(IGameLobbyController controller) throws RemoteException {
-        
+    public void setGameLobbyController(IGameLobbyController controller) throws RemoteException
+    {
+
         this.gameLobbyController = controller;
         this.lobbyController = null;
-        if(this.gameLobbyController!= null){
-        RefreshGameLobby();
+        if (this.gameLobbyController != null)
+        {
+            RefreshGameLobby();
         }
-    
+
     }
-    
+
     @Override
-    public void RefreshGameLobby( )throws RemoteException{
-         try
+    public void RefreshGameLobby() throws RemoteException
+    {
+        try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
             {
-              stub = (IrmiServer) registry.lookup("Server");
-              stub.updateGameLobbyClient(this.gameLobbyController.getIGameLobby());
-                
+                stub = (IrmiServer) registry.lookup("Server");
+                stub.updateGameLobbyClient(this.gameLobbyController.getIGameLobby());
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -309,7 +332,8 @@ public class ClientApp implements IrmiClient
     }
 
     @Override
-    public void updateChat() throws RemoteException {
+    public void updateChat() throws RemoteException
+    {
         gameLobbyController.updateChat();
     }
 
@@ -341,35 +365,36 @@ public class ClientApp implements IrmiClient
     {
         this.game = game;
     }
-    
+
     @Override
-    public void updateReady() throws RemoteException {
+    public void updateReady() throws RemoteException
+    {
         this.gameLobbyController.ready();
     }
 
     @Override
     public void setIinGameController(IinGameController controller) throws RemoteException
     {
-        this.game=controller;
+        this.game = controller;
     }
 
     @Override
     public void UpdateInGameChat(Chatline message) throws RemoteException
     {
-       this.game.updateChat(message);
+        this.game.updateChat(message);
     }
 
     @Override
     public void sendInGameMessage(Chatline message) throws RemoteException
     {
-         try
+        try
         {
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IrmiServer stub;
             try
             {
-              stub = (IrmiServer) registry.lookup("Server");
-              stub.SendInGameMessage(game, message);
+                stub = (IrmiServer) registry.lookup("Server");
+                stub.SendInGameMessage(game, message);
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -392,8 +417,8 @@ public class ClientApp implements IrmiClient
             try
             {
                 stub = (IrmiServer) registry.lookup("Server");
-              return stub.getLastMove(userName);
-                
+                return stub.getLastMove(userName);
+
             } catch (NotBoundException e)
             {
                 System.err.println("Client exception:" + e.toString());
@@ -407,11 +432,60 @@ public class ClientApp implements IrmiClient
             return null;
         }
     }
+
     public void castPiece(Piece piece) throws RemoteException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       String receiver =null;
+       Registry registry = LocateRegistry.getRegistry(ip, 666);
+       IrmiServer stub;
+       if (game.getPlayer1().equals(this.userName))
+            {
+                receiver = game.getPlayer2();
+            } else if (game.getPlayer2().equals(userName))
+            {
+                receiver = game.getPlayer1();
+            }
+       try
+            {
+                stub = (IrmiServer) registry.lookup("Server");
+                stub.PromotePawn(piece, receiver);
+
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+    }
+    
+
+    @Override
+    public void isPromoting() throws RemoteException
+    {
+        Registry registry = LocateRegistry.getRegistry(ip, 666);
+        IrmiServer stub;
+        try
+        {
+            stub = (IrmiServer) registry.lookup("Server");
+            stub.PlayerIsPromoting(this.game,this.userName);
+
+        } catch (NotBoundException e)
+        {
+            System.err.println("Client exception:" + e.toString());
+            e.printStackTrace();
+        }
     }
 
-   
-}
+    @Override
+    public void isWaitinPromotion(boolean bool) throws RemoteException
+    {
+        this.game.setIsWaitingForPromotion(bool);
+    }
 
+    @Override
+    public void PromotePawn(Piece piece) throws RemoteException
+    {
+       this.game.PromotePawn(piece);
+    }
+    
+    
+}

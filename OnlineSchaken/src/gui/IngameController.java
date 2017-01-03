@@ -31,7 +31,9 @@ import javafx.scene.control.TextField;
 import onlineschaken.Chatline;
 
 import onlineschaken.Game;
+import onlineschaken.Piece;
 import onlineschaken.Player;
+import onlineschaken.Section;
 import onlineschaken.TurnTimer;
 
 /**
@@ -44,6 +46,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     private boolean MyRealTurn;
     private boolean isMyTurn;
+    private boolean IsPromoting;
+    private boolean IsWaitingForPromotion;
     private ClientApp client;
     private IrmiClient Iclient;
     private ArrayList<Chatline> chatlines = new ArrayList<>();
@@ -157,8 +161,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                         {
                             if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
                             {
-                                isMyTurn = true;
-
+                                if (!IsWaitingForPromotion)
+                                {
+                                    isMyTurn = true;
+                                }
                             } else
                             {
                                 System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
@@ -284,9 +290,45 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         localEnd = p2;
     }
 
+    @Override
+    public void PromotePawn(Piece piece) throws RemoteException
+    {
+         this.game.PromotePawn(piece);
+         this.IsWaitingForPromotion= false;
+    }
+
     public void runTimer()
     {
         Timer timer = new Timer();
         timer.schedule(new TurnTimer(this, client), 0, 5000);
     }
+
+    @Override
+    public void setisPromoting(boolean bool) throws RemoteException
+    {
+        this.IsPromoting = bool;
+        if (bool)
+        {
+            Iclient.isPromoting();
+        }
+    }
+
+    @Override
+    public boolean isPromoting() throws RemoteException
+    {
+        return IsPromoting;
+    }
+
+    @Override
+    public boolean isIsWaitingForPromotion() throws RemoteException
+    {
+        return IsWaitingForPromotion;
+    }
+
+    @Override
+    public void setIsWaitingForPromotion(boolean bool) throws RemoteException
+    {
+        this.IsWaitingForPromotion = bool;
+    }
+
 }

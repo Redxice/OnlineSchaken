@@ -12,6 +12,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import onlineschaken.Chatline;
 import onlineschaken.Game;
+import onlineschaken.Piece;
+import onlineschaken.Section;
 
 /**
  *
@@ -19,20 +21,44 @@ import onlineschaken.Game;
  */
 public interface IinGameController extends Remote
 {
-    public void move(Point section1, Point section2, double time) throws RemoteException;
-    public IrmiClient getIClient() throws RemoteException;
-    public IrmiClient getClient() throws RemoteException;
-    public void setIClient(IrmiClient iClient) throws RemoteException;
-    public void setClient(ClientApp client) throws RemoteException;
-    public String getPlayer1() throws RemoteException;
-    public String getPlayer2() throws RemoteException;
-    public boolean getMyTurn() throws RemoteException;
-    public void setMyturn() throws RemoteException;
-    public void updateChat(Chatline message)throws RemoteException;
-    public boolean isWhite()throws RemoteException;
-    public ArrayList<Point> getLocalLastMove() throws RemoteException;
-    public void setLocalLastMove(Point p1, Point p2) throws RemoteException;
-    public boolean getRealTurn()throws RemoteException;
-    public void SetRealTurn(boolean MyRealTurn) throws RemoteException;
-}
 
+    public void move(Point section1, Point section2, double time) throws RemoteException;
+
+    public IrmiClient getIClient() throws RemoteException;
+
+    public IrmiClient getClient() throws RemoteException;
+
+    public void setIClient(IrmiClient iClient) throws RemoteException;
+
+    public void setClient(ClientApp client) throws RemoteException;
+
+    public String getPlayer1() throws RemoteException;
+
+    public String getPlayer2() throws RemoteException;
+
+    public boolean getMyTurn() throws RemoteException;
+
+    public void setMyturn() throws RemoteException;
+
+    public void updateChat(Chatline message) throws RemoteException;
+
+    public boolean isWhite() throws RemoteException;
+
+    public ArrayList<Point> getLocalLastMove() throws RemoteException;
+
+    public void setLocalLastMove(Point p1, Point p2) throws RemoteException;
+
+    public boolean getRealTurn() throws RemoteException;
+
+    public void SetRealTurn(boolean MyRealTurn) throws RemoteException;
+
+    public void setisPromoting(boolean bool) throws RemoteException;
+
+    public boolean isPromoting() throws RemoteException;
+
+    public boolean isIsWaitingForPromotion() throws RemoteException;
+
+    public void setIsWaitingForPromotion(boolean bool) throws RemoteException;
+
+    public void PromotePawn(Piece piece) throws RemoteException;
+}

@@ -483,4 +483,18 @@ public class Game
     {
         this.player2Draw = player2Draw;
     }
+    /**
+     * pawn wordt hier gepromote zonder popup.
+     * @param piece 
+     */
+    public void PromotePawn(Piece piece){
+        
+       Section section = this.board.getSections(piece.getX(),piece.getY());
+       Piece HopefullyAPawn= section.getPiece();
+        if (HopefullyAPawn instanceof Pawn)
+        {
+            Pawn pawn = (Pawn)HopefullyAPawn;
+            pawn.PromoteThisPawn(piece);
+        }
+    }
 }
