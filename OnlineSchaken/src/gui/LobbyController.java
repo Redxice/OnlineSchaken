@@ -121,7 +121,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
-                    controller.JoinGameLobby(lobby);
+                    controller.JoinGameLobby(lobby,player);
                     controller.setIClient(IClient);
                     controller.setClient(client);
                     IClient.updatePlayerList();

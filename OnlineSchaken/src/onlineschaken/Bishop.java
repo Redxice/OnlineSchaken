@@ -46,12 +46,59 @@ public class Bishop extends Piece
         // kijkt of er een stuk op de gekoze positie staat
         if (isValidMove(p_section))
         {
+            if (this.getSection().getID().y == p_section.getID().y)
+            {
+                if (this.getSection().getID().x < p_section.getID().x)
+                {
+                    for (int i = 0; i < p_section.getID().x - this.getSection().getID().x - 1; i++)
+                    {
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y].isOccupied() == true)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                } else if (this.getSection().getID().x > p_section.getID().x)
+                {
+                    for (int i = 0; i < this.getSection().getID().x - p_section.getID().x - 1; i++)
+                    {
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y].isOccupied() == true)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            } // Kijkt of de toren over de y as kan bewegen
+            else if (this.getSection().getID().x == p_section.getID().x)
+            {
+                if (this.getSection().getID().y > p_section.getID().y)
+                {
+                    for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
+                    {
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y - i - 1].isOccupied() == true)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                } else if (this.getSection().getID().y < p_section.getID().y)
+                {
+                    for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
+                    {
+                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y + i + 1].isOccupied() == true)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
             // kijkt of het een move is die een loper mag doen
-            return abs(p_section.getID().x - this.getSection().getID().x) == abs(p_section.getID().y - this.getSection().getID().y) && CheckMoveLeft(p_section) || CheckMoveRight(p_section);
+            //return abs(p_section.getID().x - this.getSection().getID().x) == abs(p_section.getID().y - this.getSection().getID().y) && CheckMoveLeft(p_section) || CheckMoveRight(p_section);
 
         }
         return false;
-
     }
 
     /**
@@ -109,7 +156,10 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return false;
+            System.out.println("ARRAY ERROR1");
+            System.out.println(p_section.getX());
+            System.out.println(p_section.getY());
+            return true;
         }
     }
 
@@ -140,7 +190,10 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return false;
+            System.out.println("ARRAY ERROR2");
+            System.out.println(p_section.getX());
+            System.out.println(p_section.getY());
+            return true;
         }
     }
 
@@ -200,7 +253,10 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return false;
+            System.out.println("ARRAY ERROR3");
+            System.out.println(p_section.getX());
+            System.out.println(p_section.getY());
+            return true;
         }
     }
 
@@ -216,7 +272,7 @@ public class Bishop extends Piece
             if (this.getSection().getID().y < p_section.getID().y)
             {
                 // kijkt of er een stuk in de weg staat
-                for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
+                for (int i = 0; i < ((p_section.getID().y - 1) - this.getSection().getID().y); i++)
                 {
                     if (this.getSection().getID().x != 7 && this.getSection().getID().y != 7)
                     {
@@ -231,7 +287,10 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            return false;
+            System.out.println("ARRAY ERROR4");
+            System.out.println(p_section.getX());
+            System.out.println(p_section.getY());
+            return true;
         }
     }
 }

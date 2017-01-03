@@ -105,10 +105,12 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         if(player1 == null)
         {
             player1 = player;
+            System.out.println("Player 1 joined de game");
             return true;
         }
         if (player2 == null) {
             player2 = player;
+            System.out.println("Player 2 joined de game");
             return true;
         }
         return false;
@@ -119,12 +121,14 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         if (player1 != null) {
             if (player.getUsername().equals(player1.getUsername())) {
                 player1 = null;
+                System.out.println("Player 1 leaved");
                 return true;
             }
         }
         if (player2 != null) {
             if (player.getUsername().equals(player2.getUsername())) {
                 player2 = null;
+                System.out.println("Player 2 leaved");
                 return true;
             }
         }

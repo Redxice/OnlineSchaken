@@ -82,10 +82,12 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         {
             if (GameLobby.GetPlayer1().getUsername().equals(LoggedInUser.getUsername()))
             {
+                System.out.println("player 1 lokaal readyloggedinuser= " + LoggedInUser.getUsername() + " player1= " + GameLobby.GetPlayer1().getUsername());
                 player1Ready = true;
             } else if (GameLobby.GetPlayer2().getUsername().equals(LoggedInUser.getUsername()))
             {
                 player2Ready = true;
+                System.out.println("Player 2 lokaal ready loggedinuser= " + LoggedInUser.getUsername() + " player2= " + GameLobby.GetPlayer2().getUsername());
             }
             try
             {
@@ -155,13 +157,13 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
      * moet worden aangeroepen wanneer een player wilt joinen op een bestaande
      * GameLobby .
      */
-    public void JoinGameLobby(IGameLobby lobby)
+    public void JoinGameLobby(IGameLobby lobby,Player player)
     {
         try
         {
             lobbyName = lobby.getName();
             GameLobby = lobby;
-            LoggedInUser = lobby.GetPlayer2();
+            LoggedInUser = player;
             this.GameLobby = lobby;
         } catch (RemoteException ex)
         {
@@ -204,6 +206,11 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @FXML
     public void HandleSendBtn(ActionEvent event)
     {
+        try {
+            System.out.println("player 1 " +GameLobby.GetPlayer1().getUsername() + "player 2 " + GameLobby.GetPlayer2().getUsername());
+        } catch (RemoteException ex) {
+            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Chatline chatLine = new Chatline(LoggedInUser.getUsername(), Chatline_TxtField.getText());
         client.SendMessage(chatLine, lobbyName);
         Chatline_TxtField.setText("");
@@ -304,9 +311,11 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         {
             if (GameLobby.GetPlayer1().getUsername().equals(LoggedInUser.getUsername()))
             {
+                System.out.println("player2 remote ready");
                 player2Ready = true;
             } else if (GameLobby.GetPlayer2().getUsername().equals(LoggedInUser.getUsername()))
             {
+                System.out.println("player 1 remote ready");
                 player1Ready = true;
             }
         }

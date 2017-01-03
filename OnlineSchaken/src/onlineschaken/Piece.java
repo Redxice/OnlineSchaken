@@ -348,7 +348,8 @@ public abstract class Piece extends StackPane implements Serializable
 
     public void PawnPromotion(Section p_section)
     {
-        try
+        try{
+        if (this instanceof Pawn)
         {
             IinGameController IngameController = this.section.getBoard().getClient().GetGameController();
             if (this instanceof Pawn)
@@ -364,6 +365,7 @@ public abstract class Piece extends StackPane implements Serializable
                     }
                  }
                 }
+            }
             }
         }catch (RemoteException ex)
                 {
