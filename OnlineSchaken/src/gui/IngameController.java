@@ -28,9 +28,11 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import onlineschaken.Bishop;
 import onlineschaken.Chatline;
 
 import onlineschaken.Game;
+import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
 import onlineschaken.Section;
@@ -143,8 +145,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
-        //  System.out.println(game.getBoard().getSections(xValue, yValue).getPiece().toString());
-        //  System.out.println(game.getBoard().getSections((int) section2.getX(), (int) section2.getY()).getID());
         new Thread(new Runnable()
         {
             @Override
@@ -155,7 +155,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-                        System.out.println("!!!!!!!!!!!!!!!!!!! hij komt in de remote move !!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece() != null)
                         {
@@ -167,7 +166,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                                 }
                             } else
                             {
-                                System.out.println("Hij mag daar niet heen bewegen/er gaat iets fout");
+                              
                             }
                         }
 
@@ -175,7 +174,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 });
             }
         }).start();
-        System.out.println("gelukt");
     }
 
     @Override
@@ -291,9 +289,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     }
 
     @Override
-    public void PromotePawn(Piece piece) throws RemoteException
-    {
-         this.game.PromotePawn(piece);
+    public void PromotePawn(Piece piece,Pawn pawn) throws RemoteException
+    { 
+         this.game.PromotePawn(piece,pawn);
          this.IsWaitingForPromotion= false;
     }
 

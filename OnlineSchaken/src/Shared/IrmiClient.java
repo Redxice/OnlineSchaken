@@ -11,6 +11,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import onlineschaken.Chatline;
+import onlineschaken.Pawn;
 import onlineschaken.Piece;
 
 /**
@@ -63,13 +64,13 @@ public interface IrmiClient extends Remote {
      * @param piece
      * @throws RemoteException 
      */
-    public void castPiece(Piece piece)throws RemoteException;
+    public void castPiece(Piece piece,Pawn pawn)throws RemoteException;
     /**
      * wordt aangeroepen om bij de client die wacht op een promotie
      * @param piece
      * @throws RemoteException 
      */
-    public void PromotePawn(Piece piece)throws RemoteException;
+    public void PromotePawn(Piece piece,Pawn pawn)throws RemoteException;
 
     public void isPromoting()throws RemoteException;
     

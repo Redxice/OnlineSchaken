@@ -13,6 +13,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import onlineschaken.Chatline;
 import onlineschaken.Gamelobby;
+import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
 import onlineschaken.Section;
@@ -103,7 +104,7 @@ public interface IrmiServer extends Remote
 
     public ArrayList<Point> getLastMove(String userName) throws RemoteException;
 
-     public void PromotePawn(Piece piece,String receiver) throws RemoteException;
+     public void PromotePawn(Piece piece,Pawn pawn,String receiver) throws RemoteException;
 
     public void PlayerIsPromoting(IinGameController S_controller, String Username) throws RemoteException;
 }

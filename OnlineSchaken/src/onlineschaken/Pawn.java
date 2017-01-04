@@ -174,7 +174,6 @@ public class Pawn extends Piece
         alert.setX(screenBounds.getWidth() / 2);
         alert.setY(screenBounds.getHeight() / 2);
         alert.getButtonTypes().setAll(Bishop, Knight, Queen, Rook);
-
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == Bishop)
         {
@@ -184,7 +183,7 @@ public class Pawn extends Piece
             bishop.getPlayer().getPieces().remove(pawn);
             bishop.moveWithoutCheck(section);
             alert.close();
-            client.castPiece(bishop);
+            client.castPiece(bishop, pawn);
             controller.setisPromoting(false);
 
         } else if (result.get() == Knight)
@@ -194,7 +193,7 @@ public class Pawn extends Piece
             pawn.getPlayer().getPieces().add(knight);
             knight.getPlayer().getPieces().remove(pawn);
             knight.moveWithoutCheck(section);
-            client.castPiece(knight);
+            client.castPiece(knight, pawn);
             controller.setisPromoting(false);
             alert.close();
 
@@ -205,7 +204,7 @@ public class Pawn extends Piece
             pawn.getPlayer().getPieces().add(queen);
             queen.getPlayer().getPieces().remove(pawn);
             queen.moveWithoutCheck(section);
-            client.castPiece(queen);
+            client.castPiece(queen, pawn);
             controller.setisPromoting(false);
             alert.close();
         } else if (result.get() == Rook)
@@ -215,7 +214,7 @@ public class Pawn extends Piece
             pawn.getPlayer().getPieces().add(rook);
             rook.getPlayer().getPieces().remove(pawn);
             rook.moveWithoutCheck(section);
-            client.castPiece(rook);
+            client.castPiece(rook, pawn);
             controller.setisPromoting(false);
             alert.close();
         }
@@ -225,15 +224,36 @@ public class Pawn extends Piece
     {
         if (piece instanceof Bishop)
         {
+            System.out.println("Ben in promotion als Bishop gezien");
             Section section = this.getSection();
             Bishop bishop = new Bishop(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
             this.getPlayer().getPieces().add(bishop);
+            System.out.println("This is removed from player : "+this);
             bishop.getPlayer().getPieces().remove(this);
             bishop.moveWithoutCheck(section);
-        }
-        else if (piece instanceof Knight)
+        } else if (piece instanceof Knight)
         {
-            
+            Section section = this.getSection();
+            Knight knight = new Knight(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            this.getPlayer().getPieces().add(knight);
+            knight.getPlayer().getPieces().remove(this);
+            System.out.println("This is removed from player : "+this);
+            knight.moveWithoutCheck(section);
+        } else if (piece instanceof Queen)
+        {
+            Section section = this.getSection();
+            Queen queen = new Queen(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            this.getPlayer().getPieces().add(queen);
+            queen.getPlayer().getPieces().remove(this);
+            System.out.println("This is removed from player : "+this);
+            queen.moveWithoutCheck(section);
+        }else if(piece instanceof Rook){
+            Section section = this.getSection();
+            Rook rook = new Rook(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
+            this.getPlayer().getPieces().add(rook);
+            rook.getPlayer().getPieces().remove(this);
+            System.out.println("This is removed from player : "+this);
+            rook.moveWithoutCheck(section);
         }
     }
 
@@ -495,4 +515,15 @@ public class Pawn extends Piece
         }
         return false;
     }
+
+    public double getPrevX()
+    {
+        return prevX;
+    }
+
+    public double getPrevY()
+    {
+        return prevY;
+    }
+
 }

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.swing.JOptionPane;
 
@@ -487,14 +489,21 @@ public class Game
      * pawn wordt hier gepromote zonder popup.
      * @param piece 
      */
-    public void PromotePawn(Piece piece){
-        
-       Section section = this.board.getSections(piece.getX(),piece.getY());
+    public void PromotePawn(Piece piece,Pawn pawn){
+       System.out.println("Hello is it me you're looking for? x :"+pawn.getX()+" y: "+pawn.getY());
+       Section section = this.board.getSections(pawn.getX(),pawn.getY());
        Piece HopefullyAPawn= section.getPiece();
         if (HopefullyAPawn instanceof Pawn)
+        {   System.out.println("This is the pawn you were looking for");
+            Pawn localPawn = (Pawn)HopefullyAPawn;
+            localPawn.PromoteThisPawn(piece);
+        }
+        try
         {
-            Pawn pawn = (Pawn)HopefullyAPawn;
-            pawn.PromoteThisPawn(piece);
+            this.board.getClient().GetGameController().setIsWaitingForPromotion(false);
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

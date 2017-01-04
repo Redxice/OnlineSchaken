@@ -157,8 +157,6 @@ public class Bishop extends Piece
         } catch (Exception e)
         {
             System.out.println("ARRAY ERROR1");
-            System.out.println(p_section.getX());
-            System.out.println(p_section.getY());
             return true;
         }
     }
@@ -191,8 +189,6 @@ public class Bishop extends Piece
         } catch (Exception e)
         {
             System.out.println("ARRAY ERROR2");
-            System.out.println(p_section.getX());
-            System.out.println(p_section.getY());
             return true;
         }
     }

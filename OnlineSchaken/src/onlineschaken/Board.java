@@ -11,6 +11,7 @@ import java.awt.Point;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -86,7 +87,7 @@ public class Board //implements IrmiClient
                                     {                                        
                                         try
                                         {
-                                            System.out.println("EERSTE KEER LANGS !#!$@$@$@#@#@#@$@$@");
+                                            
                                             client.sendTurn(point, section.getID(), game.getTime());
                                             client.GetGameController().setLocalLastMove(point, section.getID());
                                             System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
@@ -201,10 +202,10 @@ public class Board //implements IrmiClient
                                             //client = new ClientApp();
                                             try
                                             {
-                                                System.out.println("EERSTE KEER LANGS !#!$@$@$@#@#@#@$@$@");
+                                                System.out.println("voor send turn");
                                                 client.sendTurn(point, section.getID(), game.getTime());
                                                 client.GetGameController().setLocalLastMove(point, section.getID());
-                                                System.out.println("????????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
+                                                System.out.println(" My turn na verandering in board = " + client.GetGameController().getMyTurn());
 
                                             } catch (Exception e)
                                             {
@@ -249,7 +250,7 @@ public class Board //implements IrmiClient
                     });
                     sections[y.getID().x][y.getID().y] = section;
 
-                    tileGroup.getChildren().add(section);
+                   Platform.runLater(()->tileGroup.getChildren().add(section));
                 }
                 if (y.getID() == p_section2.getID())
                 {
@@ -309,7 +310,7 @@ public class Board //implements IrmiClient
                                             
                                             try
                                             {
-                                                System.out.println("EERSTE KEER LANGS !#!$@$@$@#@#@#@$@$@");
+                                               
                                                 client.sendTurn(point, section.getID(), game.getTime()); 
                                                 client.GetGameController().setLocalLastMove(point, section.getID());
                                                 System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());

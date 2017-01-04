@@ -9,11 +9,14 @@ import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import java.util.logging.*;
+import javafx.application.Platform;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -42,9 +45,9 @@ public abstract class Piece extends StackPane implements Serializable
         if (this.section != null)
         {
             this.section.setPiece(this);
+            this.x = p_section.getID().x;
+            this.y = p_section.getID().y;
         }
-        this.x = (int)p_section.getX();
-        this.y = (int)p_section.getY();
 
     }
 
@@ -122,6 +125,8 @@ public abstract class Piece extends StackPane implements Serializable
         if (this.section != null)
         {
             section.setPiece(this);
+            this.x = (int)section.getX();
+            this.y = (int)section.getY();
         }
 
     }
@@ -348,30 +353,46 @@ public abstract class Piece extends StackPane implements Serializable
 
     public void PawnPromotion(Section p_section)
     {
-        try{
-        if (this instanceof Pawn)
+        try
         {
-            IinGameController IngameController = this.section.getBoard().getClient().GetGameController();
             if (this instanceof Pawn)
-            {   
-                Pawn pawn = (Pawn) this;
-                if (pawn.Promotion(p_section))
-                {    
-                   if(this.color=="white"&&IngameController.isWhite()==true||this.color=="black"&&IngameController.isWhite()==false){
-                    if (IngameController.getMyTurn())
-                    {
-                        IngameController.setisPromoting(true);
-                        pawn.menu(IngameController,this.section.getBoard().getClient());
-                    }
-                 }
-                }
-            }
-            }
-        }catch (RemoteException ex)
+            {
+                IinGameController IngameController = this.section.getBoard().getClient().GetGameController();
+                if (this instanceof Pawn)
                 {
-                    Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
+                    Pawn pawn = (Pawn) this;
+                    if (pawn.Promotion(p_section))
+                    {
+                        if (this.color == "white" && IngameController.isWhite() == true || this.color == "black" && IngameController.isWhite() == false)
+                        {
+                            if (IngameController.getMyTurn())
+                            {
+                                IngameController.setisPromoting(true);
+                                final IrmiClient RmiClient = this.section.getBoard().getClient();
+                                Platform.runLater(new Runnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        try
+                                        {
+                                            pawn.menu(IngameController, RmiClient);
+                                        } catch (RemoteException ex)
+                                        {
+                                            Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
                 }
+            }
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
     public int getX()
     {
@@ -382,6 +403,15 @@ public abstract class Piece extends StackPane implements Serializable
     {
         return y;
     }
-    
+
+    public void setX(int x)
+    {
+        this.x = x;
     }
 
+    public void setY(int y)
+    {
+        this.y = y;
+    }
+
+}

@@ -69,9 +69,13 @@ public class Section extends Rectangle
             if (this.piece.getColor() != piece.getColor())
             {
                 this.piece.getPlayer().removePiece(this.piece);
+                piece.setX(getID().x);
+                piece.setY(getID().y);
+                System.out.println("Mijn x & y-as in setPiece "+piece.getX()+" "+piece.getY());
             }
         }
         this.piece = piece;
+
     }
 
     public void tempSetPiece(Piece piece)

@@ -31,12 +31,7 @@ public class TurnTimer extends TimerTask
     {
         try
         {
-            System.out.println("1-" + client.getLastMove());
-            System.out.println("2-" + controller.getLocalLastMove());
-            System.out.println("3-" + controller.getLocalLastMove().get(0));
-            System.out.println("4-" + controller.getLocalLastMove().get(0));
-            System.out.println("5-" + controller.getLocalLastMove().get(1));
-            System.out.println("6-" + controller.getLocalLastMove().get(1));
+            
             if (client.getLastMove() != null && controller.getLocalLastMove() != null)
             {
                 if (client.getLastMove().get(0) != controller.getLocalLastMove().get(0))

@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import onlineschaken.Chatline;
 import onlineschaken.Game;
+import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Section;
 
@@ -60,5 +61,5 @@ public interface IinGameController extends Remote
 
     public void setIsWaitingForPromotion(boolean bool) throws RemoteException;
 
-    public void PromotePawn(Piece piece) throws RemoteException;
+    public void PromotePawn(Piece piece,Pawn pawn) throws RemoteException;
 }

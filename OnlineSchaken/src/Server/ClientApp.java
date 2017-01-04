@@ -432,8 +432,8 @@ public class ClientApp implements IrmiClient
             return null;
         }
     }
-
-    public void castPiece(Piece piece) throws RemoteException
+    @Override
+    public void castPiece(Piece piece,Pawn pawn) throws RemoteException
     {
        String receiver =null;
        Registry registry = LocateRegistry.getRegistry(ip, 666);
@@ -448,7 +448,7 @@ public class ClientApp implements IrmiClient
        try
             {
                 stub = (IrmiServer) registry.lookup("Server");
-                stub.PromotePawn(piece, receiver);
+                stub.PromotePawn(piece,pawn,receiver);
 
             } catch (NotBoundException e)
             {
@@ -482,9 +482,9 @@ public class ClientApp implements IrmiClient
     }
 
     @Override
-    public void PromotePawn(Piece piece) throws RemoteException
+    public void PromotePawn(Piece piece,Pawn pawn) throws RemoteException
     {
-       this.game.PromotePawn(piece);
+       this.game.PromotePawn(piece,pawn);
     }
     
     

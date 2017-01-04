@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import onlineschaken.Chatline;
 import onlineschaken.Gamelobby;
+import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
 import onlineschaken.Section;
@@ -358,13 +359,13 @@ public class RmiServer implements IrmiServer
     }
 
     @Override
-    public void PromotePawn(Piece piece,String receiver) throws RemoteException
+    public void PromotePawn(Piece piece,Pawn pawn,String receiver) throws RemoteException
     {
              for (IrmiClient c : Clients)
             {
                 if (c.getUserName().equals(receiver))
                 {
-                    c.PromotePawn(piece);
+                    c.PromotePawn(piece,pawn);
                     break;
                 }
             }
