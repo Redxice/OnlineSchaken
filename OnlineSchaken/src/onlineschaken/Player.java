@@ -25,8 +25,8 @@ public class Player implements Serializable
     private boolean online;
     private List<Player> friends;
     private List<Piece> pieces;
-    private Game game;
-    private List<Game> history;
+    private transient Game game;
+    private transient List<Game> history;
     
     //constructor
     public Player(String p_username, String p_password, int p_rating)

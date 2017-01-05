@@ -228,6 +228,7 @@ public class Board //implements IrmiClient
                                                 }
                                                 game.setFinished(true);
                                             }
+                                           
                                             if (getTurn() == "white")
                                             {
                                                 turn = "black";

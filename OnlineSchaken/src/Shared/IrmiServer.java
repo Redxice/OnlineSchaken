@@ -107,4 +107,10 @@ public interface IrmiServer extends Remote
      public void PromotePawn(Piece piece,Pawn pawn,String receiver) throws RemoteException;
 
     public void PlayerIsPromoting(IinGameController S_controller, String Username) throws RemoteException;
+    
+    public boolean addFriend(String player,String friend)throws RemoteException;
+    
+    public Player selectPlayer(String username)throws RemoteException;
+    
+    public boolean insterPlayer(String username,String password,String email)throws RemoteException;
 }

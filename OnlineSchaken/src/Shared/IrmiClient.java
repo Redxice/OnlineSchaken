@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import onlineschaken.Chatline;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
+import onlineschaken.Player;
 
 /**
  *
@@ -76,4 +77,9 @@ public interface IrmiClient extends Remote {
     
     public void isWaitinPromotion(boolean bool)throws RemoteException;
     
+    public boolean addFriend(String Player,String Friend)throws RemoteException;
+    
+    public Player selectPlayer(String username)throws RemoteException;
+    
+    public boolean insertPlayer(String username,String password,String email)throws RemoteException;
 }

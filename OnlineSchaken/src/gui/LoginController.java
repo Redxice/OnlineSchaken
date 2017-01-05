@@ -11,6 +11,7 @@ import Shared.IrmiServer;
 import database.Database;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,10 +38,8 @@ import onlineschaken.Player;
 public class LoginController implements Initializable
 {
 
-    private Database db;
     private Player player;
-    private ClientApp client;
-    private int count;
+    private ClientApp client = new ClientApp();
     private static final Logger LOGGER = Logger.getLogger(LoginController.class.getName());
     /**
      * Initializes the controller class.
@@ -55,17 +54,16 @@ public class LoginController implements Initializable
     private PasswordField TxtField_Password;
     @FXML
     private Label Warning_Login;
+    private IrmiClient IClient;
 
     @FXML
     private void HandleLoginBTN(ActionEvent event)
     {
         Warning_Login.setText(null);
-        if (1==1 /*CheckIfValidUser()*/)
-        if (true)
+        if (CheckIfValidUser())
         {
             try
-            {  
-                client = new ClientApp();            
+            {           
                 client.setUserName(TxtField_Username.getText());
                 player = new Player((String)TxtField_Username.getText(),(String)TxtField_Password.getText(),10);
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
@@ -102,6 +100,7 @@ public class LoginController implements Initializable
             Parent root = (Parent) fxmlLoader.load();
             RegisterController controller = fxmlLoader.<RegisterController>getController();
             controller.setClient(client);
+            controller.setIClient((IrmiClient)client);
             LoginStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -116,14 +115,20 @@ public class LoginController implements Initializable
 
     /**
      * haalt een user uit database op om te bekijken
-     *
+     *dit zou ook op de server kunnen gebeuren.
      * @return
      */
 
     private boolean CheckIfValidUser()
     {
-        db = new Database();
-        player = db.selectPlayer(TxtField_Username.getText());
+        
+        try
+        {
+            player = ((IrmiClient)client).selectPlayer(TxtField_Username.getText());
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (player != null)
         {
             if (player.getUsername().equals(TxtField_Username.getText()))
@@ -155,12 +160,10 @@ public class LoginController implements Initializable
         
     }
          
-    
-
    public void setClient(ClientApp client){
        this.client = client;
    }
-   public void setCount(int count){
-       this.count = count;
+   public void setIClient(IrmiClient client){
+       this.IClient = client;
    }
 }

@@ -51,7 +51,7 @@ public class Database
     {
         try
         {
-            con = DriverManager.getConnection("jdbc:mysql://studmysql01.fhict.local/dbi353331", "dbi353331", "Wachtwoord123");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaaktest","TestUser","Test");
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,9 +186,9 @@ public class Database
             init();
             int playerid1 = selectPlayerId(username1);
             int playerid2 = selectPlayerId(username2);
-            PreparedStatement statement = con.prepareStatement("INSERT INTO friendlist(playerID, friendID) VALUES(?, ?);");
-            statement.setInt(1, playerid1);
-            statement.setInt(2, playerid2);
+            PreparedStatement statement = con.prepareStatement("INSERT INTO friendlist(username1, username2) VALUES(?, ?);");
+            statement.setString(1, username1);
+            statement.setString(2, username2);
             statement.executeUpdate();
             statement.close();
             return true;

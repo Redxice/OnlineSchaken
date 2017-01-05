@@ -45,7 +45,7 @@ import javax.swing.JOptionPane;
 public class LobbyController extends UnicastRemoteObject implements Initializable, ILobbyController
 {
 
-    private Database db = new Database();
+   
     private IGameLobby lobby;
     private ClientApp client;
     private ObservableList gameList = FXCollections.observableArrayList();
@@ -151,9 +151,13 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     {
         if (Tb_Friend.getText() != null)
         {
-            db.init();
-            db.addFriend(player.getUsername(), Tb_Friend.getText());
-            db.closeConnection();
+            try
+            {
+                IClient.addFriend(player.getUsername(), Tb_Friend.getText());
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

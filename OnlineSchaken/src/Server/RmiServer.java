@@ -12,6 +12,7 @@ import Shared.IrmiClient;
 import java.awt.Point;
 import java.rmi.RemoteException;
 import Shared.IrmiServer;
+import database.Database;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
@@ -38,6 +39,7 @@ public class RmiServer implements IrmiServer
 
     private ArrayList<String> GameLobbys = new ArrayList<>();
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
+    private static final Database database = new Database();
     private String ip ="127.0.0.1"/*"169.254.183.180"*/ ;
 
     @Override
@@ -395,5 +397,24 @@ public class RmiServer implements IrmiServer
             }
         }
 
+    }
+    @Override
+    public boolean addFriend(String player, String Friend) throws RemoteException
+    {
+       return database.addFriend(player, Friend);
+    }
+
+    public void checkIfValidUser(){};
+
+    @Override
+    public Player selectPlayer(String username) throws RemoteException
+    {
+       return database.selectPlayer(username);
+    }
+
+    @Override
+    public boolean insterPlayer(String username, String password, String email) throws RemoteException
+    {
+        return database.insertPlayer(username, password, email);
     }
 }

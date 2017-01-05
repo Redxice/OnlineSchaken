@@ -6,9 +6,11 @@
 package gui;
 
 import Server.ClientApp;
+import Shared.IrmiClient;
 import database.Database;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -37,11 +39,11 @@ public class RegisterController implements Initializable
 {
 
     private ClientApp client;
+    private IrmiClient IClient;
     private static final Logger LOGGER = Logger.getLogger(RegisterController.class.getName());
     /**
      * Initializes the controller class.
      */
-    private Database db;
     @FXML
     private Button Btn_Register;
     @FXML
@@ -71,9 +73,15 @@ public class RegisterController implements Initializable
         WarningLabel_Password.setText(null);
         WarningLabel_RePassword.setText(null);
         if (CheckTextFields())
-        {
-            db = new Database();
-            db.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
+        {  
+           
+            try
+            {
+                IClient.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             try
             {
@@ -82,6 +90,7 @@ public class RegisterController implements Initializable
                 Parent root = (Parent) fxmlLoader.load();
                 LoginController controller = fxmlLoader.<LoginController>getController();
                 controller.setClient(client);
+                controller.setIClient(IClient);
                 CurrentStage.close();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
@@ -133,9 +142,15 @@ public class RegisterController implements Initializable
     }
 
     private boolean CheckTxtFieldUsername()
-    {
-        db = new Database();
-        Player player = db.selectPlayer(TxtField_Username.getText());
+    { 
+        Player player= null;
+        try
+        {
+            player = IClient.selectPlayer(TxtField_Username.getText());
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (player != null)
         {
             if (player.getUsername() == TxtField_Username.getText())
@@ -197,6 +212,11 @@ public class RegisterController implements Initializable
     public void setClient(ClientApp client)
     {
         this.client = client;
+    }
+
+    void setIClient(IrmiClient Client)
+    {
+       this.IClient = Client;
     }
 
 }
