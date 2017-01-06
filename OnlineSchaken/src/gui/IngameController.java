@@ -52,6 +52,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private ArrayList<Chatline> chatlines = new ArrayList<>();
     private ObservableList chatList = FXCollections.observableArrayList();
     @FXML
+    private Button Btn_Surrender;
+    @FXML
     private TextField Txt_Message;
     @FXML
     private Button Btn_Send;
@@ -385,6 +387,19 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
        return this.listMoveHistory;
     }
-
+    @Override
+    public void ReceiveSurrender(String loser)throws RemoteException{
+        game.Surrender(loser);
+    }
+    private void surrender(){
+        try
+        {
+            Iclient.surrender();
+            this.game.Surrender(this.Iclient.getUserName());
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
    
 }

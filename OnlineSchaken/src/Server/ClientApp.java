@@ -40,7 +40,7 @@ public class ClientApp implements IrmiClient
 
     public ClientApp()
     {
-        
+
     }
 
     /**
@@ -433,31 +433,31 @@ public class ClientApp implements IrmiClient
             return null;
         }
     }
-    @Override
-    public void castPiece(Piece piece,Pawn pawn) throws RemoteException
-    {
-       String receiver =null;
-       Registry registry = LocateRegistry.getRegistry(ip, 666);
-       IrmiServer stub;
-       if (game.getPlayer1().equals(this.userName))
-            {
-                receiver = game.getPlayer2();
-            } else if (game.getPlayer2().equals(userName))
-            {
-                receiver = game.getPlayer1();
-            }
-       try
-            {
-                stub = (IrmiServer) registry.lookup("Server");
-                stub.PromotePawn(piece,pawn,receiver);
 
-            } catch (NotBoundException e)
-            {
-                System.err.println("Client exception:" + e.toString());
-                e.printStackTrace();
-            }
+    @Override
+    public void castPiece(Piece piece, Pawn pawn) throws RemoteException
+    {
+        String receiver = null;
+        Registry registry = LocateRegistry.getRegistry(ip, 666);
+        IrmiServer stub;
+        if (game.getPlayer1().equals(this.userName))
+        {
+            receiver = game.getPlayer2();
+        } else if (game.getPlayer2().equals(userName))
+        {
+            receiver = game.getPlayer1();
+        }
+        try
+        {
+            stub = (IrmiServer) registry.lookup("Server");
+            stub.PromotePawn(piece, pawn, receiver);
+
+        } catch (NotBoundException e)
+        {
+            System.err.println("Client exception:" + e.toString());
+            e.printStackTrace();
+        }
     }
-    
 
     @Override
     public void isPromoting() throws RemoteException
@@ -467,7 +467,7 @@ public class ClientApp implements IrmiClient
         try
         {
             stub = (IrmiServer) registry.lookup("Server");
-            stub.PlayerIsPromoting(this.game,this.userName);
+            stub.PlayerIsPromoting(this.game, this.userName);
 
         } catch (NotBoundException e)
         {
@@ -483,9 +483,9 @@ public class ClientApp implements IrmiClient
     }
 
     @Override
-    public void PromotePawn(Piece piece,Pawn pawn) throws RemoteException
+    public void PromotePawn(Piece piece, Pawn pawn) throws RemoteException
     {
-       this.game.PromotePawn(piece,pawn);
+        this.game.PromotePawn(piece, pawn);
     }
 
     @Override
@@ -511,7 +511,7 @@ public class ClientApp implements IrmiClient
     {
         Registry registry = LocateRegistry.getRegistry(ip, 666);
         IrmiServer stub;
-         try
+        try
         {
             stub = (IrmiServer) registry.lookup("Server");
             return stub.selectPlayer(username);
@@ -527,20 +527,44 @@ public class ClientApp implements IrmiClient
     @Override
     public boolean insertPlayer(String username, String password, String email) throws RemoteException
     {
-         Registry registry = LocateRegistry.getRegistry(ip, 666);
+        Registry registry = LocateRegistry.getRegistry(ip, 666);
         IrmiServer stub;
-         try
+        try
         {
             stub = (IrmiServer) registry.lookup("Server");
-            return stub.insterPlayer(username,password,email);
+            return stub.insterPlayer(username, password, email);
 
         } catch (NotBoundException e)
         {
             System.err.println("Client exception:" + e.toString());
             e.printStackTrace();
         }
-         return false;
+        return false;
     }
-    
-    
+
+    @Override
+    public void surrender()throws RemoteException
+    {
+        Registry registry = LocateRegistry.getRegistry(ip, 666);
+        IrmiServer stub;
+        String winner = null;
+        if (this.getUserName().equals(this.game.getPlayer1()))
+        {
+            winner = game.getPlayer2();
+        }
+        else if(this.getUserName().equals(game.getPlayer2())){
+            winner = game.getPlayer1();
+        }
+        try
+        {
+            stub = (IrmiServer) registry.lookup("Server");
+            stub.SendSurrender(this.getUserName(),winner);
+
+        } catch (NotBoundException e)
+        {
+            System.err.println("Client exception:" + e.toString());
+            e.printStackTrace();
+        }
+    }
+
 }

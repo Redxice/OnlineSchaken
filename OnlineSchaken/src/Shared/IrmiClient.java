@@ -82,4 +82,6 @@ public interface IrmiClient extends Remote {
     public Player selectPlayer(String username)throws RemoteException;
     
     public boolean insertPlayer(String username,String password,String email)throws RemoteException;
+
+    public void surrender()throws RemoteException;
 }

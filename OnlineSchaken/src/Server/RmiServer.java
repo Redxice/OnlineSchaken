@@ -70,6 +70,7 @@ public class RmiServer implements IrmiServer
                     {
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    break;
                 } else if (i.getUserName().equals(i.GetGameController().getPlayer2()) && userName.equals(i.GetGameController().getPlayer1()))
                 {
                     try
@@ -79,6 +80,7 @@ public class RmiServer implements IrmiServer
                     {
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    break;
                 }
             }
 
@@ -428,4 +430,19 @@ public class RmiServer implements IrmiServer
     {
         return database.insertPlayer(username, password, email);
     }
+
+    @Override
+    public void SendSurrender(String loser,String winner) throws RemoteException
+    {
+        for (IrmiClient i : Clients)
+        {
+            if (i.getUserName().equals(winner))
+            {
+                i.GetGameController().ReceiveSurrender(loser);
+                break;
+            }
+        }
+    }
+    
+    
 }

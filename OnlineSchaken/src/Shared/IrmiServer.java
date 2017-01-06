@@ -113,4 +113,6 @@ public interface IrmiServer extends Remote
     public Player selectPlayer(String username)throws RemoteException;
     
     public boolean insterPlayer(String username,String password,String email)throws RemoteException;
+
+    public void SendSurrender(String loser,String winner)throws RemoteException;
 }

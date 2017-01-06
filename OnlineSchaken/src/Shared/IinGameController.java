@@ -66,4 +66,6 @@ public interface IinGameController extends Remote
     public void addToMoveHistory(Point prev, Point current,Piece piece)throws RemoteException;
     
     public ArrayList<String> GetMyMoveHisotry()throws RemoteException;
+    
+    public void ReceiveSurrender(String loser)throws RemoteException;
 }

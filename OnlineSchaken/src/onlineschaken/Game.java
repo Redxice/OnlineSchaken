@@ -273,7 +273,18 @@ public class Game
     {
         chat.remove(p_chatline);
     }
-
+    public void Surrender(String Username){
+        if (this.player1.getUsername().equals(Username))
+        {
+            setWinner(this.player2);
+            setFinished(true);
+        }
+        else if (this.player2.getUsername().equals(Username))
+        {
+            setWinner(this.player1);
+            setFinished(true);
+        }
+    }
     public boolean checkMate()
     {
         Piece previousPiece;
