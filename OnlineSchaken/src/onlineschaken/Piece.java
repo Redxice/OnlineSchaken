@@ -413,5 +413,20 @@ public abstract class Piece extends StackPane implements Serializable
     {
         this.y = y;
     }
+    
+    public boolean canMove()
+    {
+        for(Section[] listSections : section.getBoard().getSections())
+        {
+            for(Section s : listSections)
+            {
+                if(checkMove(s))
+                {                 
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }

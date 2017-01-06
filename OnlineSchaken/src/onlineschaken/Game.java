@@ -407,16 +407,16 @@ public class Game
         if (staleMate())
         {
             //timer.cancel();
+            gameDraw = true;
+            setFinished(true);
             return true;
         } else if (impossibleCheckMate())
         {
             //timer.cancel();
+            gameDraw = true;
+            setFinished(true);
             return true;
-        } else if (player1Draw == true && player2Draw == true)
-        {
-            //timer.cancel();
-            return true;
-        }
+        } 
         return false;
     }
 
@@ -454,37 +454,13 @@ public class Game
     // kijkt of de speler die aan zet is nog een stuk kan verzetten
     public boolean staleMate()
     {
-        if (board.getTurn() == "white")
-        {
-            for (Piece piece : player2.getPieces())
-            {
-                for (Section[] x : board.getSections())
-                {
-                    for (Section y : x)
-                    {
-                        if (piece.checkMove(y))
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-        } else if (board.getTurn() == "black")
-        {
-            for (Piece piece : player1.getPieces())
-            {
-                for (Section[] x : board.getSections())
-                {
-                    for (Section y : x)
-                    {
-                        if (piece.checkMove(y))
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
+       for(Piece p : player1.getPieces())
+       {
+          if(p.canMove())
+          {
+              return false;
+          }
+       }
         return true;
     }
 

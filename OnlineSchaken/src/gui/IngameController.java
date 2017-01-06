@@ -178,6 +178,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                             {
 
                             }
+                            game.draw();
                         }
 
                     }
