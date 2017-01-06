@@ -62,4 +62,8 @@ public interface IinGameController extends Remote
     public void setIsWaitingForPromotion(boolean bool) throws RemoteException;
 
     public void PromotePawn(Piece piece,Pawn pawn) throws RemoteException;
+    
+    public void addToMoveHistory(Point prev, Point current,Piece piece)throws RemoteException;
+    
+    public ArrayList<String> GetMyMoveHisotry()throws RemoteException;
 }

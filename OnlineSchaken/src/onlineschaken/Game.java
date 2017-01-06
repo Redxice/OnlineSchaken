@@ -8,12 +8,9 @@ package onlineschaken;
 import Server.ClientApp;
 import Shared.IrmiClient;
 import gui.OnlineSchaken;
-import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Game 
+public class Game
 {
 
     //fields
@@ -485,17 +482,19 @@ public class Game
     {
         this.player2Draw = player2Draw;
     }
+
     /**
      * pawn wordt hier gepromote zonder popup.
-     * @param piece 
+     *
+     * @param piece
      */
-    public void PromotePawn(Piece piece,Pawn pawn){
-       System.out.println("Hello is it me you're looking for? x :"+pawn.getX()+" y: "+pawn.getY());
-       Section section = this.board.getSections(pawn.getX(),pawn.getY());
-       Piece HopefullyAPawn= section.getPiece();
+    public void PromotePawn(Piece piece, Pawn pawn)
+    {
+        Section section = this.board.getSections(pawn.getX(), pawn.getY());
+        Piece HopefullyAPawn = section.getPiece();
         if (HopefullyAPawn instanceof Pawn)
-        {   System.out.println("This is the pawn you were looking for");
-            Pawn localPawn = (Pawn)HopefullyAPawn;
+        {
+            Pawn localPawn = (Pawn) HopefullyAPawn;
             localPawn.PromoteThisPawn(piece);
         }
         try

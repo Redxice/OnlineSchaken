@@ -90,6 +90,7 @@ public class Board //implements IrmiClient
                                             
                                             client.sendTurn(point, section.getID(), game.getTime());
                                             client.GetGameController().setLocalLastMove(point, section.getID());
+                                            client.GetGameController().addToMoveHistory(point, section.getID(), piece);
                                             System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
 
                                         } catch (Exception e)
@@ -229,7 +230,7 @@ public class Board //implements IrmiClient
                                                 game.setFinished(true);
                                             }
                                            
-                                            if (getTurn() == "white")
+                                            if (getTurn() == "white"&&!client.GetGameController().isPromoting())
                                             {
                                                 turn = "black";
                                             } else

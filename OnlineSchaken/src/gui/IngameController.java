@@ -31,12 +31,7 @@ import javafx.scene.control.TextField;
 import onlineschaken.Bishop;
 import onlineschaken.Chatline;
 
-import onlineschaken.Game;
-import onlineschaken.Pawn;
-import onlineschaken.Piece;
-import onlineschaken.Player;
-import onlineschaken.Section;
-import onlineschaken.TurnTimer;
+import onlineschaken.*;
 
 /**
  * FXML Controller class
@@ -52,6 +47,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private boolean IsWaitingForPromotion;
     private ClientApp client;
     private IrmiClient Iclient;
+    private ArrayList<String> listMoveHistory = new ArrayList<>();
+    private ObservableList moveHistory = FXCollections.observableArrayList();
     private ArrayList<Chatline> chatlines = new ArrayList<>();
     private ObservableList chatList = FXCollections.observableArrayList();
     @FXML
@@ -62,6 +59,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private ListView Chatbox;
     @FXML
     private SubScene GameBoard;
+    @FXML
+    private ListView MoveHistory;
+
     private Game game;
     private String player1;
     private String player2;
@@ -157,16 +157,22 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     {
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece() != null)
-                        {
+                        {  Piece piece = game.getBoard().getSections(xValue, yValue).getPiece();
                             if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
+                            {   try
                             {
+                                addToMoveHistory(section1,section2,piece);
+                            } catch (RemoteException ex)
+                            {
+                                Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                                 if (!IsWaitingForPromotion)
                                 {
                                     isMyTurn = true;
                                 }
                             } else
                             {
-                              
+
                             }
                         }
 
@@ -289,10 +295,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     }
 
     @Override
-    public void PromotePawn(Piece piece,Pawn pawn) throws RemoteException
-    { 
-         this.game.PromotePawn(piece,pawn);
-         this.IsWaitingForPromotion= false;
+    public void PromotePawn(Piece piece, Pawn pawn) throws RemoteException
+    {
+        this.game.PromotePawn(piece, pawn);
+        this.IsWaitingForPromotion = false;
     }
 
     public void runTimer()
@@ -328,5 +334,57 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         this.IsWaitingForPromotion = bool;
     }
+    @Override
+    public void addToMoveHistory(Point prev, Point current,Piece piece)throws RemoteException
+    { String type = null;
+        if (piece instanceof Pawn)
+        {
+            type ="Pawn";
+        }
+        else if (piece instanceof Bishop)
+        {
+           type="Bishop";
+        }
+        else if (piece instanceof King)
+        {
+            type="King"; 
+        }
+        else if (piece instanceof Knight)
+        {
+             type="Knight"; 
+        }
+        else if (piece instanceof Queen)
+        {
+            type="Queen"; 
+        }
+         else if (piece instanceof Rook)
+        {
+           type="Rook";  
+        }
+        String move ="Piece : "+type+" From :" + getCharForNumber((int) prev.getX()) + prev.y + " To :" + getCharForNumber((int) current.getX()) + current.y;
+        this.listMoveHistory.add(move);
+        Platform.runLater(() ->addTheListToView());
+    }
 
+    private String getCharForNumber(int i)
+    {
+        i++;
+        return i > 0 && i < 27 ? String.valueOf((char) (i + 64)) : null;
+    }
+/**
+ * dit moet worden uitgevoert worden in een runlater
+ */
+    private void addTheListToView()
+    {
+        moveHistory.setAll(listMoveHistory);
+        MoveHistory.setItems(moveHistory);
+    }
+
+    @Override
+    public ArrayList<String> GetMyMoveHisotry() throws RemoteException
+    {
+       return this.listMoveHistory;
+    }
+
+   
 }

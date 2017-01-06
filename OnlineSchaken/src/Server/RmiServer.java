@@ -53,8 +53,19 @@ public class RmiServer implements IrmiServer
                 if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
                 {
                     try
+                    {   IinGameController controller = i.GetGameController();
+                        ArrayList<String> MoveHistory = controller.GetMyMoveHisotry();
+                        controller.move(section1, section2, time);   //.getTurn(section1, section2, time);
+                        new Thread(()->
                     {
-                        i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
+                        try
+                        {
+                            database.addMoveToHistory(i.getUserName(),userName,MoveHistory.get(MoveHistory.size()-1),MoveHistory.size());
+                        } catch (RemoteException ex)
+                        {
+                            Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
                     } catch (RemoteException ex)
                     {
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);

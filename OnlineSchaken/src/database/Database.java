@@ -315,4 +315,26 @@ public class Database
             closeConnection();
         }
     }
+
+    public void addMoveToHistory(String userName, String userName2, String move, int nr)
+    {
+       try
+        {
+            init();
+            PreparedStatement statement = con.prepareStatement("INSERT INTO movehistory(Player1, Player2,Move,MoveNr) VALUES(?,?,?,?);");
+            statement.setString(1,userName);
+            statement.setString(2, userName2);
+            statement.setString(3, move);
+            statement.setInt(4, nr);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally
+        {
+            closeConnection();
+        }
+    }
 }
