@@ -68,4 +68,6 @@ public interface IinGameController extends Remote
     public ArrayList<String> GetMyMoveHisotry()throws RemoteException;
     
     public void ReceiveSurrender(String loser)throws RemoteException;
+    
+    public void recieveDraw()throws RemoteException;
 }

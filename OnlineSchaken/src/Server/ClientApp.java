@@ -566,5 +566,28 @@ public class ClientApp implements IrmiClient
             e.printStackTrace();
         }
     }
+    
+    @Override
+    public void draw(String userNameOtherPlayer)throws RemoteException
+    {
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("Server");
+                stub.draw(userNameOtherPlayer);
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    }
 
 }

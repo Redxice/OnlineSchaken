@@ -60,7 +60,7 @@ public class LoginController implements Initializable
     private void HandleLoginBTN(ActionEvent event)
     {
         Warning_Login.setText(null);
-        if (CheckIfValidUser())
+        if (true)//CheckIfValidUser())
         {
             try
             {           

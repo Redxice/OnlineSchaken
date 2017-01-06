@@ -54,6 +54,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @FXML
     private Button Btn_Surrender;
     @FXML
+    private Button Btn_Draw;
+    @FXML
     private TextField Txt_Message;
     @FXML
     private Button Btn_Send;
@@ -391,6 +393,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void ReceiveSurrender(String loser)throws RemoteException{
         game.Surrender(loser);
     }
+    @FXML
     private void surrender(){
         try
         {
@@ -400,6 +403,74 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         {
             Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    @FXML
+    public void draw()
+    {
+        System.out.println("@#@#@$@$@$@ in draw");
+        try
+        {
+            Chatline chatLine;
+            if(this.Iclient.getUserName().equals(this.player1))
+            { 
+                if(game.isPlayer1Draw())
+                {                
+                    chatLine = new Chatline("--System--","Player1 heeft zijn gelijkspel aanvraag ingetrokken"); 
+                }
+                else
+                {
+                    chatLine = new Chatline("--System--","Player1 heeft gelijkspel aangevraagd"); 
+                }
+                Iclient.draw(player2);
+                game.setPlayer1Draw();
+            }
+            else
+            {
+                if(game.isPlayer2Draw())
+                {
+                    chatLine = new Chatline("--System--","Player2 heeft zijn gelijkspel aanvraag ingetrokken"); 
+                }
+                else
+                {
+                    chatLine = new Chatline("--System--","Player2 heeft gelijkspel aangevraagd"); 
+                }
+                Iclient.draw(player1);
+                game.setPlayer2Draw();
+            }            
+            client.sendInGameMessage(chatLine);
+            game.checkDraw();
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
+    @Override
+    public void recieveDraw()throws RemoteException
+    {
+        if(this.Iclient.getUserName().equals(this.player2))
+        {
+            game.setPlayer1Draw();
+        }
+        else if(this.Iclient.getUserName().equals(this.player1))
+        {
+            game.setPlayer2Draw();
+        }
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+        game.checkDraw();
+        }
+                });
+            }
+        }).start();
     }
    
 }

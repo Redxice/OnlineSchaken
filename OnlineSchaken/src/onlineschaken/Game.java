@@ -42,7 +42,7 @@ public class Game
     private OnlineSchaken javaFX;
     private boolean player1Draw = false;
     private boolean player2Draw = false;
-
+    private boolean gameDraw = false;
     //constructor voor game die geen deel uitmaakt van een tournament
     public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client)
     {
@@ -161,10 +161,20 @@ public class Game
         if (this.finished == true)
         {
             //timer.cancel();
+            if(gameDraw == false)
+            {
             int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
             if (exit == 0)
             {
                 Platform.exit();
+            }
+            }else if(gameDraw)
+            {
+            int exit = JOptionPane.showOptionDialog(null, "Het is Gelijkspel.", "Gelijkspel!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            if (exit == 0)
+            {
+                Platform.exit();
+            }
             }
         }
     }
@@ -481,17 +491,31 @@ public class Game
     /**
      * @param player1Draw the player1Draw to set
      */
-    public void setPlayer1Draw(boolean player1Draw)
+    public void setPlayer1Draw()
     {
-        this.player1Draw = player1Draw;
+        if(player1Draw == true)
+        {
+            this.player1Draw = false;
+        }
+        else
+        {
+            this.player1Draw = true;
+        }
     }
 
     /**
      * @param player2Draw the player2Draw to set
      */
-    public void setPlayer2Draw(boolean player2Draw)
+    public void setPlayer2Draw()
     {
-        this.player2Draw = player2Draw;
+        if(player2Draw == true)
+        {
+            this.player2Draw = false;
+        }
+        else
+        {
+            this.player2Draw = true;
+        }
     }
 
     /**
@@ -516,4 +540,22 @@ public class Game
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public boolean isPlayer1Draw() {
+        return player1Draw;
+    }
+
+    public boolean isPlayer2Draw() {
+        return player2Draw;
+    }
+
+    public void checkDraw()
+    {
+        if(this.player1Draw && this.player2Draw)
+        {
+            this.gameDraw = true;
+            setFinished(true);
+        }
+    }
+    
 }
