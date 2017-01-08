@@ -53,7 +53,7 @@ public interface IrmiClient extends Remote {
 
     public void RefreshGameLobby()throws RemoteException;
 
-    public void updateReady() throws RemoteException;
+    public void updateReady(String playerName) throws RemoteException;
     
     public void UpdateInGameChat(Chatline message)throws RemoteException;
     

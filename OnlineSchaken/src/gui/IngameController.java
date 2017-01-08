@@ -13,6 +13,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.logging.Level;
@@ -66,12 +67,14 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @FXML
     private ListView MoveHistory;
 
+    private List<Player> spectators = new ArrayList<>();
     private Game game;
     private String player1;
     private String player2;
     private boolean white;
     private Point localStart;
     private Point localEnd;
+    private boolean spectator;
 
     public IngameController() throws RemoteException
     {
@@ -82,7 +85,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
      * moet nog verder worden uitgewerkt. De players moeten worden geadd in de
      * game.
      */
-    public void DrawBoard(Player p1, Player p2) throws RemoteException
+    public void DrawBoard(Player p1, Player p2,List<Player> spectators) throws RemoteException
     {
         Group root = new Group();
         client.setGame(this);
@@ -92,17 +95,25 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         game.getBoard().createContent();
         game.setPieces();
         game.getBoard().createContent2();
+        game.setSpectators(spectators);
+        this.spectators = spectators;
         root.getChildren().add(game.getBoard().getRoot());
         if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
             this.MyRealTurn = true;
             white = true;
-        } else
+            spectator = false;
+        } else if(Iclient.getUserName().equals(game.getPlayer2().getUsername()))
         {
             this.isMyTurn = false;
             this.MyRealTurn = false;
             white = false;
+            spectator = false;
+        }
+        else
+        {
+            spectator = true;
         }
         runTimer();
     }
@@ -180,7 +191,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                             }
                             game.draw();
                         }
-
                     }
                 });
             }
@@ -271,6 +281,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         return white;
     }
 
+    public boolean isSpectator() throws RemoteException{
+        return spectator;
+    }
+
+    
+    
     @Override
     public boolean getRealTurn() throws RemoteException
     {
@@ -424,8 +440,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 }
                 Iclient.draw(player2);
                 game.setPlayer1Draw();
+                client.sendInGameMessage(chatLine);
             }
-            else
+            else if (this.Iclient.getUserName().equals(this.player2))
             {
                 if(game.isPlayer2Draw())
                 {
@@ -437,8 +454,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 }
                 Iclient.draw(player1);
                 game.setPlayer2Draw();
-            }            
-            client.sendInGameMessage(chatLine);
+                client.sendInGameMessage(chatLine);
+            }                        
             game.checkDraw();
         } catch (RemoteException ex)
         {
@@ -472,6 +489,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 });
             }
         }).start();
+    }
+
+    @Override
+    public List<Player> getSpectators()throws RemoteException {
+        return spectators;
     }
    
 }

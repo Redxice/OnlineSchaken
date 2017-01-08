@@ -53,6 +53,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     private boolean player2Ready;
     private IrmiClient IClient;
     private ObservableList playerList = FXCollections.observableArrayList();
+    private ObservableList spectatorList = FXCollections.observableArrayList();
     @FXML
     private Button Btn_Send;
     @FXML
@@ -66,7 +67,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @FXML
     private ListView SpelerBox;
     @FXML
-    private ListView GameInstellingBox;
+    private ListView SpectatorListView;
     @FXML
     private TextField Chatline_TxtField;
 
@@ -82,13 +83,15 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         {
             if (GameLobby.GetPlayer1().getUsername().equals(LoggedInUser.getUsername()))
             {
-                System.out.println("player 1 lokaal readyloggedinuser= " + LoggedInUser.getUsername() + " player1= " + GameLobby.GetPlayer1().getUsername());
                 player1Ready = true;
+                Chatline chatLine = new Chatline("--System--","Player1 is ready"); 
+                client.SendMessage(chatLine, lobbyName);
             } else if (GameLobby.GetPlayer2().getUsername().equals(LoggedInUser.getUsername()))
             {
                 player2Ready = true;
-                System.out.println("Player 2 lokaal ready loggedinuser= " + LoggedInUser.getUsername() + " player2= " + GameLobby.GetPlayer2().getUsername());
-            }
+                Chatline chatLine = new Chatline("--System--","Player2 is ready"); 
+                client.SendMessage(chatLine, lobbyName);
+            }            
             try
             {
                 client.playerReady(true, lobbyName, LoggedInUser.getUsername());
@@ -107,7 +110,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    controller.DrawBoard(GameLobby.GetPlayer1(), GameLobby.GetPlayer2());
+                    controller.DrawBoard(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),GameLobby.getSpectators());
                 }
             } catch (IOException ex)
             {
@@ -124,12 +127,13 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     {
         try
         {
+            chatBerichtLeave();
             if (GameLobby.leaveGameLobby(LoggedInUser))
-            {
+            {                
                 if (GameLobby.GetPlayer1() == null && GameLobby.GetPlayer2() == null)
                 {
                     client.unBindLobby(lobbyName);
-                } else if (GameLobby.GetPlayer1() == null || GameLobby.GetPlayer2() == null)
+                } else //if (GameLobby.GetPlayer1() == null || GameLobby.GetPlayer2() == null)
                 {
                     IClient.RefreshGameLobby();
                 }
@@ -149,6 +153,30 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             stage.show();
         } catch (IOException ex)
         {
+            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void chatBerichtLeave()
+    {
+        
+        try {
+            if(LoggedInUser.getUsername().equals(GameLobby.GetPlayer1().getUsername()))
+            {
+                Chatline chatLine = new Chatline("--System--","Player1 heeft de gamelobby verlaten");
+                client.SendMessage(chatLine, lobbyName);
+            }
+            else if(LoggedInUser.getUsername().equals(GameLobby.GetPlayer2().getUsername()))
+            {
+                Chatline chatLine = new Chatline("--System--","Player2 heeft de gamelobby verlaten");
+                client.SendMessage(chatLine, lobbyName);
+            }
+            else
+            {
+                Chatline chatLine = new Chatline("--System--","Een spectator heeft de gamelobby verlaten");
+                client.SendMessage(chatLine, lobbyName);
+            }
+        } catch (RemoteException ex) {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -286,8 +314,14 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     {
                         try
                         {
+                            for(Player p : GameLobby.getSpectators())
+        {
+            System.out.println("Er staat een player in de lijst");
+        }
                             playerList.setAll(GameLobby.GetPlayerNames());
                             SpelerBox.setItems(playerList);
+                            spectatorList.setAll(GameLobby.getSpectators());
+                            SpectatorListView.setItems(spectatorList);
                         } catch (RemoteException ex)
                         {
                             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -305,18 +339,16 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     }
 
     @Override
-    public void ready() throws RemoteException
+    public void ready(String userName) throws RemoteException
     {
         if (GameLobby.checkPlayer1Exists() && GameLobby.checkPlayer2Exists())
         {
-            if (GameLobby.GetPlayer1().getUsername().equals(LoggedInUser.getUsername()))
+            if (GameLobby.GetPlayer1().getUsername().equals(userName))
             {
-                System.out.println("player2 remote ready");
-                player2Ready = true;
-            } else if (GameLobby.GetPlayer2().getUsername().equals(LoggedInUser.getUsername()))
-            {
-                System.out.println("player 1 remote ready");
                 player1Ready = true;
+            } else if (GameLobby.GetPlayer2().getUsername().equals(userName))
+            {
+                player2Ready = true;
             }
         }
         if (player1Ready && player2Ready)
@@ -354,7 +386,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
                                 stage.show();
-                                controller.DrawBoard(GameLobby.GetPlayer1(), GameLobby.GetPlayer2());
+                                controller.DrawBoard(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),GameLobby.getSpectators());
                             }
                         } catch (IOException ex)
                         {

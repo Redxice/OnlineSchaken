@@ -57,7 +57,7 @@ public interface IGameLobby extends Remote
      */
     public Player GetPlayer2()throws RemoteException;
 
-    public ArrayList<String> GetPlayerNames()throws RemoteException;
+    public ArrayList<Player> GetPlayerNames()throws RemoteException;
 
     
     /**
@@ -72,4 +72,5 @@ public interface IGameLobby extends Remote
     
     public boolean checkPlayer2Exists()throws RemoteException;
     public boolean checkPlayer1Exists()throws RemoteException;
+    public List<Player> getSpectators()throws RemoteException;
 }
