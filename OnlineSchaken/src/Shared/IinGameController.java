@@ -10,10 +10,12 @@ import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.List;
 import onlineschaken.Chatline;
 import onlineschaken.Game;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
+import onlineschaken.Player;
 import onlineschaken.Section;
 
 /**
@@ -74,4 +76,8 @@ public interface IinGameController extends Remote
     public void recieveGameover()throws RemoteException;
     
     public void gameover()throws RemoteException;
+
+    public boolean isSpectator() throws RemoteException;
+    
+    public List<Player> getSpectators()throws RemoteException;
 }

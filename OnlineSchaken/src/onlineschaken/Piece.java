@@ -363,7 +363,7 @@ public abstract class Piece extends StackPane implements Serializable
                     Pawn pawn = (Pawn) this;
                     if (pawn.Promotion(p_section))
                     {
-                        if (this.color == "white" && IngameController.isWhite() == true || this.color == "black" && IngameController.isWhite() == false)
+                        if (this.color == "white" && IngameController.isWhite() == true && IngameController.isSpectator() == false|| this.color == "black" && IngameController.isWhite() == false && IngameController.isSpectator() == false)
                         {
                             if (IngameController.getMyTurn())
                             {

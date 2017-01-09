@@ -63,7 +63,7 @@ public class Board //implements IrmiClient
                         if (firstSection == null && section.getPiece() != null)
                         {                            
                             try {
-                                if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
+                                if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white")  && client.GetGameController().isSpectator() == false|| client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
                                 {
                                         if (section.getPiece() != null)
                                         {
@@ -180,7 +180,7 @@ public class Board //implements IrmiClient
                             if (firstSection == null && section.getPiece() != null)
                             {
                                 try {
-                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
+                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") && client.GetGameController().isSpectator() == false || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
                                     {
                                             if (section.getPiece() != null)
                                             {
@@ -291,7 +291,7 @@ public class Board //implements IrmiClient
                             if (firstSection == null && section.getPiece() != null)
                             {
                                 try {
-                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black"))
+                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") && client.GetGameController().isSpectator() == false || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
                                     {
                                             if (section.getPiece() != null)
                                             {

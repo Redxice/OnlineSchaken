@@ -27,7 +27,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     private Player player2 = null;
     private boolean p1Ready;
     private boolean p2Ready;
-    private List<Player> spectators;
+    private List<Player> spectators = new ArrayList<>();
 
     public Gamelobby(String naam, Player player1, int id) throws RemoteException {
         this.naam = naam;
@@ -60,7 +60,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
 
     public void addSpectator(Player spectator) {
         spectators.add(spectator);
-    }
+    }    
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
@@ -90,7 +90,8 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     public void setId(int id) {
         this.id = id;
     }
-
+    
+    @Override
     public List<Player> getSpectators() {
         return spectators;
     }
@@ -113,7 +114,9 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
             System.out.println("Player 2 joined de game");
             return true;
         }
-        return false;
+        System.out.println("spectator t oegevoegd");
+        spectators.add(player);
+        return true;
     }
 
     @Override
@@ -121,18 +124,25 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         if (player1 != null) {
             if (player.getUsername().equals(player1.getUsername())) {
                 player1 = null;
-                System.out.println("Player 1 leaved");
                 return true;
             }
         }
         if (player2 != null) {
             if (player.getUsername().equals(player2.getUsername())) {
                 player2 = null;
-                System.out.println("Player 2 leaved");
                 return true;
             }
         }
-        return false;
+        System.out.println(spectators + "voor");
+        for(Player p : spectators)
+        {
+            if(player.getUsername().equals(p.getUsername()))
+            {
+                spectators.remove(p);
+            }
+        }
+        System.out.println(spectators + "na");
+        return true;
     }
 
     @Override
@@ -165,13 +175,13 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     }
 
     @Override
-    public ArrayList<String> GetPlayerNames() throws RemoteException {
-        ArrayList<String> players = new ArrayList<>();
+    public ArrayList<Player> GetPlayerNames() throws RemoteException {
+        ArrayList<Player> players = new ArrayList<>();
         if (player2 != null) {
-            players.add(player2.getUsername());
+            players.add(player2);
         }
         if(player1 != null){
-        players.add(player1.getUsername());
+        players.add(player1);
         }
         return players;
     }
@@ -198,4 +208,5 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         return true;
     }
 
+    
 }

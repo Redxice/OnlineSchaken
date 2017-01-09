@@ -368,9 +368,9 @@ public class ClientApp implements IrmiClient
     }
 
     @Override
-    public void updateReady() throws RemoteException
+    public void updateReady(String playerName) throws RemoteException
     {
-        this.gameLobbyController.ready();
+        this.gameLobbyController.ready(playerName);
     }
 
     @Override
