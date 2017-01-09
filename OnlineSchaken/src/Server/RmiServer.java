@@ -419,7 +419,10 @@ public class RmiServer implements IrmiServer
         return database.addFriend(player, Friend);
     }
 
-    public void checkIfValidUser(){};
+    public void checkIfValidUser()
+    {
+    }
+
     ;
 
     @Override
@@ -469,6 +472,8 @@ public class RmiServer implements IrmiServer
     }
 
     @Override
+    public void recieveGameover(String userNameOtherPlayer) throws RemoteException
+    {
         for (IrmiClient client : Clients)
         {
             try
@@ -478,11 +483,13 @@ public class RmiServer implements IrmiServer
                     client.GetGameController().recieveGameover();
                 } else if (client.GetGameController().getPlayer2().equals(userNameOtherPlayer) && client.getUserName().equals(userNameOtherPlayer))
                 {
+                    client.GetGameController().recieveGameover();
                 }
             } catch (RemoteException ex)
             {
                 Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
     }
 
 }
