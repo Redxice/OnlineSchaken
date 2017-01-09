@@ -314,10 +314,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     {
                         try
                         {
-                            for(Player p : GameLobby.getSpectators())
-        {
-            System.out.println("Er staat een player in de lijst");
-        }
+                            System.out.println(GameLobby.getSpectators());
                             playerList.setAll(GameLobby.GetPlayerNames());
                             SpelerBox.setItems(playerList);
                             spectatorList.setAll(GameLobby.getSpectators());

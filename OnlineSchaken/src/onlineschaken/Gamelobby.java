@@ -133,8 +133,15 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
                 return true;
             }
         }
-        System.out.println("Spectator Verwijderd uit de lijst");
-        this.spectators.remove(player);
+        System.out.println(spectators + "voor");
+        for(Player p : spectators)
+        {
+            if(player.getUsername().equals(p.getUsername()))
+            {
+                spectators.remove(p);
+            }
+        }
+        System.out.println(spectators + "na");
         return true;
     }
 

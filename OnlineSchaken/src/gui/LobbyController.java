@@ -113,6 +113,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             try
             {
                 IGameLobby lobby = client.GetGameLobby(selectedLobby);
+                System.out.println("Ik ben in joingame");
                 if (lobby.joinGameLobby(player))
                 {
                     Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
