@@ -112,6 +112,7 @@ public class Board //implements IrmiClient
                                             {
                                                 game.setWinner(game.getPlayer2());
                                             }
+                                            client.GetGameController().gameover();
                                             game.setFinished(true);
                                         }
                                         if (turn == "white")
@@ -227,7 +228,9 @@ public class Board //implements IrmiClient
                                                 {
                                                     game.setWinner(game.getPlayer2());
                                                 }
+                                                client.GetGameController().gameover();
                                                 game.setFinished(true);
+                                                
                                             }
                                            
                                             if (getTurn() == "white"&&!client.GetGameController().isPromoting())
@@ -335,6 +338,7 @@ public class Board //implements IrmiClient
                                                 {
                                                     game.setWinner(game.getPlayer2());
                                                 }
+                                                client.GetGameController().gameover();
                                                 game.setFinished(true);
 
                                             }

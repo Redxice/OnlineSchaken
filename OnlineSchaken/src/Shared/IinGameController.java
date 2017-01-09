@@ -70,4 +70,8 @@ public interface IinGameController extends Remote
     public void ReceiveSurrender(String loser)throws RemoteException;
     
     public void recieveDraw()throws RemoteException;
+    
+    public void recieveGameover()throws RemoteException;
+    
+    public void gameover()throws RemoteException;
 }

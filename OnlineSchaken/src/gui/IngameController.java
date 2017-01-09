@@ -161,15 +161,17 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     {
                         isMyTurn = true;
                         if (game.getBoard().getSections(xValue, yValue).getPiece() != null)
-                        {  Piece piece = game.getBoard().getSections(xValue, yValue).getPiece();
+                        {
+                            Piece piece = game.getBoard().getSections(xValue, yValue).getPiece();
                             if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
-                            {   try
                             {
-                                addToMoveHistory(section1,section2,piece);
-                            } catch (RemoteException ex)
-                            {
-                                Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                                try
+                                {
+                                    addToMoveHistory(section1, section2, piece);
+                                } catch (RemoteException ex)
+                                {
+                                    Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 if (!IsWaitingForPromotion)
                                 {
                                     isMyTurn = true;
@@ -339,36 +341,33 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         this.IsWaitingForPromotion = bool;
     }
+
     @Override
-    public void addToMoveHistory(Point prev, Point current,Piece piece)throws RemoteException
-    { String type = null;
+    public void addToMoveHistory(Point prev, Point current, Piece piece) throws RemoteException
+    {
+        String type = null;
         if (piece instanceof Pawn)
         {
-            type ="Pawn";
-        }
-        else if (piece instanceof Bishop)
+            type = "Pawn";
+        } else if (piece instanceof Bishop)
         {
-           type="Bishop";
-        }
-        else if (piece instanceof King)
+            type = "Bishop";
+        } else if (piece instanceof King)
         {
-            type="King"; 
-        }
-        else if (piece instanceof Knight)
+            type = "King";
+        } else if (piece instanceof Knight)
         {
-             type="Knight"; 
-        }
-        else if (piece instanceof Queen)
+            type = "Knight";
+        } else if (piece instanceof Queen)
         {
-            type="Queen"; 
-        }
-         else if (piece instanceof Rook)
+            type = "Queen";
+        } else if (piece instanceof Rook)
         {
-           type="Rook";  
+            type = "Rook";
         }
-        String move ="Piece : "+type+" From :" + getCharForNumber((int) prev.getX()) + prev.y + " To :" + getCharForNumber((int) current.getX()) + current.y;
+        String move = "Piece : " + type + " From :" + getCharForNumber((int) prev.getX()) + prev.y + " To :" + getCharForNumber((int) current.getX()) + current.y;
         this.listMoveHistory.add(move);
-        Platform.runLater(() ->addTheListToView());
+        Platform.runLater(() -> addTheListToView());
     }
 
     private String getCharForNumber(int i)
@@ -376,9 +375,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         i++;
         return i > 0 && i < 27 ? String.valueOf((char) (i + 64)) : null;
     }
-/**
- * dit moet worden uitgevoert worden in een runlater
- */
+
+    /**
+     * dit moet worden uitgevoert worden in een runlater
+     */
     private void addTheListToView()
     {
         moveHistory.setAll(listMoveHistory);
@@ -388,14 +388,18 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public ArrayList<String> GetMyMoveHisotry() throws RemoteException
     {
-       return this.listMoveHistory;
+        return this.listMoveHistory;
     }
+
     @Override
-    public void ReceiveSurrender(String loser)throws RemoteException{
+    public void ReceiveSurrender(String loser) throws RemoteException
+    {
         game.Surrender(loser);
     }
+
     @FXML
-    private void surrender(){
+    private void surrender()
+    {
         try
         {
             Iclient.surrender();
@@ -405,6 +409,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     @FXML
     public void draw()
     {
@@ -412,48 +417,44 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         try
         {
             Chatline chatLine;
-            if(this.Iclient.getUserName().equals(this.player1))
-            { 
-                if(game.isPlayer1Draw())
-                {                
-                    chatLine = new Chatline("--System--","Player1 heeft zijn gelijkspel aanvraag ingetrokken"); 
-                }
-                else
+            if (this.Iclient.getUserName().equals(this.player1))
+            {
+                if (game.isPlayer1Draw())
                 {
-                    chatLine = new Chatline("--System--","Player1 heeft gelijkspel aangevraagd"); 
+                    chatLine = new Chatline("--System--", "Player1 heeft zijn gelijkspel aanvraag ingetrokken");
+                } else
+                {
+                    chatLine = new Chatline("--System--", "Player1 heeft gelijkspel aangevraagd");
                 }
                 Iclient.draw(player2);
                 game.setPlayer1Draw();
-            }
-            else
+            } else
             {
-                if(game.isPlayer2Draw())
+                if (game.isPlayer2Draw())
                 {
-                    chatLine = new Chatline("--System--","Player2 heeft zijn gelijkspel aanvraag ingetrokken"); 
-                }
-                else
+                    chatLine = new Chatline("--System--", "Player2 heeft zijn gelijkspel aanvraag ingetrokken");
+                } else
                 {
-                    chatLine = new Chatline("--System--","Player2 heeft gelijkspel aangevraagd"); 
+                    chatLine = new Chatline("--System--", "Player2 heeft gelijkspel aangevraagd");
                 }
                 Iclient.draw(player1);
                 game.setPlayer2Draw();
-            }            
+            }
             client.sendInGameMessage(chatLine);
             game.checkDraw();
         } catch (RemoteException ex)
         {
             Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-    
+
     @Override
-    public void recieveDraw()throws RemoteException
+    public void recieveDraw() throws RemoteException
     {
-        if(this.Iclient.getUserName().equals(this.player2))
+        if (this.Iclient.getUserName().equals(this.player2))
         {
             game.setPlayer1Draw();
-        }
-        else if(this.Iclient.getUserName().equals(this.player1))
+        } else if (this.Iclient.getUserName().equals(this.player1))
         {
             game.setPlayer2Draw();
         }
@@ -467,11 +468,48 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-        game.checkDraw();
-        }
+                        game.checkDraw();
+                    }
                 });
             }
         }).start();
     }
-   
+    
+    @Override
+    public void gameover()
+    {
+        try
+        {
+            if (this.Iclient.getUserName().equals(this.player1))
+            {
+                Iclient.sendGameOver(player2);
+            } else
+            {
+                Iclient.sendGameOver(player1);
+            }
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void recieveGameover() throws RemoteException
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        game.setFinished(true);
+                    }
+                });
+            }
+        }).start();
+    }
 }

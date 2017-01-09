@@ -117,4 +117,6 @@ public interface IrmiServer extends Remote
     public void SendSurrender(String loser,String winner)throws RemoteException;
     
     public void draw(String userNameOtherPlayer) throws RemoteException;
+    
+    public void recieveGameover(String userNameOtherPlayer) throws RemoteException;
 }

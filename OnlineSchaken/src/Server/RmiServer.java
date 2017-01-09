@@ -40,7 +40,7 @@ public class RmiServer implements IrmiServer
     private ArrayList<String> GameLobbys = new ArrayList<>();
     private ArrayList<IrmiClient> Clients = new ArrayList<>();
     private static final Database database = new Database();
-    private String ip ="127.0.0.1"/*"169.254.183.180"*/ ;
+    private String ip = "127.0.0.1"/*"169.254.183.180"*/;
 
     @Override
     public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
@@ -53,19 +53,21 @@ public class RmiServer implements IrmiServer
                 if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
                 {
                     try
-                    {   IinGameController controller = i.GetGameController();
+                    {
+                        IinGameController controller = i.GetGameController();
                         ArrayList<String> MoveHistory = controller.GetMyMoveHisotry();
                         controller.move(section1, section2, time);   //.getTurn(section1, section2, time);
-                        new Thread(()->
-                    {
-                        try
-                        {
-                            database.addMoveToHistory(i.getUserName(),userName,MoveHistory.get(MoveHistory.size()-1),MoveHistory.size());
-                        } catch (RemoteException ex)
-                        {
-                            Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
+                        new Thread(()
+                                -> 
+                                {
+                                    try
+                                    {
+                                        database.addMoveToHistory(i.getUserName(), userName, MoveHistory.get(MoveHistory.size() - 1), MoveHistory.size());
+                                    } catch (RemoteException ex)
+                                    {
+                                        Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                        });
                     } catch (RemoteException ex)
                     {
                         Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -374,18 +376,17 @@ public class RmiServer implements IrmiServer
     }
 
     @Override
-    public void PromotePawn(Piece piece,Pawn pawn,String receiver) throws RemoteException
+    public void PromotePawn(Piece piece, Pawn pawn, String receiver) throws RemoteException
     {
-             for (IrmiClient c : Clients)
+        for (IrmiClient c : Clients)
+        {
+            if (c.getUserName().equals(receiver))
             {
-                if (c.getUserName().equals(receiver))
-                {
-                    c.PromotePawn(piece,pawn);
-                    break;
-                }
+                c.PromotePawn(piece, pawn);
+                break;
             }
         }
-    
+    }
 
     @Override
     public void PlayerIsPromoting(IinGameController sender, String Username) throws RemoteException
@@ -411,18 +412,20 @@ public class RmiServer implements IrmiServer
         }
 
     }
+
     @Override
     public boolean addFriend(String player, String Friend) throws RemoteException
     {
-       return database.addFriend(player, Friend);
+        return database.addFriend(player, Friend);
     }
 
     public void checkIfValidUser(){};
+    ;
 
     @Override
     public Player selectPlayer(String username) throws RemoteException
     {
-       return database.selectPlayer(username);
+        return database.selectPlayer(username);
     }
 
     @Override
@@ -432,7 +435,7 @@ public class RmiServer implements IrmiServer
     }
 
     @Override
-    public void SendSurrender(String loser,String winner) throws RemoteException
+    public void SendSurrender(String loser, String winner) throws RemoteException
     {
         for (IrmiClient i : Clients)
         {
@@ -443,11 +446,11 @@ public class RmiServer implements IrmiServer
             }
         }
     }
-    
+
     @Override
     public void draw(String userNameOtherPlayer) throws RemoteException
     {
-         for (IrmiClient client : Clients)
+        for (IrmiClient client : Clients)
         {
             try
             {
@@ -464,5 +467,22 @@ public class RmiServer implements IrmiServer
             }
         }
     }
-    
+
+    @Override
+        for (IrmiClient client : Clients)
+        {
+            try
+            {
+                if (client.GetGameController().getPlayer1().equals(userNameOtherPlayer) && client.getUserName().equals(userNameOtherPlayer))
+                {
+                    client.GetGameController().recieveGameover();
+                } else if (client.GetGameController().getPlayer2().equals(userNameOtherPlayer) && client.getUserName().equals(userNameOtherPlayer))
+                {
+                }
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+
 }

@@ -590,4 +590,27 @@ public class ClientApp implements IrmiClient
         }
     }
 
+    @Override
+    public void sendGameOver(String userNameOtherPlayer) throws RemoteException
+    {
+        try
+        {
+            Registry registry = LocateRegistry.getRegistry(ip, 666);
+            IrmiServer stub;
+            try
+            {
+                stub = (IrmiServer) registry.lookup("Server");
+                stub.recieveGameover(userNameOtherPlayer);
+            } catch (NotBoundException e)
+            {
+                System.err.println("Client exception:" + e.toString());
+                e.printStackTrace();
+            }
+        } catch (RemoteException e)
+        {
+            System.err.println("Server exception:" + e.toString());
+            e.printStackTrace();
+        }
+    }
+
 }

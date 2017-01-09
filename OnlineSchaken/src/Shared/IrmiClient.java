@@ -86,4 +86,6 @@ public interface IrmiClient extends Remote {
     public void surrender()throws RemoteException;
     
     public void draw(String userNameOtherPlayer)throws RemoteException;
+    
+    public void sendGameOver(String userNameOtherPlayer)throws RemoteException;
 }
