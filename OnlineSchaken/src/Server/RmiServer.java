@@ -513,6 +513,7 @@ public class RmiServer implements IrmiServer
                 {
                     client.GetGameController().recieveGameover();
                 }
+                client.GetGameController().recieveGameover();
             } catch (RemoteException ex)
             {
                 Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
