@@ -46,52 +46,64 @@ public class Bishop extends Piece
         // kijkt of er een stuk op de gekoze positie staat
         if (isValidMove(p_section))
         {
-            if (this.getSection().getID().y == p_section.getID().y)
+            if (abs(p_section.getID().x - this.getSection().getID().x) == abs(p_section.getID().y - this.getSection().getID().y))
             {
-                if (this.getSection().getID().x < p_section.getID().x)
+                // kijkt of hij naar links beweegt
+                if (this.getSection().getID().x > p_section.getID().x)
                 {
-                    for (int i = 0; i < p_section.getID().x - this.getSection().getID().x - 1; i++)
+                    // kijkt of hij naar boven beweegt
+                    if (this.getSection().getID().y > p_section.getID().y)
                     {
-                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y].isOccupied() == true)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                         {
-                            return false;
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                            {
+                                return false;
+                            }
                         }
+                        return true;
+                    } // kijkt of hij naar beneden beweegt
+                    else if (this.getSection().getID().y < p_section.getID().y)
+                    {
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
+                        {
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y + i + 1].isOccupied() == true)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
                     }
-                    return true;
-                } else if (this.getSection().getID().x > p_section.getID().x)
+                } // kijkt of hij naar rechts beweegt
+                else if (this.getSection().getID().x < p_section.getID().x)
                 {
-                    for (int i = 0; i < this.getSection().getID().x - p_section.getID().x - 1; i++)
+                    // kijkt of hij naar boven beweegt
+                    if (this.getSection().getID().y > p_section.getID().y)
                     {
-                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x - i - 1][this.getSection().getID().y].isOccupied() == true)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
                         {
-                            return false;
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y - i - 1].isOccupied() == true)
+                            {
+                                return false;
+                            }
                         }
-                    }
-                    return true;
-                }
-            } // Kijkt of de toren over de y as kan bewegen
-            else if (this.getSection().getID().x == p_section.getID().x)
-            {
-                if (this.getSection().getID().y > p_section.getID().y)
-                {
-                    for (int i = 0; i < this.getSection().getID().y - p_section.getID().y - 1; i++)
+                        return true;
+                    } // kijkt of hij naar beneden beweegt
+                    else if (this.getSection().getID().y < p_section.getID().y)
                     {
-                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y - i - 1].isOccupied() == true)
+                        // kijkt of er een stuk in de weg staat
+                        for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
                         {
-                            return false;
+                            if (this.getSection().getBoard().getSections()[this.getSection().getID().x + i + 1][this.getSection().getID().y + i + 1].isOccupied() == true)
+                            {
+                                return false;
+                            }
                         }
+                        return true;
                     }
-                    return true;
-                } else if (this.getSection().getID().y < p_section.getID().y)
-                {
-                    for (int i = 0; i < p_section.getID().y - this.getSection().getID().y - 1; i++)
-                    {
-                        if (this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y + i + 1].isOccupied() == true)
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
                 }
             }
             // kijkt of het een move is die een loper mag doen
