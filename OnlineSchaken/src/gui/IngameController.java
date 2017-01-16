@@ -66,6 +66,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private SubScene GameBoard;
     @FXML
     private ListView MoveHistory;
+    @FXML
+    private TextField timerWhite;
+    @FXML
+    private TextField timerBlack;
 
     private List<Player> spectators = new ArrayList<>();
     private Game game;
@@ -533,6 +537,26 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     public void run()
                     {
                         game.setFinished(true);
+                    }
+                });
+            }
+        }).start();
+    }
+    
+    public void updateTimers()
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        timerWhite.setText(String.valueOf(game.getResterend1()));
+                        timerWhite.setText(String.valueOf(game.getResterend2()));
                     }
                 });
             }
