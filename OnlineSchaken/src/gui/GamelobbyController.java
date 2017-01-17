@@ -9,14 +9,10 @@ import Server.ClientApp;
 import Shared.IGameLobby;
 import Shared.IGameLobbyController;
 import Shared.IrmiClient;
-import Shared.IrmiServer;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +30,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import onlineschaken.Chatline;
-import onlineschaken.Gamelobby;
 import onlineschaken.Player;
 
 /**
@@ -81,12 +76,12 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     {
         try
         {
-            if (GameLobby.GetPlayer1().getUsername().equals(LoggedInUser.getUsername()))
+            if (GameLobby.GetPlayer1().getUsername().equals(getLoggedInUser().getUsername()))
             {
                 player1Ready = true;
                 Chatline chatLine = new Chatline("--System--","Player1 is ready"); 
                 client.SendMessage(chatLine, lobbyName);
-            } else if (GameLobby.GetPlayer2().getUsername().equals(LoggedInUser.getUsername()))
+            } else if (GameLobby.GetPlayer2().getUsername().equals(getLoggedInUser().getUsername()))
             {
                 player2Ready = true;
                 Chatline chatLine = new Chatline("--System--","Player2 is ready"); 
@@ -94,7 +89,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             }            
             try
             {
-                client.playerReady(true, lobbyName, LoggedInUser.getUsername());
+                client.playerReady(true, lobbyName, getLoggedInUser().getUsername());
                 if (player1Ready == true && player2Ready == true)
                 {
                     Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
@@ -128,7 +123,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         try
         {
             chatBerichtLeave();
-            if (GameLobby.leaveGameLobby(LoggedInUser))
+            if (GameLobby.leaveGameLobby(getLoggedInUser()))
             {                
                 if (GameLobby.GetPlayer1() == null && GameLobby.GetPlayer2() == null)
                 {
@@ -142,7 +137,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             LobbyController controller = fxmlLoader.<LobbyController>getController();
-            controller.setPlayer(this.LoggedInUser);
+            controller.setPlayer(this.getLoggedInUser());
             controller.setClient(client);
             controller.setIClient(IClient);
 
@@ -161,12 +156,12 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     {
         
         try {
-            if(LoggedInUser.getUsername().equals(GameLobby.GetPlayer1().getUsername()))
+            if(getLoggedInUser().getUsername().equals(GameLobby.GetPlayer1().getUsername()))
             {
                 Chatline chatLine = new Chatline("--System--","Player1 heeft de gamelobby verlaten");
                 client.SendMessage(chatLine, lobbyName);
             }
-            else if(LoggedInUser.getUsername().equals(GameLobby.GetPlayer2().getUsername()))
+            else if(getLoggedInUser().getUsername().equals(GameLobby.GetPlayer2().getUsername()))
             {
                 Chatline chatLine = new Chatline("--System--","Player2 heeft de gamelobby verlaten");
                 client.SendMessage(chatLine, lobbyName);
@@ -239,7 +234,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         } catch (RemoteException ex) {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Chatline chatLine = new Chatline(LoggedInUser.getUsername(), Chatline_TxtField.getText());
+        Chatline chatLine = new Chatline(getLoggedInUser().getUsername(), Chatline_TxtField.getText());
         client.SendMessage(chatLine, lobbyName);
         Chatline_TxtField.setText("");
     }
@@ -398,5 +393,14 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     public void setPlayerAndTurn()
     {
 
+    }
+
+    /**
+     * @return the LoggedInUser
+     */
+    @Override
+    public Player getLoggedInUser()
+    {
+        return LoggedInUser;
     }
 }

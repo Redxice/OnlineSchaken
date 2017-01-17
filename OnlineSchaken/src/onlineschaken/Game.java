@@ -7,6 +7,7 @@ package onlineschaken;
 
 import Server.ClientApp;
 import Shared.IrmiClient;
+import gui.IngameController;
 import gui.OnlineSchaken;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -39,12 +40,14 @@ public class Game
     private List<Chatline> chat = new ArrayList<>();
     private Board board;
     private Gamelobby gamelobby;
+    private IngameController ingame;
     private OnlineSchaken javaFX;
     private boolean player1Draw = false;
     private boolean player2Draw = false;
     private boolean gameDraw = false;
+    
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client)
+    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client, IngameController ingame)
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -53,19 +56,26 @@ public class Game
         remaining1 = 1800;
         remaining2 = 1800;
         timer = new Timer();
-        timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
+        timer.schedule(new GameTimer(this, board), 0, 1000);
         board.setGame(this);
+        this.ingame = ingame;
         //RecieveRmi rmi = new RecieveRmi();
+        //timer.schedule(new GameTimer(this, board), 0, 1000);
     }
 
     //zonder timer
-    public Game(Player p_player1, Player p_player2, IrmiClient client)
+    public Game(Player p_player1, Player p_player2, IrmiClient client, IngameController ingame)
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.javaFX = javaFX;
         board = new Board(client);
+        remaining1 = 1800;
+        remaining2 = 1800;
         board.setGame(this);
+        this.ingame = ingame;
+        timer = new Timer();
+        timer.schedule(new GameTimer(this, board), 0, 1000);
     }
 
     //constructor vor een game die deel is van een tournament
@@ -81,8 +91,10 @@ public class Game
         this.tournament = p_tournament;
         this.javaFX = javaFX;
         board = new Board(client);
+        remaining1 = 1800;
+        remaining2 = 1800;
         timer = new Timer();
-        timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
+        timer.schedule(new GameTimer(this, board), 0, 1000);
     }
 
     public String resterend(int i)
@@ -126,12 +138,12 @@ public class Game
     public void setResterend1(int seconde)
     {
         this.remaining1 = remaining1 - seconde;
-        if (remaining1 <= 0)
+        /*if (remaining1 <= 0)
         {
             setWinner(player2);
             setFinished(true);
             //timer.cancel();
-        }
+        }*/
     }
 
     public double getResterend2()
@@ -141,13 +153,13 @@ public class Game
 
     public void setResterend2(int seconde)
     {
-        this.remaining2 = remaining2 - seconde;
+        this.remaining2 = remaining2 - seconde;/*
         if (remaining2 <= 0)
         {
             setWinner(player1);
             setFinished(true);
             //timer.cancel();
-        }
+        }*/
     }
 
     public boolean isFinished()
@@ -532,6 +544,11 @@ public class Game
             this.gameDraw = true;
             setFinished(true);
         }
+    }
+    
+    public void update()
+    {
+        ingame.updateTimers();
     }
     
 }

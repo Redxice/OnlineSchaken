@@ -94,7 +94,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         Group root = new Group();
         client.setGame(this);
         System.out.println(client.GetGameController());
-        game = new Game(p1, p2, Iclient);
+        game = new Game(p1, p2, Iclient, this);
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
@@ -240,7 +240,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @FXML
     public void sendMessage(ActionEvent event)
     {
+        Chatfilter filter = new Chatfilter();
         String message = Txt_Message.getText();
+        message = filter.checkMessage(message);
         if (message != null)
         {
             Chatline chatLine = new Chatline(client.getUserName(), message);
@@ -555,8 +557,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-                        timerWhite.setText(String.valueOf(game.getResterend1()));
-                        timerWhite.setText(String.valueOf(game.getResterend2()));
+                        timerWhite.setText(String.valueOf(game.resterend(1)));
+                        timerBlack.setText(String.valueOf(game.resterend(2)));
                     }
                 });
             }
