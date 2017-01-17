@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import onlineschaken.Chatfilter;
 import onlineschaken.Chatline;
 import onlineschaken.Player;
 
@@ -229,14 +230,20 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @FXML
     public void HandleSendBtn(ActionEvent event)
     {
-        try {
-            System.out.println("player 1 " +GameLobby.GetPlayer1().getUsername() + "player 2 " + GameLobby.GetPlayer2().getUsername());
-        } catch (RemoteException ex) {
-            Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        Chatfilter filter = new Chatfilter();
+        String message = Chatline_TxtField.getText();
+        message = filter.checkMessage(message);
+        if (message != null)
+        {
+            Chatline chatLine = new Chatline(client.getUserName(), message);
+            try
+            {
+                client.sendInGameMessage(chatLine);
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        Chatline chatLine = new Chatline(getLoggedInUser().getUsername(), Chatline_TxtField.getText());
-        client.SendMessage(chatLine, lobbyName);
-        Chatline_TxtField.setText("");
     }
 
     public void setClient(ClientApp client)
