@@ -5,6 +5,9 @@
  */
 package onlineschaken;
 
+import Server.ClientApp;
+import Shared.IrmiClient;
+import gui.IngameController;
 import gui.OnlineSchaken;
 import java.awt.Point;
 import org.junit.After;
@@ -26,13 +29,24 @@ public class PawnTest
     private Player p1;
     private Player p2;
     private Board board;
-
+    private IrmiClient client;
+    private IngameController controller;
+    
     public PawnTest()
     {
         onlineSchaken = new OnlineSchaken();
         p1 = new Player("p1", "ww", 0);
         p2 = new Player("p2", "ww", 0);
-        game = new Game(p1, p2);
+        client = new ClientApp();
+        try
+        {
+        controller = new IngameController();
+        }
+        catch(Exception e)
+        {
+            
+        }
+        game = new Game(p1, p2, client, controller);
         game.getBoard().createContent();
     }
 
