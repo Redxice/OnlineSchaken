@@ -54,7 +54,6 @@ public class Game implements Serializable
         this.player1 = p_player1;
         this.player2 = p_player2;
         this.javaFX = javaFX;
-        board = new Board(client);
         remaining1 = 1800;
         remaining2 = 1800;
         timer = new Timer();

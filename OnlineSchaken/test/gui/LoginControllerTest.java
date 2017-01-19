@@ -5,10 +5,14 @@
  */
 package gui;
 
+import Server.ClientApp;
+import Shared.IrmiServer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.mockito.Mockito.*;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,6 +22,8 @@ import static org.junit.Assert.*;
  */
 public class LoginControllerTest
 {
+    private ClientApp client1=null;
+    private IrmiServer server=null;
     
     public LoginControllerTest()
     {
@@ -36,6 +42,7 @@ public class LoginControllerTest
     @Before
     public void setUp()
     {
+        
     }
     
     @After
