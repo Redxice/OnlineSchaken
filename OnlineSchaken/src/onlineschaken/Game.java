@@ -55,7 +55,7 @@ public class Game implements Serializable
         remaining1 = 1800;
         remaining2 = 1800;
         timer = new Timer();
-        timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
+        //timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
         board.setGame(this);
         //RecieveRmi rmi = new RecieveRmi();
     }
@@ -104,7 +104,7 @@ public class Game implements Serializable
         this.javaFX = javaFX;
         board = new Board(client);
         timer = new Timer();
-        timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
+        //timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
     }
     
    

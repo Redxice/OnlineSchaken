@@ -6,7 +6,10 @@
 package onlineschaken;
 
 import gui.OnlineSchaken;
+import java.rmi.RemoteException;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,13 +20,11 @@ public class GameTimer extends TimerTask
 
     private Game game;
     private Board board;
-    private OnlineSchaken javaFX;
 
-    public GameTimer(Game game, Board board, OnlineSchaken javaFX)
+    public GameTimer(Game game, Board board)
     {
         this.game = game;
         this.board = board;
-        this.javaFX = javaFX;
     }
 
     @Override
@@ -31,15 +32,34 @@ public class GameTimer extends TimerTask
     {
         if (game.isFinished() != true)
         {
-            if (board.getTurn().equals("white"))
+            try
             {
-                game.setResterend1(1);
-                javaFX.update();
-
-            } else if (board.getTurn().equals("black"))
+                if (board.getClient().getGameLobbyController().getLoggedInUser().getColor().equals("white"))
+                {
+                    if (board.getClient().GetGameController().getMyTurn())
+                    {
+                        game.setResterend2(1);
+                        game.update();
+                    } else
+                    {
+                        game.setResterend1(1);
+                        game.update();
+                    }
+                } else if (board.getClient().getGameLobbyController().getLoggedInUser().getColor().equals("black"))
+                {
+                    if (board.getClient().GetGameController().getMyTurn())
+                    {
+                        game.setResterend1(1);
+                        game.update();
+                    } else
+                    {
+                        game.setResterend2(1);
+                        game.update();
+                    }
+                }
+            } catch (RemoteException ex)
             {
-                game.setResterend2(1);
-                javaFX.update();
+                Logger.getLogger(GameTimer.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

@@ -113,6 +113,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         {
             try
             {
+                this.player.setColor("black");
                 IGameLobby lobby = client.GetGameLobby(selectedLobby);
                 System.out.println("Ik ben in joingame");
                 if (lobby.joinGameLobby(player))
@@ -170,6 +171,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         {
             if (!Tb_GameName.getText().isEmpty())
             {
+                this.player.setColor("white");
                 IGameLobby lobby = TryToCreateGameLobby(Tb_GameName.getText(), this.player);
                 if (lobby != null)
                 {

@@ -73,7 +73,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private ListView MoveHistory;
     @FXML
     private Button Btn_Leave;
-
+    private TextField timerWhite;
+    @FXML
+    private TextField timerBlack;
     private List<Player> spectators = new ArrayList<>();
     private Game game;
     private String player1;
@@ -98,6 +100,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         Group root = new Group();
         client.setGame(this);
         System.out.println(client.GetGameController());
+        
         if (newGame)
         {
             this.game = game;
@@ -105,7 +108,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         {
             this.game = new Game(game, this.Iclient);
         }
-
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
@@ -250,7 +252,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @FXML
     public void sendMessage(ActionEvent event)
     {
+        Chatfilter filter = new Chatfilter();
         String message = Txt_Message.getText();
+        message = filter.checkMessage(message);
         if (message != null)
         {
             Chatline chatLine = new Chatline(client.getUserName(), message);
@@ -590,6 +594,26 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     public void run()
                     {
                         game.setFinished(true);
+                    }
+                });
+            }
+        }).start();
+    }
+    
+    public void updateTimers()
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        timerWhite.setText(String.valueOf(game.resterend(1)));
+                        timerBlack.setText(String.valueOf(game.resterend(2)));
                     }
                 });
             }
