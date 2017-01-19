@@ -30,7 +30,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import onlineschaken.Chatfilter;
-import onlineschaken.Chatline;.
+import onlineschaken.Chatline;
 import onlineschaken.Game;
 import onlineschaken.Player;
 
@@ -109,7 +109,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    Game game = new Game(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),this.IClient);
+                    Game game = new Game(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),this.IClient,controller);
                     controller.DrawBoard(game,GameLobby.getSpectators(),true);
                 }
             } catch (IOException ex)
@@ -390,7 +390,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
                                 stage.show();
-                                Game game = new Game(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),IClient);
+                                Game game = new Game(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),IClient,controller);
                                 controller.DrawBoard(game,GameLobby.getSpectators(),true);
                             }
                         } catch (IOException ex)

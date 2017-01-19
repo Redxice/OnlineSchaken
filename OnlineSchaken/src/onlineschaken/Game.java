@@ -7,6 +7,7 @@ package onlineschaken;
 
 import Server.ClientApp;
 import Shared.IrmiClient;
+import gui.IngameController;
 import gui.OnlineSchaken;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -39,14 +40,16 @@ public class Game implements Serializable
     private transient List<Player> spectators = new ArrayList<>();
     private Player winner;
     private boolean whiteTurn;
+    private IngameController ingame;
     private transient List<Chatline> chat = new ArrayList<>();
     private transient Board board;
     private OnlineSchaken javaFX;
     private boolean player1Draw = false;
     private boolean player2Draw = false;
     private boolean gameDraw = false;
+
     //constructor voor game die geen deel uitmaakt van een tournament
-    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client)
+    public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client, IngameController ingame)
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
@@ -55,26 +58,35 @@ public class Game implements Serializable
         remaining1 = 1800;
         remaining2 = 1800;
         timer = new Timer();
-        //timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
+        timer.schedule(new GameTimer(this, board), 0, 1000);
         board.setGame(this);
+        this.ingame = ingame;
         //RecieveRmi rmi = new RecieveRmi();
     }
 
     //zonder timer
-    public Game(Player p_player1, Player p_player2, IrmiClient client)
+    public Game(Player p_player1, Player p_player2, IrmiClient client, IngameController ingame)
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
+        this.javaFX = javaFX;
         board = new Board(client);
+        remaining1 = 1800;
+        remaining2 = 1800;
         board.setGame(this);
+        this.ingame = ingame;
+        timer = new Timer();
+        timer.schedule(new GameTimer(this, board), 0, 1000);
     }
+
     /**
      * Voor het hervatten van een game
+     *
      * @param p_player1
      * @param p_player2
-     * @param client 
+     * @param client
      */
-     public Game(Game game, IrmiClient client)
+    public Game(Game game, IrmiClient client)
     {
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
@@ -84,12 +96,12 @@ public class Game implements Serializable
         this.remaining1 = game.remaining1;
         this.remaining2 = game.remaining2;
         this.player1 = game.getPlayer1();
-        this.player2 = game.getPlayer2();    
-        
+        this.player2 = game.getPlayer2();
+
         board = new Board(client);
         board.setGame(this);
     }
-     
+
     //constructor vor een game die deel is van een tournament
     public Game(int p_time, Player p_player1, Player p_player2,
             Tournament p_tournament, OnlineSchaken javaFX, ClientApp client)
@@ -106,8 +118,7 @@ public class Game implements Serializable
         timer = new Timer();
         //timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
     }
-    
-   
+
     public String resterend(int i)
     {
         if (i == 1)
@@ -149,12 +160,12 @@ public class Game implements Serializable
     public void setResterend1(int seconde)
     {
         this.remaining1 = remaining1 - seconde;
-        if (remaining1 <= 0)
+        /*if (remaining1 <= 0)
         {
             setWinner(player2);
             setFinished(true);
             //timer.cancel();
-        }
+        }*/
     }
 
     public double getResterend2()
@@ -165,12 +176,12 @@ public class Game implements Serializable
     public void setResterend2(int seconde)
     {
         this.remaining2 = remaining2 - seconde;
-        if (remaining2 <= 0)
+        /*if (remaining2 <= 0)
         {
             setWinner(player1);
             setFinished(true);
             //timer.cancel();
-        }
+        }*/
     }
 
     public boolean isFinished()
@@ -184,22 +195,27 @@ public class Game implements Serializable
         if (this.finished == true)
         {
             //timer.cancel();
-            if(gameDraw == false)
+            if (gameDraw == false)
             {
-            int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-            if (exit == 0)
+                int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                if (exit == 0)
+                {
+                    Platform.exit();
+                }
+            } else if (gameDraw)
             {
-                Platform.exit();
-            }
-            }else if(gameDraw)
-            {
-            int exit = JOptionPane.showOptionDialog(null, "Het is Gelijkspel.", "Gelijkspel!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-            if (exit == 0)
-            {
-                Platform.exit();
-            }
+                int exit = JOptionPane.showOptionDialog(null, "Het is Gelijkspel.", "Gelijkspel!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                if (exit == 0)
+                {
+                    Platform.exit();
+                }
             }
         }
+    }
+
+    public void update()
+    {
+        ingame.updateTimers();
     }
 
     public Tournament getTournament()
@@ -306,18 +322,20 @@ public class Game implements Serializable
     {
         chat.remove(p_chatline);
     }
-    public void Surrender(String Username){
+
+    public void Surrender(String Username)
+    {
         if (this.player1.getUsername().equals(Username))
         {
             setWinner(this.player2);
             setFinished(true);
-        }
-        else if (this.player2.getUsername().equals(Username))
+        } else if (this.player2.getUsername().equals(Username))
         {
             setWinner(this.player1);
             setFinished(true);
         }
     }
+
     public boolean checkMate()
     {
         Piece previousPiece;
@@ -384,24 +402,27 @@ public class Game implements Serializable
             return true;
         }
     }
+
     /**
-     * 
+     *
      * @param player
      */
-    public void SetPiecesAgain(){
-        this.player1.getPieces().stream().forEach((piece) ->
-        {
-            piece.resetMySection(this.board);
-            piece.fillInTheBlanks(player1);
+    public void SetPiecesAgain()
+    {
+        this.player1.getPieces().stream().forEach((piece)
+                -> 
+                {
+                    piece.resetMySection(this.board);
+                    piece.fillInTheBlanks(player1);
         });
-         this.player2.getPieces().stream().forEach((piece) ->
-        {
-            piece.resetMySection(this.board);
-            piece.fillInTheBlanks(player2);
+        this.player2.getPieces().stream().forEach((piece)
+                -> 
+                {
+                    piece.resetMySection(this.board);
+                    piece.fillInTheBlanks(player2);
         });
     }
-    
-    
+
     // Zet alle stukken in de begin positie op het bord;
     public void setPieces()
     {
@@ -456,7 +477,7 @@ public class Game implements Serializable
             gameDraw = true;
             setFinished(true);
             return true;
-        } 
+        }
         return false;
     }
 
@@ -494,13 +515,13 @@ public class Game implements Serializable
     // kijkt of de speler die aan zet is nog een stuk kan verzetten
     public boolean staleMate()
     {
-       for(Piece p : player1.getPieces())
-       {
-          if(p.canMove())
-          {
-              return false;
-          }
-       }
+        for (Piece p : player1.getPieces())
+        {
+            if (p.canMove())
+            {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -509,11 +530,10 @@ public class Game implements Serializable
      */
     public void setPlayer1Draw()
     {
-        if(player1Draw == true)
+        if (player1Draw == true)
         {
             this.player1Draw = false;
-        }
-        else
+        } else
         {
             this.player1Draw = true;
         }
@@ -524,11 +544,10 @@ public class Game implements Serializable
      */
     public void setPlayer2Draw()
     {
-        if(player2Draw == true)
+        if (player2Draw == true)
         {
             this.player2Draw = false;
-        }
-        else
+        } else
         {
             this.player2Draw = true;
         }
@@ -557,23 +576,27 @@ public class Game implements Serializable
         }
     }
 
-    public boolean isPlayer1Draw() {
+    public boolean isPlayer1Draw()
+    {
         return player1Draw;
     }
 
-    public boolean isPlayer2Draw() {
+    public boolean isPlayer2Draw()
+    {
         return player2Draw;
     }
 
     public void checkDraw()
     {
-        if(this.player1Draw && this.player2Draw)
+        if (this.player1Draw && this.player2Draw)
         {
             this.gameDraw = true;
             setFinished(true);
         }
     }
-    public void setGameNr(int GameNr){
+
+    public void setGameNr(int GameNr)
+    {
         this.GameNr = GameNr;
     }
 
@@ -582,5 +605,5 @@ public class Game implements Serializable
     {
         return "Game{" + "GameNr=" + GameNr + ", player1=" + player1 + ", player2=" + player2 + ", winner=" + winner + '}';
     }
-    
+
 }
