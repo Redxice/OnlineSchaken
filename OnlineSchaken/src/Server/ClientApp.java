@@ -38,6 +38,7 @@ public class ClientApp implements IrmiClient
     private IinGameController game;
     private String ip = "127.0.0.1"/* "169.254.183.180"*/;
     private String userName;
+    private Player player;
     private Registry registry;
     private IrmiServer stub;
     private ProfileController profileController;
@@ -411,4 +412,29 @@ public class ClientApp implements IrmiClient
     {
         this.game.leaveGame();
     }
+
+    public Player getPlayer()
+    {
+        return player;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+
+    @Override
+    public boolean RestartGame(Game SelectedGame)throws RemoteException
+    {
+        String receiver = null;
+        if (this.getUserName().equals(SelectedGame.getPlayer1().getUsername()))
+        {
+            receiver = SelectedGame.getPlayer2().getUsername();
+        } else if (this.getUserName().equals(SelectedGame.getPlayer2()))
+        {
+            receiver = SelectedGame.getPlayer1().getUsername();
+        }
+        return stub.RestartGame(receiver,SelectedGame);
+    }
+    
 }

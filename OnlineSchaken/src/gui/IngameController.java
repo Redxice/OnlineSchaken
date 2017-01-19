@@ -106,7 +106,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             this.game = game;
         } else
         {
-            this.game = new Game(game, this.Iclient);
+            this.game = new Game(game,this.Iclient,this);
         }
         GameBoard.setRoot(root);
         game.getBoard().createContent();

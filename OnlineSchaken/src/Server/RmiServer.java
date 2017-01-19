@@ -446,11 +446,7 @@ public class RmiServer implements IrmiServer
         return database.addFriend(player, Friend);
     }
 
-    public void checkIfValidUser()
-    {
-    }
-
-    ;
+    
 
     @Override
     public Player selectPlayer(String username) throws RemoteException
@@ -572,6 +568,29 @@ public class RmiServer implements IrmiServer
                 Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    @Override
+    public boolean RestartGame(String receiver,Game game)throws RemoteException
+    {
+        for (IrmiClient client : Clients)
+        {
+            try
+            {
+                if (client.getUserName().equals(receiver))
+                {
+                    if (client.getLobbyController()!=null)
+                    {
+                        client.getLobbyController().RestartGame(game);
+                        return true;
+                    }
+                }
+            } catch (RemoteException ex)
+            {
+                Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+           return false;
     }
 
 }

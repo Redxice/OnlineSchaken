@@ -61,7 +61,6 @@ public class Game implements Serializable
         timer.schedule(new GameTimer(this, board), 0, 1000);
         board.setGame(this);
         this.ingame = ingame;
-        //RecieveRmi rmi = new RecieveRmi();
     }
 
     //zonder timer
@@ -86,7 +85,7 @@ public class Game implements Serializable
      * @param p_player2
      * @param client
      */
-    public Game(Game game, IrmiClient client)
+    public Game(Game game, IrmiClient client, IngameController ingame)
     {
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
@@ -104,7 +103,7 @@ public class Game implements Serializable
 
     //constructor vor een game die deel is van een tournament
     public Game(int p_time, Player p_player1, Player p_player2,
-            Tournament p_tournament, OnlineSchaken javaFX, ClientApp client)
+            Tournament p_tournament, OnlineSchaken javaFX, ClientApp client, IngameController ingame)
     {
 
         this.player1 = p_player1;
@@ -250,6 +249,10 @@ public class Game implements Serializable
 
     public List<Player> getSpectators()
     {
+        if (this.spectators==null)
+        {
+            spectators = new ArrayList<>();
+        }
         return spectators;
     }
 

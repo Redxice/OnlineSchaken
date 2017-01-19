@@ -91,4 +91,6 @@ public interface IrmiClient extends Remote {
     public void SaveGame(Game game)throws RemoteException;
     
     public void leaveGame() throws RemoteException;
+
+    public boolean RestartGame(Game SelectedGame)throws RemoteException;
 }

@@ -15,6 +15,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,6 +67,7 @@ public class LoginController implements Initializable
             {           
                 client.setUserName(TxtField_Username.getText());
                 player = new Player((String)TxtField_Username.getText(),(String)TxtField_Password.getText(),10);
+                client.setPlayer(player);
                 Stage LoginStage = (Stage) BtnLogin.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
 

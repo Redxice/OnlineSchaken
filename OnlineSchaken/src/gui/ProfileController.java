@@ -9,6 +9,7 @@ import Server.ClientApp;
 import Shared.IrmiClient;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,6 +85,37 @@ public class ProfileController implements Initializable
 
     }
 
+    @FXML
+    private void HandleRestartGame(ActionEvent event)
+    {
+        try
+        {  
+            Game SelectedGame = (Game) this.Lv_ActiveGames.getSelectionModel().getSelectedItem();
+            if(IClient.RestartGame(SelectedGame)){
+            Stage LoginStage = (Stage) Btn_Back.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            IngameController controller = fxmlLoader.<IngameController>getController();
+            controller.setClient(client);
+            controller.setIClient(IClient);
+            controller.setPlayer1(SelectedGame.getPlayer1().getUsername());
+            controller.setPlayer2(SelectedGame.getPlayer2().getUsername());
+            controller.setLoggedInUser(client.getPlayer());
+            LoginStage.close();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            controller.DrawBoard(SelectedGame, SelectedGame.getSpectators(), false);
+            } } catch (RemoteException ex)
+        {
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void UpdateGames()
     {
         Platform.runLater(new Runnable()
@@ -91,11 +123,11 @@ public class ProfileController implements Initializable
             @Override
             public void run()
             {
-               ActiveGames.setAll(player.getActiveGames());
-               GameHistory.setAll(player.getHistory());
-               Lv_ActiveGames.setItems(ActiveGames);
-               GameHistory.setAll(player.getHistory());
-               
+                ActiveGames.setAll(player.getActiveGames());
+                GameHistory.setAll(player.getHistory());
+                Lv_ActiveGames.setItems(ActiveGames);
+                GameHistory.setAll(player.getHistory());
+
             }
         });
     }
@@ -120,4 +152,5 @@ public class ProfileController implements Initializable
     {
         this.IClient = client;
     }
+    
 }

@@ -274,5 +274,31 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         }
 
     }
+    @Override
+    public void RestartGame(Game game)throws RemoteException
+    {
+        try
+        {
+            Stage LoginStage = (Stage) Btn_Join.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            IngameController controller = fxmlLoader.<IngameController>getController();
+            controller.setClient(client);
+            controller.setIClient(IClient);
+            controller.setPlayer1(game.getPlayer1().getUsername());
+            controller.setPlayer2(game.getPlayer2().getUsername());
+            controller.setLoggedInUser(client.getPlayer());
+            LoginStage.close();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            controller.DrawBoard(game, game.getSpectators(), false);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }
 
 }

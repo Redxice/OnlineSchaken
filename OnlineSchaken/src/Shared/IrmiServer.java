@@ -124,4 +124,6 @@ public interface IrmiServer extends Remote
     public ArrayList<Game> GetUserGames(String username)throws RemoteException;
 
     public void SaveGame(Game game,String leaver)throws RemoteException;
+
+    public boolean RestartGame(String receiver,Game game)throws RemoteException;
 }
