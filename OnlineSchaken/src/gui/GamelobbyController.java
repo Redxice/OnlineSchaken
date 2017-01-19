@@ -9,14 +9,10 @@ import Server.ClientApp;
 import Shared.IGameLobby;
 import Shared.IGameLobbyController;
 import Shared.IrmiClient;
-import Shared.IrmiServer;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +30,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import onlineschaken.Chatline;
-import onlineschaken.Gamelobby;
+import onlineschaken.Game;
 import onlineschaken.Player;
 
 /**
@@ -64,6 +60,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     private Button Btn_FriendList;
     @FXML
     private ListView ChatBox;
+    
     @FXML
     private ListView SpelerBox;
     @FXML
@@ -101,6 +98,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     IngameController controller = fxmlLoader.<IngameController>getController();
+                    controller.setLoggedInUser(this.LoggedInUser);
                     controller.setClient(client);
                     controller.setIClient(IClient);
                     controller.setPlayer1(GameLobby.GetPlayer1().getUsername());
@@ -110,7 +108,8 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    controller.DrawBoard(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),GameLobby.getSpectators());
+                    Game game = new Game(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),this.IClient);
+                    controller.DrawBoard(game,GameLobby.getSpectators(),true);
                 }
             } catch (IOException ex)
             {
@@ -243,7 +242,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         client.SendMessage(chatLine, lobbyName);
         Chatline_TxtField.setText("");
     }
-
+    
     public void setClient(ClientApp client)
     {
         this.client = client;
@@ -378,12 +377,14 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                                 controller.setIClient(IClient);
                                 controller.setPlayer1(GameLobby.GetPlayer1().getUsername());
                                 controller.setPlayer2(GameLobby.GetPlayer2().getUsername());
+                                controller.setLoggedInUser(LoggedInUser);
                                 LoginStage.close();
                                 Stage stage = new Stage();
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
                                 stage.show();
-                                controller.DrawBoard(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),GameLobby.getSpectators());
+                                Game game = new Game(GameLobby.GetPlayer1(), GameLobby.GetPlayer2(),IClient);
+                                controller.DrawBoard(game,GameLobby.getSpectators(),true);
                             }
                         } catch (IOException ex)
                         {

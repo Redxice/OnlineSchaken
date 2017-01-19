@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
 import onlineschaken.Chatline;
+import onlineschaken.Game;
 import onlineschaken.Gamelobby;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
@@ -119,4 +120,8 @@ public interface IrmiServer extends Remote
     public void draw(String userNameOtherPlayer) throws RemoteException;
     
     public void recieveGameover(String userNameOtherPlayer) throws RemoteException;
+
+    public ArrayList<Game> GetUserGames(String username)throws RemoteException;
+
+    public void SaveGame(Game game,String leaver)throws RemoteException;
 }

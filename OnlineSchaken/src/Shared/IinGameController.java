@@ -80,4 +80,6 @@ public interface IinGameController extends Remote
     public boolean isSpectator() throws RemoteException;
     
     public List<Player> getSpectators()throws RemoteException;
+    
+    public void leaveGame()throws RemoteException;
 }

@@ -45,7 +45,6 @@ import javax.swing.JOptionPane;
 public class LobbyController extends UnicastRemoteObject implements Initializable, ILobbyController
 {
 
-   
     private IGameLobby lobby;
     private ClientApp client;
     private ObservableList gameList = FXCollections.observableArrayList();
@@ -93,11 +92,13 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             ProfileController controller = fxmlLoader.<ProfileController>getController();
             controller.setPlayer(this.player);
             controller.setClient(client);
+            controller.setIClient(IClient);
             CurrentStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+            controller.UpdateGames();
         } catch (IOException ex)
         {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,7 +123,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Gamelobby.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
-                    controller.JoinGameLobby(lobby,player);
+                    controller.JoinGameLobby(lobby, player);
                     controller.setIClient(IClient);
                     controller.setClient(client);
                     IClient.updatePlayerList();
@@ -200,6 +201,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     public void setPlayer(Player p_player)
     {
         this.player = p_player;
+
     }
 
     public Player getPlayer()
@@ -252,6 +254,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         {
             gameList.setAll(client.GetGameLobbys());
             Lv_GameList.setItems(gameList);
+            
         }
 
     }
@@ -262,10 +265,12 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         try
         {
             IClient.setLobbyController((ILobbyController) this);
+            player.setGames(this.IClient.GetGames(player.getUsername()));
         } catch (RemoteException ex)
         {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
 }

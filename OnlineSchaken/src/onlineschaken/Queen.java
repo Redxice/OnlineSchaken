@@ -22,7 +22,7 @@ public class Queen extends Piece
         {
             this.setImg(new Image("ChessPieces/White Queen.jpg"));
         }
-        if (p_color == "black")
+        else if (p_color == "black")
         {
             this.setImg(new Image("ChessPieces/Black Queen.jpg"));
         }

@@ -9,6 +9,7 @@ import Server.ClientApp;
 import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.awt.Point;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -23,12 +24,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import onlineschaken.Bishop;
 import onlineschaken.Chatline;
 
@@ -66,6 +71,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private SubScene GameBoard;
     @FXML
     private ListView MoveHistory;
+    @FXML
+    private Button Btn_Leave;
 
     private List<Player> spectators = new ArrayList<>();
     private Game game;
@@ -75,6 +82,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private Point localStart;
     private Point localEnd;
     private boolean spectator;
+    private Player LoggedInUser;
 
     public IngameController() throws RemoteException
     {
@@ -85,12 +93,19 @@ public class IngameController extends UnicastRemoteObject implements Initializab
      * moet nog verder worden uitgewerkt. De players moeten worden geadd in de
      * game.
      */
-    public void DrawBoard(Player p1, Player p2,List<Player> spectators) throws RemoteException
+    public void DrawBoard(Game game, List<Player> spectators, boolean newGame) throws RemoteException
     {
         Group root = new Group();
         client.setGame(this);
         System.out.println(client.GetGameController());
-        game = new Game(p1, p2, Iclient);
+        if (newGame)
+        {
+            this.game = game;
+        } else
+        {
+            this.game = new Game(game, this.Iclient);
+        }
+
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         game.setPieces();
@@ -104,14 +119,13 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             this.MyRealTurn = true;
             white = true;
             spectator = false;
-        } else if(Iclient.getUserName().equals(game.getPlayer2().getUsername()))
+        } else if (Iclient.getUserName().equals(game.getPlayer2().getUsername()))
         {
             this.isMyTurn = false;
             this.MyRealTurn = false;
             white = false;
             spectator = false;
-        }
-        else
+        } else
         {
             spectator = true;
         }
@@ -250,6 +264,53 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
     }
 
+    @FXML
+    public void handleLeaveBtn(ActionEvent event)
+    {
+        try
+        {
+            Iclient.SaveGame(this.game);
+            System.out.println("Hij heeft een game gesaved");
+            leaveGame();
+        } catch (RemoteException ex)
+        {
+            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @Override
+    public void leaveGame() throws RemoteException
+    {
+        Platform.runLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    LobbyController controller = fxmlLoader.<LobbyController>getController();
+                    controller.setPlayer(LoggedInUser);
+                    System.out.println("LoggedinUser "+LoggedInUser);
+                    controller.setClient(client);
+                    controller.setIClient(Iclient);
+                    CurrentStage.close();
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+    }
+
     @Override
     public void updateChat(Chatline message) throws RemoteException
     {
@@ -283,12 +344,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         return white;
     }
 
-    public boolean isSpectator() throws RemoteException{
+    public boolean isSpectator() throws RemoteException
+    {
         return spectator;
     }
 
-    
-    
     @Override
     public boolean getRealTurn() throws RemoteException
     {
@@ -433,49 +493,45 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         try
         {
             Chatline chatLine;
-            if(this.Iclient.getUserName().equals(this.player1))
-            { 
-                if(game.isPlayer1Draw())
-                {                
-                    chatLine = new Chatline("--System--","Player1 heeft zijn gelijkspel aanvraag ingetrokken"); 
-                }
-                else
+            if (this.Iclient.getUserName().equals(this.player1))
+            {
+                if (game.isPlayer1Draw())
                 {
-                    chatLine = new Chatline("--System--","Player1 heeft gelijkspel aangevraagd"); 
+                    chatLine = new Chatline("--System--", "Player1 heeft zijn gelijkspel aanvraag ingetrokken");
+                } else
+                {
+                    chatLine = new Chatline("--System--", "Player1 heeft gelijkspel aangevraagd");
                 }
                 Iclient.draw(player2);
                 game.setPlayer1Draw();
                 client.sendInGameMessage(chatLine);
-            }
-            else if (this.Iclient.getUserName().equals(this.player2))
+            } else if (this.Iclient.getUserName().equals(this.player2))
             {
-                if(game.isPlayer2Draw())
+                if (game.isPlayer2Draw())
                 {
-                    chatLine = new Chatline("--System--","Player2 heeft zijn gelijkspel aanvraag ingetrokken"); 
-                }
-                else
+                    chatLine = new Chatline("--System--", "Player2 heeft zijn gelijkspel aanvraag ingetrokken");
+                } else
                 {
-                    chatLine = new Chatline("--System--","Player2 heeft gelijkspel aangevraagd"); 
+                    chatLine = new Chatline("--System--", "Player2 heeft gelijkspel aangevraagd");
                 }
                 Iclient.draw(player1);
                 game.setPlayer2Draw();
                 client.sendInGameMessage(chatLine);
-            }                        
+            }
             game.checkDraw();
         } catch (RemoteException ex)
         {
             Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-    
+
     @Override
-    public void recieveDraw()throws RemoteException
+    public void recieveDraw() throws RemoteException
     {
-        if(this.Iclient.getUserName().equals(this.player2))
+        if (this.Iclient.getUserName().equals(this.player2))
         {
             game.setPlayer1Draw();
-        }
-        else if(this.Iclient.getUserName().equals(this.player1))
+        } else if (this.Iclient.getUserName().equals(this.player1))
         {
             game.setPlayer2Draw();
         }
@@ -489,18 +545,19 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-        game.checkDraw();
-        }
+                        game.checkDraw();
+                    }
                 });
             }
         }).start();
     }
 
     @Override
-    public List<Player> getSpectators()throws RemoteException {
+    public List<Player> getSpectators() throws RemoteException
+    {
         return spectators;
-}
-    
+    }
+
     @Override
     public void gameover()
     {
@@ -537,6 +594,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 });
             }
         }).start();
+    }
+
+    void setLoggedInUser(Player LoggedInUser)
+    {
+        this.LoggedInUser = LoggedInUser;
     }
 
 }

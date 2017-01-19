@@ -23,10 +23,11 @@ public class Player implements Serializable
     private String color;
     private int rating;
     private boolean online;
-    private List<Player> friends;
+    private transient List<Player> friends;
     private List<Piece> pieces;
     private transient Game game;
-    private transient List<Game> history;
+    private transient List<Game> history ;
+    private transient List<Game> activeGames ;
     
     //constructor
     public Player(String p_username, String p_password, int p_rating)
@@ -159,6 +160,27 @@ public class Player implements Serializable
     public void removePiece(Piece piece)
     {
         pieces.remove(piece);
+    }
+
+    public List<Game> getActiveGames()
+    {
+        return activeGames;
+    }
+
+    public void setGames(List<Game> activeGames)
+    {
+       history = new ArrayList<>();
+       this.activeGames = new ArrayList<>();
+        for (Game game :activeGames)
+        {
+            if (game.isFinished())
+            {
+                this.history.add(game);
+            }
+            else{
+               this.activeGames.add(game);
+            }
+        }
     }
 
     @Override

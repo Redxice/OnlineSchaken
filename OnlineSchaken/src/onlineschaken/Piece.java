@@ -26,8 +26,8 @@ public abstract class Piece extends StackPane implements Serializable
 {
 
     //fields
-    private transient static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
-    private transient String color;
+    private static final Logger LOGGER = Logger.getLogger(Piece.class.getName());
+    private String color;
     private transient Player player;
     private transient Section section;
     private int x;
@@ -49,6 +49,72 @@ public abstract class Piece extends StackPane implements Serializable
             this.y = p_section.getID().y;
         }
 
+    }
+
+    public void fillInTheBlanks(Player player)
+    {
+        this.player = player;
+
+    }
+
+    public void setCorrectImg()
+    {
+        if (this instanceof Bishop)
+        {
+            if (this.color == "white")
+            {
+                this.setImg(new Image("ChessPieces/White Bishop.jpg"));
+            } else if (this.color == "black")
+            {
+                this.setImg(new Image("ChessPieces/Black Bishop.jpg"));
+            }
+        } else if (this instanceof King)
+        {
+            if (this.color == "white")
+            {
+                this.setImg(new Image("ChessPieces/White King.jpg"));
+            }
+            if (this.color == "black")
+            {
+                this.setImg(new Image("ChessPieces/Black King.jpg"));
+            }
+        } else if (this instanceof Knight)
+        {
+            if (this.color == "white")
+            {
+                this.setImg(new Image("ChessPieces/White Knight.jpg"));
+            } else if (this.color == "black")
+            {
+                this.setImg(new Image("ChessPieces/Black Knight.jpg"));
+            }
+        } else if (this instanceof Pawn)
+        {
+            if (this.color == "white")
+            {
+                this.setImg(new Image("ChessPieces/White Pawn.jpg"));
+            } else if (this.color == "black")
+            {
+                this.setImg(new Image("ChessPieces/Black Pawn.jpg"));
+            }
+        } else if (this instanceof Queen)
+        {
+            if (this.color == "white")
+            {
+                this.setImg(new Image("ChessPieces/White Queen.jpg"));
+            } else if (this.color == "black")
+            {
+                this.setImg(new Image("ChessPieces/Black Queen.jpg"));
+            }
+        } else if (this instanceof Rook)
+        {
+            if (this.color == "white")
+            {
+                this.setImg(new Image("ChessPieces/White Rook.jpg"));
+            } else if (this.color == "black")
+            {
+                this.setImg(new Image("ChessPieces/Black Rook.jpg"));
+            }
+        }
     }
 
     public static Logger getLOGGER()
@@ -125,8 +191,8 @@ public abstract class Piece extends StackPane implements Serializable
         if (this.section != null)
         {
             section.setPiece(this);
-            this.x = (int)section.getX();
-            this.y = (int)section.getY();
+            this.x = (int) section.getX();
+            this.y = (int) section.getY();
         }
 
     }
@@ -363,7 +429,7 @@ public abstract class Piece extends StackPane implements Serializable
                     Pawn pawn = (Pawn) this;
                     if (pawn.Promotion(p_section))
                     {
-                        if (this.color == "white" && IngameController.isWhite() == true && IngameController.isSpectator() == false|| this.color == "black" && IngameController.isWhite() == false && IngameController.isSpectator() == false)
+                        if (this.color == "white" && IngameController.isWhite() == true && IngameController.isSpectator() == false || this.color == "black" && IngameController.isWhite() == false && IngameController.isSpectator() == false)
                         {
                             if (IngameController.getMyTurn())
                             {
@@ -413,15 +479,15 @@ public abstract class Piece extends StackPane implements Serializable
     {
         this.y = y;
     }
-    
+
     public boolean canMove()
     {
-        for(Section[] listSections : section.getBoard().getSections())
+        for (Section[] listSections : section.getBoard().getSections())
         {
-            for(Section s : listSections)
+            for (Section s : listSections)
             {
-                if(checkMove(s))
-                {                 
+                if (checkMove(s))
+                {
                     return true;
                 }
             }
@@ -429,4 +495,15 @@ public abstract class Piece extends StackPane implements Serializable
         return false;
     }
 
+    /**
+     * zet zich zelf op het nieuwe board nadat hij uit de date base word
+     * gehaalt.
+     *
+     * @param board
+     */
+    public void resetMySection(Board board)
+    {
+        this.section = board.getSections(x, y);
+        section.setPiece(this);
+    }
 }

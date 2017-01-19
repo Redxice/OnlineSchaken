@@ -11,6 +11,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import onlineschaken.Chatline;
+import onlineschaken.Game;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
@@ -24,10 +25,6 @@ public interface IrmiClient extends Remote {
     public void sendTurn(Point prev, Point next, double time) throws RemoteException;
     
     public void getTurn(Point section1, Point section2, double time) throws RemoteException;
-
-    public void addController(ILobbyController controller) throws RemoteException;
-
-    public ArrayList<ILobbyController> GetLobbyControllers() throws RemoteException;
 
     public void UpdateLobbyController() throws RemoteException;
 
@@ -88,4 +85,10 @@ public interface IrmiClient extends Remote {
     public void draw(String userNameOtherPlayer)throws RemoteException;
     
     public void sendGameOver(String userNameOtherPlayer)throws RemoteException;
+
+    public ArrayList<Game> GetGames(String username)throws RemoteException;
+
+    public void SaveGame(Game game)throws RemoteException;
+    
+    public void leaveGame() throws RemoteException;
 }

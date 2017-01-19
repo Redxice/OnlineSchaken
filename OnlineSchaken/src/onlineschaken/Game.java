@@ -8,6 +8,7 @@ package onlineschaken;
 import Server.ClientApp;
 import Shared.IrmiClient;
 import gui.OnlineSchaken;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,24 +22,25 @@ import javax.swing.JOptionPane;
  *
  * @author redxice
  */
-public class Game
+public class Game implements Serializable
 {
 
     //fields
     private int time;
+    private static long serialVersionUID = 684982647421852022L;
+    private int GameNr;
     private int remaining1;
     private int remaining2;
-    private Timer timer;
+    private transient Timer timer;
     private boolean finished;
-    private Tournament tournament;
+    private transient Tournament tournament;
     private Player player1;
     private Player player2;
-    private List<Player> spectators = new ArrayList<>();
+    private transient List<Player> spectators = new ArrayList<>();
     private Player winner;
     private boolean whiteTurn;
-    private List<Chatline> chat = new ArrayList<>();
-    private Board board;
-    private Gamelobby gamelobby;
+    private transient List<Chatline> chat = new ArrayList<>();
+    private transient Board board;
     private OnlineSchaken javaFX;
     private boolean player1Draw = false;
     private boolean player2Draw = false;
@@ -63,11 +65,31 @@ public class Game
     {
         this.player1 = p_player1;
         this.player2 = p_player2;
-        this.javaFX = javaFX;
         board = new Board(client);
         board.setGame(this);
     }
-
+    /**
+     * Voor het hervatten van een game
+     * @param p_player1
+     * @param p_player2
+     * @param client 
+     */
+     public Game(Game game, IrmiClient client)
+    {
+        this.player1 = game.getPlayer1();
+        this.player2 = game.getPlayer2();
+        this.javaFX = javaFX;
+        this.whiteTurn = game.isWhiteTurn();
+        this.finished = game.isFinished();
+        this.remaining1 = game.remaining1;
+        this.remaining2 = game.remaining2;
+        this.player1 = game.getPlayer1();
+        this.player2 = game.getPlayer2();    
+        
+        board = new Board(client);
+        board.setGame(this);
+    }
+     
     //constructor vor een game die deel is van een tournament
     public Game(int p_time, Player p_player1, Player p_player2,
             Tournament p_tournament, OnlineSchaken javaFX, ClientApp client)
@@ -84,7 +106,8 @@ public class Game
         timer = new Timer();
         timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
     }
-
+    
+   
     public String resterend(int i)
     {
         if (i == 1)
@@ -361,7 +384,24 @@ public class Game
             return true;
         }
     }
-
+    /**
+     * 
+     * @param player
+     */
+    public void SetPiecesAgain(){
+        this.player1.getPieces().stream().forEach((piece) ->
+        {
+            piece.resetMySection(this.board);
+            piece.fillInTheBlanks(player1);
+        });
+         this.player2.getPieces().stream().forEach((piece) ->
+        {
+            piece.resetMySection(this.board);
+            piece.fillInTheBlanks(player2);
+        });
+    }
+    
+    
     // Zet alle stukken in de begin positie op het bord;
     public void setPieces()
     {
@@ -532,6 +572,15 @@ public class Game
             this.gameDraw = true;
             setFinished(true);
         }
+    }
+    public void setGameNr(int GameNr){
+        this.GameNr = GameNr;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Game{" + "GameNr=" + GameNr + ", player1=" + player1 + ", player2=" + player2 + ", winner=" + winner + '}';
     }
     
 }

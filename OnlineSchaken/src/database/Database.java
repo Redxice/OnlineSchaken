@@ -5,16 +5,25 @@
  */
 package database;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import onlineschaken.Game;
 import onlineschaken.Gamelobby;
 import onlineschaken.Piece;
 import onlineschaken.Player;
@@ -33,8 +42,6 @@ public class Database
      * sluit de connectie met de database als dat niet lukt wordt er een sql
      * injection gethrowed.
      */
-    
-  
     public void closeConnection()
     {
         try
@@ -44,14 +51,14 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     private void initConnection() throws SQLException
     {
         try
         {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaaktest","TestUser","Test");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaaktest", "TestUser", "Test");
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,13 +94,11 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
-        catch(Exception e)
+        } catch (Exception e)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
             return false;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
@@ -126,8 +131,7 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
 
             return null;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
@@ -136,7 +140,7 @@ public class Database
     public boolean insertLobby(String username, String gameName)
     {
         try
-        {            
+        {
             int playerid = selectPlayerId(username);
             init();
             PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID,LobbyNaam) VALUES(?,?);");
@@ -149,8 +153,7 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
@@ -172,8 +175,7 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
@@ -196,16 +198,15 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
     }
-    
+
     public boolean addLobbyMessage(int lobbyid, String username)
     {
-       try
+        try
         {
             init();
             int playerid = selectPlayerId(username);
@@ -218,8 +219,7 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } 
-        finally
+        } finally
         {
             closeConnection();
         }
@@ -244,34 +244,33 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
     }
-    
-    public ObservableList<Gamelobby>  selectAllGameLobbys() throws RemoteException
+
+    public ObservableList<Gamelobby> selectAllGameLobbys() throws RemoteException
     {
         try
         {
             init();
             PreparedStatement statement = con.prepareStatement("SELECT LobbyID, player1ID, player2ID, LobbyNaam FROM lobby;");
             ResultSet results = statement.executeQuery();
-            ObservableList<Gamelobby> items =FXCollections.observableArrayList();
+            ObservableList<Gamelobby> items = FXCollections.observableArrayList();
             while (results.next())
             {
-                if(results.getString("player2ID") != null)
+                if (results.getString("player2ID") != null)
                 {
-                Player player1 = selectPlayerFromID(results.getInt("player1ID"));
-                Player player2 = selectPlayerFromID(results.getInt("player2ID"));
-                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1,player2,results.getInt("LobbyID"));
-                items.add(lobby);
-                }
-                else{
-                Player player1 = selectPlayerFromID(results.getInt("player1ID"));
-                Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"),player1,results.getInt("LobbyID"));
-                items.add(lobby);                  
+                    Player player1 = selectPlayerFromID(results.getInt("player1ID"));
+                    Player player2 = selectPlayerFromID(results.getInt("player2ID"));
+                    Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"), player1, player2, results.getInt("LobbyID"));
+                    items.add(lobby);
+                } else
+                {
+                    Player player1 = selectPlayerFromID(results.getInt("player1ID"));
+                    Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"), player1, results.getInt("LobbyID"));
+                    items.add(lobby);
                 }
             }
             statement.close();
@@ -281,13 +280,12 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
 
             return null;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
     }
-    
+
     public Player selectPlayerFromID(int id)
     {
         try
@@ -309,8 +307,7 @@ public class Database
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
 
             return null;
-        }
-        finally
+        } finally
         {
             closeConnection();
         }
@@ -318,11 +315,11 @@ public class Database
 
     public void addMoveToHistory(String userName, String userName2, String move, int nr)
     {
-       try
+        try
         {
             init();
             PreparedStatement statement = con.prepareStatement("INSERT INTO movehistory(Player1, Player2,Move,MoveNr) VALUES(?,?,?,?);");
-            statement.setString(1,userName);
+            statement.setString(1, userName);
             statement.setString(2, userName2);
             statement.setString(3, move);
             statement.setInt(4, nr);
@@ -331,10 +328,71 @@ public class Database
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        finally
+        } finally
         {
             closeConnection();
         }
     }
+
+    public void SaveGame(Game game)
+    {
+        try
+        {
+            init();
+            PreparedStatement statement = con.prepareStatement("INSERT INTO games(Game,Player1,Player2) VALUES(?,?,?);");
+            System.out.println("game :" + game + " Player1 : " + game.getPlayer1().getUsername() + " Player2 : " + game.getPlayer2().getUsername());
+            statement.setObject(1, game);
+            statement.setString(2, game.getPlayer1().getUsername());
+            statement.setString(3, game.getPlayer2().getUsername());
+            statement.executeUpdate();
+            statement.close();
+            System.out.println("Hij heeft hem gesaved in de database");
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally
+        {
+            closeConnection();
+        }
+    }
+
+    public ArrayList<Game> GetUsersGames(String Username)
+    {
+        ArrayList<Game> games = new ArrayList<>();
+        Game game = null;
+        try
+        {
+            init();
+            PreparedStatement statement = con.prepareStatement("Select Game,GameNr From Games where Player1=? or Player2=?;");
+            statement.setString(1, Username);
+            statement.setString(2, Username);
+            ResultSet results = statement.executeQuery();
+            while (results.next())
+            {
+                ByteArrayInputStream in = new ByteArrayInputStream(results.getBytes("Game"));
+                ObjectInputStream is = new ObjectInputStream(in);
+                Object test = is.readObject() ;
+                if (test instanceof Game)
+                {  
+                    game = (Game) test;
+                    game.setGameNr(results.getInt("GameNr"));
+                    games.add(game);
+                }
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally
+        {
+            closeConnection();
+        }
+        return games;
+    }
+
 }

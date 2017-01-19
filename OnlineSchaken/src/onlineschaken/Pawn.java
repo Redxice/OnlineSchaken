@@ -515,7 +515,10 @@ public class Pawn extends Piece
         }
         return false;
     }
-
+    public void resetThePrevSection(){
+        if(this.getSection()!= null){
+        this.prevSection = this.getSection().getBoard().getSections((int)this.prevX,(int)this.prevY);
+        }}
     public double getPrevX()
     {
         return prevX;
