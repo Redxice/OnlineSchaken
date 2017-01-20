@@ -40,7 +40,7 @@ public class Game implements Serializable
     private transient List<Player> spectators = new ArrayList<>();
     private Player winner;
     private boolean whiteTurn;
-    private IngameController ingame;
+    private transient IngameController ingame;
     private transient List<Chatline> chat = new ArrayList<>();
     private transient Board board;
     private OnlineSchaken javaFX;
@@ -95,7 +95,7 @@ public class Game implements Serializable
         this.remaining2 = game.remaining2;
         this.player1 = game.getPlayer1();
         this.player2 = game.getPlayer2();
-
+        this.ingame = ingame;
         board = new Board(client);
         board.setGame(this);
     }
@@ -198,14 +198,14 @@ public class Game implements Serializable
                 int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 if (exit == 0)
                 {
-                    Platform.exit();
+                    this.ingame.GoToLobby();
                 }
             } else if (gameDraw)
             {
                 int exit = JOptionPane.showOptionDialog(null, "Het is Gelijkspel.", "Gelijkspel!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 if (exit == 0)
                 {
-                    Platform.exit();
+                    this.ingame.GoToLobby();
                 }
             }
         }

@@ -5,11 +5,12 @@
  */
 package server;
 
-import Server.ClientApp;
+import Server.*;
 import Shared.IGameLobby;
 import Shared.IGameLobbyController;
 import Shared.ILobbyController;
 import Shared.IinGameController;
+import Shared.IrmiClient;
 import Shared.IrmiServer;
 import gui.IngameController;
 import java.awt.Point;
@@ -41,15 +42,27 @@ import static org.junit.Assert.*;
 public class ClientAppTest
 {
 
-    private static RmiServer server = null;
+    private RmiServer server = null;
     private ClientApp client = null;
 
     @BeforeClass
     public static void setUpClass()
     {
+        
+    }
+
+    @AfterClass
+    public static void tearDownClass()
+    {
+        
+    }
+
+    @Before
+    public void setUp()
+    {
         try
         {
-            server = new Server.RmiServer();
+            server = new RmiServer();
             IrmiServer stub = (IrmiServer) UnicastRemoteObject.exportObject(server, 0);
             //Bind the remote object stub in the registry
             Registry registry = LocateRegistry.createRegistry(666);
@@ -63,14 +76,13 @@ public class ClientAppTest
         }
     }
 
-    @AfterClass
-    public static void tearDownClass()
+    @After
+    public void tearDown()
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("Server");
+            Registry registry = LocateRegistry.createRegistry(666);
             registry.unbind("Server");
-            server = null;
         } catch (RemoteException ex)
         {
             Logger.getLogger(ClientAppTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,16 +90,6 @@ public class ClientAppTest
         {
             Logger.getLogger(ClientAppTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @Before
-    public void setUp()
-    {
-    }
-
-    @After
-    public void tearDown()
-    {
     }
 
     // TODO add test methods here.
@@ -115,15 +117,17 @@ public class ClientAppTest
      */
     @Test
     public void testSendTurn() throws Exception
-    {
+    { try{
         System.out.println("sendTurn");
-        Point prev = null;
-        Point next = null;
+        Point prev = new Point(0,1);
+        Point next = new Point(0,2);
         double time = 0.0;
-        ClientApp instance = new ClientApp();
+        IrmiClient instance = new ClientApp();
         instance.sendTurn(prev, next, time);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Hij heeft de gegevens niet proberen door te sturen naar de server");
+    }catch(RemoteException e){
+      
+    }
     }
 
     /**

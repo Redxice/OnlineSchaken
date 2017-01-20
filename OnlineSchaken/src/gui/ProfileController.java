@@ -44,6 +44,8 @@ public class ProfileController implements Initializable
     private ObservableList ActiveGames = FXCollections.observableArrayList();
     private ObservableList GameHistory = FXCollections.observableArrayList();
     @FXML
+    private Button Btn_Restart;
+    @FXML
     private Button Btn_Back;
     @FXML
     private Label lbNaam;

@@ -73,6 +73,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private ListView MoveHistory;
     @FXML
     private Button Btn_Leave;
+    @FXML
     private TextField timerWhite;
     @FXML
     private TextField timerBlack;
@@ -273,6 +274,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         try
         {
+            System.out.println(this.game);
             Iclient.SaveGame(this.game);
             System.out.println("Hij heeft een game gesaved");
             leaveGame();
@@ -612,6 +614,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
+                        System.out.println("Game : "+game+" resterend 1 :"+game.resterend(1)+"Game resterend 2 :"+game.resterend(2));
                         timerWhite.setText(String.valueOf(game.resterend(1)));
                         timerBlack.setText(String.valueOf(game.resterend(2)));
                     }
@@ -620,9 +623,35 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }).start();
     }
 
-    void setLoggedInUser(Player LoggedInUser)
+  public void setLoggedInUser(Player LoggedInUser)
     {
         this.LoggedInUser = LoggedInUser;
+    }
+    
+    public void GoToLobby(){
+        try
+        {
+             if (game.getPlayer1().getUsername().equals(this.Iclient.getUserName()))
+            {
+                this.Iclient.SaveGame(game);
+            }
+            Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            LobbyController controller = fxmlLoader.<LobbyController>getController();
+            controller.setPlayer(this.LoggedInUser);
+            controller.setClient(client);
+            controller.setIClient(Iclient);
+           
+            CurrentStage.close();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
