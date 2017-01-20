@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="Btn_Restart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProfileController">
    <children>
       <ImageView fitHeight="74.0" fitWidth="107.0" layoutX="30.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,6 +19,6 @@
       <ListView fx:id="Lv_ActiveGames" layoutX="220.0" layoutY="115.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="30.0" layoutY="92.0" prefHeight="17.0" prefWidth="53.0" text="History" />
       <Label layoutX="232.0" layoutY="92.0" text="Active" />
-      <Button fx:id="Btn_Restart" layoutX="20.0" layoutY="361.0" mnemonicParsing="false" onAction="#HandleRestartGame" text="Hervatten" />
+      <Button fx:id="Btn_Restart" layoutX="52.0" layoutY="349.0" mnemonicParsing="false" onAction="#HandleRestartGame" text="Hervat" />
    </children>
 </Pane>

@@ -25,6 +25,7 @@ public class Knight extends Piece
         {
             this.setImg(new Image("ChessPieces/Black Knight.jpg"));
         }
+        this.MyType = "Knight";
     }
 
     @Override

@@ -31,6 +31,7 @@ public class King extends Piece
         }
         check = false;
         checkMate = false;
+        this.MyType = "King";
     }
 
     public int countCheckSections()

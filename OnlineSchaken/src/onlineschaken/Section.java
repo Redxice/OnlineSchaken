@@ -88,4 +88,10 @@ public class Section extends Rectangle
         this.board = board;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Section{" + "Mijn x & y-as in setPiece "+this.getX()+" "+this.getY()+ '}';
+    }
+
 }

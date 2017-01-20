@@ -32,6 +32,7 @@ public class Bishop extends Piece
         {
             this.setImg(new Image("ChessPieces/Black Bishop.jpg"));
         }
+        this.MyType = "Bishop";
 
     }
 

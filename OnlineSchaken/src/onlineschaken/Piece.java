@@ -35,7 +35,7 @@ public abstract class Piece extends StackPane implements Serializable
     private transient Image img;
     private boolean hasMoved;
     private transient Section previousState;
-
+    public String MyType;
     //constructor
     public Piece(String p_color, Player p_player, Section p_section)
     {
@@ -57,65 +57,7 @@ public abstract class Piece extends StackPane implements Serializable
 
     }
 
-    public void setCorrectImg()
-    {
-        if (this instanceof Bishop)
-        {
-            if (this.color == "white")
-            {
-                this.setImg(new Image("ChessPieces/White Bishop.jpg"));
-            } else if (this.color == "black")
-            {
-                this.setImg(new Image("ChessPieces/Black Bishop.jpg"));
-            }
-        } else if (this instanceof King)
-        {
-            if (this.color == "white")
-            {
-                this.setImg(new Image("ChessPieces/White King.jpg"));
-            }
-            if (this.color == "black")
-            {
-                this.setImg(new Image("ChessPieces/Black King.jpg"));
-            }
-        } else if (this instanceof Knight)
-        {
-            if (this.color == "white")
-            {
-                this.setImg(new Image("ChessPieces/White Knight.jpg"));
-            } else if (this.color == "black")
-            {
-                this.setImg(new Image("ChessPieces/Black Knight.jpg"));
-            }
-        } else if (this instanceof Pawn)
-        {
-            if (this.color == "white")
-            {
-                this.setImg(new Image("ChessPieces/White Pawn.jpg"));
-            } else if (this.color == "black")
-            {
-                this.setImg(new Image("ChessPieces/Black Pawn.jpg"));
-            }
-        } else if (this instanceof Queen)
-        {
-            if (this.color == "white")
-            {
-                this.setImg(new Image("ChessPieces/White Queen.jpg"));
-            } else if (this.color == "black")
-            {
-                this.setImg(new Image("ChessPieces/Black Queen.jpg"));
-            }
-        } else if (this instanceof Rook)
-        {
-            if (this.color == "white")
-            {
-                this.setImg(new Image("ChessPieces/White Rook.jpg"));
-            } else if (this.color == "black")
-            {
-                this.setImg(new Image("ChessPieces/Black Rook.jpg"));
-            }
-        }
-    }
+   
 
     public static Logger getLOGGER()
     {
@@ -501,9 +443,10 @@ public abstract class Piece extends StackPane implements Serializable
      *
      * @param board
      */
-    public void resetMySection(Board board)
+    public void resetMySection(Section section)
     {
-        this.section = board.getSections(x, y);
+        this.section = section;
         section.setPiece(this);
+        System.out.println("My img in resetMySection : " +this.img);
     }
 }

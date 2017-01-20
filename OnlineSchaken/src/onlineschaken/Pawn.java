@@ -47,6 +47,7 @@ public class Pawn extends Piece
             this.setImg(new Image("ChessPieces/Black Pawn.jpg"));
         }
         this.setHasMoved(false);
+         this.MyType = "Pawn";
     }
 
     public void setPrevSection(Section section)

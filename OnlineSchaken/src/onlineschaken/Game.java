@@ -17,6 +17,7 @@ import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,8 +94,6 @@ public class Game implements Serializable
         this.finished = game.isFinished();
         this.remaining1 = game.remaining1;
         this.remaining2 = game.remaining2;
-        this.player1 = game.getPlayer1();
-        this.player2 = game.getPlayer2();
         this.ingame = ingame;
         board = new Board(client);
         board.setGame(this);
@@ -248,7 +247,7 @@ public class Game implements Serializable
 
     public List<Player> getSpectators()
     {
-        if (this.spectators==null)
+        if (this.spectators == null)
         {
             spectators = new ArrayList<>();
         }
@@ -411,18 +410,21 @@ public class Game implements Serializable
      */
     public void SetPiecesAgain()
     {
-        this.player1.getPieces().stream().forEach((piece)
-                -> 
-                {
-                    piece.resetMySection(this.board);
-                    piece.fillInTheBlanks(player1);
-        });
-        this.player2.getPieces().stream().forEach((piece)
-                -> 
-                {
-                    piece.resetMySection(this.board);
-                    piece.fillInTheBlanks(player2);
-        });
+        System.out.println("In setPiecesAGain : " + this.player1.getPieces() + " p2 : " + this.player2.getPieces());
+        for (Piece piece : this.player1.getPieces())
+        {
+            
+            setCorrectImg(piece);
+            piece.fillInTheBlanks(player1);
+            piece.resetMySection(this.board.getSections(piece.getX(), piece.getY()));
+        }
+        for (Piece piece : this.player2.getPieces())
+        {
+            setCorrectImg(piece);
+            piece.fillInTheBlanks(player2);
+            piece.resetMySection(this.board.getSections(piece.getX(), piece.getY()));
+        }
+
     }
 
     // Zet alle stukken in de begin positie op het bord;
@@ -572,9 +574,11 @@ public class Game implements Serializable
         try
         {
             this.board.getClient().GetGameController().setIsWaitingForPromotion(false);
+
         } catch (RemoteException ex)
         {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Game.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -607,5 +611,65 @@ public class Game implements Serializable
     {
         return "Game{" + "GameNr=" + GameNr + ", player1=" + player1 + ", player2=" + player2 + ", winner=" + winner + '}';
     }
-
+    
+     public void setCorrectImg(Piece piece)
+    {
+        if (piece.MyType.equals("Bishop") )
+        {
+            if (piece.getColor().equals("white"))
+            {
+                piece.setImg(new Image("ChessPieces/White Bishop.jpg"));
+            } else if (piece.getColor().equals("black"))
+            {
+                piece.setImg(new Image("ChessPieces/Black Bishop.jpg"));
+            }
+        } else if (piece.MyType.equals("King"))
+        {
+            if (piece.getColor().equals("white"))
+            {
+                piece.setImg(new Image("ChessPieces/White King.jpg"));
+            }
+            if (piece.getColor().equals("black"))
+            {
+                piece.setImg(new Image("ChessPieces/Black King.jpg"));
+            }
+        } else if (piece.MyType.equals("Knight"))
+        {
+            if (piece.getColor().equals("white"))
+            {
+                piece.setImg(new Image("ChessPieces/White Knight.jpg"));
+            } else if (piece.getColor().equals("black"))
+            {
+                piece.setImg(new Image("ChessPieces/Black Knight.jpg"));
+            }
+        } else if (piece.MyType.equals("Pawn"))
+        {
+            if (piece.getColor().equals("white"))
+            {
+                piece.setImg(new Image("ChessPieces/White Pawn.jpg"));
+            } else if (piece.getColor().equals("black"))
+            {
+                piece.setImg(new Image("ChessPieces/Black Pawn.jpg"));
+            }
+        } else if (piece.MyType.equals("Queen"))
+        {
+            if (piece.getColor().equals("white"))
+            {
+                piece.setImg(new Image("ChessPieces/White Queen.jpg"));
+            } else if (piece.getColor().equals("black"))
+            {
+                piece.setImg(new Image("ChessPieces/Black Queen.jpg"));
+            }
+        } else if (piece.MyType.equals("Rook"))
+        {
+            if (piece.getColor().equals("white"))
+            {
+                piece.setImg(new Image("ChessPieces/White Rook.jpg"));
+            } else if (piece.getColor().equals("black"))
+            {
+                piece.setImg(new Image("ChessPieces/Black Rook.jpg"));
+            }
+        }
+    }
+  
 }

@@ -25,6 +25,7 @@ public class Rook extends Piece
         {
             this.setImg(new Image("ChessPieces/Black Rook.jpg"));
         }
+        this.MyType = "Rook";
     }
 
     public Section castling()

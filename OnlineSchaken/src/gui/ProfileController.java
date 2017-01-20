@@ -10,6 +10,7 @@ import Shared.IrmiClient;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +36,7 @@ import onlineschaken.Player;
  *
  * @author redxice
  */
-public class ProfileController implements Initializable
+public class ProfileController extends UnicastRemoteObject implements Initializable
 {
 
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
@@ -55,6 +56,11 @@ public class ProfileController implements Initializable
     private ListView Lv_GameHistory;
     private Player player;
 
+    public ProfileController() throws RemoteException
+    {
+
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -73,6 +79,7 @@ public class ProfileController implements Initializable
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Lobby.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             LobbyController controller = fxmlLoader.<LobbyController>getController();
+            controller.setPlayer(player);
             controller.setClient(client);
             controller.setIClient(IClient);
             CurrentStage.close();
@@ -90,26 +97,31 @@ public class ProfileController implements Initializable
     @FXML
     private void HandleRestartGame(ActionEvent event)
     {
+
+        Game SelectedGame = (Game) this.Lv_ActiveGames.getSelectionModel().getSelectedItem();
         try
-        {  
-            Game SelectedGame = (Game) this.Lv_ActiveGames.getSelectionModel().getSelectedItem();
-            if(IClient.RestartGame(SelectedGame)){
-            Stage LoginStage = (Stage) Btn_Back.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            IngameController controller = fxmlLoader.<IngameController>getController();
-            controller.setClient(client);
-            controller.setIClient(IClient);
-            controller.setPlayer1(SelectedGame.getPlayer1().getUsername());
-            controller.setPlayer2(SelectedGame.getPlayer2().getUsername());
-            controller.setLoggedInUser(client.getPlayer());
-            LoginStage.close();
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            controller.DrawBoard(SelectedGame, SelectedGame.getSpectators(), false);
-            } } catch (RemoteException ex)
+        {
+
+            if (IClient.RestartGame(SelectedGame))
+            {
+                Stage LoginStage = (Stage) Btn_Restart.getScene().getWindow();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                IngameController controller = fxmlLoader.<IngameController>getController();
+                controller.setLoggedInUser(client.getPlayer());
+                controller.setClient(client);
+                controller.setIClient(IClient);
+                controller.setPlayer1(SelectedGame.getPlayer1().getUsername());
+                controller.setPlayer2(SelectedGame.getPlayer2().getUsername());
+                LoginStage.close();
+                Stage stage = new Stage();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+                controller.DrawBoard(SelectedGame, SelectedGame.getSpectators(), false);
+
+            }
+        } catch (RemoteException ex)
         {
             Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex)
@@ -154,5 +166,5 @@ public class ProfileController implements Initializable
     {
         this.IClient = client;
     }
-    
+
 }
