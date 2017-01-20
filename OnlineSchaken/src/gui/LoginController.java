@@ -161,11 +161,14 @@ public class LoginController implements Initializable
          
         
     }
-         
    public void setClient(ClientApp client){
        this.client = client;
    }
    public void setIClient(IrmiClient client){
        this.IClient = client;
+   }
+   
+   public ClientApp getClient(){
+       return this.client;
    }
 }
