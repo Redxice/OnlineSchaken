@@ -31,14 +31,17 @@ public class TurnTimer extends TimerTask
     {
         try
         {
-            
+
             if (client.getLastMove() != null && controller.getLocalLastMove() != null)
             {
-                if (client.getLastMove().get(0) != controller.getLocalLastMove().get(0))
+                if (controller.getLocalLastMove().get(0) != null && controller.getLocalLastMove().get(1) != null)
                 {
-                    if (client.getLastMove().get(1) != controller.getLocalLastMove().get(1))
+                    if (client.getLastMove().get(0) != controller.getLocalLastMove().get(0))
                     {
-                      controller.move(controller.getLocalLastMove().get(0), controller.getLocalLastMove().get(1), 4.00);
+                        if (client.getLastMove().get(1) != controller.getLocalLastMove().get(1))
+                        {
+                            controller.move(controller.getLocalLastMove().get(0), controller.getLocalLastMove().get(1), 4.00);
+                        }
                     }
                 }
             }
