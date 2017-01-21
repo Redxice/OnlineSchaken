@@ -110,14 +110,100 @@ public class KnightTest
      * Test of checkMove method, of class Knight.
      */
     @Test
-    public void testCheckMove()
+    public void testInvalidCheckMove()
     {
-        Section p_section = null;
-        Knight instance = null;
-        Boolean expResult = null;
-        Boolean result = instance.checkMove(p_section);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k2 = new Knight("Black", p1, game.getBoard().getSections(3, 6));
+        assertFalse(k1.checkMove(k2.getSection()));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test2Right1UpCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(5, 6)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test2Right1DownCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(5, 4)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test2Left1UpCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(1, 6)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test2Left1DownCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(1, 4)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test1Right2UpCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(4, 7)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test1Right2DownCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(4, 3)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test1Left2UpCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(2, 7)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void test1Left2DownCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertTrue(k1.checkMove(game.getBoard().getSections(2, 3)));
+    }
+    
+    /**
+     * Test of checkMove method, of class Knight.
+     */
+    @Test
+    public void testInvalidMovementCheckMove()
+    {
+        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        assertFalse(k1.checkMove(game.getBoard().getSections(1, 1)));
     }
 }
