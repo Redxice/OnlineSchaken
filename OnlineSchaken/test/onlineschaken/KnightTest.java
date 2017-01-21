@@ -89,7 +89,7 @@ public class KnightTest
     //
 
     /**
-     *
+     * Test of constructor, of class Knight.
      */
     @Test
     public void TestBlackKnight()
@@ -98,7 +98,7 @@ public class KnightTest
     }
 
     /**
-     *
+     * Test of constructor, of class Knight.
      */
     @Test
     public void TestWiteKnight()
