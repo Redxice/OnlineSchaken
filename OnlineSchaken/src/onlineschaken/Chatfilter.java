@@ -23,7 +23,7 @@ public class Chatfilter
     {
         String replace = "";
         readBannedWords();
-        for (String badword : bannedWords)
+        for (String badword : getBannedWords())
         {
             if (message != null && badword != null)
             {
@@ -47,11 +47,19 @@ public class Chatfilter
             String line = null;
             while ((line = br.readLine()) != null)
             {
-                bannedWords.add(line);
+                getBannedWords().add(line);
             }
             br.close();
         } catch (Exception e)
         {
         }
+    }
+
+    /**
+     * @return the bannedWords
+     */
+    public List<String> getBannedWords()
+    {
+        return bannedWords;
     }
 }

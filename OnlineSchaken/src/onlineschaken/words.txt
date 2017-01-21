@@ -150,4 +150,4 @@ tifus
 trut
 verkracht
 zaadcel
-zanik 
+zanik
