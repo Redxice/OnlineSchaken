@@ -127,21 +127,25 @@ public class ClientAppTest
 
     /**
      * Test of sendTurn method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
     public void testSendTurn() throws Exception
 
-    { try{
-        Point prev = new Point(0,1);
-        Point next = new Point(0,2);
-        double time = 0.0;
-        IrmiClient instance = new ClientApp();
-        instance.sendTurn(prev, next, time);
-        fail("Hij heeft de gegevens niet proberen door te sturen naar de server");
-    }catch(RemoteException e){
-      
-    }
+    {
+        try
+        {
+            Point prev = new Point(0, 1);
+            Point next = new Point(0, 2);
+            double time = 0.0;
+            IrmiClient instance = new ClientApp();
+            instance.sendTurn(prev, next, time);
+            fail("Hij heeft de gegevens niet proberen door te sturen naar de server");
+        } catch (RemoteException e)
+        {
+
+        }
     }
 
     /**
@@ -215,6 +219,7 @@ public class ClientAppTest
 
     /**
      * Test of getTurn method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -231,6 +236,7 @@ public class ClientAppTest
 
     /**
      * Test of UpdateLobbyController method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -244,6 +250,7 @@ public class ClientAppTest
 
     /**
      * Test of setLobbyController method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -299,6 +306,7 @@ public class ClientAppTest
 
     /**
      * Test of setGameLobbyController method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -313,6 +321,7 @@ public class ClientAppTest
 
     /**
      * Test of RefreshGameLobby method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -326,6 +335,7 @@ public class ClientAppTest
 
     /**
      * Test of updateChat method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -339,6 +349,7 @@ public class ClientAppTest
 
     /**
      * Test of getLobbyController method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -354,6 +365,7 @@ public class ClientAppTest
 
     /**
      * Test of updatePlayerList method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -394,6 +406,7 @@ public class ClientAppTest
 
     /**
      * Test of updateReady method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -408,6 +421,7 @@ public class ClientAppTest
 
     /**
      * Test of setIinGameController method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -422,6 +436,7 @@ public class ClientAppTest
 
     /**
      * Test of UpdateInGameChat method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -436,6 +451,7 @@ public class ClientAppTest
 
     /**
      * Test of sendInGameMessage method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -450,6 +466,7 @@ public class ClientAppTest
 
     /**
      * Test of getLastMove method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -465,6 +482,7 @@ public class ClientAppTest
 
     /**
      * Test of castPiece method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -480,6 +498,7 @@ public class ClientAppTest
 
     /**
      * Test of isPromoting method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -493,6 +512,7 @@ public class ClientAppTest
 
     /**
      * Test of isWaitinPromotion method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -507,6 +527,7 @@ public class ClientAppTest
 
     /**
      * Test of PromotePawn method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -522,6 +543,7 @@ public class ClientAppTest
 
     /**
      * Test of addFriend method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -539,6 +561,7 @@ public class ClientAppTest
 
     /**
      * Test of selectPlayer method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -555,6 +578,7 @@ public class ClientAppTest
 
     /**
      * Test of insertPlayer method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -573,6 +597,7 @@ public class ClientAppTest
 
     /**
      * Test of surrender method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -586,6 +611,7 @@ public class ClientAppTest
 
     /**
      * Test of draw method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -600,6 +626,7 @@ public class ClientAppTest
 
     /**
      * Test of sendGameOver method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -614,6 +641,7 @@ public class ClientAppTest
 
     /**
      * Test of GetGames method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -627,10 +655,13 @@ public class ClientAppTest
     }
 
     /**
-     * Test of SaveGame method, of class ClientApp. Deze methode werkt is nog niet compleet
+     * Test of SaveGame method, of class ClientApp. Deze methode werkt is nog
+     * niet compleet
+     *
      * @throws java.lang.Exception
      */
-    @Ignore@Test
+    @Ignore
+    @Test
     public void testSaveGame() throws Exception
     {
         Game game = null;
@@ -642,24 +673,26 @@ public class ClientAppTest
 
     /**
      * Test of leaveGame method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
     public void testLeaveGame() throws Exception
     {
-<<<<<<< HEAD
-        try{System.out.println("leaveGame");
-=======
->>>>>>> origin/master
-        ClientApp instance = new ClientApp();
-        IinGameController controller = mock(IinGameController.class);
-        instance.setIinGameController(controller);
-        instance.leaveGame();
-        fail("Hij verwachte een nullpointer.");
-        }catch(NullPointerException e){
-            
+
+        try
+        {
+            System.out.println("leaveGame");
+            ClientApp instance = new ClientApp();
+            IinGameController controller = mock(IinGameController.class);
+            instance.setIinGameController(controller);
+            instance.leaveGame();
+            fail("Hij verwachte een nullpointer.");
+        } catch (NullPointerException e)
+        {
+
         }
-        
+
     }
 
     /**
@@ -685,11 +718,12 @@ public class ClientAppTest
         instance.setPlayer(player);
         Player result = instance.getPlayer();
         Player expResult = player;
-        assertEquals(result,expResult);
+        assertEquals(result, expResult);
     }
 
     /**
      * Test of RestartGame method, of class ClientApp.
+     *
      * @throws java.lang.Exception
      */
     @Test
