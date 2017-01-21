@@ -178,12 +178,6 @@ public class King extends Piece
         this.checkMate = checkMate;
     }
 
-    public Section castling()
-    {
-        Section section = null;
-        return section;
-    }
-
     /**
      *
      * @param p_section waarna toe moet worden bewogen
