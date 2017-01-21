@@ -71,7 +71,6 @@ public class Section extends Rectangle
                 this.piece.getPlayer().removePiece(this.piece);
                 piece.setX(getID().x);
                 piece.setY(getID().y);
-                System.out.println("Mijn x & y-as in setPiece "+piece.getX()+" "+piece.getY());
             }
         }
         this.piece = piece;

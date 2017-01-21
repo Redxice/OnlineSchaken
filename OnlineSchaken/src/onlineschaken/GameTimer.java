@@ -5,7 +5,6 @@
  */
 package onlineschaken;
 
-import gui.OnlineSchaken;
 import java.rmi.RemoteException;
 import java.util.TimerTask;
 import java.util.logging.Level;

@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javax.swing.JOptionPane;
 
@@ -410,7 +409,6 @@ public class Game implements Serializable
      */
     public void SetPiecesAgain()
     {
-        System.out.println("In setPiecesAGain : " + this.player1.getPieces() + " p2 : " + this.player2.getPieces());
         for (Piece piece : this.player1.getPieces())
         {
             

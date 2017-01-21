@@ -169,7 +169,6 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            System.out.println("ARRAY ERROR1");
             return true;
         }
     }
@@ -201,7 +200,6 @@ public class Bishop extends Piece
             return false;
         } catch (Exception e)
         {
-            System.out.println("ARRAY ERROR2");
             return true;
         }
     }
@@ -252,7 +250,6 @@ public class Bishop extends Piece
                         {
 
                             System.out.println("Post point bishop : " + this.getSection().getID());
-                            System.out.println("Post point section : " + p_section.getID());
                             return false;
                         }
                     }
@@ -264,7 +261,6 @@ public class Bishop extends Piece
         {
             System.out.println("ARRAY ERROR3");
             System.out.println(p_section.getX());
-            System.out.println(p_section.getY());
             return true;
         }
     }
@@ -298,7 +294,6 @@ public class Bishop extends Piece
         {
             System.out.println("ARRAY ERROR4");
             System.out.println(p_section.getX());
-            System.out.println(p_section.getY());
             return true;
         }
     }

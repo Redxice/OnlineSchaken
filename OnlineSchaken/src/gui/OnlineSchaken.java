@@ -6,7 +6,6 @@
 package gui;
 
 
-import database.Database;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -6,7 +6,6 @@
 package Server;
 
 import Shared.IGameLobby;
-import Shared.ILobbyController;
 import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.awt.Point;
@@ -19,8 +18,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import onlineschaken.Chatline;
@@ -29,7 +26,6 @@ import onlineschaken.Gamelobby;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
-import onlineschaken.Section;
 
 /**
  *
@@ -52,7 +48,6 @@ public class RmiServer implements IrmiServer
             {
                 try
                 {
-                    System.out.println("@@@Move wordt verstuurd naar player1");
                     IinGameController controller = i.GetGameController();
                     ArrayList<String> MoveHistory = controller.GetMyMoveHisotry();
                     controller.move(section1, section2, time);   //.getTurn(section1, section2, time);
@@ -75,7 +70,6 @@ public class RmiServer implements IrmiServer
             {
                 try
                 {
-                    System.out.println("@@@Move wordt verstuurd naar player2");
                     i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
                 } catch (RemoteException ex)
                 {
@@ -88,7 +82,6 @@ public class RmiServer implements IrmiServer
                 {
                     try
                     {
-                        System.out.println("@@@Move wordt verstuurd naar spectator");
                         i.GetGameController().move(section1, section2, time);   //.getTurn(section1, section2, time);
                     } catch (RemoteException ex)
                     {
@@ -102,7 +95,6 @@ public class RmiServer implements IrmiServer
     @Override
     public void test() throws RemoteException
     {
-        System.out.println("works");
     }
 
     @Override
@@ -260,7 +252,6 @@ public class RmiServer implements IrmiServer
     {
         System.out.println("Before " + GameLobbys);
         GameLobbys.remove(gameLobbyname);
-        System.out.println("After " + GameLobbys);
         GameLobbys.remove(gameLobbyname);
         updateLobbysClients();
     }
@@ -375,7 +366,6 @@ public class RmiServer implements IrmiServer
                     try
                     {
                         System.out.println("Client op server :" + i);
-                        System.out.println("Controller op server :" + i.GetGameController());
                         return i.GetGameController().getLocalLastMove();
                     } catch (RemoteException ex)
                     {
@@ -528,7 +518,6 @@ public class RmiServer implements IrmiServer
     public ArrayList<Game> GetUserGames(String username) throws RemoteException
     {
         ArrayList<Game> games = database.GetUsersGames(username);
-        System.out.println(games);
         return games;
     }
 

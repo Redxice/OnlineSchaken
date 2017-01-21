@@ -6,13 +6,9 @@
 package database;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -346,7 +342,6 @@ public class Database
             statement.setString(3, game.getPlayer2().getUsername());
             statement.executeUpdate();
             statement.close();
-            System.out.println("Hij heeft hem gesaved in de database");
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);

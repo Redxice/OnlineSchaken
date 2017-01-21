@@ -103,7 +103,6 @@ public class ClientAppTest
     @Test
     public void testCreateGameLobby()
     {
-        System.out.println("createGameLobby");
         String LobbyName = "Test";
         Player host = new Player();
         ClientApp instance = new ClientApp();
@@ -118,7 +117,6 @@ public class ClientAppTest
     @Test
     public void testSendTurn() throws Exception
     { try{
-        System.out.println("sendTurn");
         Point prev = new Point(0,1);
         Point next = new Point(0,2);
         double time = 0.0;
@@ -136,7 +134,6 @@ public class ClientAppTest
     @Test
     public void testGetGameLobbys()
     {
-        System.out.println("GetGameLobbys");
         ClientApp instance = new ClientApp();
         ArrayList<String> expResult = null;
         ArrayList<String> result = instance.GetGameLobbys();
@@ -151,7 +148,6 @@ public class ClientAppTest
     @Test
     public void testSendMessage()
     {
-        System.out.println("SendMessage");
         Chatline chatline = null;
         String naamLobby = "";
         ClientApp instance = new ClientApp();
@@ -166,7 +162,6 @@ public class ClientAppTest
     @Test
     public void testPlayerReady()
     {
-        System.out.println("playerReady");
         boolean ready = false;
         String lobbyName = "";
         String userName = "";
@@ -182,7 +177,6 @@ public class ClientAppTest
     @Test
     public void testGetGameLobby()
     {
-        System.out.println("GetGameLobby");
         String LobbyName = "";
         ClientApp instance = new ClientApp();
         IGameLobby expResult = null;
@@ -198,7 +192,6 @@ public class ClientAppTest
     @Test
     public void testUnBindLobby()
     {
-        System.out.println("unBindLobby");
         String lobbyName = "";
         ClientApp instance = new ClientApp();
         instance.unBindLobby(lobbyName);
@@ -212,7 +205,6 @@ public class ClientAppTest
     @Test
     public void testGetTurn() throws Exception
     {
-        System.out.println("getTurn");
         Point section1 = null;
         Point section2 = null;
         double time = 0.0;
@@ -228,7 +220,6 @@ public class ClientAppTest
     @Test
     public void testUpdateLobbyController() throws Exception
     {
-        System.out.println("UpdateLobbyController");
         ClientApp instance = new ClientApp();
         instance.UpdateLobbyController();
         // TODO review the generated test code and remove the default call to fail.
@@ -241,7 +232,6 @@ public class ClientAppTest
     @Test
     public void testSetLobbyController() throws Exception
     {
-        System.out.println("setLobbyController");
         ILobbyController controller = null;
         ClientApp instance = new ClientApp();
         instance.setLobbyController(controller);
@@ -255,7 +245,6 @@ public class ClientAppTest
     @Test
     public void testGetUserName()
     {
-        System.out.println("getUserName");
         ClientApp instance = new ClientApp();
         String expResult = "";
         String result = instance.getUserName();
@@ -270,7 +259,6 @@ public class ClientAppTest
     @Test
     public void testSetUserName()
     {
-        System.out.println("setUserName");
         String userName = "";
         ClientApp instance = new ClientApp();
         instance.setUserName(userName);
@@ -284,7 +272,6 @@ public class ClientAppTest
     @Test
     public void testGetGameLobbyController()
     {
-        System.out.println("getGameLobbyController");
         ClientApp instance = new ClientApp();
         IGameLobbyController expResult = null;
         IGameLobbyController result = instance.getGameLobbyController();
@@ -299,7 +286,6 @@ public class ClientAppTest
     @Test
     public void testSetGameLobbyController() throws Exception
     {
-        System.out.println("setGameLobbyController");
         IGameLobbyController controller = null;
         ClientApp instance = new ClientApp();
         instance.setGameLobbyController(controller);
@@ -313,7 +299,6 @@ public class ClientAppTest
     @Test
     public void testRefreshGameLobby() throws Exception
     {
-        System.out.println("RefreshGameLobby");
         ClientApp instance = new ClientApp();
         instance.RefreshGameLobby();
         // TODO review the generated test code and remove the default call to fail.
@@ -326,7 +311,6 @@ public class ClientAppTest
     @Test
     public void testUpdateChat() throws Exception
     {
-        System.out.println("updateChat");
         ClientApp instance = new ClientApp();
         instance.updateChat();
         // TODO review the generated test code and remove the default call to fail.
@@ -339,7 +323,6 @@ public class ClientAppTest
     @Test
     public void testGetLobbyController() throws Exception
     {
-        System.out.println("getLobbyController");
         ClientApp instance = new ClientApp();
         ILobbyController expResult = null;
         ILobbyController result = instance.getLobbyController();
@@ -354,7 +337,6 @@ public class ClientAppTest
     @Test
     public void testUpdatePlayerList() throws Exception
     {
-        System.out.println("updatePlayerList");
         ClientApp instance = new ClientApp();
         instance.updatePlayerList();
         // TODO review the generated test code and remove the default call to fail.
@@ -367,7 +349,6 @@ public class ClientAppTest
     @Test
     public void testGetGameController()
     {
-        System.out.println("GetGameController");
         ClientApp instance = new ClientApp();
         IinGameController expResult = null;
         IinGameController result = instance.GetGameController();
@@ -382,7 +363,6 @@ public class ClientAppTest
     @Test
     public void testSetGame()
     {
-        System.out.println("setGame");
         IngameController game = null;
         ClientApp instance = new ClientApp();
         instance.setGame(game);
@@ -396,7 +376,6 @@ public class ClientAppTest
     @Test
     public void testUpdateReady() throws Exception
     {
-        System.out.println("updateReady");
         String playerName = "";
         ClientApp instance = new ClientApp();
         instance.updateReady(playerName);
@@ -410,7 +389,6 @@ public class ClientAppTest
     @Test
     public void testSetIinGameController() throws Exception
     {
-        System.out.println("setIinGameController");
         IinGameController controller = null;
         ClientApp instance = new ClientApp();
         instance.setIinGameController(controller);
@@ -424,7 +402,6 @@ public class ClientAppTest
     @Test
     public void testUpdateInGameChat() throws Exception
     {
-        System.out.println("UpdateInGameChat");
         Chatline message = null;
         ClientApp instance = new ClientApp();
         instance.UpdateInGameChat(message);
@@ -438,7 +415,6 @@ public class ClientAppTest
     @Test
     public void testSendInGameMessage() throws Exception
     {
-        System.out.println("sendInGameMessage");
         Chatline message = null;
         ClientApp instance = new ClientApp();
         instance.sendInGameMessage(message);
@@ -452,7 +428,6 @@ public class ClientAppTest
     @Test
     public void testGetLastMove() throws Exception
     {
-        System.out.println("getLastMove");
         ClientApp instance = new ClientApp();
         ArrayList<Point> expResult = null;
         ArrayList<Point> result = instance.getLastMove();
@@ -467,7 +442,6 @@ public class ClientAppTest
     @Test
     public void testCastPiece() throws Exception
     {
-        System.out.println("castPiece");
         Piece piece = null;
         Pawn pawn = null;
         ClientApp instance = new ClientApp();
@@ -482,7 +456,6 @@ public class ClientAppTest
     @Test
     public void testIsPromoting() throws Exception
     {
-        System.out.println("isPromoting");
         ClientApp instance = new ClientApp();
         instance.isPromoting();
         // TODO review the generated test code and remove the default call to fail.
@@ -495,7 +468,6 @@ public class ClientAppTest
     @Test
     public void testIsWaitinPromotion() throws Exception
     {
-        System.out.println("isWaitinPromotion");
         boolean bool = false;
         ClientApp instance = new ClientApp();
         instance.isWaitinPromotion(bool);
@@ -509,7 +481,6 @@ public class ClientAppTest
     @Test
     public void testPromotePawn() throws Exception
     {
-        System.out.println("PromotePawn");
         Piece piece = null;
         Pawn pawn = null;
         ClientApp instance = new ClientApp();
@@ -524,7 +495,6 @@ public class ClientAppTest
     @Test
     public void testAddFriend() throws Exception
     {
-        System.out.println("addFriend");
         String Player = "";
         String Friend = "";
         ClientApp instance = new ClientApp();
@@ -541,7 +511,6 @@ public class ClientAppTest
     @Test
     public void testSelectPlayer() throws Exception
     {
-        System.out.println("selectPlayer");
         String username = "";
         ClientApp instance = new ClientApp();
         Player expResult = null;
@@ -557,7 +526,6 @@ public class ClientAppTest
     @Test
     public void testInsertPlayer() throws Exception
     {
-        System.out.println("insertPlayer");
         String username = "";
         String password = "";
         String email = "";
@@ -575,7 +543,6 @@ public class ClientAppTest
     @Test
     public void testSurrender() throws Exception
     {
-        System.out.println("surrender");
         ClientApp instance = new ClientApp();
         instance.surrender();
         // TODO review the generated test code and remove the default call to fail.
@@ -588,7 +555,6 @@ public class ClientAppTest
     @Test
     public void testDraw() throws Exception
     {
-        System.out.println("draw");
         String userNameOtherPlayer = "";
         ClientApp instance = new ClientApp();
         instance.draw(userNameOtherPlayer);
@@ -602,7 +568,6 @@ public class ClientAppTest
     @Test
     public void testSendGameOver() throws Exception
     {
-        System.out.println("sendGameOver");
         String userNameOtherPlayer = "";
         ClientApp instance = new ClientApp();
         instance.sendGameOver(userNameOtherPlayer);
@@ -616,7 +581,6 @@ public class ClientAppTest
     @Test
     public void testGetGames() throws Exception
     {
-        System.out.println("GetGames");
         String username = "";
         ClientApp instance = new ClientApp();
         ArrayList<Game> expResult = null;
@@ -632,7 +596,6 @@ public class ClientAppTest
     @Test
     public void testSaveGame() throws Exception
     {
-        System.out.println("SaveGame");
         Game game = null;
         ClientApp instance = new ClientApp();
         instance.SaveGame(game);
@@ -646,7 +609,6 @@ public class ClientAppTest
     @Test
     public void testLeaveGame() throws Exception
     {
-        System.out.println("leaveGame");
         ClientApp instance = new ClientApp();
         instance.leaveGame();
         // TODO review the generated test code and remove the default call to fail.
@@ -659,7 +621,6 @@ public class ClientAppTest
     @Test
     public void testGetPlayer()
     {
-        System.out.println("getPlayer");
         ClientApp instance = new ClientApp();
         Player expResult = null;
         Player result = instance.getPlayer();
@@ -674,7 +635,6 @@ public class ClientAppTest
     @Test
     public void testSetPlayer()
     {
-        System.out.println("setPlayer");
         Player player = null;
         ClientApp instance = new ClientApp();
         instance.setPlayer(player);
@@ -688,7 +648,6 @@ public class ClientAppTest
     @Test
     public void testRestartGame() throws Exception
     {
-        System.out.println("RestartGame");
         Game SelectedGame = null;
         ClientApp instance = new ClientApp();
         boolean expResult = false;

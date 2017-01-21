@@ -179,7 +179,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void move(Point section1, Point section2, double time) throws RemoteException
 
     {
-        System.out.println("Start move methode");
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
         new Thread(new Runnable()
@@ -281,7 +280,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         {
             System.out.println(this.game);
             Iclient.SaveGame(this.game);
-            System.out.println("Hij heeft een game gesaved");
             leaveGame();
         } catch (RemoteException ex)
         {
@@ -305,7 +303,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     Parent root = (Parent) fxmlLoader.load();
                     LobbyController controller = fxmlLoader.<LobbyController>getController();
                     controller.setPlayer(LoggedInUser);
-                    System.out.println("LoggedinUser "+LoggedInUser);
                     controller.setClient(client);
                     controller.setIClient(Iclient);
                     CurrentStage.close();
@@ -500,7 +497,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @FXML
     public void draw()
     {
-        System.out.println("@#@#@$@$@$@ in draw");
         try
         {
             Chatline chatLine;
@@ -619,7 +615,6 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     @Override
                     public void run()
                     {
-                        System.out.println("Game : "+game+" resterend 1 :"+game.resterend(1)+"Game resterend 2 :"+game.resterend(2));
                         timerWhite.setText(String.valueOf(game.resterend(1)));
                         timerBlack.setText(String.valueOf(game.resterend(2)));
                     }

@@ -10,7 +10,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -106,15 +105,12 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         if(player1 == null)
         {
             player1 = player;
-            System.out.println("Player 1 joined de game");
             return true;
         }
         if (player2 == null) {
             player2 = player;
-            System.out.println("Player 2 joined de game");
             return true;
         }
-        System.out.println("spectator t oegevoegd");
         spectators.add(player);
         return true;
     }
@@ -141,7 +137,6 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
                 spectators.remove(p);
             }
         }
-        System.out.println(spectators + "na");
         return true;
     }
 

@@ -12,11 +12,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import onlineschaken.Chatline;
-import onlineschaken.Game;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
-import onlineschaken.Section;
 
 /**
  *

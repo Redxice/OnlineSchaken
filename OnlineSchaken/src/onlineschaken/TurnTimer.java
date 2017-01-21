@@ -7,7 +7,6 @@ package onlineschaken;
 
 import Shared.IinGameController;
 import Shared.IrmiClient;
-import java.rmi.RemoteException;
 import java.util.TimerTask;
 
 /**
@@ -49,7 +48,6 @@ public class TurnTimer extends TimerTask
         } catch (Exception e)
         {
             e.printStackTrace();
-            System.out.println("timer");
         }
     }
 }

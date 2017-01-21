@@ -30,7 +30,6 @@ public class Chatfilter
                 if (message.contains(badword))
                 {
                     replace = message.replace(badword, "****");
-                    //return message;
                 }
             }
         }
@@ -53,7 +52,6 @@ public class Chatfilter
             br.close();
         } catch (Exception e)
         {
-            System.out.println(e.getMessage());
         }
     }
 }

@@ -9,14 +9,12 @@ import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import java.util.logging.*;
 import javafx.application.Platform;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -447,6 +445,5 @@ public abstract class Piece extends StackPane implements Serializable
     {
         this.section = section;
         section.setPiece(this);
-        System.out.println("My img in resetMySection : " +this.img);
     }
 }
