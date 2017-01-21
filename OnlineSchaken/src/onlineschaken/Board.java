@@ -5,7 +5,7 @@
  */
 package onlineschaken;
 
-import Server.ClientApp;
+
 import Shared.IrmiClient;
 import java.awt.Point;
 import java.rmi.RemoteException;

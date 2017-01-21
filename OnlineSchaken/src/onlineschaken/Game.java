@@ -410,10 +410,11 @@ public class Game implements Serializable
      */
     public void SetPiecesAgain()
     {
-        System.out.println("In setPiecesAGain : " + this.player1.getPieces() + " p2 : " + this.player2.getPieces());
+        System.out.println("In setPiecesAGain : " + this.player1.getPieces());
         for (Piece piece : this.player1.getPieces())
         {
-            
+            System.out.println("Piece in for loop "+piece.getX()+" "+piece.getY());
+            System.out.println("Section in de for loop "+this.board.getSections(piece.getX(), piece.getY()));
             setCorrectImg(piece);
             piece.fillInTheBlanks(player1);
             piece.resetMySection(this.board.getSections(piece.getX(), piece.getY()));

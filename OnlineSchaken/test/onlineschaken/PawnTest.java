@@ -32,6 +32,9 @@ public class PawnTest
     private IrmiClient client;
     private IngameController controller;
     
+    /**
+     *
+     */
     public PawnTest()
     {
         onlineSchaken = new OnlineSchaken();
@@ -50,22 +53,34 @@ public class PawnTest
         game.getBoard().createContent();
     }
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass()
     {
 
     }
 
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass()
     {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp()
     {
     }
 
+    /**
+     *
+     */
     @After
     public void tearDown()
     {
@@ -74,6 +89,10 @@ public class PawnTest
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
+
+    /**
+     *
+     */
     @Test
     public void TestGetPlayer()
     {
@@ -83,6 +102,9 @@ public class PawnTest
         assertEquals(actual, expected);
     }
 
+    /**
+     *
+     */
     @Test
     public void TestGetColor()
     {
@@ -92,6 +114,9 @@ public class PawnTest
         assertEquals(actual, expected);
     }
 
+    /**
+     *
+     */
     @Test
     public void TestGetSection()
     {
@@ -101,6 +126,9 @@ public class PawnTest
         assertEquals(actual, expected);
     }
 
+    /**
+     *
+     */
     @Test
     public void TestPrevSection()
     {

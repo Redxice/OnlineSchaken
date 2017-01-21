@@ -32,6 +32,9 @@ public class KnightTest
     private IrmiClient client;
     private IngameController controller;
     
+    /**
+     *
+     */
     public KnightTest()
     {
         onlineSchaken = new OnlineSchaken();
@@ -50,21 +53,33 @@ public class KnightTest
         game.getBoard().createContent();
     }
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass()
     {
     }
 
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass()
     {
     }
 
+    /**
+     *
+     */
     @Before
     public void setUp()
     {
     }
 
+    /**
+     *
+     */
     @After
     public void tearDown()
     {
@@ -73,12 +88,19 @@ public class KnightTest
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
+
+    /**
+     *
+     */
     @Test
     public void TestBlackKnight()
     {
         Knight k = new Knight("Black", p1, game.getBoard().getSections(3, 5));
     }
 
+    /**
+     *
+     */
     @Test
     public void TestWiteKnight()
     {

@@ -21,10 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import onlineschaken.Game;
-import onlineschaken.Gamelobby;
 import onlineschaken.Piece;
 import onlineschaken.Player;
 
@@ -51,25 +48,15 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
     }
 
-    private void initConnection() throws SQLException
+    private boolean initConnection()
     {
         try
         {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaaktest", "TestUser", "Test");
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public boolean init()
-    {
-        try
-        {
-            initConnection();
             return true;
         } catch (SQLException ex)
         {
@@ -78,8 +65,15 @@ public class Database
         }
     }
 
+    public boolean init()
+    {
+        return initConnection();
+    }
+
     public boolean insertPlayer(String username, String password, String email)
     {
+        if (!username.equals("")&&!password.equals(""))
+        {
         try
         {
             init();
@@ -102,6 +96,41 @@ public class Database
         {
             closeConnection();
         }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    public boolean removePlayer(String username)
+    {
+        if (!username.equals(""))
+        {
+        try
+        {
+            init();
+            PreparedStatement statement = con.prepareStatement("delete from player Where Username=?;");
+            statement.setString(1, username);
+            statement.executeUpdate();
+            statement.close();
+            return true;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } catch (Exception e)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, e);
+            return false;
+        } finally
+        {
+            closeConnection();
+        }
+        }
+        return false;
     }
 
     /**
@@ -112,15 +141,20 @@ public class Database
      */
     public Player selectPlayer(String username)
     {
+        if (username.equals(""))
+        {
+            return null;
+        }
         try
         {
             init();
             PreparedStatement statement = con.prepareStatement("SELECT username, password, email, rating FROM player WHERE username = ?;");
             statement.setString(1, username);
             ResultSet results = statement.executeQuery();
-            Player player = new Player();
+            Player player = null;
             while (results.next())
             {
+                String name = results.getString("username");
                 player = new Player(results.getString("username"), results.getString("password"), results.getString("email"), results.getInt("rating"));
                 LOGGER.log(Level.FINE, player.getUsername() + " + " + player.getPassword());
             }
@@ -137,50 +171,12 @@ public class Database
         }
     }
 
-    public boolean insertLobby(String username, String gameName)
-    {
-        try
-        {
-            int playerid = selectPlayerId(username);
-            init();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player1ID,LobbyNaam) VALUES(?,?);");
-            statement.setInt(1, playerid);
-            statement.setString(2, gameName);
-            statement.executeUpdate();
-            statement.close();
-            return true;
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } finally
-        {
-            closeConnection();
-        }
-    }
-
-    public boolean joinLobby(String username, int lobbyID)
-    {
-        try
-        {
-            init();
-            int playerid = selectPlayerId(username);
-            PreparedStatement statement = con.prepareStatement("INSERT INTO lobby(player2ID) VALUES(?) WHERE lobbyID = ?;");
-            statement.setInt(1, playerid);
-            statement.setInt(2, lobbyID);
-            statement.executeUpdate();
-            statement.close();
-            return true;
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } finally
-        {
-            closeConnection();
-        }
-    }
-
+/**
+ * 
+ * @param username1
+ * @param username2
+ * @return 
+ */
     public boolean addFriend(String username1, String username2)
     {
         try
@@ -204,26 +200,7 @@ public class Database
         }
     }
 
-    public boolean addLobbyMessage(int lobbyid, String username)
-    {
-        try
-        {
-            init();
-            int playerid = selectPlayerId(username);
-            PreparedStatement statement = con.prepareStatement("INSERT INTO lobbymessage(playerID, friendID) VALUES(?, ?);");
-            statement.setInt(1, playerid);
-            statement.executeUpdate();
-            statement.close();
-            return true;
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        } finally
-        {
-            closeConnection();
-        }
-    }
+   
 
     public int selectPlayerId(String username)
     {
@@ -250,70 +227,7 @@ public class Database
         }
     }
 
-    public ObservableList<Gamelobby> selectAllGameLobbys() throws RemoteException
-    {
-        try
-        {
-            init();
-            PreparedStatement statement = con.prepareStatement("SELECT LobbyID, player1ID, player2ID, LobbyNaam FROM lobby;");
-            ResultSet results = statement.executeQuery();
-            ObservableList<Gamelobby> items = FXCollections.observableArrayList();
-            while (results.next())
-            {
-                if (results.getString("player2ID") != null)
-                {
-                    Player player1 = selectPlayerFromID(results.getInt("player1ID"));
-                    Player player2 = selectPlayerFromID(results.getInt("player2ID"));
-                    Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"), player1, player2, results.getInt("LobbyID"));
-                    items.add(lobby);
-                } else
-                {
-                    Player player1 = selectPlayerFromID(results.getInt("player1ID"));
-                    Gamelobby lobby = new Gamelobby(results.getString("LobbyNaam"), player1, results.getInt("LobbyID"));
-                    items.add(lobby);
-                }
-            }
-            statement.close();
-            return items;
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-
-            return null;
-        } finally
-        {
-            closeConnection();
-        }
-    }
-
-    public Player selectPlayerFromID(int id)
-    {
-        try
-        {
-            init();
-            PreparedStatement statement = con.prepareStatement("SELECT username, password, email, rating FROM player WHERE PlayerID = ?;");
-            statement.setInt(1, id);
-            ResultSet results = statement.executeQuery();
-            Player player = new Player();
-            while (results.next())
-            {
-                player = new Player(results.getString("username"), results.getString("password"), results.getString("email"), results.getInt("rating"));
-                LOGGER.log(Level.FINE, player.getUsername() + " + " + player.getPassword());
-            }
-            statement.close();
-            return player;
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-
-            return null;
-        } finally
-        {
-            closeConnection();
-        }
-    }
-
-    public void addMoveToHistory(String userName, String userName2, String move, int nr)
+    public boolean addMoveToHistory(String userName, String userName2, String move, int nr)
     {
         try
         {
@@ -325,9 +239,11 @@ public class Database
             statement.setInt(4, nr);
             statement.executeUpdate();
             statement.close();
+            return true;
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         } finally
         {
             closeConnection();
@@ -371,9 +287,9 @@ public class Database
             {
                 ByteArrayInputStream in = new ByteArrayInputStream(results.getBytes("Game"));
                 ObjectInputStream is = new ObjectInputStream(in);
-                Object test = is.readObject() ;
+                Object test = is.readObject();
                 if (test instanceof Game)
-                {  
+                {
                     game = (Game) test;
                     game.setGameNr(results.getInt("GameNr"));
                     games.add(game);

@@ -34,6 +34,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
+import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -42,23 +44,14 @@ import static org.junit.Assert.*;
 public class ClientAppTest
 {
 
-    private RmiServer server = null;
+    private static RmiServer server = null;
     private ClientApp client = null;
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass()
-    {
-        
-    }
-
-    @AfterClass
-    public static void tearDownClass()
-    {
-        
-    }
-
-    @Before
-    public void setUp()
     {
         try
         {
@@ -76,12 +69,15 @@ public class ClientAppTest
         }
     }
 
-    @After
-    public void tearDown()
+    /**
+     *
+     */
+    @AfterClass
+    public static void tearDownClass()
     {
         try
         {
-            Registry registry = LocateRegistry.createRegistry(666);
+            Registry registry = LocateRegistry.getRegistry(666);
             registry.unbind("Server");
         } catch (RemoteException ex)
         {
@@ -90,6 +86,24 @@ public class ClientAppTest
         {
             Logger.getLogger(ClientAppTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     *
+     */
+    @Before
+    public void setUp()
+    {
+
+    }
+
+    /**
+     *
+     */
+    @After
+    public void tearDown()
+    {
+
     }
 
     // TODO add test methods here.
@@ -114,20 +128,24 @@ public class ClientAppTest
 
     /**
      * Test of sendTurn method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSendTurn() throws Exception
-    { try{
-        System.out.println("sendTurn");
-        Point prev = new Point(0,1);
-        Point next = new Point(0,2);
-        double time = 0.0;
-        IrmiClient instance = new ClientApp();
-        instance.sendTurn(prev, next, time);
-        fail("Hij heeft de gegevens niet proberen door te sturen naar de server");
-    }catch(RemoteException e){
-      
-    }
+    {
+        try
+        {
+            System.out.println("sendTurn");
+            Point prev = new Point(0, 1);
+            Point next = new Point(0, 2);
+            double time = 0.0;
+            IrmiClient instance = new ClientApp();
+            instance.sendTurn(prev, next, time);
+            fail("Hij heeft de gegevens niet proberen door te sturen naar de server");
+        } catch (RemoteException e)
+        {
+           
+        }
     }
 
     /**
@@ -141,8 +159,6 @@ public class ClientAppTest
         ArrayList<String> expResult = null;
         ArrayList<String> result = instance.GetGameLobbys();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -208,6 +224,7 @@ public class ClientAppTest
 
     /**
      * Test of getTurn method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetTurn() throws Exception
@@ -224,6 +241,7 @@ public class ClientAppTest
 
     /**
      * Test of UpdateLobbyController method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateLobbyController() throws Exception
@@ -237,6 +255,7 @@ public class ClientAppTest
 
     /**
      * Test of setLobbyController method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSetLobbyController() throws Exception
@@ -295,6 +314,7 @@ public class ClientAppTest
 
     /**
      * Test of setGameLobbyController method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSetGameLobbyController() throws Exception
@@ -309,6 +329,7 @@ public class ClientAppTest
 
     /**
      * Test of RefreshGameLobby method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testRefreshGameLobby() throws Exception
@@ -322,6 +343,7 @@ public class ClientAppTest
 
     /**
      * Test of updateChat method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateChat() throws Exception
@@ -335,6 +357,7 @@ public class ClientAppTest
 
     /**
      * Test of getLobbyController method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetLobbyController() throws Exception
@@ -350,6 +373,7 @@ public class ClientAppTest
 
     /**
      * Test of updatePlayerList method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdatePlayerList() throws Exception
@@ -392,6 +416,7 @@ public class ClientAppTest
 
     /**
      * Test of updateReady method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateReady() throws Exception
@@ -406,6 +431,7 @@ public class ClientAppTest
 
     /**
      * Test of setIinGameController method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSetIinGameController() throws Exception
@@ -420,6 +446,7 @@ public class ClientAppTest
 
     /**
      * Test of UpdateInGameChat method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateInGameChat() throws Exception
@@ -434,6 +461,7 @@ public class ClientAppTest
 
     /**
      * Test of sendInGameMessage method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSendInGameMessage() throws Exception
@@ -448,6 +476,7 @@ public class ClientAppTest
 
     /**
      * Test of getLastMove method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetLastMove() throws Exception
@@ -463,6 +492,7 @@ public class ClientAppTest
 
     /**
      * Test of castPiece method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCastPiece() throws Exception
@@ -478,6 +508,7 @@ public class ClientAppTest
 
     /**
      * Test of isPromoting method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testIsPromoting() throws Exception
@@ -491,6 +522,7 @@ public class ClientAppTest
 
     /**
      * Test of isWaitinPromotion method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testIsWaitinPromotion() throws Exception
@@ -505,6 +537,7 @@ public class ClientAppTest
 
     /**
      * Test of PromotePawn method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testPromotePawn() throws Exception
@@ -520,6 +553,7 @@ public class ClientAppTest
 
     /**
      * Test of addFriend method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAddFriend() throws Exception
@@ -537,6 +571,7 @@ public class ClientAppTest
 
     /**
      * Test of selectPlayer method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSelectPlayer() throws Exception
@@ -553,6 +588,7 @@ public class ClientAppTest
 
     /**
      * Test of insertPlayer method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testInsertPlayer() throws Exception
@@ -571,6 +607,7 @@ public class ClientAppTest
 
     /**
      * Test of surrender method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSurrender() throws Exception
@@ -584,6 +621,7 @@ public class ClientAppTest
 
     /**
      * Test of draw method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDraw() throws Exception
@@ -598,6 +636,7 @@ public class ClientAppTest
 
     /**
      * Test of sendGameOver method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testSendGameOver() throws Exception
@@ -612,6 +651,7 @@ public class ClientAppTest
 
     /**
      * Test of GetGames method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetGames() throws Exception
@@ -622,14 +662,13 @@ public class ClientAppTest
         ArrayList<Game> expResult = null;
         ArrayList<Game> result = instance.GetGames(username);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of SaveGame method, of class ClientApp.
+     * Test of SaveGame method, of class ClientApp. Deze methode werkt is nog niet compleet
+     * @throws java.lang.Exception
      */
-    @Test
+    @Ignore@Test
     public void testSaveGame() throws Exception
     {
         System.out.println("SaveGame");
@@ -642,15 +681,21 @@ public class ClientAppTest
 
     /**
      * Test of leaveGame method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testLeaveGame() throws Exception
     {
-        System.out.println("leaveGame");
+        try{System.out.println("leaveGame");
         ClientApp instance = new ClientApp();
+        IinGameController controller = mock(IinGameController.class);
+        instance.setIinGameController(controller);
         instance.leaveGame();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Hij verwachte een nullpointer.");
+        }catch(NullPointerException e){
+            
+        }
+        
     }
 
     /**
@@ -664,8 +709,6 @@ public class ClientAppTest
         Player expResult = null;
         Player result = instance.getPlayer();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -675,15 +718,17 @@ public class ClientAppTest
     public void testSetPlayer()
     {
         System.out.println("setPlayer");
-        Player player = null;
+        Player player = new Player();
         ClientApp instance = new ClientApp();
         instance.setPlayer(player);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Player result = instance.getPlayer();
+        Player expResult = player;
+        assertEquals(result,expResult);
     }
 
     /**
      * Test of RestartGame method, of class ClientApp.
+     * @throws java.lang.Exception
      */
     @Test
     public void testRestartGame() throws Exception
@@ -694,7 +739,5 @@ public class ClientAppTest
         boolean expResult = false;
         boolean result = instance.RestartGame(SelectedGame);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 }

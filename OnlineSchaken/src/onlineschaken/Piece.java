@@ -36,6 +36,7 @@ public abstract class Piece extends StackPane implements Serializable
     private boolean hasMoved;
     private transient Section previousState;
     public String MyType;
+
     //constructor
     public Piece(String p_color, Player p_player, Section p_section)
     {
@@ -56,8 +57,6 @@ public abstract class Piece extends StackPane implements Serializable
         this.player = player;
 
     }
-
-   
 
     public static Logger getLOGGER()
     {
@@ -445,8 +444,13 @@ public abstract class Piece extends StackPane implements Serializable
      */
     public void resetMySection(Section section)
     {
-        this.section = section;
+         System.out.println("DE MEEGEGVEN SECTION :"+section);
+        this.x = section.getID().x;
+        this.y = section.getID().y;
         section.setPiece(this);
-        System.out.println("My img in resetMySection : " +this.img);
+        this.section = section;
+        System.out.println("My img in resetMySection : " + this.img);
+        System.out.println("My section in reset my Section : "+this.section);
+       
     }
 }
