@@ -320,7 +320,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     {
                         try
                         {
-                            System.out.println(GameLobby.getSpectators());
                             playerList.setAll(GameLobby.GetPlayerNames());
                             SpelerBox.setItems(playerList);
                             spectatorList.setAll(GameLobby.getSpectators());

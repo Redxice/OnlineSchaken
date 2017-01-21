@@ -10,14 +10,11 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.ObservableList;
 import onlineschaken.Chatline;
 import onlineschaken.Game;
-import onlineschaken.Gamelobby;
 import onlineschaken.Pawn;
 import onlineschaken.Piece;
 import onlineschaken.Player;
-import onlineschaken.Section;
 
 /**
  *

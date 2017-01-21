@@ -75,7 +75,6 @@ public class ClientApp implements IrmiClient
 
         } catch (RemoteException e)
         {
-            System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
         return false;
@@ -121,7 +120,6 @@ public class ClientApp implements IrmiClient
             stub.SendMessage(chatline, naamLobby);
         } catch (RemoteException e)
         {
-            System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
     }
@@ -134,7 +132,6 @@ public class ClientApp implements IrmiClient
             stub.playerReady(ready, lobbyName, userName);
         } catch (RemoteException e)
         {
-            System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
     }
@@ -172,7 +169,6 @@ public class ClientApp implements IrmiClient
             }
         } catch (RemoteException e)
         {
-            System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
     }

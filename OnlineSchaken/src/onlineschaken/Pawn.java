@@ -229,7 +229,6 @@ public class Pawn extends Piece
             Section section = this.getSection();
             Bishop bishop = new Bishop(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
             this.getPlayer().getPieces().add(bishop);
-            System.out.println("This is removed from player : "+this);
             bishop.getPlayer().getPieces().remove(this);
             bishop.moveWithoutCheck(section);
         } else if (piece instanceof Knight)
@@ -238,7 +237,6 @@ public class Pawn extends Piece
             Knight knight = new Knight(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
             this.getPlayer().getPieces().add(knight);
             knight.getPlayer().getPieces().remove(this);
-            System.out.println("This is removed from player : "+this);
             knight.moveWithoutCheck(section);
         } else if (piece instanceof Queen)
         {
@@ -246,14 +244,12 @@ public class Pawn extends Piece
             Queen queen = new Queen(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
             this.getPlayer().getPieces().add(queen);
             queen.getPlayer().getPieces().remove(this);
-            System.out.println("This is removed from player : "+this);
             queen.moveWithoutCheck(section);
         }else if(piece instanceof Rook){
             Section section = this.getSection();
             Rook rook = new Rook(this.getColor(), this.getPlayer(), section.getBoard().getSections((int) prevX, (int) prevY));
             this.getPlayer().getPieces().add(rook);
             rook.getPlayer().getPieces().remove(this);
-            System.out.println("This is removed from player : "+this);
             rook.moveWithoutCheck(section);
         }
     }

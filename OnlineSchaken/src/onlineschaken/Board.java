@@ -91,7 +91,6 @@ public class Board //implements IrmiClient
                                             client.sendTurn(point, section.getID(), game.getTime());
                                             client.GetGameController().setLocalLastMove(point, section.getID());
                                             client.GetGameController().addToMoveHistory(point, section.getID(), piece);
-                                            System.out.println("??????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
 
                                         } catch (Exception e)
                                         {
@@ -207,7 +206,6 @@ public class Board //implements IrmiClient
                                                 System.out.println("voor send turn");
                                                 client.sendTurn(point, section.getID(), game.getTime());
                                                 client.GetGameController().setLocalLastMove(point, section.getID());
-                                                System.out.println(" My turn na verandering in board = " + client.GetGameController().getMyTurn());
 
                                             } catch (Exception e)
                                             {
@@ -318,10 +316,8 @@ public class Board //implements IrmiClient
                                                
                                                 client.sendTurn(point, section.getID(), game.getTime()); 
                                                 client.GetGameController().setLocalLastMove(point, section.getID());
-                                                System.out.println("?????????????? My turn na verandering in board = " + client.GetGameController().getMyTurn());
                                             } catch (Exception e)
                                             {
-                                                System.out.println(e.getMessage());
                                             }
                                             firstSection = null;
                                             piece = null;

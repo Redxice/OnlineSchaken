@@ -5,7 +5,6 @@
  */
 package Shared;
 
-import gui.IngameController;
 import java.awt.Point;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

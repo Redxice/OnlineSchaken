@@ -9,14 +9,12 @@ import Server.ClientApp;
 import Shared.IGameLobby;
 import Shared.ILobbyController;
 import Shared.IrmiClient;
-import database.Database;
 import onlineschaken.*;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -115,7 +113,6 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             {
                 this.player.setColor("black");
                 IGameLobby lobby = client.GetGameLobby(selectedLobby);
-                System.out.println("Ik ben in joingame");
                 if (lobby.joinGameLobby(player))
                 {
                     Stage CurrentStage = (Stage) Btn_Profile.getScene().getWindow();
@@ -282,7 +279,6 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                 {
                     try
                     {
-                        System.out.println("Ben in restart game");
                         Stage LoginStage = (Stage) Btn_Join.getScene().getWindow();
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
                         Parent root = (Parent) fxmlLoader.load();

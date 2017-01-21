@@ -9,7 +9,6 @@ import Server.ClientApp;
 import Shared.IrmiClient;
 import gui.IngameController;
 import gui.OnlineSchaken;
-import javafx.scene.image.Image;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -113,7 +112,6 @@ public class KnightTest
     @Test
     public void testCheckMove()
     {
-        System.out.println("checkMove");
         Section p_section = null;
         Knight instance = null;
         Boolean expResult = null;

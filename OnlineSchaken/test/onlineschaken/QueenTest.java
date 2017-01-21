@@ -64,7 +64,6 @@ public class QueenTest
     @Test
     public void testCheckMove()
     {
-        System.out.println("checkMove");
         Section p_section = null;
         Queen instance = null;
         Boolean expResult = null;

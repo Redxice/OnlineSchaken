@@ -33,11 +33,9 @@ public  class Server
             //Bind the remote object stub in the registry
             registry = LocateRegistry.createRegistry(666);
             registry.bind("Server", stub);
-            System.err.println("Server ready");
             
         } catch (Exception e)
         {
-            System.err.println("Server exception:" + e.toString());
             e.printStackTrace();
         }
        
