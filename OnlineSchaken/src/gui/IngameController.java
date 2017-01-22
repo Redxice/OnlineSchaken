@@ -87,6 +87,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     private boolean spectator;
     private Player LoggedInUser;
 
+    /**
+     *
+     * @throws RemoteException
+     */
     public IngameController() throws RemoteException
     {
 
@@ -95,6 +99,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     /**
      * moet nog verder worden uitgewerkt. De players moeten worden geadd in de
      * game.
+     * @param gameData
+     * @param spectators
+     * @param newGame
+     * @throws java.rmi.RemoteException
      */
     public void DrawBoard(Game gameData, List<Player> spectators, boolean newGame) throws RemoteException
     {
@@ -142,6 +150,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -149,6 +159,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     }
 
+    /**
+     *
+     * @param iClient
+     * @throws RemoteException
+     */
     @Override
     public void setIClient(IrmiClient iClient) throws RemoteException
     {
@@ -157,24 +172,46 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     }
 
+    /**
+     *
+     * @param client
+     * @throws RemoteException
+     */
     @Override
     public void setClient(ClientApp client) throws RemoteException
     {
         this.client = client;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public IrmiClient getClient() throws RemoteException
     {
         return (IrmiClient) client;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public IrmiClient getIClient() throws RemoteException
     {
         return Iclient;
     }
 
+    /**
+     *
+     * @param section1
+     * @param section2
+     * @param time
+     * @throws RemoteException
+     */
     @Override
     public void move(Point section1, Point section2, double time) throws RemoteException
 
@@ -220,40 +257,71 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }).start();
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public String getPlayer1() throws RemoteException
     {
         return player1;
     }
 
+    /**
+     *
+     * @param player1
+     */
     public void setPlayer1(String player1)
     {
         this.player1 = player1;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public String getPlayer2() throws RemoteException
     {
         return player2;
     }
 
+    /**
+     *
+     * @param player2
+     */
     public void setPlayer2(String player2)
     {
         this.player2 = player2;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean getMyTurn() throws RemoteException
     {
         return this.isMyTurn;
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void setMyturn() throws RemoteException
     {
         this.isMyTurn = false;
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void sendMessage(ActionEvent event)
     {
@@ -273,6 +341,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleLeaveBtn(ActionEvent event)
     {
@@ -288,6 +360,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void leaveGame() throws RemoteException
     {
@@ -319,6 +395,11 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     }
 
+    /**
+     *
+     * @param message
+     * @throws RemoteException
+     */
     @Override
     public void updateChat(Chatline message) throws RemoteException
     {
@@ -346,29 +427,54 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }).start();
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean isWhite() throws RemoteException
     {
         return white;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public boolean isSpectator() throws RemoteException
     {
         return spectator;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean getRealTurn() throws RemoteException
     {
         return this.MyRealTurn;
     }
 
+    /**
+     *
+     * @param MyRealTurn
+     * @throws RemoteException
+     */
     @Override
     public void SetRealTurn(boolean MyRealTurn) throws RemoteException
     {
         this.MyRealTurn = MyRealTurn;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Point> getLocalLastMove() throws RemoteException
     {
@@ -378,6 +484,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         return list;
     }
 
+    /**
+     *
+     * @param p1
+     * @param p2
+     * @throws RemoteException
+     */
     @Override
     public void setLocalLastMove(Point p1, Point p2) throws RemoteException
     {
@@ -385,6 +497,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         localEnd = p2;
     }
 
+    /**
+     *
+     * @param piece
+     * @param pawn
+     * @throws RemoteException
+     */
     @Override
     public void PromotePawn(Piece piece, Pawn pawn) throws RemoteException
     {
@@ -392,12 +510,20 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         this.IsWaitingForPromotion = false;
     }
 
+    /**
+     * start timers
+     */
     public void runTimer()
     {
         Timer timer = new Timer();
         timer.schedule(new TurnTimer(this, client), 0, 5000);
     }
 
+    /**
+     *
+     * @param bool
+     * @throws RemoteException
+     */
     @Override
     public void setisPromoting(boolean bool) throws RemoteException
     {
@@ -408,24 +534,46 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean isPromoting() throws RemoteException
     {
         return IsPromoting;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean isIsWaitingForPromotion() throws RemoteException
     {
         return IsWaitingForPromotion;
     }
 
+    /**
+     *
+     * @param bool
+     * @throws RemoteException
+     */
     @Override
     public void setIsWaitingForPromotion(boolean bool) throws RemoteException
     {
         this.IsWaitingForPromotion = bool;
     }
 
+    /**
+     *
+     * @param prev
+     * @param current
+     * @param piece
+     * @throws RemoteException
+     */
     @Override
     public void addToMoveHistory(Point prev, Point current, Piece piece) throws RemoteException
     {
@@ -469,12 +617,22 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         MoveHistory.setItems(moveHistory);
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<String> GetMyMoveHisotry() throws RemoteException
     {
         return this.listMoveHistory;
     }
 
+    /**
+     *
+     * @param loser
+     * @throws RemoteException
+     */
     @Override
     public void ReceiveSurrender(String loser) throws RemoteException
     {
@@ -494,6 +652,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
     }
 
+    /**
+     * handle a game that is a draw
+     */
     @FXML
     public void draw()
     {
@@ -532,6 +693,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void recieveDraw() throws RemoteException
     {
@@ -559,12 +724,20 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }).start();
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public List<Player> getSpectators() throws RemoteException
     {
         return spectators;
     }
 
+    /**
+     * called when game is finished and sends this to both players
+     */
     @Override
     public void gameover()
     {
@@ -583,6 +756,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void recieveGameover() throws RemoteException
     {
@@ -603,6 +780,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }).start();
     }
     
+    /**
+     * update the labels with new values
+     */
     public void updateTimers()
     {
         new Thread(new Runnable()
@@ -623,11 +803,18 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         }).start();
     }
 
-  public void setLoggedInUser(Player LoggedInUser)
+    /**
+     *
+     * @param LoggedInUser
+     */
+    public void setLoggedInUser(Player LoggedInUser)
     {
         this.LoggedInUser = LoggedInUser;
     }
     
+    /**
+     * join a lobby
+     */
     public void GoToLobby(){
         try
         {

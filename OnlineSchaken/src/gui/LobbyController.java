@@ -65,6 +65,10 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     @FXML
     private ListView Lv_GameList;
 
+    /**
+     *
+     * @throws RemoteException
+     */
     public LobbyController() throws RemoteException
     {
 
@@ -72,6 +76,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -197,17 +203,31 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         //db.insertLobby(player.getUsername(),Tb_GameName.getText());
     }
 
+    /**
+     *
+     * @param p_player
+     */
     public void setPlayer(Player p_player)
     {
         this.player = p_player;
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer()
     {
         return player;
     }
 
+    /**
+     *
+     * @param lobbyName
+     * @param p_player
+     * @return
+     */
     public IGameLobby TryToCreateGameLobby(String lobbyName, Player p_player)
     {
         if (client.createGameLobby(lobbyName, p_player))
@@ -246,6 +266,10 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         }).start();
     }
 
+    /**
+     *
+     * @param client
+     */
     public void setClient(ClientApp client)
     {
         this.client = client;
@@ -258,6 +282,10 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     }
 
+    /**
+     *
+     * @param IClient
+     */
     public void setIClient(IrmiClient IClient)
     {
         this.IClient = IClient;

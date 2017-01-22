@@ -35,6 +35,10 @@ public interface IrmiServer extends Remote
      */
     public void doTurn(Point section1, Point section2, double time, String Username) throws RemoteException;
 
+    /**
+     *
+     * @throws RemoteException
+     */
     public void test() throws RemoteException;
 
     /**
@@ -59,6 +63,7 @@ public interface IrmiServer extends Remote
      *
      * @param naam de naam van de gamelobby
      * @param player1 de speler die de gamelobby aanmaakt
+     * @return 
      * @throws RemoteException
      */
     public boolean CreateGameLobby(String naam, Player player1) throws RemoteException;
@@ -90,37 +95,138 @@ public interface IrmiServer extends Remote
      */
     public void playerReady(boolean ready, String naamLobby, String userName) throws RemoteException;
 
+    /**
+     *
+     * @param client
+     * @throws RemoteException
+     */
     public void registerClient(IrmiClient client) throws RemoteException;
 
+    /**
+     *
+     * @param gameLobbyname
+     * @throws RemoteException
+     */
     public void removeGameLobby(String gameLobbyname) throws RemoteException;
 
+    /**
+     *
+     * @param lobby
+     * @throws RemoteException
+     */
     public void updateGameLobbyClient(IGameLobby lobby) throws RemoteException;
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public int IrmiClientCounter() throws RemoteException;
 
+    /**
+     *
+     * @param controller
+     * @param message
+     * @throws RemoteException
+     */
     public void SendInGameMessage(IinGameController controller, Chatline message) throws RemoteException;
 
+    /**
+     *
+     * @param userName
+     * @return
+     * @throws RemoteException
+     */
     public ArrayList<Point> getLastMove(String userName) throws RemoteException;
 
-     public void PromotePawn(Piece piece,Pawn pawn,String receiver) throws RemoteException;
+    /**
+     *
+     * @param piece
+     * @param pawn
+     * @param receiver
+     * @throws RemoteException
+     */
+    public void PromotePawn(Piece piece,Pawn pawn,String receiver) throws RemoteException;
 
+    /**
+     *
+     * @param S_controller
+     * @param Username
+     * @throws RemoteException
+     */
     public void PlayerIsPromoting(IinGameController S_controller, String Username) throws RemoteException;
     
+    /**
+     *
+     * @param player
+     * @param friend
+     * @return
+     * @throws RemoteException
+     */
     public boolean addFriend(String player,String friend)throws RemoteException;
     
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
     public Player selectPlayer(String username)throws RemoteException;
     
+    /**
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @return
+     * @throws RemoteException
+     */
     public boolean insterPlayer(String username,String password,String email)throws RemoteException;
 
+    /**
+     *
+     * @param loser
+     * @param winner
+     * @throws RemoteException
+     */
     public void SendSurrender(String loser,String winner)throws RemoteException;
     
+    /**
+     *
+     * @param userNameOtherPlayer
+     * @throws RemoteException
+     */
     public void draw(String userNameOtherPlayer) throws RemoteException;
     
+    /**
+     *
+     * @param userNameOtherPlayer
+     * @throws RemoteException
+     */
     public void recieveGameover(String userNameOtherPlayer) throws RemoteException;
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
     public ArrayList<Game> GetUserGames(String username)throws RemoteException;
 
+    /**
+     *
+     * @param game
+     * @param leaver
+     * @throws RemoteException
+     */
     public void SaveGame(Game game,String leaver)throws RemoteException;
 
+    /**
+     *
+     * @param receiver
+     * @param game
+     * @return
+     * @throws RemoteException
+     */
     public boolean RestartGame(String receiver,Game game)throws RemoteException;
 }

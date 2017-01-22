@@ -92,6 +92,10 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void test() throws RemoteException
     {
@@ -247,6 +251,11 @@ public class RmiServer implements IrmiServer
 
     }
 
+    /**
+     *
+     * @param gameLobbyname
+     * @throws RemoteException
+     */
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
@@ -277,6 +286,11 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param lobby
+     * @throws RemoteException
+     */
     @Override
     public void updateGameLobbyClient(IGameLobby lobby) throws RemoteException
     {
@@ -316,12 +330,22 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param client
+     * @throws RemoteException
+     */
     @Override
     public void registerClient(IrmiClient client) throws RemoteException
     {
         Clients.add(client);
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public int IrmiClientCounter() throws RemoteException
     {
@@ -332,6 +356,11 @@ public class RmiServer implements IrmiServer
         return this.Clients.size() + 1;
     }
 
+    /**
+     *
+     * @param controller
+     * @param message
+     */
     @Override
     public void SendInGameMessage(IinGameController controller, Chatline message)
     {
@@ -353,6 +382,12 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param userName
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Point> getLastMove(String userName) throws RemoteException
     {
@@ -389,6 +424,13 @@ public class RmiServer implements IrmiServer
         return null;
     }
 
+    /**
+     *
+     * @param piece
+     * @param pawn
+     * @param receiver
+     * @throws RemoteException
+     */
     @Override
     public void PromotePawn(Piece piece, Pawn pawn, String receiver) throws RemoteException
     {
@@ -405,6 +447,12 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param sender
+     * @param Username
+     * @throws RemoteException
+     */
     @Override
     public void PlayerIsPromoting(IinGameController sender, String Username) throws RemoteException
     {
@@ -430,26 +478,51 @@ public class RmiServer implements IrmiServer
 
     }
 
+    /**
+     *
+     * @param player
+     * @param Friend
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean addFriend(String player, String Friend) throws RemoteException
     {
         return database.addFriend(player, Friend);
     }
 
-    
-
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public Player selectPlayer(String username) throws RemoteException
     {
         return database.selectPlayer(username);
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean insterPlayer(String username, String password, String email) throws RemoteException
     {
         return database.insertPlayer(username, password, email);
     }
 
+    /**
+     *
+     * @param loser
+     * @param winner
+     * @throws RemoteException
+     */
     @Override
     public void SendSurrender(String loser, String winner) throws RemoteException
     {
@@ -467,6 +540,11 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param userNameOtherPlayer
+     * @throws RemoteException
+     */
     @Override
     public void draw(String userNameOtherPlayer) throws RemoteException
     {
@@ -492,6 +570,11 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param userNameOtherPlayer
+     * @throws RemoteException
+     */
     @Override
     public void recieveGameover(String userNameOtherPlayer) throws RemoteException
     {
@@ -514,6 +597,12 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Game> GetUserGames(String username) throws RemoteException
     {
@@ -521,6 +610,12 @@ public class RmiServer implements IrmiServer
         return games;
     }
 
+    /**
+     *
+     * @param game
+     * @param leaver
+     * @throws RemoteException
+     */
     @Override
     public void SaveGame(Game game, String leaver) throws RemoteException
     {
@@ -542,6 +637,10 @@ public class RmiServer implements IrmiServer
 
     }
 
+    /**
+     *
+     * @param player
+     */
     public void leaveGameLobbys(Player player)
     {
         for (IrmiClient client : Clients)
@@ -559,6 +658,13 @@ public class RmiServer implements IrmiServer
         }
     }
 
+    /**
+     *
+     * @param receiver
+     * @param game
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean RestartGame(String receiver,Game game)throws RemoteException
     {

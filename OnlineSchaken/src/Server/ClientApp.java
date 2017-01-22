@@ -43,6 +43,9 @@ public class ClientApp implements IrmiClient
     private IrmiServer stub;
     private ProfileController profileController;
 
+    /**
+     * constructor
+     */
     public ClientApp()
     {
 
@@ -66,6 +69,7 @@ public class ClientApp implements IrmiClient
      *
      * @param LobbyName
      * @param host
+     * @return 
      */
     public boolean createGameLobby(String LobbyName, Player host)
     {
@@ -81,6 +85,13 @@ public class ClientApp implements IrmiClient
         return false;
     }
 
+    /**
+     *
+     * @param prev
+     * @param next
+     * @param time
+     * @throws RemoteException
+     */
     @Override
     public void sendTurn(Point prev, Point next, double time) throws RemoteException
     {
@@ -113,6 +124,11 @@ public class ClientApp implements IrmiClient
         return null;
     }
 
+    /**
+     *
+     * @param chatline
+     * @param naamLobby
+     */
     public void SendMessage(Chatline chatline, String naamLobby)
     {
 
@@ -125,6 +141,12 @@ public class ClientApp implements IrmiClient
         }
     }
 
+    /**
+     *
+     * @param ready
+     * @param lobbyName
+     * @param userName
+     */
     public void playerReady(boolean ready, String lobbyName, String userName)
     {
 
@@ -137,6 +159,11 @@ public class ClientApp implements IrmiClient
         }
     }
 
+    /**
+     *
+     * @param LobbyName
+     * @return
+     */
     public IGameLobby GetGameLobby(String LobbyName)
     {
         IGameLobby lobby = null;
@@ -152,6 +179,10 @@ public class ClientApp implements IrmiClient
         return lobby;
     }
 
+    /**
+     *
+     * @param lobbyName
+     */
     public void unBindLobby(String lobbyName)
     {
         try
@@ -174,12 +205,23 @@ public class ClientApp implements IrmiClient
         }
     }
 
+    /**
+     *
+     * @param section1
+     * @param section2
+     * @param time
+     * @throws RemoteException
+     */
     @Override
     public void getTurn(Point section1, Point section2, double time) throws RemoteException
     {
         game.move(section1, section2, time);
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void UpdateLobbyController() throws RemoteException
     {
@@ -190,6 +232,11 @@ public class ClientApp implements IrmiClient
 
     }
 
+    /**
+     *
+     * @param controller
+     * @throws RemoteException
+     */
     @Override
     public void setLobbyController(ILobbyController controller) throws RemoteException
     {
@@ -199,11 +246,19 @@ public class ClientApp implements IrmiClient
         this.profileController = null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName()
     {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName)
     {
         this.userName = userName;
@@ -221,11 +276,20 @@ public class ClientApp implements IrmiClient
         } 
     }
 
+    /**
+     *
+     * @return
+     */
     public IGameLobbyController getGameLobbyController()
     {
         return gameLobbyController;
     }
 
+    /**
+     *
+     * @param controller
+     * @throws RemoteException
+     */
     @Override
     public void setGameLobbyController(IGameLobbyController controller) throws RemoteException
     {
@@ -239,6 +303,10 @@ public class ClientApp implements IrmiClient
 
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void RefreshGameLobby() throws RemoteException
     {
@@ -247,18 +315,31 @@ public class ClientApp implements IrmiClient
 
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void updateChat() throws RemoteException
     {
         gameLobbyController.updateChat();
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ILobbyController getLobbyController() throws RemoteException
     {
         return this.lobbyController;
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void updatePlayerList() throws RemoteException
     {
@@ -282,30 +363,55 @@ public class ClientApp implements IrmiClient
         this.game = game;
     }
 
+    /**
+     *
+     * @param playerName
+     * @throws RemoteException
+     */
     @Override
     public void updateReady(String playerName) throws RemoteException
     {
         this.gameLobbyController.ready(playerName);
     }
 
+    /**
+     *
+     * @param controller
+     * @throws RemoteException
+     */
     @Override
     public void setIinGameController(IinGameController controller) throws RemoteException
     {
         this.game = controller;
     }
 
+    /**
+     *
+     * @param message
+     * @throws RemoteException
+     */
     @Override
     public void UpdateInGameChat(Chatline message) throws RemoteException
     {
         this.game.updateChat(message);
     }
 
+    /**
+     *
+     * @param message
+     * @throws RemoteException
+     */
     @Override
     public void sendInGameMessage(Chatline message) throws RemoteException
     {
         stub.SendInGameMessage(game, message);
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Point> getLastMove() throws RemoteException
     {
@@ -326,12 +432,21 @@ public class ClientApp implements IrmiClient
         stub.PromotePawn(piece, pawn, receiver);
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void isPromoting() throws RemoteException
     {
         stub.PlayerIsPromoting(this.game, this.userName);
     }
 
+    /**
+     *
+     * @param bool
+     * @throws RemoteException
+     */
     @Override
     public void isWaitinPromotion(boolean bool) throws RemoteException
     {
@@ -344,24 +459,49 @@ public class ClientApp implements IrmiClient
         this.game.PromotePawn(piece, pawn);
     }
 
+    /**
+     *
+     * @param Player
+     * @param Friend
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean addFriend(String Player, String Friend) throws RemoteException
     {
         return stub.addFriend(Player, Friend);
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public Player selectPlayer(String username) throws RemoteException
     {
         return stub.selectPlayer(username);
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean insertPlayer(String username, String password, String email) throws RemoteException
     {
         return stub.insterPlayer(username, password, email);
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void surrender() throws RemoteException
     {
@@ -377,18 +517,34 @@ public class ClientApp implements IrmiClient
         stub.SendSurrender(this.getUserName(), winner);
     }
 
+    /**
+     *
+     * @param userNameOtherPlayer
+     * @throws RemoteException
+     */
     @Override
     public void draw(String userNameOtherPlayer) throws RemoteException
     {
         stub.draw(userNameOtherPlayer);
     }
 
+    /**
+     *
+     * @param userNameOtherPlayer
+     * @throws RemoteException
+     */
     @Override
     public void sendGameOver(String userNameOtherPlayer) throws RemoteException
     {
         stub.recieveGameover(userNameOtherPlayer);
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Game> GetGames(String username) throws RemoteException
     {
@@ -398,28 +554,51 @@ public class ClientApp implements IrmiClient
         return games;
     }
 
+    /**
+     *
+     * @param game
+     * @throws RemoteException
+     */
     @Override
     public void SaveGame(Game game) throws RemoteException
     {
         stub.SaveGame(game, this.userName);
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void leaveGame() throws RemoteException
     {
         this.game.leaveGame();
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer()
     {
         return player;
     }
 
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(Player player)
     {
         this.player = player;
     }
 
+    /**
+     *
+     * @param SelectedGame
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean RestartGame(Game SelectedGame)throws RemoteException
     {

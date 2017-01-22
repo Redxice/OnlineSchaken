@@ -27,16 +27,28 @@ public class Chatline implements Serializable
         this.message = message;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName()
     {
         return userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMessage()
     {
         return message;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString()
     {

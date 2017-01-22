@@ -41,11 +41,19 @@ public class Board //implements IrmiClient
     private Game game;
     private IrmiClient client;
 
+    /**
+     *
+     * @param client
+     */
     public Board(IrmiClient client)
     {
         this.client = client;
     }
 
+    /**
+     *
+     * @return
+     */
     public Parent createContent()
     {
         root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
@@ -143,6 +151,10 @@ public class Board //implements IrmiClient
         return root;
     }
 
+    /**
+     *
+     * @return
+     */
     public Parent createContent2()
     {
         for (Section[] x : sections)
@@ -160,6 +172,12 @@ public class Board //implements IrmiClient
         return root;
     }
 
+    /**
+     *
+     * @param p_section1
+     * @param p_section2
+     * @return
+     */
     public Parent drawSpecificPieces(Section p_section1, Section p_section2)
     {
 
@@ -373,76 +391,138 @@ public class Board //implements IrmiClient
         return root;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTILE_SIZE()
     {
         return TILE_SIZE;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getWIDTH()
     {
         return WIDTH;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getHEIGHT()
     {
         return HEIGHT;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     public Section getSections(int x, int y)
     {
         return sections[x][y];
     }
 
+    /**
+     *
+     * @return
+     */
     public Section[][] getSections()
     {
         return sections;
     }
 
+    /**
+     *
+     * @return
+     */
     public Group getTileGroup()
     {
         return tileGroup;
     }
 
+    /**
+     *
+     * @return
+     */
     public Group getPieceGroup()
     {
         return pieceGroup;
     }
 
+    /**
+     *
+     * @param TILE_SIZE
+     */
     public void setTILE_SIZE(int TILE_SIZE)
     {
         this.TILE_SIZE = TILE_SIZE;
     }
 
+    /**
+     *
+     * @param WIDTH
+     */
     public void setWIDTH(int WIDTH)
     {
         this.WIDTH = WIDTH;
     }
 
+    /**
+     *
+     * @param HEIGHT
+     */
     public void setHEIGHT(int HEIGHT)
     {
         this.HEIGHT = HEIGHT;
     }
 
+    /**
+     *
+     * @param sections
+     */
     public void setSections(Section[][] sections)
     {
         this.sections = sections;
     }
 
+    /**
+     *
+     * @param game
+     */
     public void setGame(Game game)
     {
         this.game = game;
     }
 
+    /**
+     *
+     * @param tileGroup
+     */
     public void setTileGroup(Group tileGroup)
     {
         this.tileGroup = tileGroup;
     }
 
+    /**
+     *
+     * @param pieceGroup
+     */
     public void setPieceGroup(Group pieceGroup)
     {
         this.pieceGroup = pieceGroup;
     }
 
+    /**
+     *
+     * @return
+     */
     public Pane getRoot()
     {
         return root;
@@ -456,10 +536,18 @@ public class Board //implements IrmiClient
         return turn;
     }
     
+    /**
+     *
+     * @return
+     */
     public IrmiClient getClient(){
         return this.client;
     }
     
+    /**
+     *
+     * @param turn
+     */
     public void setTurn(String turn)
     {
         this.turn = turn;

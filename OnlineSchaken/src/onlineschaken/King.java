@@ -17,6 +17,12 @@ public class King extends Piece
     boolean check;
     boolean checkMate;
 
+    /**
+     *
+     * @param p_color
+     * @param p_player
+     * @param p_section
+     */
     public King(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
@@ -34,6 +40,10 @@ public class King extends Piece
         this.MyType = "King";
     }
 
+    /**
+     *
+     * @return
+     */
     public int countCheckSections()
     {
         int counter = 0;
@@ -56,6 +66,10 @@ public class King extends Piece
         return counter;
     }
 
+    /**
+     *
+     * @return
+     */
     public Section getSingleCheckSection()
     {
         Section checkSection = null;
@@ -78,6 +92,10 @@ public class King extends Piece
         return checkSection;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isCheck()
     {
         check = false;
@@ -101,6 +119,11 @@ public class King extends Piece
         return check;
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public boolean becomeCheck(Section p_section)
     {
         Piece previousPiece;
@@ -127,11 +150,19 @@ public class King extends Piece
         return false;
     }
 
+    /**
+     *
+     * @param check
+     */
     public void setCheck(boolean check)
     {
         this.check = check;
     }
 
+    /**
+     *
+     * @param checkMate
+     */
     public void setCheckMate(boolean checkMate)
     {
         this.checkMate = checkMate;

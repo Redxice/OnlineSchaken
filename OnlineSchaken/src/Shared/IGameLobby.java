@@ -22,6 +22,8 @@ public interface IGameLobby extends Remote
      * Deze methode is bedoelt voor het adden van een player in de remote gamelobby.
      * Check of de gameLobby niet vol zit. 
      * @param player 
+     * @return  
+     * @throws java.rmi.RemoteException  
      */
     public boolean joinGameLobby(Player player)throws RemoteException;
     /**
@@ -29,17 +31,24 @@ public interface IGameLobby extends Remote
      * Check of de gameLobby leeg is na het verwijderen van de speler. 
      * Als de gameLobby leeg is moet hij worden verwijdert uit de database.
      * @param player 
+     * @return  
+     * @throws java.rmi.RemoteException 
      */
     public boolean leaveGameLobby(Player player)throws RemoteException;
     /**
      * Deze methode moet worden gebruikt wanneer de clients in 
      * de gamelobby ui op de Btn_Ready clicken.
+     * @param ready
+     * @param lobbyName
+     * @param userName
+     * @throws java.rmi.RemoteException
      */
     public void PlayerIsReady(boolean ready,String lobbyName, String userName)throws RemoteException;
     
     /**
      * Deze Chatline wordt geadd in  List Chat van de Gamelobby klassen
      * @param message 
+     * @throws java.rmi.RemoteException 
      */
     public void SendMessage(Chatline message)throws RemoteException;
     
@@ -57,6 +66,11 @@ public interface IGameLobby extends Remote
      */
     public Player GetPlayer2()throws RemoteException;
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public ArrayList<Player> GetPlayerNames()throws RemoteException;
 
     
@@ -68,9 +82,31 @@ public interface IGameLobby extends Remote
 
     public String getName()throws RemoteException;
     
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public List<Chatline> getChatLines() throws RemoteException;
     
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public boolean checkPlayer2Exists()throws RemoteException;
+
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public boolean checkPlayer1Exists()throws RemoteException;
+
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public List<Player> getSpectators()throws RemoteException;
 }

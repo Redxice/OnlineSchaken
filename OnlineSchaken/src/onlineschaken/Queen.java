@@ -15,6 +15,12 @@ import javafx.scene.image.Image;
 public class Queen extends Piece
 {
 
+    /**
+     *
+     * @param p_color
+     * @param p_player
+     * @param p_section
+     */
     public Queen(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
@@ -29,6 +35,11 @@ public class Queen extends Piece
         this.MyType = "Queen";
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     @Override
     public Boolean checkMove(Section p_section)
     {

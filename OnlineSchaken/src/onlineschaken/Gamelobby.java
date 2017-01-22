@@ -28,6 +28,13 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     private boolean p2Ready;
     private List<Player> spectators = new ArrayList<>();
 
+    /**
+     *
+     * @param naam
+     * @param player1
+     * @param id
+     * @throws RemoteException
+     */
     public Gamelobby(String naam, Player player1, int id) throws RemoteException {
         this.naam = naam;
         this.player1 = player1;
@@ -35,6 +42,14 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         this.id = id;
     }
 
+    /**
+     *
+     * @param naam
+     * @param player1
+     * @param player2
+     * @param id
+     * @throws RemoteException
+     */
     public Gamelobby(String naam, Player player1, Player player2, int id) throws RemoteException {
         this.naam = naam;
         this.player1 = player1;
@@ -43,58 +58,112 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         this.id = id;
     }
 
+    /**
+     *
+     * @param naam
+     * @param player1
+     * @throws RemoteException
+     */
     public Gamelobby(String naam, Player player1) throws RemoteException {
         this.naam = naam;
         this.player1 = player1;
         currentPlayers = 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMaxPlayers() {
         return this.maxPlayers;
     }
 
+    /**
+     *
+     * @param message
+     */
     public void addChatLine(Chatline message) {
         chatLines.add(message);
     }
 
+    /**
+     *
+     * @param spectator
+     */
     public void addSpectator(Player spectator) {
         spectators.add(spectator);
     }    
 
+    /**
+     *
+     * @param player2
+     */
     public void setPlayer2(Player player2) {
         this.player2 = player2;
         currentPlayers = 2;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCurrentPlayers() {
         return currentPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Chatline> getChatLines() {
         return chatLines;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer1() {
         return player1;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer2() {
         return player2;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNaam() {
         return naam;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Player> getSpectators() {
         return spectators;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "ID=" + id + ", Naam=" + naam + ", Players=" + currentPlayers + "/" + maxPlayers;
@@ -169,6 +238,11 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         return this.player1;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Player> GetPlayerNames() throws RemoteException {
         ArrayList<Player> players = new ArrayList<>();
@@ -185,6 +259,11 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         return this.player2;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean checkPlayer2Exists() throws RemoteException
     {
@@ -194,6 +273,11 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         return true;
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public boolean checkPlayer1Exists() throws RemoteException
     {

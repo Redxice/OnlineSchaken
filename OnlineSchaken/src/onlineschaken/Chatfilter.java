@@ -19,6 +19,11 @@ public class Chatfilter
 
     private List<String> bannedWords = new ArrayList<>();
 
+    /**
+     *
+     * @param message
+     * @return
+     */
     public String checkMessage(String message)
     {
         String replace = "";
@@ -40,6 +45,9 @@ public class Chatfilter
         return replace;
     }
 
+    /**
+     * read all banned words from text file and put in list
+     */
     public void readBannedWords()
     {
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\onlineschaken\\words.txt")))

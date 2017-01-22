@@ -94,6 +94,9 @@ public class OnlineSchaken extends Application
         primaryStage.show();*/
     }
 
+    /**
+     * update the timerlabels
+     */
     public void update()
     {
         Platform.runLater(new Runnable()

@@ -19,12 +19,20 @@ public class TurnTimer extends TimerTask
     private IinGameController controller;
     private IrmiClient client;
 
+    /**
+     *
+     * @param controller
+     * @param client
+     */
     public TurnTimer(IinGameController controller, IrmiClient client)
     {
         this.controller = controller;
         this.client = client;
     }
 
+    /**
+     * get last move
+     */
     @Override
     public void run()
     {

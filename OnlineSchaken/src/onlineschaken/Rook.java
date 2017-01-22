@@ -14,6 +14,12 @@ import javafx.scene.image.Image;
 public class Rook extends Piece
 {
 
+    /**
+     *
+     * @param p_color
+     * @param p_player
+     * @param p_section
+     */
     public Rook(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
@@ -28,6 +34,10 @@ public class Rook extends Piece
         this.MyType = "Rook";
     }
 
+    /**
+     *
+     * @return
+     */
     public Section castling()
     {
         Section section = null;

@@ -22,6 +22,14 @@ public class Section extends Rectangle
     private Piece piece;
 
     //constructor
+
+    /**
+     *
+     * @param light
+     * @param x
+     * @param y
+     * @param board
+     */
     public Section(boolean light, int x, int y, Board board)
     {
         this.board = board;
@@ -37,31 +45,56 @@ public class Section extends Rectangle
     }
 
     //methode
+
+    /**
+     *
+     * @return
+     */
     public Point getID()
     {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Point id)
     {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isOccupied()
     {
         return piece != null;
     }
 
+    /**
+     *
+     * @return
+     */
     public Piece getPiece()
     {
         return piece;
     }
 
+    /**
+     *
+     * @return
+     */
     public Board getBoard()
     {
         return board;
     }
 
+    /**
+     *
+     * @param piece
+     */
     public void setPiece(Piece piece)
     {
         if (this.piece != null && piece != null)
@@ -77,11 +110,19 @@ public class Section extends Rectangle
 
     }
 
+    /**
+     *
+     * @param piece
+     */
     public void tempSetPiece(Piece piece)
     {
         this.piece = piece;
     }
 
+    /**
+     *
+     * @param board
+     */
     public void setBoard(Board board)
     {
         this.board = board;

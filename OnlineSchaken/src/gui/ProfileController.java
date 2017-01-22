@@ -56,6 +56,10 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
     private ListView Lv_GameHistory;
     private Player player;
 
+    /**
+     *
+     * @throws RemoteException
+     */
     public ProfileController() throws RemoteException
     {
 
@@ -63,6 +67,8 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -130,6 +136,9 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
         }
     }
 
+    /**
+     * show all new games
+     */
     public void UpdateGames()
     {
         Platform.runLater(new Runnable()
@@ -146,22 +155,38 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer()
     {
         return player;
     }
 
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(Player player)
     {
         this.player = player;
         lbNaam.setText(player.getUsername());
     }
 
+    /**
+     *
+     * @param client
+     */
     public void setClient(ClientApp client)
     {
         this.client = client;
     }
 
+    /**
+     *
+     * @param client
+     */
     public void setIClient(IrmiClient client)
     {
         this.IClient = client;

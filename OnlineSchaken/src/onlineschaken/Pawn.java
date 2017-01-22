@@ -36,6 +36,12 @@ public class Pawn extends Piece
     private double prevX;
     private double prevY;
 
+    /**
+     *
+     * @param p_color
+     * @param p_player
+     * @param p_section
+     */
     public Pawn(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
@@ -50,6 +56,10 @@ public class Pawn extends Piece
          this.MyType = "Pawn";
     }
 
+    /**
+     *
+     * @param section
+     */
     public void setPrevSection(Section section)
     {
         this.prevX = section.getID().x;
@@ -57,21 +67,38 @@ public class Pawn extends Piece
         this.prevSection = section;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPrevSectionX()
     {
         return prevX;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPrevSectionY()
     {
         return prevY;
     }
 
+    /**
+     *
+     * @return
+     */
     public Section getPrevSection()
     {
         return this.prevSection;
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     @Override
     public Boolean checkMove(Section p_section)
     {
@@ -157,10 +184,9 @@ public class Pawn extends Piece
     /**
      * Deze methode wordt aangeroepen wanneer de promotion methode true returned
      *
-     * @return Popup met daar de 4 buttons die allemaal hun eigen eventhandler
-     * hebben. zodra er wordt geclickt op een button wordt de de pawn uit de
-     * speler zijn lijst verwijdert en het aangegeven type piece wordt
-     * toegevoegt aan de speler zijn lijst op de locatie van de pawn.
+     * @param controller
+     * @param client
+     * @throws java.rmi.RemoteException
      */
     public void menu(IinGameController controller, IrmiClient client) throws RemoteException
     {
@@ -221,6 +247,10 @@ public class Pawn extends Piece
         }
     }
 
+    /**
+     *
+     * @param piece
+     */
     public void PromoteThisPawn(Piece piece)
     {
         if (piece instanceof Bishop)
@@ -254,6 +284,11 @@ public class Pawn extends Piece
         }
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public boolean Promotion(Section p_section)
     {
         if (this.getColor().equals("white") )
@@ -339,6 +374,12 @@ public class Pawn extends Piece
         return false;
     }
 
+    /**
+     *
+     * @param p_section
+     * @param board
+     * @return
+     */
     public boolean moveOneTileForwardWhite(Section p_section, Board board)
     {
         {
@@ -356,6 +397,12 @@ public class Pawn extends Piece
         return false;
     }
 
+    /**
+     *
+     * @param p_section
+     * @param board
+     * @return
+     */
     public boolean moveTwoTilesForwardWhite(Section p_section, Board board)
     {
         if (isHasMoved() == false)
@@ -375,6 +422,12 @@ public class Pawn extends Piece
         return false;
     }
 
+    /**
+     *
+     * @param p_section
+     * @param board
+     * @return
+     */
     public boolean moveTwoTilesForwardBlack(Section p_section, Board board)
     {
         if (isHasMoved() == false)
@@ -394,6 +447,12 @@ public class Pawn extends Piece
         return false;
     }
 
+    /**
+     *
+     * @param p_section
+     * @param board
+     * @return
+     */
     public boolean moveOneTileForwardBlack(Section p_section, Board board)
     {
         {
@@ -484,6 +543,7 @@ public class Pawn extends Piece
      *
      * @param p_section Deze methode verwijdert een pawn van een section wanneer
      * de prevY op de start positie was.
+     * @return 
      *
      */
     public boolean moveEnPassant(Section p_section)
@@ -512,15 +572,28 @@ public class Pawn extends Piece
         }
         return false;
     }
+
+    /**
+     * set new previoussection
+     */
     public void resetThePrevSection(){
         if(this.getSection()!= null){
         this.prevSection = this.getSection().getBoard().getSections((int)this.prevX,(int)this.prevY);
         }}
+
+    /**
+     *
+     * @return
+     */
     public double getPrevX()
     {
         return prevX;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getPrevY()
     {
         return prevY;

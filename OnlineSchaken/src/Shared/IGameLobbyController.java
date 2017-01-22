@@ -15,9 +15,36 @@ import onlineschaken.Player;
  */
 public interface IGameLobbyController extends Remote{
     
+    /**
+     *
+     * @throws RemoteException
+     */
     public void updateChat()throws RemoteException;
+
+    /**
+     *
+     * @throws RemoteException
+     */
     public void updatePlayerList()throws RemoteException;
+
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public IGameLobby getIGameLobby()throws RemoteException;
+
+    /**
+     *
+     * @param userName
+     * @throws RemoteException
+     */
     public void ready(String userName) throws RemoteException;
+
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     public Player getLoggedInUser() throws RemoteException;
 }

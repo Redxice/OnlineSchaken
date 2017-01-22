@@ -69,11 +69,19 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @FXML
     private TextField Chatline_TxtField;
 
+    /**
+     *
+     * @throws RemoteException
+     */
     public GamelobbyController() throws RemoteException
     {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void HandleReadyBtn(ActionEvent event)
     {
@@ -122,6 +130,10 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void HandleLeaveBtn(ActionEvent event)
     {
@@ -157,6 +169,9 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         }
     }
     
+    /**
+     * send message to other player that this player has left
+     */
     public void chatBerichtLeave()
     {
         
@@ -184,6 +199,8 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     /**
      * moet worden aangeroepen wanneer een player wilt joinen op een bestaande
      * GameLobby .
+     * @param lobby
+     * @param player
      */
     public void JoinGameLobby(IGameLobby lobby,Player player)
     {
@@ -205,8 +222,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
      * Hier wordt de IGameLobby vast gezet voor verder gebruik in deze classen
      * in de variabel GameLobby.
      *
-     * @param p_GameLobby
-     * @param p_player
+     * @param lobby
      */
     public void createGameLobby(IGameLobby lobby)
     {
@@ -224,6 +240,8 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -231,6 +249,10 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         // TODO
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void HandleSendBtn(ActionEvent event)
     {
@@ -250,17 +272,29 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         }
     }
     
+    /**
+     *
+     * @param client
+     */
     public void setClient(ClientApp client)
     {
         this.client = client;
 
     }
 
+    /**
+     *
+     * @return
+     */
     public IrmiClient getIClient()
     {
         return IClient;
     }
 
+    /**
+     *
+     * @param IClient
+     */
     public void setIClient(IrmiClient IClient)
     {
         this.IClient = IClient;
@@ -273,6 +307,10 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         }
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void updateChat() throws RemoteException
     {
@@ -305,6 +343,10 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     }
 
+    /**
+     *
+     * @throws RemoteException
+     */
     @Override
     public void updatePlayerList() throws RemoteException
     {
@@ -334,12 +376,22 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         }).start();
     }
 
+    /**
+     *
+     * @return
+     * @throws RemoteException
+     */
     @Override
     public IGameLobby getIGameLobby() throws RemoteException
     {
         return this.GameLobby;
     }
 
+    /**
+     *
+     * @param userName
+     * @throws RemoteException
+     */
     @Override
     public void ready(String userName) throws RemoteException
     {
@@ -359,6 +411,9 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         }
     }
 
+    /**
+     * method to fill the board with sections
+     */
     public void drawBoard()
     {
         new Thread(new Runnable()
@@ -400,11 +455,6 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                 });
             }
         }).start();
-    }
-
-    public void setPlayerAndTurn()
-    {
-
     }
 
     /**

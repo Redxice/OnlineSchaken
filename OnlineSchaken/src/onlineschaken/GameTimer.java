@@ -20,12 +20,20 @@ public class GameTimer extends TimerTask
     private Game game;
     private Board board;
 
+    /**
+     *
+     * @param game
+     * @param board
+     */
     public GameTimer(Game game, Board board)
     {
         this.game = game;
         this.board = board;
     }
 
+    /**
+     * run method
+     */
     @Override
     public void run()
     {

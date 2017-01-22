@@ -61,11 +61,22 @@ public class Database
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean init()
     {
         return initConnection();
     }
 
+    /**
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @return
+     */
     public boolean insertPlayer(String username, String password, String email)
     {
         if (!username.equals("")&&!password.equals(""))
@@ -196,8 +207,11 @@ public class Database
         }
     }
 
-   
-
+    /**
+     *
+     * @param username
+     * @return
+     */
     public int selectPlayerId(String username)
     {
         try
@@ -223,6 +237,14 @@ public class Database
         }
     }
 
+    /**
+     *
+     * @param userName
+     * @param userName2
+     * @param move
+     * @param nr
+     * @return
+     */
     public boolean addMoveToHistory(String userName, String userName2, String move, int nr)
     {
         try
@@ -246,6 +268,10 @@ public class Database
         }
     }
 
+    /**
+     *
+     * @param game
+     */
     public void SaveGame(Game game)
     {
         try
@@ -267,6 +293,11 @@ public class Database
         }
     }
 
+    /**
+     *
+     * @param Username
+     * @return
+     */
     public ArrayList<Game> GetUsersGames(String Username)
     {
         ArrayList<Game> games = new ArrayList<>();

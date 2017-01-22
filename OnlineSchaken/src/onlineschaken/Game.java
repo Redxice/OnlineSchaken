@@ -49,6 +49,15 @@ public class Game implements Serializable
     private boolean gameDraw = false;
 
     //constructor voor game die geen deel uitmaakt van een tournament
+
+    /**
+     *
+     * @param p_player1
+     * @param p_player2
+     * @param javaFX
+     * @param client
+     * @param ingame
+     */
     public Game(Player p_player1, Player p_player2, OnlineSchaken javaFX, ClientApp client, IngameController ingame)
     {
         this.player1 = p_player1;
@@ -63,6 +72,14 @@ public class Game implements Serializable
     }
 
     //zonder timer
+
+    /**
+     *
+     * @param p_player1
+     * @param p_player2
+     * @param client
+     * @param ingame
+     */
     public Game(Player p_player1, Player p_player2, IrmiClient client, IngameController ingame)
     {
         this.player1 = p_player1;
@@ -80,8 +97,8 @@ public class Game implements Serializable
     /**
      * Voor het hervatten van een game
      *
-     * @param p_player1
-     * @param p_player2
+     * @param game
+     * @param ingame
      * @param client
      */
     public Game(Game game, IrmiClient client, IngameController ingame)
@@ -99,6 +116,17 @@ public class Game implements Serializable
     }
 
     //constructor vor een game die deel is van een tournament
+
+    /**
+     *
+     * @param p_time
+     * @param p_player1
+     * @param p_player2
+     * @param p_tournament
+     * @param javaFX
+     * @param client
+     * @param ingame
+     */
     public Game(int p_time, Player p_player1, Player p_player2,
             Tournament p_tournament, OnlineSchaken javaFX, ClientApp client, IngameController ingame)
     {
@@ -115,6 +143,11 @@ public class Game implements Serializable
         //timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public String resterend(int i)
     {
         if (i == 1)
@@ -133,26 +166,47 @@ public class Game implements Serializable
     }
 
     //getters and setters
+
+    /**
+     *
+     * @return
+     */
     public double getTime()
     {
         return time;
     }
 
+    /**
+     *
+     * @param time
+     */
     public void setTime(int time)
     {
         this.time = time;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getResterend1()
     {
         return remaining1;
     }
 
+    /**
+     *
+     * @return
+     */
     public Timer getTimer()
     {
         return timer;
     }
 
+    /**
+     *
+     * @param seconde
+     */
     public void setResterend1(int seconde)
     {
         this.remaining1 = remaining1 - seconde;
@@ -164,11 +218,19 @@ public class Game implements Serializable
         }*/
     }
 
+    /**
+     *
+     * @return
+     */
     public double getResterend2()
     {
         return remaining2;
     }
 
+    /**
+     *
+     * @param seconde
+     */
     public void setResterend2(int seconde)
     {
         this.remaining2 = remaining2 - seconde;
@@ -180,11 +242,19 @@ public class Game implements Serializable
         }*/
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isFinished()
     {
         return finished;
     }
 
+    /**
+     *
+     * @param finished
+     */
     public void setFinished(boolean finished)
     {
         this.finished = finished;
@@ -209,41 +279,72 @@ public class Game implements Serializable
         }
     }
 
+    /**
+     * update the game timers
+     */
     public void update()
     {
         ingame.updateTimers();
     }
 
+    /**
+     *
+     * @return
+     */
     public Tournament getTournament()
     {
         return tournament;
     }
 
+    /**
+     *
+     * @param tournament
+     */
     public void setTournament(Tournament tournament)
     {
         this.tournament = tournament;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer1()
     {
         return player1;
     }
 
+    /**
+     *
+     * @param player1
+     */
     public void setPlayer1(Player player1)
     {
         this.player1 = player1;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer2()
     {
         return player2;
     }
 
+    /**
+     *
+     * @param player2
+     */
     public void setPlayer2(Player player2)
     {
         this.player2 = player2;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Player> getSpectators()
     {
         if (this.spectators == null)
@@ -253,46 +354,82 @@ public class Game implements Serializable
         return spectators;
     }
 
+    /**
+     *
+     * @param spectators
+     */
     public void setSpectators(List<Player> spectators)
     {
         this.spectators = spectators;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getWinner()
     {
         return winner;
     }
 
+    /**
+     *
+     * @param winner
+     */
     public void setWinner(Player winner)
     {
         this.winner = winner;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isWhiteTurn()
     {
         return whiteTurn;
     }
 
+    /**
+     *
+     * @param whiteTurn
+     */
     public void setWhiteTurn(boolean whiteTurn)
     {
         this.whiteTurn = whiteTurn;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Chatline> getChat()
     {
         return chat;
     }
 
+    /**
+     *
+     * @param chat
+     */
     public void setChat(List<Chatline> chat)
     {
         this.chat = chat;
     }
 
+    /**
+     *
+     * @return
+     */
     public Board getBoard()
     {
         return board;
     }
 
+    /**
+     *
+     * @param board
+     */
     public void setBoard(Board board)
     {
         this.board = board;
@@ -300,29 +437,52 @@ public class Game implements Serializable
 
     //methodes
     //voegt spectator toe aan de lijst spectators
+
+    /**
+     *
+     * @param p_spectator
+     */
     public void addSpectator(Player p_spectator)
     {
         spectators.add(p_spectator);
     }
     //verwijdert de player uit de spectators lijst.
 
+    /**
+     *
+     * @param p_spectator
+     */
     public void removeSpectator(Player p_spectator)
     {
         spectators.remove(p_spectator);
     }
 
     //voegt chatline toe aan de lijst Chat.
+
+    /**
+     *
+     * @param p_chatline
+     */
     public void addChatline(Chatline p_chatline)
     {
         chat.add(p_chatline);
     }
 
     //verwijdertt chatline toe aan de lijst Chat.
+
+    /**
+     *
+     * @param p_chatline
+     */
     public void removeChatline(Chatline p_chatline)
     {
         chat.remove(p_chatline);
     }
 
+    /**
+     *
+     * @param Username
+     */
     public void Surrender(String Username)
     {
         if (this.player1.getUsername().equals(Username))
@@ -336,6 +496,10 @@ public class Game implements Serializable
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean checkMate()
     {
         Piece previousPiece;
@@ -404,15 +568,12 @@ public class Game implements Serializable
     }
 
     /**
-     *
-     * @param player
+     * reset the pieces
      */
     public void SetPiecesAgain()
     {
         for (Piece piece : this.player1.getPieces())
         {
-            System.out.println("Piece in for loop "+piece.getX()+" "+piece.getY());
-            System.out.println("Section in de for loop "+this.board.getSections(piece.getX(), piece.getY()));
             setCorrectImg(piece);
             piece.fillInTheBlanks(player1);
             piece.resetMySection(this.board.getSections(piece.getX(), piece.getY()));
@@ -426,7 +587,9 @@ public class Game implements Serializable
 
     }
 
-    // Zet alle stukken in de begin positie op het bord;
+    /**
+     * Zet alle stukken in de begin positie op het bord;
+     */
     public void setPieces()
     {
         Piece piece;
@@ -466,6 +629,11 @@ public class Game implements Serializable
     }
 
     // kijkt of het draw is
+
+    /**
+     *
+     * @return
+     */
     public boolean draw()
     {
         if (staleMate())
@@ -485,6 +653,11 @@ public class Game implements Serializable
     }
 
     // kijkt of het onmogenlijk is om schaak te zetten
+
+    /**
+     *
+     * @return
+     */
     public boolean impossibleCheckMate()
     {
         if (player1.getPieces().size() <= 2)
@@ -517,6 +690,11 @@ public class Game implements Serializable
     }
 
     // kijkt of de speler die aan zet is nog een stuk kan verzetten
+
+    /**
+     *
+     * @return
+     */
     public boolean staleMate()
     {
         for (Piece p : player1.getPieces())
@@ -530,7 +708,7 @@ public class Game implements Serializable
     }
 
     /**
-     * @param player1Draw the player1Draw to set
+     * player 1 requests draw
      */
     public void setPlayer1Draw()
     {
@@ -544,7 +722,7 @@ public class Game implements Serializable
     }
 
     /**
-     * @param player2Draw the player2Draw to set
+     * player 2 requests draw
      */
     public void setPlayer2Draw()
     {
@@ -561,6 +739,7 @@ public class Game implements Serializable
      * pawn wordt hier gepromote zonder popup.
      *
      * @param piece
+     * @param pawn
      */
     public void PromotePawn(Piece piece, Pawn pawn)
     {
@@ -582,16 +761,27 @@ public class Game implements Serializable
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPlayer1Draw()
     {
         return player1Draw;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPlayer2Draw()
     {
         return player2Draw;
     }
 
+    /**
+     * check if both players agree to a draw
+     */
     public void checkDraw()
     {
         if (this.player1Draw && this.player2Draw)
@@ -601,18 +791,30 @@ public class Game implements Serializable
         }
     }
 
+    /**
+     *
+     * @param GameNr
+     */
     public void setGameNr(int GameNr)
     {
         this.GameNr = GameNr;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString()
     {
         return "Game{" + "GameNr=" + GameNr + ", player1=" + player1 + ", player2=" + player2 + ", winner=" + winner + '}';
     }
     
-     public void setCorrectImg(Piece piece)
+    /**
+     *
+     * @param piece
+     */
+    public void setCorrectImg(Piece piece)
     {
         if (piece.MyType.equals("Bishop") )
         {

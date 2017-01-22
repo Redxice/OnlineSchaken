@@ -33,9 +33,20 @@ public abstract class Piece extends StackPane implements Serializable
     private transient Image img;
     private boolean hasMoved;
     private transient Section previousState;
+
+    /**
+     *
+     */
     public String MyType;
 
     //constructor
+
+    /**
+     *
+     * @param p_color
+     * @param p_player
+     * @param p_section
+     */
     public Piece(String p_color, Player p_player, Section p_section)
     {
         this.color = p_color;
@@ -50,62 +61,111 @@ public abstract class Piece extends StackPane implements Serializable
 
     }
 
+    /**
+     *
+     * @param player
+     */
     public void fillInTheBlanks(Player player)
     {
         this.player = player;
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static Logger getLOGGER()
     {
         return LOGGER;
     }
 
+    /**
+     *
+     * @param color
+     */
     public void setColor(String color)
     {
         this.color = color;
     }
 
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(Player player)
     {
         this.player = player;
     }
 
+    /**
+     *
+     * @param img
+     */
     public void setImg(Image img)
     {
         this.img = img;
     }
 
+    /**
+     *
+     * @param hasMoved
+     */
     public void setHasMoved(boolean hasMoved)
     {
         this.hasMoved = hasMoved;
     }
 
+    /**
+     *
+     * @param previousState
+     */
     public void setPreviousState(Section previousState)
     {
         this.previousState = previousState;
     }
 
+    /**
+     *
+     * @return
+     */
     public Image getImg()
     {
         return img;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isHasMoved()
     {
         return hasMoved;
     }
 
+    /**
+     *
+     * @return
+     */
     public Section getPreviousState()
     {
         return previousState;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer()
     {
         return player;
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public boolean isValidMove(Section p_section)
     {
 
@@ -124,6 +184,10 @@ public abstract class Piece extends StackPane implements Serializable
         }
     }
 
+    /**
+     *
+     * @param section
+     */
     public void setSection(Section section)
     {
         this.section = section;
@@ -136,14 +200,28 @@ public abstract class Piece extends StackPane implements Serializable
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getColor()
     {
         return this.color;
     }
     //methode
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public abstract Boolean checkMove(Section p_section);
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public Boolean move(Section p_section)
     {
         Point idKing = null;
@@ -191,6 +269,10 @@ public abstract class Piece extends StackPane implements Serializable
         return false;
     }
 
+    /**
+     *
+     * @param p_section
+     */
     public void moveWithoutCheck(Section p_section)
     {
         try
@@ -209,18 +291,32 @@ public abstract class Piece extends StackPane implements Serializable
         hasMoved = true;
     }
 
+    /**
+     *
+     * @return
+     */
     public Section getSection()
     {
         return this.section;
     }
     //geeft een lijst met opties
 
+    /**
+     *
+     * @param p_curSection
+     * @return
+     */
     public List<Section> moveOption(Section p_curSection)
     {
         List<Section> sections = null;
         return sections;
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public boolean CheckCheckMate(Section p_section)
     {
         Point idKing = null;
@@ -280,6 +376,11 @@ public abstract class Piece extends StackPane implements Serializable
         return true;
     }
 
+    /**
+     *
+     * @param p_section
+     * @return
+     */
     public boolean RookCheck(Section p_section)
     {
         // kijkt of het gekoze stuk een toren is
@@ -356,6 +457,10 @@ public abstract class Piece extends StackPane implements Serializable
         return true;
     }
 
+    /**
+     *
+     * @param p_section
+     */
     public void PawnPromotion(Section p_section)
     {
         try
@@ -399,26 +504,46 @@ public abstract class Piece extends StackPane implements Serializable
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getX()
     {
         return x;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getY()
     {
         return y;
     }
 
+    /**
+     *
+     * @param x
+     */
     public void setX(int x)
     {
         this.x = x;
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setY(int y)
     {
         this.y = y;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean canMove()
     {
         for (Section[] listSections : section.getBoard().getSections())
@@ -438,7 +563,7 @@ public abstract class Piece extends StackPane implements Serializable
      * zet zich zelf op het nieuwe board nadat hij uit de date base word
      * gehaalt.
      *
-     * @param board
+     * @param section
      */
     public void resetMySection(Section section)
     {

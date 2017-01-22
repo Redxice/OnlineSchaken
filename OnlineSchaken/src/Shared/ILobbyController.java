@@ -18,6 +18,7 @@ public interface ILobbyController extends Remote
       /**
      * wordt aangeroepen wanneer er 
      * veranderingen zijn in de het aantal gamelobbys
+     * @throws java.rmi.RemoteException
      */
     public void UpdateGameLobbys()throws RemoteException;
     /**

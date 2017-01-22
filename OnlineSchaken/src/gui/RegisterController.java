@@ -207,6 +207,10 @@ public class RegisterController implements Initializable
         // TODO
     }
 
+    /**
+     *
+     * @param client
+     */
     public void setClient(ClientApp client)
     {
         this.client = client;
