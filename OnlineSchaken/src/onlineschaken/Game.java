@@ -174,7 +174,7 @@ public class Game implements Serializable
         this.remaining2 = remaining2 - seconde;
         /*if (remaining2 <= 0)
         {
-            setWinner(player1);
+            setWinner(player1);s
             setFinished(true);
             //timer.cancel();
         }*/
@@ -499,7 +499,8 @@ public class Game implements Serializable
                     }
                 }
             }
-        } else if (player2.getPieces().size() <= 2)
+        }
+        if (player2.getPieces().size() <= 2)
         {
             if (player1.getPieces().size() == 1)
             {
