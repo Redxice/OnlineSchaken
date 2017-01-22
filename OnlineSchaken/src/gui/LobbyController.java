@@ -195,12 +195,8 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             }
         } catch (IOException ex)
         {
-            LOGGER.log(Level.FINE, ex.getMessage());
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
-        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
-        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
-        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
     }
 
     /**

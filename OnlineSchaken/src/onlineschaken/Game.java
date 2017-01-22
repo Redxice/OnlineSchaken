@@ -252,7 +252,7 @@ public class Game implements Serializable
                 {
                     this.ingame.GoToLobby();
                 }
-            } else if (gameDraw)
+            } else
             {
                 int exit = JOptionPane.showOptionDialog(null, "Het is Gelijkspel.", "Gelijkspel!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                 if (exit == 0)

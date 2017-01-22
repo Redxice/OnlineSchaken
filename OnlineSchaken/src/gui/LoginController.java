@@ -107,7 +107,7 @@ public class LoginController implements Initializable
 
         } catch (IOException ex)
         {
-            LOGGER.log(Level.FINE, ex.getMessage());
+            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

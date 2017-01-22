@@ -95,7 +95,7 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
             stage.show();
         } catch (IOException ex)
         {
-            LOGGER.log(Level.FINE, ex.getMessage());
+            Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

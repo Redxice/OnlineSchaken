@@ -92,7 +92,7 @@ public class RegisterController implements Initializable
                 stage.show();
             } catch (IOException ex)
             {
-                LOGGER.log(Level.FINE, ex.getMessage());
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

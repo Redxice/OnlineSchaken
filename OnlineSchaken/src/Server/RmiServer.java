@@ -128,6 +128,7 @@ public class RmiServer implements IrmiServer
             return false;
         } catch (NotBoundException | AccessException ex)
         {
+            Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
             registry.rebind(lobby.getNaam(), (IGameLobby) lobby);
             this.gameLobbys.add(lobby.getName());
             updateLobbysClients();

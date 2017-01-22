@@ -26,7 +26,6 @@ import onlineschaken.Game;
  */
 public class OnlineSchaken extends Application
 {
-    private static int count = 1;
     private static final Logger LOGGER = Logger.getLogger(OnlineSchaken.class.getName());
     private Game game;
     private Label timerBlack;
@@ -39,7 +38,7 @@ public class OnlineSchaken extends Application
     public void start(Stage primaryStage)
     {  
         try
-        {   count++;
+        {   
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
             Parent root = (Parent)fxmlLoader.load();
             LoginController controller= fxmlLoader.<LoginController>getController();
