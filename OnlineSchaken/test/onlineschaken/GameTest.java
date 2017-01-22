@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
+import org.junit.Rule;
 
 /**
  *
@@ -33,6 +34,8 @@ public class GameTest
     private Board board;
     private IrmiClient client;
     private IngameController controller;
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
     public GameTest()
     {
@@ -185,9 +188,9 @@ public class GameTest
         if (result != null)
         {
 
-        }
+        } else
         {
-            fail("Timer was null");
+            fail("Timer was  null");
         }
     }
 
@@ -738,10 +741,13 @@ public class GameTest
     @Test
     public void testSetPlayer1Draw()
     {
-        try{
-        System.out.println("setPlayer1Draw");
-        Game instance = game;
-        instance.setPlayer1Draw();}catch(Exception e){
+        try
+        {
+            System.out.println("setPlayer1Draw");
+            Game instance = game;
+            instance.setPlayer1Draw();
+        } catch (Exception e)
+        {
             fail(e.getMessage());
         }
     }
@@ -752,11 +758,13 @@ public class GameTest
     @Test
     public void testSetPlayer2Draw()
     {
-        try{
-        System.out.println("setPlayer2Draw");
-        Game instance = game;
-        instance.setPlayer2Draw();
-        }catch(Exception e){
+        try
+        {
+            System.out.println("setPlayer2Draw");
+            Game instance = game;
+            instance.setPlayer2Draw();
+        } catch (Exception e)
+        {
             fail(e.getMessage());
         }
     }
@@ -764,7 +772,8 @@ public class GameTest
     /**
      * Test of PromotePawn method, of class Game.
      */
-    @Ignore@Test
+    @Ignore
+    @Test
     public void testPromotePawn()
     {
         System.out.println("PromotePawn");
@@ -812,10 +821,11 @@ public class GameTest
         Game instance = game;
         instance.checkDraw();
     }
+
     @Test
     public void testCheckDraw2()
     {
-       System.out.println("checkDraw2");
+        System.out.println("checkDraw2");
         Game instance = game;
         game.setPlayer1Draw();
         game.setPlayer2Draw();
@@ -832,15 +842,17 @@ public class GameTest
     @Test
     public void testSetGameNr()
     {
-        try{
-        System.out.println("setGameNr");
-        int GameNr = 1;
-        Game instance = game;
-        instance.setGameNr(GameNr);
-        }catch(Exception e){
+        try
+        {
+            System.out.println("setGameNr");
+            int GameNr = 1;
+            Game instance = game;
+            instance.setGameNr(GameNr);
+        } catch (Exception e)
+        {
             fail(e.getMessage());
         }
-        
+
     }
 
     /**
@@ -851,7 +863,7 @@ public class GameTest
     {
         System.out.println("toString");
         Game instance = game;
-        String expResult =  "Game{" + "GameNr=" +0+", player1="+p1+ ", player2=" + p2 + ", winner=" + game.getWinner() + '}';
+        String expResult = "Game{" + "GameNr=" + 0 + ", player1=" + p1 + ", player2=" + p2 + ", winner=" + game.getWinner() + '}';
         String result = instance.toString();
         if (!result.equalsIgnoreCase(expResult))
         {
@@ -866,7 +878,7 @@ public class GameTest
     public void testSetCorrectImg()
     {
         System.out.println("setCorrectImg");
-        Piece piece = new Pawn("white",p1,board.getSections(0, 0));
+        Piece piece = new Pawn("white", p1, board.getSections(0, 0));
         Game instance = null;
         instance.setCorrectImg(piece);
         // TODO review the generated test code and remove the default call to fail.
