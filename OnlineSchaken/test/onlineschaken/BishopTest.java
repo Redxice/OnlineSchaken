@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 
 /**
  *
@@ -31,6 +32,9 @@ public class BishopTest
     private IrmiClient client;
     private IngameController controller;
 
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+    
     public BishopTest()
     {
         onlineSchaken = new OnlineSchaken();
@@ -72,18 +76,18 @@ public class BishopTest
      * Test of constructor, of class Bishop.
      */
     @Test
-    public void TestBlackKnight()
+    public void TestBlackBishop()
     {
-        Bishop b = new Bishop("Black", p1, game.getBoard().getSections(3, 5));
+        Bishop b = new Bishop("black", p1, game.getBoard().getSections(3, 5));
     }
 
     /**
      * Test of constructor, of class Bishop.
      */
     @Test
-    public void TestWiteKnight()
+    public void TestWiteBishop()
     {
-        Bishop b = new Bishop("White", p1, game.getBoard().getSections(3, 5));
+        Bishop b = new Bishop("white", p1, game.getBoard().getSections(3, 5));
     }
 
     /**
@@ -92,9 +96,16 @@ public class BishopTest
     @Test
     public void testInvalidCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 5));
-        Bishop b2 = new Bishop("White", p1, game.getBoard().getSections(4, 6));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 5));
+        Bishop b2 = new Bishop("white", p1, game.getBoard().getSections(4, 6));
         assertFalse(b1.checkMove(b2.getSection()));
+    }
+    
+    @Test
+    public void testIllegalCheckMove()
+    {
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
+        assertFalse(b1.checkMove(game.getBoard().getSections(3, 4)));
     }
     
     /**
@@ -103,8 +114,8 @@ public class BishopTest
     @Test
     public void testLeftUpBlockedCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
-        Bishop b2 = new Bishop("White", p1, game.getBoard().getSections(2, 2));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
+        Bishop b2 = new Bishop("white", p1, game.getBoard().getSections(2, 2));
         assertFalse(b1.checkMove(game.getBoard().getSections(1, 1)));
     }
     
@@ -114,7 +125,7 @@ public class BishopTest
     @Test
     public void testLeftUpCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(b1.checkMove(game.getBoard().getSections(2, 2)));
     }
     
@@ -124,8 +135,8 @@ public class BishopTest
     @Test
     public void testLeftDownBlockedCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
-        Bishop b2 = new Bishop("White", p1, game.getBoard().getSections(2, 4));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
+        Bishop b2 = new Bishop("white", p1, game.getBoard().getSections(2, 4));
         assertFalse(b1.checkMove(game.getBoard().getSections(1, 5)));
     }
     
@@ -135,7 +146,7 @@ public class BishopTest
     @Test
     public void testLeftDownCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(b1.checkMove(game.getBoard().getSections(2, 4)));
     }
     
@@ -145,8 +156,8 @@ public class BishopTest
     @Test
     public void testRightUpBlockedCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
-        Bishop b2 = new Bishop("White", p1, game.getBoard().getSections(4, 2));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
+        Bishop b2 = new Bishop("white", p1, game.getBoard().getSections(4, 2));
         assertFalse(b1.checkMove(game.getBoard().getSections(5, 1)));
     }
     
@@ -156,7 +167,7 @@ public class BishopTest
     @Test
     public void testRightUpCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(b1.checkMove(game.getBoard().getSections(4, 2)));
     }
     
@@ -166,8 +177,8 @@ public class BishopTest
     @Test
     public void testRightDownBlockedCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
-        Bishop b2 = new Bishop("White", p1, game.getBoard().getSections(4, 4));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
+        Bishop b2 = new Bishop("white", p1, game.getBoard().getSections(4, 4));
         assertFalse(b1.checkMove(game.getBoard().getSections(5, 5)));
     }
     
@@ -177,7 +188,7 @@ public class BishopTest
     @Test
     public void testRightDownCheckMove()
     {
-        Bishop b1 = new Bishop("White", p1, game.getBoard().getSections(3, 3));
+        Bishop b1 = new Bishop("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(b1.checkMove(game.getBoard().getSections(4, 4)));
     }
 }

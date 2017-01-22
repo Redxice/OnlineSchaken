@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 
 /**
  *
@@ -31,6 +32,9 @@ public class KingTest
     private IrmiClient client;
     private IngameController controller;
 
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+    
     public KingTest()
     {
         onlineSchaken = new OnlineSchaken();
@@ -91,17 +95,37 @@ public class KingTest
      * Test of countCheckSections method, of class King.
      */
     @Test
+    public void testCount0CheckSections()
+    {
+        System.out.println("countCheckSections");
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        int expResult = 0;
+        int result = k.countCheckSections();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of countCheckSections method, of class King.
+     */
+    @Test
     public void testCountCheckSections()
     {
         System.out.println("countCheckSections");
-        King instance = null;
-        int expResult = 0;
-        int result = instance.countCheckSections();
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        Queen q = new Queen("white", p1, game.getBoard().getSections(3, 6));
+        int expResult = 1;
+        int result = k.countCheckSections();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        k = new King("white", p1, game.getBoard().getSections(3, 5));
+        q = new Queen("white", p1, game.getBoard().getSections(3, 6));
+        q = new Queen("white", p1, game.getBoard().getSections(4, 6));
+        q = new Queen("white", p1, game.getBoard().getSections(4, 5));
+        expResult = 3;
+        result = k.countCheckSections();
+        assertEquals(expResult, result);
     }
-
+    
     /**
      * Test of getSingleCheckSection method, of class King.
      */
@@ -109,43 +133,78 @@ public class KingTest
     public void testGetSingleCheckSection()
     {
         System.out.println("getSingleCheckSection");
-        King instance = null;
-        Section expResult = null;
-        Section result = instance.getSingleCheckSection();
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        Queen q = new Queen("white", p1, game.getBoard().getSections(3, 6));
+        Section expResult = q.getSection();
+        Section result = k.getSingleCheckSection();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of getSingleCheckSection method, of class King.
+     */
+    @Test
+    public void testGetNoCheckSingleCheckSection()
+    {
+        System.out.println("getSingleCheckSection");
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        Section expResult = null;
+        Section result = k.getSingleCheckSection();
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of isCheck method, of class King.
      */
     @Test
-    public void testIsCheck()
+    public void testIsCheckTrue()
     {
         System.out.println("isCheck");
-        King instance = null;
-        boolean expResult = false;
-        boolean result = instance.isCheck();
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        Queen q = new Queen("white", p1, game.getBoard().getSections(3, 6));
+        boolean expResult = true;
+        boolean result = k.isCheck();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of isCheck method, of class King.
+     */
+    @Test
+    public void testIsCheckFalse()
+    {
+        System.out.println("isCheck");
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        boolean expResult = false;
+        boolean result = k.isCheck();
+        assertEquals(expResult, result);
+    }
+    
     /**
      * Test of becomeCheck method, of class King.
      */
     @Test
-    public void testBecomeCheck()
+    public void testBecomeCheckTrue()
     {
         System.out.println("becomeCheck");
-        Section p_section = null;
-        King instance = null;
-        boolean expResult = false;
-        boolean result = instance.becomeCheck(p_section);
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        Queen q = new Queen("white", p1, game.getBoard().getSections(1, 6));
+        boolean expResult = true;
+        boolean result = k.becomeCheck(game.getBoard().getSections(3, 6));
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of becomeCheck method, of class King.
+     */
+    @Test
+    public void testBecomeCheckFalse()
+    {
+        System.out.println("becomeCheck");
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        boolean expResult = false;
+        boolean result = k.becomeCheck(game.getBoard().getSections(3, 6));
+        assertEquals(expResult, result);
     }
 
     /**
@@ -156,24 +215,109 @@ public class KingTest
     {
         System.out.println("setCheck");
         boolean check = true;
-        King instance = new King("White", p1, game.getBoard().getSections(3, 3));
-        instance.setCheck(check);
-        assertTrue(instance.checkMate);
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        k.setCheck(check);
+        assertTrue(k.check);
+        
+        check = false;
+        k.setCheck(check);
+        assertFalse(k.check);
     }
 
     /**
      * Test of isCheckMate method, of class King.
      */
     @Test
-    public void testIsCheckMate()
+    public void testRightIsCheckMate()
     {
         System.out.println("isCheckMate");
-        King instance = null;
-        boolean expResult = false;
-        boolean result = instance.isCheckMate();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(4, 3));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testRightDownIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(4, 4));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testDownIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(3, 4));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testLefttIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(2, 3));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testUpIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(3, 2));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testLeftUpIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(2, 2));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testRightUpIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(4, 2));
+        assertFalse(k1.isCheckMate());
+    }
+    
+    /**
+     * Test of isCheckMate method, of class King.
+     */
+    @Test
+    public void testLeftDownIsCheckMate()
+    {
+        System.out.println("isCheckMate");
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        King k2 = new King("White", p1, game.getBoard().getSections(2, 4));
+        assertFalse(k1.isCheckMate());
     }
 
     /**
@@ -183,10 +327,14 @@ public class KingTest
     public void testSetCheckMate()
     {
         System.out.println("setCheckMate");
-        boolean checkMate = true;
-        King instance = new King("White", p1, game.getBoard().getSections(3, 3));
-        instance.setCheckMate(checkMate);
-        assertTrue(instance.checkMate);
+        boolean check = true;
+        King k = new King("white", p1, game.getBoard().getSections(3, 5));
+        k.setCheckMate(check);
+        assertTrue(k.checkMate);
+        
+        check = false;
+        k.setCheckMate(check);
+        assertFalse(k.checkMate);
     }
 
     /**
@@ -197,7 +345,7 @@ public class KingTest
     {
         King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
         King k2 = new King("White", p1, game.getBoard().getSections(3, 4));
-        assertFalse(k1.checkMove(k2.getSection()));
+        assertFalse(k1.checkMove(game.getBoard().getSections(3, 4)));
     }
 
     /**
@@ -207,8 +355,7 @@ public class KingTest
     public void testUpTooFarCheckMove()
     {
         King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
-        King k2 = new King("White", p1, game.getBoard().getSections(3, 1));
-        assertFalse(k1.checkMove(k2.getSection()));
+        assertFalse(k1.checkMove(game.getBoard().getSections(3, 1)));
     }
     
     /**
@@ -218,8 +365,7 @@ public class KingTest
     public void testDownTooFarCheckMove()
     {
         King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
-        King k2 = new King("White", p1, game.getBoard().getSections(3, 5));
-        assertFalse(k1.checkMove(k2.getSection()));
+        assertFalse(k1.checkMove(game.getBoard().getSections(3, 5)));
     }
     
     /**
@@ -229,8 +375,7 @@ public class KingTest
     public void testLeftTooFarCheckMove()
     {
         King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
-        King k2 = new King("White", p1, game.getBoard().getSections(1, 3));
-        assertFalse(k1.checkMove(k2.getSection()));
+        assertFalse(k1.checkMove(game.getBoard().getSections(1, 3)));
     }
     
     /**
@@ -240,8 +385,7 @@ public class KingTest
     public void testRightTooFarCheckMove()
     {
         King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
-        King k2 = new King("White", p1, game.getBoard().getSections(5, 3));
-        assertFalse(k1.checkMove(k2.getSection()));
+        assertFalse(k1.checkMove(game.getBoard().getSections(5, 3)));
     }
     
     /**
@@ -253,5 +397,15 @@ public class KingTest
         King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
         Queen q1 = new Queen("Black", p1, game.getBoard().getSections(5, 4));
         assertFalse(k1.checkMove(game.getBoard().getSections(3,4)));
+    }
+    
+    /**
+     * Test of checkMove method, of class King.
+     */
+    @Test
+    public void testCheckMove()
+    {
+        King k1 = new King("White", p1, game.getBoard().getSections(3, 3));
+        assertTrue(k1.checkMove(game.getBoard().getSections(3,4)));
     }
 }

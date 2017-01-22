@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 
 /**
  *
@@ -30,6 +31,9 @@ public class KnightTest
     private Board board;
     private IrmiClient client;
     private IngameController controller;
+    
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
     
     /**
      *
@@ -94,7 +98,7 @@ public class KnightTest
     @Test
     public void TestBlackKnight()
     {
-        Knight k = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k = new Knight("black", p1, game.getBoard().getSections(3, 5));
     }
 
     /**
@@ -103,7 +107,7 @@ public class KnightTest
     @Test
     public void TestWiteKnight()
     {
-        Knight k = new Knight("White", p1, game.getBoard().getSections(3, 5));
+        Knight k = new Knight("white", p1, game.getBoard().getSections(3, 5));
     }
 
     /**
@@ -112,8 +116,8 @@ public class KnightTest
     @Test
     public void testInvalidCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
-        Knight k2 = new Knight("Black", p1, game.getBoard().getSections(3, 6));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
+        Knight k2 = new Knight("black", p1, game.getBoard().getSections(3, 6));
         assertFalse(k1.checkMove(k2.getSection()));
     }
     
@@ -123,7 +127,7 @@ public class KnightTest
     @Test
     public void test2Right1UpCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(5, 6)));
     }
     
@@ -133,7 +137,7 @@ public class KnightTest
     @Test
     public void test2Right1DownCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(5, 4)));
     }
     
@@ -143,7 +147,7 @@ public class KnightTest
     @Test
     public void test2Left1UpCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(1, 6)));
     }
     
@@ -153,7 +157,7 @@ public class KnightTest
     @Test
     public void test2Left1DownCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(1, 4)));
     }
     
@@ -163,7 +167,7 @@ public class KnightTest
     @Test
     public void test1Right2UpCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(4, 7)));
     }
     
@@ -173,7 +177,7 @@ public class KnightTest
     @Test
     public void test1Right2DownCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(4, 3)));
     }
     
@@ -183,7 +187,7 @@ public class KnightTest
     @Test
     public void test1Left2UpCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(2, 7)));
     }
     
@@ -193,7 +197,7 @@ public class KnightTest
     @Test
     public void test1Left2DownCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertTrue(k1.checkMove(game.getBoard().getSections(2, 3)));
     }
     
@@ -203,7 +207,7 @@ public class KnightTest
     @Test
     public void testInvalidMovementCheckMove()
     {
-        Knight k1 = new Knight("Black", p1, game.getBoard().getSections(3, 5));
+        Knight k1 = new Knight("black", p1, game.getBoard().getSections(3, 5));
         assertFalse(k1.checkMove(game.getBoard().getSections(1, 1)));
     }
 }

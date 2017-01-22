@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 
 /**
  *
@@ -31,6 +32,9 @@ public class QueenTest
     private IrmiClient client;
     private IngameController controller;
 
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+    
     public QueenTest()
     {
         onlineSchaken = new OnlineSchaken();
@@ -74,7 +78,7 @@ public class QueenTest
     @Test
     public void TestBlackQueen()
     {
-        Queen q = new Queen("Black", p1, game.getBoard().getSections(3, 5));
+        Queen q = new Queen("black", p1, game.getBoard().getSections(3, 5));
     }
 
     /**
@@ -83,7 +87,7 @@ public class QueenTest
     @Test
     public void TestWiteQueen()
     {
-        Queen q = new Queen("White", p1, game.getBoard().getSections(3, 5));
+        Queen q = new Queen("white", p1, game.getBoard().getSections(3, 5));
     }
 
     /**
@@ -92,8 +96,8 @@ public class QueenTest
     @Test
     public void testInvalidCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 5));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(1, 2));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 5));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(1, 2));
         assertFalse(q1.checkMove(q2.getSection()));
     }
     
@@ -103,8 +107,8 @@ public class QueenTest
     @Test
     public void testLeftUpBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(2, 2));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(2, 2));
         assertFalse(q1.checkMove(game.getBoard().getSections(1, 1)));
     }
     
@@ -114,7 +118,7 @@ public class QueenTest
     @Test
     public void testLeftUpCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(2, 2)));
     }
     
@@ -124,8 +128,8 @@ public class QueenTest
     @Test
     public void testLeftDownBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(2, 4));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(2, 4));
         assertFalse(q1.checkMove(game.getBoard().getSections(1, 5)));
     }
     
@@ -135,7 +139,7 @@ public class QueenTest
     @Test
     public void testLeftDownCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(2, 4)));
     }
     
@@ -145,8 +149,8 @@ public class QueenTest
     @Test
     public void testRightUpBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(4, 2));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(4, 2));
         assertFalse(q1.checkMove(game.getBoard().getSections(5, 1)));
     }
     
@@ -156,7 +160,7 @@ public class QueenTest
     @Test
     public void testRightUpCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(4, 2)));
     }
     
@@ -166,8 +170,8 @@ public class QueenTest
     @Test
     public void testRightDownBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(4, 4));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(4, 4));
         assertFalse(q1.checkMove(game.getBoard().getSections(5, 5)));
     }
     
@@ -177,7 +181,7 @@ public class QueenTest
     @Test
     public void testRightDownCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(4, 4)));
     }
 
@@ -187,8 +191,8 @@ public class QueenTest
     @Test
     public void testLeftBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(2, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(2, 3));
         assertFalse(q1.checkMove(game.getBoard().getSections(1, 3)));
     }
     
@@ -198,7 +202,7 @@ public class QueenTest
     @Test
     public void testLeftCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(2, 3)));
     }
     
@@ -208,8 +212,8 @@ public class QueenTest
     @Test
     public void testRightBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(4, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(4, 3));
         assertFalse(q1.checkMove(game.getBoard().getSections(5, 3)));
     }
     
@@ -219,7 +223,7 @@ public class QueenTest
     @Test
     public void testRightCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(4, 3)));
     }
     
@@ -229,8 +233,8 @@ public class QueenTest
     @Test
     public void testUpBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(3, 2));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(3, 2));
         assertFalse(q1.checkMove(game.getBoard().getSections(3, 1)));
     }
     
@@ -240,7 +244,7 @@ public class QueenTest
     @Test
     public void testUpCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(3, 2)));
     }
     
@@ -250,8 +254,8 @@ public class QueenTest
     @Test
     public void testDownBlockedCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
-        Queen q2 = new Queen("White", p1, game.getBoard().getSections(3, 4));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
+        Queen q2 = new Queen("white", p1, game.getBoard().getSections(3, 4));
         assertFalse(q1.checkMove(game.getBoard().getSections(3, 5)));
     }
     
@@ -261,7 +265,7 @@ public class QueenTest
     @Test
     public void testDownCheckMove()
     {
-        Queen q1 = new Queen("White", p1, game.getBoard().getSections(3, 3));
+        Queen q1 = new Queen("white", p1, game.getBoard().getSections(3, 3));
         assertTrue(q1.checkMove(game.getBoard().getSections(3, 4)));
     }
 }
