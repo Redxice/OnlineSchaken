@@ -27,10 +27,10 @@ import javax.swing.JOptionPane;
 public class Board //implements IrmiClient
 {
 
-    private int TILE_SIZE = 80;
-    private int WIDTH = 8;
-    private int HEIGHT = 8;
-    private Section[][] sections = new Section[WIDTH][HEIGHT];
+    private int tileSize = 80;
+    private int width = 8;
+    private int height = 8;
+    private Section[][] sections = new Section[width][height];
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
     private Pane root = new Pane();
@@ -56,11 +56,11 @@ public class Board //implements IrmiClient
      */
     public Parent createContent()
     {
-        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        root.setPrefSize(width * tileSize, height * tileSize);
         root.getChildren().addAll(tileGroup, pieceGroup);
-        for (int y = 0; y < HEIGHT; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < WIDTH; x++)
+            for (int x = 0; x < width; x++)
             {
                 Section section = new Section((x + y) % 2 == 0, x, y, this);
                 section.setOnMouseClicked(new EventHandler<MouseEvent>()
@@ -395,27 +395,27 @@ public class Board //implements IrmiClient
      *
      * @return
      */
-    public int getTILE_SIZE()
+    public int getTileSize()
     {
-        return TILE_SIZE;
+        return tileSize;
     }
 
     /**
      *
      * @return
      */
-    public int getWIDTH()
+    public int getWidth()
     {
-        return WIDTH;
+        return width;
     }
 
     /**
      *
      * @return
      */
-    public int getHEIGHT()
+    public int getHeight()
     {
-        return HEIGHT;
+        return height;
     }
 
     /**
@@ -458,29 +458,29 @@ public class Board //implements IrmiClient
 
     /**
      *
-     * @param TILE_SIZE
+     * @param tileSize
      */
-    public void setTILE_SIZE(int TILE_SIZE)
+    public void setTileSize(int tileSize)
     {
-        this.TILE_SIZE = TILE_SIZE;
+        this.tileSize = tileSize;
     }
 
     /**
      *
-     * @param WIDTH
+     * @param width
      */
-    public void setWIDTH(int WIDTH)
+    public void setWidth(int width)
     {
-        this.WIDTH = WIDTH;
+        this.width = width;
     }
 
     /**
      *
-     * @param HEIGHT
+     * @param height
      */
-    public void setHEIGHT(int HEIGHT)
+    public void setHeight(int height)
     {
-        this.HEIGHT = HEIGHT;
+        this.height = height;
     }
 
     /**

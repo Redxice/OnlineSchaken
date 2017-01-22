@@ -33,10 +33,10 @@ public class Section extends Rectangle
     public Section(boolean light, int x, int y, Board board)
     {
         this.board = board;
-        setWidth(board.getTILE_SIZE());
-        setHeight(board.getTILE_SIZE());
+        setWidth(board.getTileSize());
+        setHeight(board.getTileSize());
 
-        relocate(x * board.getTILE_SIZE(), y * board.getTILE_SIZE());
+        relocate(x * board.getTileSize(), y * board.getTileSize());
 
         setFill(light ? Color.valueOf("#feb") : Color.valueOf("#582"));
 

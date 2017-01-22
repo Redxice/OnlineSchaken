@@ -46,5 +46,5 @@ public interface IGameLobbyController extends Remote{
      * @return
      * @throws RemoteException
      */
-    public Player getLoggedInUser() throws RemoteException;
+    public Player getLogInUser() throws RemoteException;
 }

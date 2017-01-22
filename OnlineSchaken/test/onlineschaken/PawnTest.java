@@ -6,7 +6,6 @@
 package onlineschaken;
 
 import Server.ClientApp;
-import Shared.IinGameController;
 import Shared.IrmiClient;
 import gui.IngameController;
 import gui.OnlineSchaken;

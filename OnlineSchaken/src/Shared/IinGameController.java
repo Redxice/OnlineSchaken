@@ -149,14 +149,14 @@ public interface IinGameController extends Remote
      * @return
      * @throws RemoteException
      */
-    public boolean isIsWaitingForPromotion() throws RemoteException;
+    public boolean isIsWaitForPromotion() throws RemoteException;
 
     /**
      *
      * @param bool
      * @throws RemoteException
      */
-    public void setIsWaitingForPromotion(boolean bool) throws RemoteException;
+    public void setIsWaitForPromotion(boolean bool) throws RemoteException;
 
     /**
      *

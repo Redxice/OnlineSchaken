@@ -47,12 +47,12 @@ import onlineschaken.*;
 public class IngameController extends UnicastRemoteObject implements Initializable, IinGameController
 {
 
-    private boolean MyRealTurn;
+    private boolean myRealTurn;
     private boolean isMyTurn;
-    private boolean IsPromoting;
-    private boolean IsWaitingForPromotion;
+    private boolean isPromoting;
+    private boolean isWaitForPromotion;
     private ClientApp client;
-    private IrmiClient Iclient;
+    private IrmiClient iclient;
     private ArrayList<String> listMoveHistory = new ArrayList<>();
     private ObservableList moveHistory = FXCollections.observableArrayList();
     private ArrayList<Chatline> chatlines = new ArrayList<>();
@@ -113,7 +113,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             this.game = gameData;
         } else
         {
-            this.game = new Game(gameData,this.Iclient,this);
+            this.game = new Game(gameData,this.iclient,this);
         }
         
         GameBoard.setRoot(root);
@@ -129,16 +129,16 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         game.setSpectators(spectators);
         this.spectators = spectators;
         root.getChildren().add(game.getBoard().getRoot());
-        if (Iclient.getUserName().equals(game.getPlayer1().getUsername()))
+        if (iclient.getUserName().equals(game.getPlayer1().getUsername()))
         {
             this.isMyTurn = true;
-            this.MyRealTurn = true;
+            this.myRealTurn = true;
             white = true;
             spectator = false;
-        } else if (Iclient.getUserName().equals(game.getPlayer2().getUsername()))
+        } else if (iclient.getUserName().equals(game.getPlayer2().getUsername()))
         {
             this.isMyTurn = false;
-            this.MyRealTurn = false;
+            this.myRealTurn = false;
             white = false;
             spectator = false;
         } else
@@ -167,8 +167,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void setIClient(IrmiClient iClient) throws RemoteException
     {
-        this.Iclient = iClient;
-        this.Iclient.setIinGameController(this);
+        this.iclient = iClient;
+        this.iclient.setIinGameController(this);
 
     }
 
@@ -202,7 +202,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public IrmiClient getIClient() throws RemoteException
     {
-        return Iclient;
+        return iclient;
     }
 
     /**
@@ -241,7 +241,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                                 {
                                     Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-                                if (!IsWaitingForPromotion)
+                                if (!isWaitForPromotion)
                                 {
                                     isMyTurn = true;
                                 }
@@ -351,7 +351,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         try
         {
             System.out.println(this.game);
-            Iclient.SaveGame(this.game);
+            iclient.SaveGame(this.game);
             leaveGame();
         } catch (RemoteException ex)
         {
@@ -380,7 +380,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                     LobbyController controller = fxmlLoader.<LobbyController>getController();
                     controller.setPlayer(LoggedInUser);
                     controller.setClient(client);
-                    controller.setIClient(Iclient);
+                    controller.setiClient(iclient);
                     CurrentStage.close();
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
@@ -456,7 +456,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public boolean getRealTurn() throws RemoteException
     {
-        return this.MyRealTurn;
+        return this.myRealTurn;
     }
 
     /**
@@ -467,7 +467,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void SetRealTurn(boolean MyRealTurn) throws RemoteException
     {
-        this.MyRealTurn = MyRealTurn;
+        this.myRealTurn = MyRealTurn;
     }
 
     /**
@@ -507,7 +507,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void PromotePawn(Piece piece, Pawn pawn) throws RemoteException
     {
         this.game.PromotePawn(piece, pawn);
-        this.IsWaitingForPromotion = false;
+        this.isWaitForPromotion = false;
     }
 
     /**
@@ -527,10 +527,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void setisPromoting(boolean bool) throws RemoteException
     {
-        this.IsPromoting = bool;
+        this.isPromoting = bool;
         if (bool)
         {
-            Iclient.isPromoting();
+            iclient.isPromoting();
         }
     }
 
@@ -542,7 +542,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public boolean isPromoting() throws RemoteException
     {
-        return IsPromoting;
+        return isPromoting;
     }
 
     /**
@@ -551,9 +551,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
      * @throws RemoteException
      */
     @Override
-    public boolean isIsWaitingForPromotion() throws RemoteException
+    public boolean isIsWaitForPromotion() throws RemoteException
     {
-        return IsWaitingForPromotion;
+        return isWaitForPromotion;
     }
 
     /**
@@ -562,9 +562,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
      * @throws RemoteException
      */
     @Override
-    public void setIsWaitingForPromotion(boolean bool) throws RemoteException
+    public void setIsWaitForPromotion(boolean bool) throws RemoteException
     {
-        this.IsWaitingForPromotion = bool;
+        this.isWaitForPromotion = bool;
     }
 
     /**
@@ -644,8 +644,8 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         try
         {
-            Iclient.surrender();
-            this.game.Surrender(this.Iclient.getUserName());
+            iclient.surrender();
+            this.game.Surrender(this.iclient.getUserName());
         } catch (RemoteException ex)
         {
             Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -661,7 +661,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         try
         {
             Chatline chatLine;
-            if (this.Iclient.getUserName().equals(this.player1))
+            if (this.iclient.getUserName().equals(this.player1))
             {
                 if (game.isPlayer1Draw())
                 {
@@ -670,10 +670,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 {
                     chatLine = new Chatline("--System--", "Player1 heeft gelijkspel aangevraagd");
                 }
-                Iclient.draw(player2);
+                iclient.draw(player2);
                 game.setPlayer1Draw();
                 client.sendInGameMessage(chatLine);
-            } else if (this.Iclient.getUserName().equals(this.player2))
+            } else if (this.iclient.getUserName().equals(this.player2))
             {
                 if (game.isPlayer2Draw())
                 {
@@ -682,7 +682,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
                 {
                     chatLine = new Chatline("--System--", "Player2 heeft gelijkspel aangevraagd");
                 }
-                Iclient.draw(player1);
+                iclient.draw(player1);
                 game.setPlayer2Draw();
                 client.sendInGameMessage(chatLine);
             }
@@ -700,10 +700,10 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void recieveDraw() throws RemoteException
     {
-        if (this.Iclient.getUserName().equals(this.player2))
+        if (this.iclient.getUserName().equals(this.player2))
         {
             game.setPlayer1Draw();
-        } else if (this.Iclient.getUserName().equals(this.player1))
+        } else if (this.iclient.getUserName().equals(this.player1))
         {
             game.setPlayer2Draw();
         }
@@ -743,12 +743,12 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         try
         {
-            if (this.Iclient.getUserName().equals(this.player1))
+            if (this.iclient.getUserName().equals(this.player1))
             {
-                Iclient.sendGameOver(player2);
+                iclient.sendGameOver(player2);
             } else
             {
-                Iclient.sendGameOver(player1);
+                iclient.sendGameOver(player1);
             }
         } catch (RemoteException ex)
         {
@@ -818,9 +818,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void GoToLobby(){
         try
         {
-             if (game.getPlayer1().getUsername().equals(this.Iclient.getUserName()))
+             if (game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
             {
-                this.Iclient.SaveGame(game);
+                this.iclient.SaveGame(game);
             }
             Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
@@ -828,7 +828,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             LobbyController controller = fxmlLoader.<LobbyController>getController();
             controller.setPlayer(this.LoggedInUser);
             controller.setClient(client);
-            controller.setIClient(Iclient);
+            controller.setiClient(iclient);
            
             CurrentStage.close();
             Stage stage = new Stage();

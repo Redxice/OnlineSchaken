@@ -32,7 +32,7 @@ import onlineschaken.*;
 public class ClientApp implements IrmiClient
 {
 
-    private ArrayList<IGameLobby> GameLobbys = new ArrayList<>();
+    private ArrayList<IGameLobby> gameLobbys = new ArrayList<>();
     private ILobbyController lobbyController;
     private IGameLobbyController gameLobbyController;
     private IinGameController game;
@@ -450,7 +450,7 @@ public class ClientApp implements IrmiClient
     @Override
     public void isWaitinPromotion(boolean bool) throws RemoteException
     {
-        this.game.setIsWaitingForPromotion(bool);
+        this.game.setIsWaitForPromotion(bool);
     }
 
     @Override

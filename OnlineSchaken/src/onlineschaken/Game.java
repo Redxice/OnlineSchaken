@@ -29,7 +29,7 @@ public class Game implements Serializable
     //fields
     private int time;
     private static long serialVersionUID = 684982647421852022L;
-    private int GameNr;
+    private int gameNumber;
     private int remaining1;
     private int remaining2;
     private transient Timer timer;
@@ -752,7 +752,7 @@ public class Game implements Serializable
         }
         try
         {
-            this.board.getClient().GetGameController().setIsWaitingForPromotion(false);
+            this.board.getClient().GetGameController().setIsWaitForPromotion(false);
 
         } catch (RemoteException ex)
         {
@@ -793,11 +793,11 @@ public class Game implements Serializable
 
     /**
      *
-     * @param GameNr
+     * @param gameNumber
      */
-    public void setGameNr(int GameNr)
+    public void setGameNumber(int gameNumber)
     {
-        this.GameNr = GameNr;
+        this.gameNumber = gameNumber;
     }
 
     /**
@@ -807,7 +807,7 @@ public class Game implements Serializable
     @Override
     public String toString()
     {
-        return "Game{" + "GameNr=" + GameNr + ", player1=" + player1 + ", player2=" + player2 + ", winner=" + winner + '}';
+        return "Game{" + "GameNr=" + gameNumber + ", player1=" + player1 + ", player2=" + player2 + ", winner=" + winner + '}';
     }
     
     /**

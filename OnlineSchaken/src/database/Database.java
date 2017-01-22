@@ -317,7 +317,7 @@ public class Database
                 if (test instanceof Game)
                 {
                     game = (Game) test;
-                    game.setGameNr(results.getInt("GameNr"));
+                    game.setGameNumber(results.getInt("GameNr"));
                     games.add(game);
                 }
             }

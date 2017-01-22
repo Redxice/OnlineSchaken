@@ -37,7 +37,7 @@ public class RegisterController implements Initializable
 {
 
     private ClientApp client;
-    private IrmiClient IClient;
+    private IrmiClient iClient;
     private static final Logger LOGGER = Logger.getLogger(RegisterController.class.getName());
     /**
      * Initializes the controller class.
@@ -75,7 +75,7 @@ public class RegisterController implements Initializable
            
             try
             {
-                IClient.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
+                iClient.insertPlayer(TxtField_Username.getText(), TxtField_Password.getText(), TxtField_Email.getText());
             } catch (RemoteException ex)
             {
                 Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +88,7 @@ public class RegisterController implements Initializable
                 Parent root = (Parent) fxmlLoader.load();
                 LoginController controller = fxmlLoader.<LoginController>getController();
                 controller.setClient(client);
-                controller.setIClient(IClient);
+                controller.setiClient(iClient);
                 CurrentStage.close();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
@@ -144,7 +144,7 @@ public class RegisterController implements Initializable
         Player player= null;
         try
         {
-            player = IClient.selectPlayer(TxtField_Username.getText());
+            player = iClient.selectPlayer(TxtField_Username.getText());
         } catch (RemoteException ex)
         {
             Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
@@ -216,9 +216,9 @@ public class RegisterController implements Initializable
         this.client = client;
     }
 
-    void setIClient(IrmiClient Client)
+    void setiClient(IrmiClient Client)
     {
-       this.IClient = Client;
+       this.iClient = Client;
     }
 
 }

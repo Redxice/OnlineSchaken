@@ -8,7 +8,6 @@ package onlineschaken;
 import Server.ClientApp;
 import Shared.IrmiClient;
 import gui.IngameController;
-import gui.OnlineSchaken;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -844,7 +843,7 @@ public class GameTest
             System.out.println("setGameNr");
             int GameNr = 1;
             Game instance = game;
-            instance.setGameNr(GameNr);
+            instance.setGameNumber(GameNr);
         } catch (Exception e)
         {
             fail(e.getMessage());

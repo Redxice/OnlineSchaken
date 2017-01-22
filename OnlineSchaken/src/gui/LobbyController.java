@@ -48,7 +48,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     private ObservableList gameList = FXCollections.observableArrayList();
     private List<String> test = new ArrayList<String>();
     private Player player;
-    private IrmiClient IClient;
+    private IrmiClient iClient;
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     @FXML
     private Button Btn_Join;
@@ -96,7 +96,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
             ProfileController controller = fxmlLoader.<ProfileController>getController();
             controller.setPlayer(this.player);
             controller.setClient(client);
-            controller.setIClient(IClient);
+            controller.setiClient(iClient);
             CurrentStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -128,9 +128,9 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     Parent root = (Parent) fxmlLoader.load();
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
                     controller.JoinGameLobby(lobby, player);
-                    controller.setIClient(IClient);
+                    controller.setiClient(iClient);
                     controller.setClient(client);
-                    IClient.updatePlayerList();
+                    iClient.updatePlayerList();
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
@@ -159,7 +159,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         {
             try
             {
-                IClient.addFriend(player.getUsername(), Tb_Friend.getText());
+                iClient.addFriend(player.getUsername(), Tb_Friend.getText());
             } catch (RemoteException ex)
             {
                 Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,7 +186,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                     GamelobbyController controller = fxmlLoader.<GamelobbyController>getController();
                     controller.createGameLobby(lobby);
                     controller.setClient(client);
-                    controller.setIClient(IClient);
+                    controller.setiClient(iClient);
                     Scene scene = new Scene(root, Color.TRANSPARENT);
                     stage.setScene(scene);
                     stage.show();
@@ -200,6 +200,9 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
         {
             LOGGER.log(Level.FINE, ex.getMessage());
         }
+        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
+        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
+        //db.insertLobby(player.getUsername(),Tb_GameName.getText());
         //db.insertLobby(player.getUsername(),Tb_GameName.getText());
     }
 
@@ -284,15 +287,15 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     /**
      *
-     * @param IClient
+     * @param iClient
      */
-    public void setIClient(IrmiClient IClient)
+    public void setiClient(IrmiClient iClient)
     {
-        this.IClient = IClient;
+        this.iClient = iClient;
         try
         {
-            IClient.setLobbyController((ILobbyController) this);
-            player.setGames(this.IClient.GetGames(player.getUsername()));
+            iClient.setLobbyController((ILobbyController) this);
+            player.setGames(this.iClient.GetGames(player.getUsername()));
         } catch (RemoteException ex)
         {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
@@ -312,7 +315,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
                         Parent root = (Parent) fxmlLoader.load();
                         IngameController controller = fxmlLoader.<IngameController>getController();
                         controller.setClient(client);
-                        controller.setIClient(IClient);
+                        controller.setIClient(iClient);
                         controller.setPlayer1(game.getPlayer1().getUsername());
                         controller.setPlayer2(game.getPlayer2().getUsername());
                         controller.setLoggedInUser(client.getPlayer());

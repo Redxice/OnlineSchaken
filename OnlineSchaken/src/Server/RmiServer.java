@@ -34,15 +34,15 @@ import onlineschaken.Player;
 public class RmiServer implements IrmiServer
 {
 
-    private ArrayList<String> GameLobbys = new ArrayList<>();
-    private ArrayList<IrmiClient> Clients = new ArrayList<>();
+    private ArrayList<String> gameLobbys = new ArrayList<>();
+    private ArrayList<IrmiClient> clients = new ArrayList<>();
     private static final Database database = new Database();
     private String ip = "127.0.0.1"/*"169.254.183.180"*/;
 
     @Override
     public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
     {
-        for (IrmiClient i : Clients)
+        for (IrmiClient i : clients)
         {
             if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
             {
@@ -129,7 +129,7 @@ public class RmiServer implements IrmiServer
         } catch (NotBoundException | AccessException ex)
         {
             registry.rebind(lobby.getNaam(), (IGameLobby) lobby);
-            this.GameLobbys.add(lobby.getName());
+            this.gameLobbys.add(lobby.getName());
             updateLobbysClients();
             return true;
 
@@ -167,7 +167,7 @@ public class RmiServer implements IrmiServer
 
     public ArrayList<String> GetGameLobbys() throws RemoteException
     {
-        return GameLobbys;
+        return gameLobbys;
     }
 
     public void SendMessage(Chatline message, String naamLobby) throws RemoteException
@@ -177,7 +177,7 @@ public class RmiServer implements IrmiServer
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(naamLobby);
             lobby.SendMessage(message);
-            for (IrmiClient i : Clients)
+            for (IrmiClient i : clients)
             {
 
                 if (lobby.checkPlayer1Exists())
@@ -220,7 +220,7 @@ public class RmiServer implements IrmiServer
             Registry registry = LocateRegistry.getRegistry(ip, 666);
             IGameLobby lobby = (IGameLobby) registry.lookup(lobbyName);
             lobby.PlayerIsReady(ready, lobbyName, userName);
-            for (IrmiClient i : Clients)
+            for (IrmiClient i : clients)
             {
                 if (lobby.checkPlayer1Exists() && lobby.checkPlayer2Exists())
                 {
@@ -259,9 +259,9 @@ public class RmiServer implements IrmiServer
     @Override
     public void removeGameLobby(String gameLobbyname) throws RemoteException
     {
-        System.out.println("Before " + GameLobbys);
-        GameLobbys.remove(gameLobbyname);
-        GameLobbys.remove(gameLobbyname);
+        System.out.println("Before " + gameLobbys);
+        gameLobbys.remove(gameLobbyname);
+        gameLobbys.remove(gameLobbyname);
         updateLobbysClients();
     }
 
@@ -271,7 +271,7 @@ public class RmiServer implements IrmiServer
     public void updateLobbysClients()
     {
 
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
             try
             {
@@ -294,7 +294,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void updateGameLobbyClient(IGameLobby lobby) throws RemoteException
     {
-        for (IrmiClient i : Clients)
+        for (IrmiClient i : clients)
         {
             try
             {
@@ -338,7 +338,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void registerClient(IrmiClient client) throws RemoteException
     {
-        Clients.add(client);
+        clients.add(client);
     }
 
     /**
@@ -349,11 +349,11 @@ public class RmiServer implements IrmiServer
     @Override
     public int IrmiClientCounter() throws RemoteException
     {
-        if (this.Clients.size() == 0)
+        if (this.clients.size() == 0)
         {
             return 1;
         }
-        return this.Clients.size() + 1;
+        return this.clients.size() + 1;
     }
 
     /**
@@ -364,7 +364,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void SendInGameMessage(IinGameController controller, Chatline message)
     {
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
             try
             {
@@ -391,10 +391,10 @@ public class RmiServer implements IrmiServer
     @Override
     public ArrayList<Point> getLastMove(String userName) throws RemoteException
     {
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
 
-            for (IrmiClient i : Clients)
+            for (IrmiClient i : clients)
             {
                 if (i.getUserName().equals(i.GetGameController().getPlayer1()) && userName.equals(i.GetGameController().getPlayer2()))
                 {
@@ -434,7 +434,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void PromotePawn(Piece piece, Pawn pawn, String receiver) throws RemoteException
     {
-        for (IrmiClient c : Clients)
+        for (IrmiClient c : clients)
         {
             if (c.getUserName().equals(receiver))
             {
@@ -466,7 +466,7 @@ public class RmiServer implements IrmiServer
             {
                 Receiver = sender.getPlayer1();
             }
-            for (IrmiClient c : Clients)
+            for (IrmiClient c : clients)
             {
                 if (c.getUserName().equals(Receiver))
                 {
@@ -526,7 +526,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void SendSurrender(String loser, String winner) throws RemoteException
     {
-        for (IrmiClient i : Clients)
+        for (IrmiClient i : clients)
         {
             if (i.getUserName().equals(winner))
             {
@@ -548,7 +548,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void draw(String userNameOtherPlayer) throws RemoteException
     {
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
             try
             {
@@ -578,7 +578,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void recieveGameover(String userNameOtherPlayer) throws RemoteException
     {
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
             try
             {
@@ -643,7 +643,7 @@ public class RmiServer implements IrmiServer
      */
     public void leaveGameLobbys(Player player)
     {
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
             try
             {
@@ -668,7 +668,7 @@ public class RmiServer implements IrmiServer
     @Override
     public boolean RestartGame(String receiver,Game game)throws RemoteException
     {
-        for (IrmiClient client : Clients)
+        for (IrmiClient client : clients)
         {
             try
             {

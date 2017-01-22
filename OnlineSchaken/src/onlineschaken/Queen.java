@@ -5,8 +5,9 @@
  */
 package onlineschaken;
 
-import static java.lang.Math.abs;
 import javafx.scene.image.Image;
+import static java.lang.Math.abs;
+import static java.lang.Math.abs;
 
 /**
  *

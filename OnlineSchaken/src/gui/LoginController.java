@@ -51,7 +51,7 @@ public class LoginController implements Initializable
     private PasswordField TxtField_Password;
     @FXML
     private Label Warning_Login;
-    private IrmiClient IClient;
+    private IrmiClient iClient;
 
     @FXML
     private void HandleLoginBTN(ActionEvent event)
@@ -71,7 +71,7 @@ public class LoginController implements Initializable
                 LobbyController controller = fxmlLoader.<LobbyController>getController();
                 controller.setPlayer(this.player);
                 controller.setClient(client);
-                controller.setIClient((IrmiClient)client);
+                controller.setiClient((IrmiClient)client);
                 LoginStage.close();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
@@ -98,7 +98,7 @@ public class LoginController implements Initializable
             Parent root = (Parent) fxmlLoader.load();
             RegisterController controller = fxmlLoader.<RegisterController>getController();
             controller.setClient(client);
-            controller.setIClient((IrmiClient)client);
+            controller.setiClient((IrmiClient)client);
             LoginStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -170,8 +170,8 @@ public class LoginController implements Initializable
      *
      * @param client
      */
-    public void setIClient(IrmiClient client){
-       this.IClient = client;
+    public void setiClient(IrmiClient client){
+       this.iClient = client;
    }
    
     /**

@@ -41,7 +41,7 @@ public class GameTimer extends TimerTask
         {
             try
             {
-                if (board.getClient().getGameLobbyController().getLoggedInUser().getColor().equals("white"))
+                if (board.getClient().getGameLobbyController().getLogInUser().getColor().equals("white"))
                 {
                     if (board.getClient().GetGameController().getMyTurn())
                     {
@@ -52,7 +52,7 @@ public class GameTimer extends TimerTask
                         game.setResterend1(1);
                         game.update();
                     }
-                } else if (board.getClient().getGameLobbyController().getLoggedInUser().getColor().equals("black"))
+                } else if (board.getClient().getGameLobbyController().getLogInUser().getColor().equals("black"))
                 {
                     if (board.getClient().GetGameController().getMyTurn())
                     {

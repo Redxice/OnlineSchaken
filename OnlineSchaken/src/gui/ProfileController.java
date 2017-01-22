@@ -41,9 +41,9 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
 
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     private ClientApp client;
-    private IrmiClient IClient;
-    private ObservableList ActiveGames = FXCollections.observableArrayList();
-    private ObservableList GameHistory = FXCollections.observableArrayList();
+    private IrmiClient iClient;
+    private ObservableList activeGames = FXCollections.observableArrayList();
+    private ObservableList gameHistory = FXCollections.observableArrayList();
     @FXML
     private Button Btn_Restart;
     @FXML
@@ -87,7 +87,7 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
             LobbyController controller = fxmlLoader.<LobbyController>getController();
             controller.setPlayer(player);
             controller.setClient(client);
-            controller.setIClient(IClient);
+            controller.setiClient(iClient);
             CurrentStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root, Color.TRANSPARENT);
@@ -108,7 +108,7 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
         try
         {
 
-            if (IClient.RestartGame(SelectedGame))
+            if (iClient.RestartGame(SelectedGame))
             {
                 Stage LoginStage = (Stage) Btn_Restart.getScene().getWindow();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
@@ -116,7 +116,7 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
                 IngameController controller = fxmlLoader.<IngameController>getController();
                 controller.setLoggedInUser(client.getPlayer());
                 controller.setClient(client);
-                controller.setIClient(IClient);
+                controller.setIClient(iClient);
                 controller.setPlayer1(SelectedGame.getPlayer1().getUsername());
                 controller.setPlayer2(SelectedGame.getPlayer2().getUsername());
                 LoginStage.close();
@@ -146,10 +146,10 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
             @Override
             public void run()
             {
-                ActiveGames.setAll(player.getActiveGames());
-                GameHistory.setAll(player.getHistory());
-                Lv_ActiveGames.setItems(ActiveGames);
-                GameHistory.setAll(player.getHistory());
+                activeGames.setAll(player.getActiveGames());
+                gameHistory.setAll(player.getHistory());
+                Lv_ActiveGames.setItems(activeGames);
+                gameHistory.setAll(player.getHistory());
 
             }
         });
@@ -187,9 +187,9 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
      *
      * @param client
      */
-    public void setIClient(IrmiClient client)
+    public void setiClient(IrmiClient client)
     {
-        this.IClient = client;
+        this.iClient = client;
     }
 
 }

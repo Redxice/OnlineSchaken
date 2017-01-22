@@ -17,10 +17,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Rule;
-import org.mockito.Mock;
-import static org.mockito.Mockito.mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 /**
  *
@@ -28,11 +24,15 @@ import org.mockito.junit.MockitoRule;
  */
 public class PlayerTest
 {
-
+    private Section section;
+    
     public PlayerTest()
     {
     }
 
+    @Rule
+    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
+    
     @BeforeClass
     public static void setUpClass()
     {
@@ -328,12 +328,6 @@ public class PlayerTest
         instance.setPieces(pieces);
         assertEquals(expResult, instance.getPieces().get(0));
     }
-
-    @Mock
-    Section section;
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     /**
      * Test of setPieces method, of class Player.

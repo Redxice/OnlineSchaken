@@ -6,14 +6,10 @@
 package database;
 
 import Server.ClientApp;
-import Shared.IinGameController;
 import Shared.IrmiClient;
 import gui.IngameController;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import javafx.collections.ObservableList;
 import onlineschaken.Game;
-import onlineschaken.Gamelobby;
 import onlineschaken.Player;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,8 +17,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
-import static org.mockito.Mockito.mock;
 
 /**
  *
