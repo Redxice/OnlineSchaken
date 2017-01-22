@@ -58,6 +58,7 @@ public class ClientApp implements IrmiClient
             Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 
     /**
      * Wordt aangeroepen in de GameLobbyController in de create GameLobby

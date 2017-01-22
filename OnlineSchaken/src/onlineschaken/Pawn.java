@@ -82,7 +82,7 @@ public class Pawn extends Piece
             return false;
         } else if (isHasMoved() == false)
         {
-            if (this.getColor() == "black")
+            if (this.getColor().equals("black") )
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
@@ -101,7 +101,7 @@ public class Pawn extends Piece
                     return true;
                 }
             }
-            if (this.getColor() == "white")
+            if (this.getColor().equals("white"))
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
@@ -122,7 +122,7 @@ public class Pawn extends Piece
             }
         } else if (isHasMoved() == true)
         {
-            if (this.getColor() == "black")
+            if (this.getColor().equals("black") )
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardBlack(p_section, board))
@@ -136,7 +136,7 @@ public class Pawn extends Piece
                     return true;
                 }
 
-            } else if (this.getColor() == "white")
+            } else if (this.getColor().equals("white"))
             {
                 //1 section naar voren.
                 if (this.moveOneTileForwardWhite(p_section, board))
@@ -256,7 +256,7 @@ public class Pawn extends Piece
 
     public boolean Promotion(Section p_section)
     {
-        if (this.getColor() == "white")
+        if (this.getColor().equals("white") )
         {
             if (p_section.getID().y == 7)
             {
