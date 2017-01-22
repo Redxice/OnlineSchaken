@@ -537,7 +537,7 @@ public class PawnTest
         Pawn White = new Pawn("white", p1, p_section);
         White.setPrevSection(prevSection);
         White.resetThePrevSection();
-        assertEquals(p_section,White.getPrevSection());
+        assertEquals(prevSection,White.getPrevSection());
     }
     /**
      * Test of resetThePrevSection method, of class Pawn.
@@ -550,7 +550,7 @@ public class PawnTest
         Pawn White = new Pawn("white", p1, p_section);
         White.setPrevSection(prevSection);
         White.resetThePrevSection();
-        assertEquals(p_section,White.getPrevSection());
+        assertEquals(prevSection,White.getPrevSection());
     }
 
 }
