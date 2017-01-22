@@ -321,6 +321,7 @@ public class Database
                     games.add(game);
                 }
             }
+            statement.close();
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
