@@ -10,6 +10,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import Shared.IrmiServer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -36,7 +38,7 @@ public  class Server
             
         } catch (Exception e)
         {
-            e.printStackTrace();
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
         }
        
     }

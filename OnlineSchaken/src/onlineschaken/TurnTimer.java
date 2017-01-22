@@ -8,6 +8,8 @@ package onlineschaken;
 import Shared.IinGameController;
 import Shared.IrmiClient;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,7 +57,7 @@ public class TurnTimer extends TimerTask
             controller.getLocalLastMove();
         } catch (Exception e)
         {
-            e.printStackTrace();
+            Logger.getLogger(TurnTimer.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }

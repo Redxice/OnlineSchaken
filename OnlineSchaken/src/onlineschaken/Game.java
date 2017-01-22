@@ -140,7 +140,6 @@ public class Game implements Serializable
         this.javaFX = javaFX;
         board = new Board(client);
         timer = new Timer();
-        //timer.schedule(new GameTimer(this, board, this.javaFX), 0, 1000);
     }
 
     /**
@@ -164,9 +163,7 @@ public class Game implements Serializable
             return newtime;
         }
     }
-
-    //getters and setters
-
+    
     /**
      *
      * @return
@@ -210,12 +207,6 @@ public class Game implements Serializable
     public void setResterend1(int seconde)
     {
         this.remaining1 = remaining1 - seconde;
-        /*if (remaining1 <= 0)
-        {
-            setWinner(player2);
-            setFinished(true);
-            //timer.cancel();
-        }*/
     }
 
     /**
@@ -234,12 +225,6 @@ public class Game implements Serializable
     public void setResterend2(int seconde)
     {
         this.remaining2 = remaining2 - seconde;
-        /*if (remaining2 <= 0)
-        {
-            setWinner(player1);s
-            setFinished(true);
-            //timer.cancel();
-        }*/
     }
 
     /**
@@ -260,7 +245,6 @@ public class Game implements Serializable
         this.finished = finished;
         if (this.finished == true)
         {
-            //timer.cancel();
             if (gameDraw == false)
             {
                 int exit = JOptionPane.showOptionDialog(null, String.valueOf(winner.getUsername()) + " has won.", "Victory!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
@@ -468,7 +452,7 @@ public class Game implements Serializable
         chat.add(p_chatline);
     }
 
-    //verwijdertt chatline toe aan de lijst Chat.
+    //verwijdert chatline toe aan de lijst Chat.
 
     /**
      *
@@ -638,13 +622,11 @@ public class Game implements Serializable
     {
         if (staleMate())
         {
-            //timer.cancel();
             gameDraw = true;
             setFinished(true);
             return true;
         } else if (impossibleCheckMate())
         {
-            //timer.cancel();
             gameDraw = true;
             setFinished(true);
             return true;
@@ -750,8 +732,7 @@ public class Game implements Serializable
 
         } catch (RemoteException ex)
         {
-            Logger.getLogger(Game.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

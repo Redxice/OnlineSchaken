@@ -9,6 +9,8 @@ import Server.ClientApp;
 import Shared.IrmiClient;
 import gui.IngameController;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import onlineschaken.Game;
 import onlineschaken.Player;
 import org.junit.After;
@@ -79,7 +81,7 @@ public class DatabaseTest
             fail("Geen exception gethrowed");
         } catch (Exception e)
         {
-
+            Logger.getLogger(DatabaseTest.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -232,7 +234,7 @@ public class DatabaseTest
             fail("Kon een null als game oplsaan in database");
         } catch (Exception e)
         {
-
+            Logger.getLogger(DatabaseTest.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }

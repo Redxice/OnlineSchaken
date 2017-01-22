@@ -584,8 +584,9 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     private String getCharForNumber(int i)
     {
-        i++;
-        return i > 0 && i < 27 ? String.valueOf((char) (i + 64)) : null;
+        int j = i;
+        j++;
+        return j > 0 && j < 27 ? String.valueOf((char) (j + 64)) : null;
     }
 
     /**

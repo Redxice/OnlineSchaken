@@ -195,6 +195,6 @@ public class King extends Piece
             return false;
         }
         //check of je niet versliest door de koning naar de plek te verplaatsen
-                return !becomeCheck(p_section);
+        return !becomeCheck(p_section);
     }
 }

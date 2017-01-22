@@ -98,7 +98,7 @@ public class Board //implements IrmiClient
                                         
                                     } catch (Exception e)
                                     {
-                                        
+                                        Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, e);
                                     }
                                     firstSection = null;
                                     piece = null;
@@ -217,7 +217,7 @@ public class Board //implements IrmiClient
                                             
                                         } catch (Exception e)
                                         {
-                                            
+                                            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, e);
                                         }
                                         firstSection = null;
                                         piece = null;
@@ -322,6 +322,7 @@ public class Board //implements IrmiClient
                                             client.GetGameController().setLocalLastMove(point, section.getID());
                                         } catch (Exception e)
                                         {
+                                            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, e);
                                         }
                                         firstSection = null;
                                         piece = null;

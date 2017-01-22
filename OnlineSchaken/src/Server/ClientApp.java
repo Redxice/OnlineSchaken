@@ -80,7 +80,7 @@ public class ClientApp implements IrmiClient
 
         } catch (RemoteException e)
         {
-            e.printStackTrace();
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
     }
@@ -137,7 +137,7 @@ public class ClientApp implements IrmiClient
             stub.SendMessage(chatline, naamLobby);
         } catch (RemoteException e)
         {
-            e.printStackTrace();
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -155,7 +155,7 @@ public class ClientApp implements IrmiClient
             stub.playerReady(ready, lobbyName, userName);
         } catch (RemoteException e)
         {
-            e.printStackTrace();
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -201,7 +201,7 @@ public class ClientApp implements IrmiClient
             }
         } catch (RemoteException e)
         {
-            e.printStackTrace();
+            Logger.getLogger(ClientApp.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
