@@ -132,47 +132,6 @@ public class King extends Piece
         this.check = check;
     }
 
-    public boolean isCheckMate()
-    {
-        //voor elke rij
-        for (Section[] x : getSection().getBoard().getSections())
-        {
-            //voor elk vakje in de rij
-            for (Section y : x)
-            {
-                if (!y.getPiece().getColor().equals(this.getColor()))
-                {
-                    if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x + 1][this.getSection().getID().y]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x + 1][this.getSection().getID().y + 1]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y + 1]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x - 1][this.getSection().getID().y]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x][this.getSection().getID().y - 1]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x - 1][this.getSection().getID().y - 1]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x + 1][this.getSection().getID().y - 1]))
-                    {
-                        checkMate = true;
-                    } else if (y.getPiece().checkMove(this.getSection().getBoard().getSections()[this.getSection().getID().x - 1][this.getSection().getID().y + 1]))
-                    {
-                        checkMate = true;
-                    }
-                }
-            }
-        }
-        return checkMate;
-    }
-
     public void setCheckMate(boolean checkMate)
     {
         this.checkMate = checkMate;
