@@ -99,7 +99,7 @@ public class Section extends Rectangle
     {
         if (this.piece != null && piece != null)
         {
-            if (this.piece.getColor() != piece.getColor())
+            if (!this.piece.getColor().equals(piece.getColor()))
             {
                 this.piece.getPlayer().removePiece(this.piece);
                 piece.setX(getID().x);

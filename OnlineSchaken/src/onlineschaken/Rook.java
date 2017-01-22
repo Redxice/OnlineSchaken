@@ -23,11 +23,11 @@ public class Rook extends Piece
     public Rook(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
-        if (p_color == "white")
+        if ("white".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/White Rook.jpg"));
         }
-        if (p_color == "black")
+        if ("black".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/Black Rook.jpg"));
         }
@@ -57,7 +57,7 @@ public class Rook extends Piece
         {
             if (p_section.getPiece() instanceof King)
             {
-                if (this.getColor() == p_section.getPiece().getColor())
+                if (this.getColor().equals(p_section.getPiece().getColor()))
                 {
                     // kijken of er iets tussen staat
                     if (getSection().getID().x == 0 && getSection().getID().y == 0)

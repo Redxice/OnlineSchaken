@@ -23,11 +23,11 @@ public class Knight extends Piece
     public Knight(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
-        if (p_color == "white")
+        if ("white".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/White Knight.jpg"));
         }
-        if (p_color == "black")
+        if ("black".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/Black Knight.jpg"));
         }

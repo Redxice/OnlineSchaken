@@ -16,7 +16,7 @@ public class Tournament
 
     //fields
     private String name;
-    private List<Game> games;
+    private final List<Game> games;
 
     //constructor
 

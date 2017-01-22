@@ -12,7 +12,6 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
@@ -33,13 +32,13 @@ public class Board //implements IrmiClient
     private Section[][] sections = new Section[width][height];
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
-    private Pane root = new Pane();
+    private final Pane root = new Pane();
     private Section firstSection;
     private Piece piece;
     //Moet nog een enum van worden gemaakt
     private String turn = "white";
     private Game game;
-    private IrmiClient client;
+    private final IrmiClient client;
 
     /**
      *
@@ -63,82 +62,78 @@ public class Board //implements IrmiClient
             for (int x = 0; x < width; x++)
             {
                 Section section = new Section((x + y) % 2 == 0, x, y, this);
-                section.setOnMouseClicked(new EventHandler<MouseEvent>()
+                section.setOnMouseClicked((MouseEvent t) ->
                 {
-                    @Override
-                    public void handle(MouseEvent t)
+                    if (firstSection == null && section.getPiece() != null)
                     {
-                        if (firstSection == null && section.getPiece() != null)
-                        {                            
-                            try {
-                                if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white")  && client.GetGameController().isSpectator() == false|| client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
+                        try {
+                            if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white")  && client.GetGameController().isSpectator() == false|| client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
+                            {
+                                if (section.getPiece() != null)
                                 {
-                                        if (section.getPiece() != null)
-                                        {
-                                            firstSection = sections[section.getID().x][section.getID().y];
-                                            piece = firstSection.getPiece();
-                                        }
+                                    firstSection = sections[section.getID().x][section.getID().y];
+                                    piece = firstSection.getPiece();
                                 }
-                            } catch (RemoteException ex) {
-                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        } else if (firstSection != null)
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else if (firstSection != null)
+                    {
+                        Point point = new Point(firstSection.getID());
+                        try
                         {
-                            Point point = new Point(firstSection.getID());
-                            try
+                            
+                            if (client.GetGameController().getMyTurn())
                             {
                                 
-                                if (client.GetGameController().getMyTurn())
+                                if (piece.move(section))
                                 {
-                                    
-                                    if (piece.move(section))
-                                    {                                        
-                                        try
+                                    try
+                                    {
+                                        
+                                        client.sendTurn(point, section.getID(), game.getTime());
+                                        client.GetGameController().setLocalLastMove(point, section.getID());
+                                        client.GetGameController().addToMoveHistory(point, section.getID(), piece);
+                                        
+                                    } catch (Exception e)
+                                    {
+                                        
+                                    }
+                                    firstSection = null;
+                                    piece = null;
+                                    if (game.draw())
+                                    {
+                                        JOptionPane.showMessageDialog(null, "draw");
+                                    }
+                                    if (game.checkMate())
+                                    {
+                                        if ("white".equals(turn))
                                         {
-                                            
-                                            client.sendTurn(point, section.getID(), game.getTime());
-                                            client.GetGameController().setLocalLastMove(point, section.getID());
-                                            client.GetGameController().addToMoveHistory(point, section.getID(), piece);
-
-                                        } catch (Exception e)
-                                        {
-
-                                        }
-                                        firstSection = null;
-                                        piece = null;
-                                        if (game.draw())
-                                        {
-                                            JOptionPane.showMessageDialog(null, "draw");
-                                        }
-                                        if (game.checkMate())
-                                        {
-                                            if (turn == "white")
-                                            {
-                                                game.setWinner(game.getPlayer1());
-                                            } else
-                                            {
-                                                game.setWinner(game.getPlayer2());
-                                            }
-                                            client.GetGameController().gameover();
-                                            game.setFinished(true);
-                                        }
-                                        if (turn == "white")
-                                        {
-                                            turn = "black";
+                                            game.setWinner(game.getPlayer1());
                                         } else
                                         {
-                                            turn = "white";
+                                            game.setWinner(game.getPlayer2());
                                         }
+                                        client.GetGameController().gameover();
+                                        game.setFinished(true);
+                                    }
+                                    if ("white".equals(turn))
+                                    {
+                                        turn = "black";
                                     } else
                                     {
-                                        firstSection = null;
+                                        turn = "white";
                                     }
-
+                                } else
+                                {
+                                    firstSection = null;
                                 }
-                            } catch (RemoteException ex)
-                            {
-                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+
                             }
+                        } catch (RemoteException ex)
+                        {
+                            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 });
@@ -189,84 +184,78 @@ public class Board //implements IrmiClient
                 if (y.getID() == p_section1.getID())
                 {
                     Section section = new Section((y.getID().x + y.getID().y) % 2 == 0, y.getID().x, y.getID().y, this);
-                    section.setOnMouseClicked(new EventHandler<MouseEvent>()
+                    section.setOnMouseClicked((MouseEvent t) ->
                     {
-                        @Override
-                        public void handle(MouseEvent t)
+                        if (firstSection == null && section.getPiece() != null)
                         {
-                            if (firstSection == null && section.getPiece() != null)
-                            {
-                                try {
-                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") && client.GetGameController().isSpectator() == false || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
-                                    {
-                                            if (section.getPiece() != null)
-                                            {
-                                                firstSection = sections[section.getID().x][section.getID().y];
-                                                piece = firstSection.getPiece();
-                                            }
-                                    }
-                                } catch (RemoteException ex) {
-                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            } else if (firstSection != null)
-                            {
-                                Point point = new Point(firstSection.getID());
-                                try
+                            try {
+                                if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") && client.GetGameController().isSpectator() == false || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
                                 {
-                                    if (client.GetGameController().getMyTurn()||client.GetGameController().isPromoting())
+                                    if (section.getPiece() != null)
                                     {
-                                        if (piece.move(section))
+                                        firstSection = sections[section.getID().x][section.getID().y];
+                                        piece = firstSection.getPiece();
+                                    }
+                                }
+                            } catch (RemoteException ex) {
+                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else if (firstSection != null)
+                        {
+                            Point point = new Point(firstSection.getID());
+                            try
+                            {
+                                if (client.GetGameController().getMyTurn()||client.GetGameController().isPromoting())
+                                {
+                                    if (piece.move(section))
+                                    {
+                                        try
+                                        {
+                                            System.out.println("voor send turn");
+                                            client.sendTurn(point, section.getID(), game.getTime());
+                                            client.GetGameController().setLocalLastMove(point, section.getID());
+                                            
+                                        } catch (Exception e)
                                         {
                                             
-                                            //client = new ClientApp();
-                                            try
+                                        }
+                                        firstSection = null;
+                                        piece = null;
+                                        if (game.draw())
+                                        {
+                                            JOptionPane.showMessageDialog(null, "draw");
+                                        }
+                                        if (game.checkMate())
+                                        {
+                                            if ("white".equals(turn))
                                             {
-                                                System.out.println("voor send turn");
-                                                client.sendTurn(point, section.getID(), game.getTime());
-                                                client.GetGameController().setLocalLastMove(point, section.getID());
-
-                                            } catch (Exception e)
-                                            {
-
-                                            }
-                                            firstSection = null;
-                                            piece = null;
-                                            if (game.draw())
-                                            {
-                                                JOptionPane.showMessageDialog(null, "draw");
-                                            }
-                                            if (game.checkMate())
-                                            {
-                                                if (turn == "white")
-                                                {
-                                                    game.setWinner(game.getPlayer1());
-                                                } else
-                                                {
-                                                    game.setWinner(game.getPlayer2());
-                                                }
-                                                client.GetGameController().gameover();
-                                                game.setFinished(true);
-                                                
-                                            }
-                                           
-                                            if (getTurn() == "white"&&!client.GetGameController().isPromoting())
-                                            {
-                                                turn = "black";
+                                                game.setWinner(game.getPlayer1());
                                             } else
                                             {
-                                                turn = "white";
+                                                game.setWinner(game.getPlayer2());
                                             }
+                                            client.GetGameController().gameover();
+                                            game.setFinished(true);
+                                            
+                                        }
+                                        
+                                        if ("white".equals(getTurn()) && !client.GetGameController().isPromoting())
+                                        {
+                                            turn = "black";
                                         } else
                                         {
-                                            firstSection = null;
+                                            turn = "white";
                                         }
+                                    } else
+                                    {
+                                        firstSection = null;
                                     }
-                                } catch (RemoteException ex)
-                                {
-                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-
+                            } catch (RemoteException ex)
+                            {
+                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            
                         }
                     });
                     sections[y.getID().x][y.getID().y] = section;
@@ -299,81 +288,77 @@ public class Board //implements IrmiClient
                 if (y.getID() == p_section1.getID())
                 {
                     Section section = new Section((y.getID().x + y.getID().y) % 2 == 0, y.getID().x, y.getID().y, this);
-                    section.setOnMouseClicked(new EventHandler<MouseEvent>()
+                    section.setOnMouseClicked((MouseEvent t) ->
                     {
-                        @Override
-                        public void handle(MouseEvent t)
+                        if (firstSection == null && section.getPiece() != null)
                         {
-                            if (firstSection == null && section.getPiece() != null)
-                            {
-                                try {
-                                    if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") && client.GetGameController().isSpectator() == false || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
-                                    {
-                                            if (section.getPiece() != null)
-                                            {
-                                                firstSection = sections[section.getID().x][section.getID().y];
-                                                piece = firstSection.getPiece();
-                                            }
-                                    }
-                                } catch (RemoteException ex) {
-                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            } else if (firstSection != null)
-                            {
-                                Point point = new Point(firstSection.getID());
-                                try
+                            try {
+                                if(client.GetGameController().isWhite() == true && section.getPiece().getColor().equals("white") && client.GetGameController().isSpectator() == false || client.GetGameController().isWhite() == false && section.getPiece().getColor().equals("black") && client.GetGameController().isSpectator() == false)
                                 {
-                                    if (client.GetGameController().getMyTurn())
+                                    if (section.getPiece() != null)
                                     {
-                                       
-                                        if (piece.move(section))
+                                        firstSection = sections[section.getID().x][section.getID().y];
+                                        piece = firstSection.getPiece();
+                                    }
+                                }
+                            } catch (RemoteException ex) {
+                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else if (firstSection != null)
+                        {
+                            Point point = new Point(firstSection.getID());
+                            try
+                            {
+                                if (client.GetGameController().getMyTurn())
+                                {
+
+                                    if (piece.move(section))
+                                    {
+                                        
+                                        try
                                         {
                                             
-                                            try
+                                            client.sendTurn(point, section.getID(), game.getTime());
+                                            client.GetGameController().setLocalLastMove(point, section.getID());
+                                        } catch (Exception e)
+                                        {
+                                        }
+                                        firstSection = null;
+                                        piece = null;
+                                        if (game.draw())
+                                        {
+                                            JOptionPane.showMessageDialog(null, "draw");
+                                        }
+                                        if (game.checkMate())
+                                        {
+                                            if ("white".equals(turn))
                                             {
-                                               
-                                                client.sendTurn(point, section.getID(), game.getTime()); 
-                                                client.GetGameController().setLocalLastMove(point, section.getID());
-                                            } catch (Exception e)
-                                            {
-                                            }
-                                            firstSection = null;
-                                            piece = null;
-                                            if (game.draw())
-                                            {
-                                                JOptionPane.showMessageDialog(null, "draw");
-                                            }
-                                            if (game.checkMate())
-                                            {
-                                                if (turn == "white")
-                                                {
-                                                    game.setWinner(game.getPlayer1());
-                                                } else
-                                                {
-                                                    game.setWinner(game.getPlayer2());
-                                                }
-                                                client.GetGameController().gameover();
-                                                game.setFinished(true);
-
-                                            }
-                                            if (getTurn() == "white")
-                                            {
-                                                turn = "black";
+                                                game.setWinner(game.getPlayer1());
                                             } else
                                             {
-                                                turn = "white";
+                                                game.setWinner(game.getPlayer2());
                                             }
+                                            client.GetGameController().gameover();
+                                            game.setFinished(true);
+                                            
+                                        }
+                                        if ("white".equals(getTurn()))
+                                        {
+                                            turn = "black";
                                         } else
                                         {
-                                            firstSection = null;
+                                            turn = "white";
                                         }
+                                    } else
+                                    {
+                                        firstSection = null;
                                     }
-                                } catch (RemoteException ex)
-                                {
-                                    Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                                 }
-
+                            } catch (RemoteException ex)
+                            {
+                                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            
                         }
                     });
                     sections[y.getID().x][y.getID().y] = section;
@@ -552,15 +537,4 @@ public class Board //implements IrmiClient
     {
         this.turn = turn;
     }
-    
-  
-//    @Override
-//    public void getTurn(Point section1, Point section2, double time) throws RemoteException
-//    {
-//        System.out.println(section1.toString() + " " + section2.toString());
-//        /*
-//        int xValue = (int) section1.getX();
-//        int yValue = (int) section1.getY();
-//        getSections(xValue, yValue).getPiece().move(getSections((int)section2.getX(), (int)section2.getY()));*/
-//    }
 }

@@ -99,14 +99,10 @@ public class OnlineSchaken extends Application
      */
     public void update()
     {
-        Platform.runLater(new Runnable()
+        Platform.runLater(() ->
         {
-            @Override
-            public void run()
-            {
-                timerWhite.setText(game.resterend(1));
-                timerBlack.setText(game.resterend(2));
-            }
+            timerWhite.setText(game.resterend(1));
+            timerBlack.setText(game.resterend(2));
         });
     }
 

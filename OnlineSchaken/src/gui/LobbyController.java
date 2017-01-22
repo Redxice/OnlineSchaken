@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,8 +43,7 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
 
     private IGameLobby lobby;
     private ClientApp client;
-    private ObservableList gameList = FXCollections.observableArrayList();
-    private List<String> test = new ArrayList<String>();
+    private final ObservableList gameList = FXCollections.observableArrayList();
     private Player player;
     private IrmiClient iClient;
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
@@ -247,25 +244,17 @@ public class LobbyController extends UnicastRemoteObject implements Initializabl
     public void UpdateGameLobbys() throws RemoteException
     {
 
-        new Thread(new Runnable()
+        new Thread(() ->
         {
-            @Override
-            public void run()
+            Platform.runLater(() ->
             {
-                Platform.runLater(new Runnable()
+                if (!gameList.isEmpty())
                 {
-                    @Override
-                    public void run()
-                    {
-                        if (!gameList.isEmpty())
-                        {
-                            gameList.clear();
-                        }
-                        gameList.setAll(client.GetGameLobbys());
-                        Lv_GameList.setItems(gameList);
-                    }
-                });
-            }
+                    gameList.clear();
+                }
+                gameList.setAll(client.GetGameLobbys());
+                Lv_GameList.setItems(gameList);
+            });
         }).start();
     }
 

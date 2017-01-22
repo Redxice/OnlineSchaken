@@ -45,10 +45,10 @@ public class Pawn extends Piece
     public Pawn(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
-        if (p_color == "white")
+        if ("white".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/White Pawn.jpg"));
-        } else if (p_color == "black")
+        } else if ("black".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/Black Pawn.jpg"));
         }
@@ -385,13 +385,7 @@ public class Pawn extends Piece
         {
             if (p_section.getID().x == this.getSection().getID().x && p_section.getID().y == this.getSection().getID().y + 1)
             {
-                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
-                {
-                    return false;
-                } else
-                {
-                    return true;
-                }
+                return !board.getSections(p_section.getID().x, p_section.getID().y).isOccupied();
             }
         }
         return false;
@@ -458,13 +452,7 @@ public class Pawn extends Piece
         {
             if (p_section.getID().x == this.getSection().getID().x && p_section.getID().y == this.getSection().getID().y - 1)
             {
-                if (board.getSections(p_section.getID().x, p_section.getID().y).isOccupied())
-                {
-                    return false;
-                } else
-                {
-                    return true;
-                }
+                return !board.getSections(p_section.getID().x, p_section.getID().y).isOccupied();
             }
         }
         return false;
@@ -551,7 +539,7 @@ public class Pawn extends Piece
         if (p_section.getPiece() instanceof Pawn)
         {
             Pawn pawn = (Pawn) p_section.getPiece();
-            if (pawn.getColor() == "black")
+            if ("black".equals(pawn.getColor()))
             {
 
                 if ((int) pawn.getPrevSectionY() == 6)
@@ -559,7 +547,7 @@ public class Pawn extends Piece
                     p_section.getBoard().ClearSection(p_section);
                     return true;
                 }
-            } else if (pawn.getColor() == "white")
+            } else if ("white".equals(pawn.getColor()))
             {
                 if ((int) pawn.getPrevSectionY() == 1)
                 {

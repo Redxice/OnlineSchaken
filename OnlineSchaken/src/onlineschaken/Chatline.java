@@ -13,9 +13,8 @@ import java.io.Serializable;
  */
 public class Chatline implements Serializable
 {
-    private String userName;
-    private String message;
-    private long time;
+    private final String userName;
+    private final String message;
 
     /**
      * @param userName

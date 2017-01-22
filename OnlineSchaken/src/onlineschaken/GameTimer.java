@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 public class GameTimer extends TimerTask
 {
 
-    private Game game;
-    private Board board;
+    private final Game game;
+    private final Board board;
 
     /**
      *

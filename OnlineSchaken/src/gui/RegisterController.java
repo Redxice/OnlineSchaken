@@ -61,8 +61,6 @@ public class RegisterController implements Initializable
     @FXML
     private Label WarningLabel_RePassword;
 
-    private ArrayList<Label> labels = new ArrayList<>(Arrays.asList(WarningLabel_Username));
-
     @FXML
     private void RegisterAccount(ActionEvent event)
     {
@@ -151,7 +149,7 @@ public class RegisterController implements Initializable
         }
         if (player != null)
         {
-            if (player.getUsername() == TxtField_Username.getText())
+            if (player.getUsername().equals(TxtField_Username.getText()))
             {
 
                 return false;

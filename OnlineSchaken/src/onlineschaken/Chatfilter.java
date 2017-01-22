@@ -17,7 +17,7 @@ import java.util.List;
 public class Chatfilter
 {
 
-    private List<String> bannedWords = new ArrayList<>();
+    private final List<String> bannedWords = new ArrayList<>();
 
     /**
      *
@@ -52,7 +52,7 @@ public class Chatfilter
     {
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\onlineschaken\\words.txt")))
         {
-            String line = null;
+            String line;
             while ((line = br.readLine()) != null)
             {
                 getBannedWords().add(line);

@@ -27,11 +27,11 @@ public class King extends Piece
     {
         super(p_color, p_player, p_section);
         //check of de koning zwart of wit is en bepaal de juiste afbeelding
-        if (p_color == "white")
+        if ("white".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/White King.jpg"));
         }
-        if (p_color == "black")
+        if ("black".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/Black King.jpg"));
         }
@@ -195,10 +195,6 @@ public class King extends Piece
             return false;
         }
         //check of je niet versliest door de koning naar de plek te verplaatsen
-        if (becomeCheck(p_section))
-        {
-            return false;
-        }
-        return true;
+                return !becomeCheck(p_section);
     }
 }

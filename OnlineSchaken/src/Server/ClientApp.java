@@ -250,6 +250,7 @@ public class ClientApp implements IrmiClient
      *
      * @return
      */
+    @Override
     public String getUserName()
     {
         return userName;
@@ -259,6 +260,7 @@ public class ClientApp implements IrmiClient
      *
      * @param userName
      */
+    @Override
     public void setUserName(String userName)
     {
         this.userName = userName;
@@ -280,6 +282,7 @@ public class ClientApp implements IrmiClient
      *
      * @return
      */
+    @Override
     public IGameLobbyController getGameLobbyController()
     {
         return gameLobbyController;
@@ -548,9 +551,9 @@ public class ClientApp implements IrmiClient
     @Override
     public ArrayList<Game> GetGames(String username) throws RemoteException
     {
-        ArrayList<Game> games = new ArrayList<>();
+        ArrayList<Game> games;
+        games = new ArrayList<>();
         games = stub.GetUserGames(username);
-
         return games;
     }
 
@@ -606,7 +609,7 @@ public class ClientApp implements IrmiClient
         if (this.getUserName().equals(SelectedGame.getPlayer1().getUsername()))
         {
             receiver = SelectedGame.getPlayer2().getUsername();
-        } else if (this.getUserName().equals(SelectedGame.getPlayer2()))
+        } else if (this.getUserName().equals(SelectedGame.getPlayer2().getUsername()))
         {
             receiver = SelectedGame.getPlayer1().getUsername();
         }

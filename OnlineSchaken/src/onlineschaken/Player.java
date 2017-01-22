@@ -42,7 +42,7 @@ public class Player implements Serializable
         this.username = p_username;
         this.password = p_password;
         this.rating = p_rating;
-        pieces = new ArrayList<Piece>();
+        pieces = new ArrayList<>();
     }
     
     /**
@@ -58,7 +58,7 @@ public class Player implements Serializable
         this.password = p_password;
         this.email = email;
         this.rating = p_rating;
-        pieces = new ArrayList<Piece>();
+        pieces = new ArrayList<>();
     }
     
     /**

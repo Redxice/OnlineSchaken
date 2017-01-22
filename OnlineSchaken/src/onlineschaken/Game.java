@@ -503,7 +503,7 @@ public class Game implements Serializable
     public boolean checkMate()
     {
         Piece previousPiece;
-        if (board.getTurn() == "white")
+        if ("white".equals(board.getTurn()))
         {
             for (Piece p : player2.getPieces())
             {
@@ -726,13 +726,7 @@ public class Game implements Serializable
      */
     public void setPlayer2Draw()
     {
-        if (player2Draw == true)
-        {
-            this.player2Draw = false;
-        } else
-        {
-            this.player2Draw = true;
-        }
+        this.player2Draw = player2Draw != true;
     }
 
     /**
@@ -816,61 +810,58 @@ public class Game implements Serializable
      */
     public void setCorrectImg(Piece piece)
     {
-        if (piece.MyType.equals("Bishop") )
+        switch (piece.MyType)
         {
-            if (piece.getColor().equals("white"))
-            {
-                piece.setImg(new Image("ChessPieces/White Bishop.jpg"));
-            } else if (piece.getColor().equals("black"))
-            {
-                piece.setImg(new Image("ChessPieces/Black Bishop.jpg"));
-            }
-        } else if (piece.MyType.equals("King"))
-        {
-            if (piece.getColor().equals("white"))
-            {
-                piece.setImg(new Image("ChessPieces/White King.jpg"));
-            }
-            if (piece.getColor().equals("black"))
-            {
-                piece.setImg(new Image("ChessPieces/Black King.jpg"));
-            }
-        } else if (piece.MyType.equals("Knight"))
-        {
-            if (piece.getColor().equals("white"))
-            {
-                piece.setImg(new Image("ChessPieces/White Knight.jpg"));
-            } else if (piece.getColor().equals("black"))
-            {
-                piece.setImg(new Image("ChessPieces/Black Knight.jpg"));
-            }
-        } else if (piece.MyType.equals("Pawn"))
-        {
-            if (piece.getColor().equals("white"))
-            {
-                piece.setImg(new Image("ChessPieces/White Pawn.jpg"));
-            } else if (piece.getColor().equals("black"))
-            {
-                piece.setImg(new Image("ChessPieces/Black Pawn.jpg"));
-            }
-        } else if (piece.MyType.equals("Queen"))
-        {
-            if (piece.getColor().equals("white"))
-            {
-                piece.setImg(new Image("ChessPieces/White Queen.jpg"));
-            } else if (piece.getColor().equals("black"))
-            {
-                piece.setImg(new Image("ChessPieces/Black Queen.jpg"));
-            }
-        } else if (piece.MyType.equals("Rook"))
-        {
-            if (piece.getColor().equals("white"))
-            {
-                piece.setImg(new Image("ChessPieces/White Rook.jpg"));
-            } else if (piece.getColor().equals("black"))
-            {
-                piece.setImg(new Image("ChessPieces/Black Rook.jpg"));
-            }
+            case "Bishop":
+                if (piece.getColor().equals("white"))
+                {
+                    piece.setImg(new Image("ChessPieces/White Bishop.jpg"));
+                } else if (piece.getColor().equals("black"))
+                {
+                    piece.setImg(new Image("ChessPieces/Black Bishop.jpg"));
+                }   break;
+            case "King":
+                if (piece.getColor().equals("white"))
+                {
+                    piece.setImg(new Image("ChessPieces/White King.jpg"));
+                }   if (piece.getColor().equals("black"))
+                {
+                    piece.setImg(new Image("ChessPieces/Black King.jpg"));
+                }   break;
+            case "Knight":
+                if (piece.getColor().equals("white"))
+                {
+                    piece.setImg(new Image("ChessPieces/White Knight.jpg"));
+                } else if (piece.getColor().equals("black"))
+                {
+                    piece.setImg(new Image("ChessPieces/Black Knight.jpg"));
+                }   break;
+            case "Pawn":
+                if (piece.getColor().equals("white"))
+                {
+                    piece.setImg(new Image("ChessPieces/White Pawn.jpg"));
+                } else if (piece.getColor().equals("black"))
+                {
+                    piece.setImg(new Image("ChessPieces/Black Pawn.jpg"));
+                }   break;
+            case "Queen":
+                if (piece.getColor().equals("white"))
+                {
+                    piece.setImg(new Image("ChessPieces/White Queen.jpg"));
+                } else if (piece.getColor().equals("black"))
+                {
+                    piece.setImg(new Image("ChessPieces/Black Queen.jpg"));
+                }   break;
+            case "Rook":
+                if (piece.getColor().equals("white"))
+                {
+                    piece.setImg(new Image("ChessPieces/White Rook.jpg"));
+                } else if (piece.getColor().equals("black"))
+                {
+                    piece.setImg(new Image("ChessPieces/Black Rook.jpg"));
+                }   break;
+            default:
+                break;
         }
     }
   

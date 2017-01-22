@@ -171,13 +171,7 @@ public abstract class Piece extends StackPane implements Serializable
 
         if (p_section.isOccupied() == true)
         {
-            if (p_section.getPiece().getColor() != this.color)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            return !p_section.getPiece().getColor().equals(this.color);
         } else
         {
             return true;
@@ -473,24 +467,20 @@ public abstract class Piece extends StackPane implements Serializable
                     Pawn pawn = (Pawn) this;
                     if (pawn.Promotion(p_section))
                     {
-                        if (this.color == "white" && IngameController.isWhite() == true && IngameController.isSpectator() == false || this.color == "black" && IngameController.isWhite() == false && IngameController.isSpectator() == false)
+                        if ("white".equals(this.color) && IngameController.isWhite() == true && IngameController.isSpectator() == false || "black".equals(this.color) && IngameController.isWhite() == false && IngameController.isSpectator() == false)
                         {
                             if (IngameController.getMyTurn())
                             {
                                 IngameController.setisPromoting(true);
                                 final IrmiClient RmiClient = this.section.getBoard().getClient();
-                                Platform.runLater(new Runnable()
+                                Platform.runLater(() ->
                                 {
-                                    @Override
-                                    public void run()
+                                    try
                                     {
-                                        try
-                                        {
-                                            pawn.menu(IngameController, RmiClient);
-                                        } catch (RemoteException ex)
-                                        {
-                                            Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
+                                        pawn.menu(IngameController, RmiClient);
+                                    } catch (RemoteException ex)
+                                    {
+                                        Logger.getLogger(Piece.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 });
                             }

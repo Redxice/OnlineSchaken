@@ -16,8 +16,8 @@ import java.util.TimerTask;
 public class TurnTimer extends TimerTask
 {
 
-    private IinGameController controller;
-    private IrmiClient client;
+    private final IinGameController controller;
+    private final IrmiClient client;
 
     /**
      *

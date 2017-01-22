@@ -42,8 +42,8 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
     private static final Logger LOGGER = Logger.getLogger(LobbyController.class.getName());
     private ClientApp client;
     private IrmiClient iClient;
-    private ObservableList activeGames = FXCollections.observableArrayList();
-    private ObservableList gameHistory = FXCollections.observableArrayList();
+    private final ObservableList activeGames = FXCollections.observableArrayList();
+    private final ObservableList gameHistory = FXCollections.observableArrayList();
     @FXML
     private Button Btn_Restart;
     @FXML
@@ -141,17 +141,12 @@ public class ProfileController extends UnicastRemoteObject implements Initializa
      */
     public void UpdateGames()
     {
-        Platform.runLater(new Runnable()
+        Platform.runLater(() ->
         {
-            @Override
-            public void run()
-            {
-                activeGames.setAll(player.getActiveGames());
-                gameHistory.setAll(player.getHistory());
-                Lv_ActiveGames.setItems(activeGames);
-                gameHistory.setAll(player.getHistory());
-
-            }
+            activeGames.setAll(player.getActiveGames());
+            gameHistory.setAll(player.getHistory());
+            Lv_ActiveGames.setItems(activeGames);
+            gameHistory.setAll(player.getHistory());
         });
     }
 

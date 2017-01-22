@@ -34,10 +34,10 @@ import onlineschaken.Player;
 public class RmiServer implements IrmiServer
 {
 
-    private ArrayList<String> gameLobbys = new ArrayList<>();
-    private ArrayList<IrmiClient> clients = new ArrayList<>();
-    private static final Database database = new Database();
-    private String ip = "127.0.0.1"/*"169.254.183.180"*/;
+    private final ArrayList<String> gameLobbys = new ArrayList<>();
+    private final ArrayList<IrmiClient> clients = new ArrayList<>();
+    private static final Database DATABASE = new Database();
+    private final String ip = "127.0.0.1"/*"169.254.183.180"*/;
 
     @Override
     public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
@@ -56,7 +56,7 @@ public class RmiServer implements IrmiServer
                             {
                                 try
                                 {
-                                    database.addMoveToHistory(i.getUserName(), userName, MoveHistory.get(MoveHistory.size() - 1), MoveHistory.size());
+                                    DATABASE.addMoveToHistory(i.getUserName(), userName, MoveHistory.get(MoveHistory.size() - 1), MoveHistory.size());
                                 } catch (RemoteException ex)
                                 {
                                     Logger.getLogger(RmiServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,6 +170,7 @@ public class RmiServer implements IrmiServer
         return gameLobbys;
     }
 
+    @Override
     public void SendMessage(Chatline message, String naamLobby) throws RemoteException
     {
         try
@@ -349,7 +350,7 @@ public class RmiServer implements IrmiServer
     @Override
     public int IrmiClientCounter() throws RemoteException
     {
-        if (this.clients.size() == 0)
+        if (this.clients.isEmpty())
         {
             return 1;
         }
@@ -488,7 +489,7 @@ public class RmiServer implements IrmiServer
     @Override
     public boolean addFriend(String player, String Friend) throws RemoteException
     {
-        return database.addFriend(player, Friend);
+        return DATABASE.addFriend(player, Friend);
     }
 
     /**
@@ -500,7 +501,7 @@ public class RmiServer implements IrmiServer
     @Override
     public Player selectPlayer(String username) throws RemoteException
     {
-        return database.selectPlayer(username);
+        return DATABASE.selectPlayer(username);
     }
 
     /**
@@ -514,7 +515,7 @@ public class RmiServer implements IrmiServer
     @Override
     public boolean insterPlayer(String username, String password, String email) throws RemoteException
     {
-        return database.insertPlayer(username, password, email);
+        return DATABASE.insertPlayer(username, password, email);
     }
 
     /**
@@ -606,7 +607,7 @@ public class RmiServer implements IrmiServer
     @Override
     public ArrayList<Game> GetUserGames(String username) throws RemoteException
     {
-        ArrayList<Game> games = database.GetUsersGames(username);
+        ArrayList<Game> games = DATABASE.GetUsersGames(username);
         return games;
     }
 
@@ -619,7 +620,7 @@ public class RmiServer implements IrmiServer
     @Override
     public void SaveGame(Game game, String leaver) throws RemoteException
     {
-        database.SaveGame(game);
+        DATABASE.SaveGame(game);
         if (!game.getPlayer1().getUsername().equals(leaver))
         {
             leaveGameLobbys(game.getPlayer1());

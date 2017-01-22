@@ -115,6 +115,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
      *
      * @return
      */
+    @Override
     public List<Chatline> getChatLines() {
         return chatLines;
     }
@@ -212,9 +213,9 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     @Override
     public void PlayerIsReady(boolean ready, String lobbyName, String userName) throws RemoteException {
         if (player1 != null && player2 != null) {
-            if (userName == player1.getUsername()) {
+            if (userName.equals(player1.getUsername())) {
                 p1Ready = ready;
-            } else if (userName == player2.getUsername()) {
+            } else if (userName.equals(player2.getUsername())) {
                 p1Ready = ready;
             }
             if (p1Ready && p2Ready) {
@@ -255,6 +256,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
         return players;
     }
 
+    @Override
     public Player GetPlayer2() throws RemoteException {
         return this.player2;
     }
@@ -267,10 +269,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     @Override
     public boolean checkPlayer2Exists() throws RemoteException
     {
-        if(this.player2 == null){
-            return false;
-        }
-        return true;
+        return this.player2 != null;
     }
 
     /**
@@ -281,10 +280,7 @@ public class Gamelobby extends UnicastRemoteObject implements IGameLobby {
     @Override
     public boolean checkPlayer1Exists() throws RemoteException
     {
-         if(this.player1 == null){
-            return false;
-        }
-        return true;
+        return this.player1 != null;
     }
 
     

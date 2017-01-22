@@ -24,11 +24,11 @@ public class Queen extends Piece
     public Queen(String p_color, Player p_player, Section p_section)
     {
         super(p_color, p_player, p_section);
-        if (p_color == "white")
+        if ("white".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/White Queen.jpg"));
         }
-        else if (p_color == "black")
+        else if ("black".equals(p_color))
         {
             this.setImg(new Image("ChessPieces/Black Queen.jpg"));
         }

@@ -8,7 +8,6 @@ package database;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -84,12 +83,13 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO player(Username, Password, Email, Rating) VALUES(?,?,?,1000);");
-            statement.setString(1, username);
-            statement.setString(2, password);
-            statement.setString(3, email);
-            statement.executeUpdate();
-            statement.close();
+            try (PreparedStatement statement = con.prepareStatement("INSERT INTO player(Username, Password, Email, Rating) VALUES(?,?,?,1000);"))
+            {
+                statement.setString(1, username);
+                statement.setString(2, password);
+                statement.setString(3, email);
+                statement.executeUpdate();
+            }
             return true;
         } catch (SQLException ex)
         {
@@ -119,10 +119,11 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("delete from player Where Username=?;");
-            statement.setString(1, username);
-            statement.executeUpdate();
-            statement.close();
+            try (PreparedStatement statement = con.prepareStatement("delete from player Where Username=?;"))
+            {
+                statement.setString(1, username);
+                statement.executeUpdate();
+            }
             return true;
         } catch (SQLException ex)
         {
@@ -155,17 +156,19 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("SELECT username, password, email, rating FROM player WHERE username = ?;");
-            statement.setString(1, username);
-            ResultSet results = statement.executeQuery();
-            Player player = null;
-            while (results.next())
+            Player player;
+            try (PreparedStatement statement = con.prepareStatement("SELECT username, password, email, rating FROM player WHERE username = ?;"))
             {
-                String name = results.getString("username");
-                player = new Player(results.getString("username"), results.getString("password"), results.getString("email"), results.getInt("rating"));
-                LOGGER.log(Level.FINE, player.getUsername() + " + " + player.getPassword());
+                statement.setString(1, username);
+                ResultSet results = statement.executeQuery();
+                player = null;
+                while (results.next())
+                {
+                    String name = results.getString("username");
+                    player = new Player(results.getString("username"), results.getString("password"), results.getString("email"), results.getInt("rating"));
+                    LOGGER.log(Level.FINE, "{0} + {1}", new Object[]{player.getUsername(), player.getPassword()});
+                }
             }
-            statement.close();
             return player;
         } catch (SQLException ex)
         {
@@ -191,11 +194,12 @@ public class Database
             init();
             int playerid1 = selectPlayerId(username1);
             int playerid2 = selectPlayerId(username2);
-            PreparedStatement statement = con.prepareStatement("INSERT INTO friendlist(username1, username2) VALUES(?, ?);");
-            statement.setString(1, username1);
-            statement.setString(2, username2);
-            statement.executeUpdate();
-            statement.close();
+            try (PreparedStatement statement = con.prepareStatement("INSERT INTO friendlist(username1, username2) VALUES(?, ?);"))
+            {
+                statement.setString(1, username1);
+                statement.setString(2, username2);
+                statement.executeUpdate();
+            }
             return true;
         } catch (SQLException ex)
         {
@@ -217,15 +221,17 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("SELECT PlayerID FROM player WHERE username = ?;");
-            statement.setString(1, username);
-            ResultSet results = statement.executeQuery();
-            int id = 0;
-            while (results.next())
+            int id;
+            try (PreparedStatement statement = con.prepareStatement("SELECT PlayerID FROM player WHERE username = ?;"))
             {
-                id = results.getInt("PlayerID");
+                statement.setString(1, username);
+                ResultSet results = statement.executeQuery();
+                id = 0;
+                while (results.next())
+                {
+                    id = results.getInt("PlayerID");
+                }
             }
-            statement.close();
             return id;
         } catch (SQLException ex)
         {
@@ -250,13 +256,14 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO movehistory(Player1, Player2,Move,MoveNr) VALUES(?,?,?,?);");
-            statement.setString(1, userName);
-            statement.setString(2, userName2);
-            statement.setString(3, move);
-            statement.setInt(4, nr);
-            statement.executeUpdate();
-            statement.close();
+            try (PreparedStatement statement = con.prepareStatement("INSERT INTO movehistory(Player1, Player2,Move,MoveNr) VALUES(?,?,?,?);"))
+            {
+                statement.setString(1, userName);
+                statement.setString(2, userName2);
+                statement.setString(3, move);
+                statement.setInt(4, nr);
+                statement.executeUpdate();
+            }
             return true;
         } catch (SQLException ex)
         {
@@ -277,13 +284,14 @@ public class Database
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("INSERT INTO games(Game,Player1,Player2) VALUES(?,?,?);");
-            System.out.println("game :" + game + " Player1 : " + game.getPlayer1().getUsername() + " Player2 : " + game.getPlayer2().getUsername());
-            statement.setObject(1, game);
-            statement.setString(2, game.getPlayer1().getUsername());
-            statement.setString(3, game.getPlayer2().getUsername());
-            statement.executeUpdate();
-            statement.close();
+            try (PreparedStatement statement = con.prepareStatement("INSERT INTO games(Game,Player1,Player2) VALUES(?,?,?);"))
+            {
+                System.out.println("game :" + game + " Player1 : " + game.getPlayer1().getUsername() + " Player2 : " + game.getPlayer2().getUsername());
+                statement.setObject(1, game);
+                statement.setString(2, game.getPlayer1().getUsername());
+                statement.setString(3, game.getPlayer2().getUsername());
+                statement.executeUpdate();
+            }
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -301,27 +309,28 @@ public class Database
     public ArrayList<Game> GetUsersGames(String Username)
     {
         ArrayList<Game> games = new ArrayList<>();
-        Game game = null;
+        Game game;
         try
         {
             init();
-            PreparedStatement statement = con.prepareStatement("Select Game,GameNr From Games where Player1=? or Player2=?;");
-            statement.setString(1, Username);
-            statement.setString(2, Username);
-            ResultSet results = statement.executeQuery();
-            while (results.next())
+            try (PreparedStatement statement = con.prepareStatement("Select Game,GameNr From Games where Player1=? or Player2=?;"))
             {
-                ByteArrayInputStream in = new ByteArrayInputStream(results.getBytes("Game"));
-                ObjectInputStream is = new ObjectInputStream(in);
-                Object test = is.readObject();
-                if (test instanceof Game)
+                statement.setString(1, Username);
+                statement.setString(2, Username);
+                ResultSet results = statement.executeQuery();
+                while (results.next())
                 {
-                    game = (Game) test;
-                    game.setGameNumber(results.getInt("GameNr"));
-                    games.add(game);
+                    ByteArrayInputStream in = new ByteArrayInputStream(results.getBytes("Game"));
+                    ObjectInputStream is = new ObjectInputStream(in);
+                    Object test = is.readObject();
+                    if (test instanceof Game)
+                    {
+                        game = (Game) test;
+                        game.setGameNumber(results.getInt("GameNr"));
+                        games.add(game);
+                    }
                 }
             }
-            statement.close();
         } catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
