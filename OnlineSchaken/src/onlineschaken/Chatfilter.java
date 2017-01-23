@@ -52,7 +52,7 @@ public class Chatfilter
      */
     public void readBannedWords()
     {
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Sander\\Documents\\Fontys\\OnlineSchaken\\OnlineSchaken\\src\\onlineschaken\\words.txt")))
+        try (BufferedReader br = new BufferedReader(new FileReader("words.txt")))
         {
             String line;
             while ((line = br.readLine()) != null)
