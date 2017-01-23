@@ -57,7 +57,9 @@ public class TurnTimer extends TimerTask
             controller.getLocalLastMove();
         } catch (Exception e)
         {
+            
             Logger.getLogger(TurnTimer.class.getName()).log(Level.SEVERE, null, e);
+            this.cancel();
         }
     }
 }
