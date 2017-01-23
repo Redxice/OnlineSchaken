@@ -205,7 +205,7 @@ public class Board //implements IrmiClient
                             Point point = new Point(firstSection.getID());
                             try
                             {
-                                if (client.GetGameController().getMyTurn())
+                                if (client.GetGameController().getMyTurn()||client.GetGameController().isPromoting())
                                 {
                                     if (piece.move(section))
                                     {
@@ -239,7 +239,7 @@ public class Board //implements IrmiClient
                                             
                                         }
                                         
-                                        if ("white".equals(getTurn()))
+                                        if ("white".equals(getTurn()) && !client.GetGameController().isPromoting())
                                         {
                                             turn = "black";
                                         } else

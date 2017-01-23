@@ -440,6 +440,7 @@ public class RmiServer implements IrmiServer
         {
             if (c.getUserName().equals(receiver))
             {
+                System.out.println("Hij komt op server in promotePawn");
                 c.PromotePawn(piece, pawn);
             }
             for (Player p : c.GetGameController().getSpectators())
