@@ -37,7 +37,7 @@ public class RmiServer implements IrmiServer
     private final ArrayList<String> gameLobbys = new ArrayList<>();
     private final ArrayList<IrmiClient> clients = new ArrayList<>();
     private static final Database DATABASE = new Database();
-    private final String ip = "127.0.0.1"/*"169.254.183.180"*/;
+    private final String ip ="169.254.166.171";
 
     @Override
     public void doTurn(Point section1, Point section2, double time, String userName) throws RemoteException
