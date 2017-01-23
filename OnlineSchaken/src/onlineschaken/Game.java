@@ -723,6 +723,7 @@ public class Game implements Serializable
         Piece HopefullyAPawn = section.getPiece();
         if (HopefullyAPawn instanceof Pawn)
         {
+            System.out.println("Deze pawn word promoted"+HopefullyAPawn);
             Pawn localPawn = (Pawn) HopefullyAPawn;
             localPawn.PromoteThisPawn(piece);
         }
