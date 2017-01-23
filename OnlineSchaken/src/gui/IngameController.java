@@ -99,6 +99,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     /**
      * moet nog verder worden uitgewerkt. De players moeten worden geadd in de
      * game.
+     *
      * @param gameData
      * @param spectators
      * @param newGame
@@ -113,17 +114,17 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             this.game = gameData;
         } else
         {
-            this.game = new Game(gameData,this.iclient,this);
+            this.game = new Game(gameData, this.iclient, this);
         }
-        
+
         GameBoard.setRoot(root);
         game.getBoard().createContent();
         if (newGame)
         {
-           game.setPieces(); 
-        }
-        else{
-          game.SetPiecesAgain();
+            game.setPieces();
+        } else
+        {
+            game.SetPiecesAgain();
         }
         game.getBoard().createContent2();
         game.setSpectators(spectators);
@@ -150,6 +151,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -185,8 +187,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public IrmiClient getClient() throws RemoteException
@@ -196,8 +197,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public IrmiClient getIClient() throws RemoteException
@@ -218,41 +218,42 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         int xValue = (int) section1.getX();
         int yValue = (int) section1.getY();
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                isMyTurn = true;
-                if (game.getBoard().getSections(xValue, yValue).getPiece() != null)
+        new Thread(()
+                -> 
                 {
-                    Piece piece = game.getBoard().getSections(xValue, yValue).getPiece();
-                    if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
-                    {
-                        try
-                        {
-                            addToMoveHistory(section1, section2, piece);
-                        } catch (RemoteException ex)
-                        {
-                            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);                            
-                        }
-                        if (!isWaitForPromotion)
-                        {
-                            isMyTurn = true;
-                        }
-                    } else
-                    {
-                        
-                    }
-                    game.draw();
-                }
-            });
+                    Platform.runLater(()
+                            -> 
+                            {
+                                isMyTurn = true;
+                                if (game.getBoard().getSections(xValue, yValue).getPiece() != null)
+                                {
+                                    Piece piece = game.getBoard().getSections(xValue, yValue).getPiece();
+                                    if (game.getBoard().getSections(xValue, yValue).getPiece().move(game.getBoard().getSections((int) section2.getX(), (int) section2.getY())))
+                                    {
+                                        try
+                                        {
+                                            addToMoveHistory(section1, section2, piece);
+                                        } catch (RemoteException ex)
+                                        {
+                                            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        if (!isWaitForPromotion)
+                                        {
+                                            isMyTurn = true;
+                                        }
+                                    } else
+                                    {
+
+                                    }
+                                    game.draw();
+                                }
+                    });
         }).start();
     }
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public String getPlayer1() throws RemoteException
@@ -271,8 +272,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public String getPlayer2() throws RemoteException
@@ -291,8 +291,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public boolean getMyTurn() throws RemoteException
@@ -359,26 +358,27 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void leaveGame() throws RemoteException
     {
-        Platform.runLater(() ->
-        {
-            try
-            {
-                Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                LobbyController controller = fxmlLoader.<LobbyController>getController();
-                controller.setPlayer(LoggedInUser);
-                controller.setClient(client);
-                controller.setiClient(iclient);
-                CurrentStage.close();
-                Stage stage = new Stage();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex)
-            {
-                Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        Platform.runLater(()
+                -> 
+                {
+                    try
+                    {
+                        Stage CurrentStage = (Stage) Btn_Leave.getScene().getWindow();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        LobbyController controller = fxmlLoader.<LobbyController>getController();
+                        controller.setPlayer(LoggedInUser);
+                        controller.setClient(client);
+                        controller.setiClient(iclient);
+                        CurrentStage.close();
+                        Stage stage = new Stage();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex)
+                    {
+                        Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
         });
 
     }
@@ -392,24 +392,25 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void updateChat(Chatline message) throws RemoteException
     {
         this.chatlines.add(message);
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                chatList.setAll(chatlines);
-                Chatbox.setItems(chatList);
-                
-                chatList.setAll(chatlines);
-                Chatbox.setItems(chatList);
-                Txt_Message.setText("");
-            });
+        new Thread(()
+                -> 
+                {
+                    Platform.runLater(()
+                            -> 
+                            {
+                                chatList.setAll(chatlines);
+                                Chatbox.setItems(chatList);
+
+                                chatList.setAll(chatlines);
+                                Chatbox.setItems(chatList);
+                                Txt_Message.setText("");
+                    });
         }).start();
     }
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public boolean isWhite() throws RemoteException
@@ -419,8 +420,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public boolean isSpectator() throws RemoteException
@@ -430,8 +430,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public boolean getRealTurn() throws RemoteException
@@ -452,8 +451,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public ArrayList<Point> getLocalLastMove() throws RemoteException
@@ -511,13 +509,32 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         if (bool)
         {
             iclient.isPromoting();
+            if (bool)
+        {
+            if (this.game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
+            {
+                this.game.getBoard().setTurn("white");
+            } else
+            {
+                this.game.getBoard().setTurn("black");
+            }
+
+        } else if (!bool)
+        {
+            if (this.game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
+            {
+                this.game.getBoard().setTurn("black");
+            } else
+            {
+                this.game.getBoard().setTurn("white");
+            }
+        }
         }
     }
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public boolean isPromoting() throws RemoteException
@@ -527,8 +544,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public boolean isIsWaitForPromotion() throws RemoteException
@@ -545,6 +561,26 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     public void setIsWaitForPromotion(boolean bool) throws RemoteException
     {
         this.isWaitForPromotion = bool;
+        if (bool)
+        {
+            if (this.game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
+            {
+                this.game.getBoard().setTurn("black");
+            } else
+            {
+                this.game.getBoard().setTurn("white");
+            }
+
+        } else if (!bool)
+        {
+            if (this.game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
+            {
+                this.game.getBoard().setTurn("white");
+            } else
+            {
+                this.game.getBoard().setTurn("black");
+            }
+        }
     }
 
     /**
@@ -600,8 +636,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public ArrayList<String> GetMyMoveHisotry() throws RemoteException
@@ -688,19 +723,20 @@ public class IngameController extends UnicastRemoteObject implements Initializab
         {
             game.setPlayer2Draw();
         }
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                game.checkDraw();
-            });
+        new Thread(()
+                -> 
+                {
+                    Platform.runLater(()
+                            -> 
+                            {
+                                game.checkDraw();
+                    });
         }).start();
     }
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public List<Player> getSpectators() throws RemoteException
@@ -736,27 +772,31 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     @Override
     public void recieveGameover() throws RemoteException
     {
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                game.setFinished(true);
-            });
+        new Thread(()
+                -> 
+                {
+                    Platform.runLater(()
+                            -> 
+                            {
+                                game.setFinished(true);
+                    });
         }).start();
     }
-    
+
     /**
      * update the labels with new values
      */
     public void updateTimers()
     {
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                timerWhite.setText(String.valueOf(game.resterend(1)));
-                timerBlack.setText(String.valueOf(game.resterend(2)));
-            });
+        new Thread(()
+                -> 
+                {
+                    Platform.runLater(()
+                            -> 
+                            {
+                                timerWhite.setText(String.valueOf(game.resterend(1)));
+                                timerBlack.setText(String.valueOf(game.resterend(2)));
+                    });
         }).start();
     }
 
@@ -768,14 +808,15 @@ public class IngameController extends UnicastRemoteObject implements Initializab
     {
         this.LoggedInUser = LoggedInUser;
     }
-    
+
     /**
      * join a lobby
      */
-    public void GoToLobby(){
+    public void GoToLobby()
+    {
         try
         {
-             if (game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
+            if (game.getPlayer1().getUsername().equals(this.iclient.getUserName()))
             {
                 this.iclient.SaveGame(game);
             }
@@ -786,7 +827,7 @@ public class IngameController extends UnicastRemoteObject implements Initializab
             controller.setPlayer(this.LoggedInUser);
             controller.setClient(client);
             controller.setiClient(iclient);
-           
+
             CurrentStage.close();
             Stage stage = new Stage();
             Scene scene = new Scene(root);
