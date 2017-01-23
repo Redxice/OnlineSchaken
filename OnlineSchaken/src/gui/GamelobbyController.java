@@ -61,7 +61,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     private Button Btn_FriendList;
     @FXML
     private ListView ChatBox;
-    
+
     @FXML
     private ListView SpelerBox;
     @FXML
@@ -90,14 +90,14 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             if (gameLobby.GetPlayer1().getUsername().equals(getLogInUser().getUsername()))
             {
                 player1Ready = true;
-                Chatline chatLine = new Chatline("--System--","Player1 is ready"); 
+                Chatline chatLine = new Chatline("--System--", "Player1 is ready");
                 client.SendMessage(chatLine, lobbyName);
             } else if (gameLobby.GetPlayer2().getUsername().equals(getLogInUser().getUsername()))
             {
                 player2Ready = true;
-                Chatline chatLine = new Chatline("--System--","Player2 is ready"); 
+                Chatline chatLine = new Chatline("--System--", "Player2 is ready");
                 client.SendMessage(chatLine, lobbyName);
-            }            
+            }
             try
             {
                 client.playerReady(true, lobbyName, getLogInUser().getUsername());
@@ -117,8 +117,8 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                    Game game = new Game(gameLobby.GetPlayer1(), gameLobby.GetPlayer2(),this.iClient,controller);
-                    controller.DrawBoard(game,gameLobby.getSpectators(),true);
+                    Game game = new Game(gameLobby.GetPlayer1(), gameLobby.GetPlayer2(), this.iClient, controller);
+                    controller.DrawBoard(game, gameLobby.getSpectators(), true);
                 }
             } catch (IOException ex)
             {
@@ -141,7 +141,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
         {
             chatBerichtLeave();
             if (gameLobby.leaveGameLobby(getLogInUser()))
-            {                
+            {
                 if (gameLobby.GetPlayer1() == null && gameLobby.GetPlayer2() == null)
                 {
                     client.unBindLobby(lobbyName);
@@ -168,41 +168,42 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * send message to other player that this player has left
      */
     public void chatBerichtLeave()
     {
-        
-        try {
-            if(getLogInUser().getUsername().equals(gameLobby.GetPlayer1().getUsername()))
+
+        try
+        {
+            if (getLogInUser().getUsername().equals(gameLobby.GetPlayer1().getUsername()))
             {
-                Chatline chatLine = new Chatline("--System--","Player1 heeft de gamelobby verlaten");
+                Chatline chatLine = new Chatline("--System--", "Player1 heeft de gamelobby verlaten");
+                client.SendMessage(chatLine, lobbyName);
+            } else if (getLogInUser().getUsername().equals(gameLobby.GetPlayer2().getUsername()))
+            {
+                Chatline chatLine = new Chatline("--System--", "Player2 heeft de gamelobby verlaten");
+                client.SendMessage(chatLine, lobbyName);
+            } else
+            {
+                Chatline chatLine = new Chatline("--System--", "Een spectator heeft de gamelobby verlaten");
                 client.SendMessage(chatLine, lobbyName);
             }
-            else if(getLogInUser().getUsername().equals(gameLobby.GetPlayer2().getUsername()))
-            {
-                Chatline chatLine = new Chatline("--System--","Player2 heeft de gamelobby verlaten");
-                client.SendMessage(chatLine, lobbyName);
-            }
-            else
-            {
-                Chatline chatLine = new Chatline("--System--","Een spectator heeft de gamelobby verlaten");
-                client.SendMessage(chatLine, lobbyName);
-            }
-        } catch (RemoteException ex) {
+        } catch (RemoteException ex)
+        {
             Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      * moet worden aangeroepen wanneer een player wilt joinen op een bestaande
- gameLobby .
+     * gameLobby .
+     *
      * @param lobby
      * @param player
      */
-    public void JoinGameLobby(IGameLobby lobby,Player player)
+    public void JoinGameLobby(IGameLobby lobby, Player player)
     {
         try
         {
@@ -220,7 +221,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     /**
      * Deze methode moet worden aangeroepen voor dat je een gameLobby aanmaakt.
      * Hier wordt de IGameLobby vast gezet voor verder gebruik in deze classen
- in de variabel gameLobby.
+     * in de variabel gameLobby.
      *
      * @param lobby
      */
@@ -240,6 +241,7 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -256,22 +258,31 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @FXML
     public void HandleSendBtn(ActionEvent event)
     {
-        Chatfilter filter = new Chatfilter();
-        String message = Chatline_TxtField.getText();
-        message = filter.checkMessage(message);
-        if (message != null)
+        String message;
+        try
         {
-            Chatline chatLine = new Chatline(client.getUserName(), message);
-            try
+            Chatfilter filter = new Chatfilter();
+            message = Chatline_TxtField.getText();
+            message = filter.checkMessage(message);
+
+            if (message != null)
             {
-                client.sendInGameMessage(chatLine);
-            } catch (RemoteException ex)
-            {
-                Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+                Chatline chatLine = new Chatline(client.getUserName(), message);
+                try
+                {
+                    client.sendInGameMessage(chatLine);
+                } catch (RemoteException ex)
+                {
+                    Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
+        } catch (Exception e)
+        {
+            Logger.getLogger(IngameController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+
     /**
      *
      * @param client
@@ -315,22 +326,24 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     public void updateChat() throws RemoteException
     {
         final ObservableList chatList = FXCollections.observableArrayList();
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                try
+        new Thread(()
+                -> 
                 {
-                    for (Chatline c : gameLobby.getChatLines())
-                    {
-                        chatList.add(c);
-                    }
-                    ChatBox.setItems(chatList);
-                } catch (RemoteException ex)
-                {
-                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+                    Platform.runLater(()
+                            -> 
+                            {
+                                try
+                                {
+                                    for (Chatline c : gameLobby.getChatLines())
+                                    {
+                                        chatList.add(c);
+                                    }
+                                    ChatBox.setItems(chatList);
+                                } catch (RemoteException ex)
+                                {
+                                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                    });
         }).start();
 
     }
@@ -342,28 +355,29 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
     @Override
     public void updatePlayerList() throws RemoteException
     {
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                try
+        new Thread(()
+                -> 
                 {
-                    playerList.setAll(gameLobby.GetPlayerNames());
-                    SpelerBox.setItems(playerList);
-                    spectatorList.setAll(gameLobby.getSpectators());
-                    SpectatorListView.setItems(spectatorList);
-                } catch (RemoteException ex)
-                {
-                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+                    Platform.runLater(()
+                            -> 
+                            {
+                                try
+                                {
+                                    playerList.setAll(gameLobby.GetPlayerNames());
+                                    SpelerBox.setItems(playerList);
+                                    spectatorList.setAll(gameLobby.getSpectators());
+                                    SpectatorListView.setItems(spectatorList);
+                                } catch (RemoteException ex)
+                                {
+                                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                    });
         }).start();
     }
 
     /**
      *
-     * @return
-     * @throws RemoteException
+     * @return @throws RemoteException
      */
     @Override
     public IGameLobby getIGameLobby() throws RemoteException
@@ -400,36 +414,38 @@ public class GamelobbyController extends UnicastRemoteObject implements Initiali
      */
     public void drawBoard()
     {
-        new Thread(() ->
-        {
-            Platform.runLater(() ->
-            {
-                try
+        new Thread(()
+                -> 
                 {
-                    if (player1Ready == true && player2Ready == true)
-                    {
-                        Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
-                        Parent root = (Parent) fxmlLoader.load();
-                        IngameController controller = fxmlLoader.<IngameController>getController();
-                        controller.setClient(client);
-                        controller.setIClient(iClient);
-                        controller.setPlayer1(gameLobby.GetPlayer1().getUsername());
-                        controller.setPlayer2(gameLobby.GetPlayer2().getUsername());
-                        controller.setLoggedInUser(logInUser);
-                        LoginStage.close();
-                        Stage stage = new Stage();
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                        Game game = new Game(gameLobby.GetPlayer1(), gameLobby.GetPlayer2(),iClient,controller);
-                        controller.DrawBoard(game,gameLobby.getSpectators(),true);
-                    }
-                } catch (IOException ex)
-                {
-                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+                    Platform.runLater(()
+                            -> 
+                            {
+                                try
+                                {
+                                    if (player1Ready == true && player2Ready == true)
+                                    {
+                                        Stage LoginStage = (Stage) Btn_Ready.getScene().getWindow();
+                                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ingame.fxml"));
+                                        Parent root = (Parent) fxmlLoader.load();
+                                        IngameController controller = fxmlLoader.<IngameController>getController();
+                                        controller.setClient(client);
+                                        controller.setIClient(iClient);
+                                        controller.setPlayer1(gameLobby.GetPlayer1().getUsername());
+                                        controller.setPlayer2(gameLobby.GetPlayer2().getUsername());
+                                        controller.setLoggedInUser(logInUser);
+                                        LoginStage.close();
+                                        Stage stage = new Stage();
+                                        Scene scene = new Scene(root);
+                                        stage.setScene(scene);
+                                        stage.show();
+                                        Game game = new Game(gameLobby.GetPlayer1(), gameLobby.GetPlayer2(), iClient, controller);
+                                        controller.DrawBoard(game, gameLobby.getSpectators(), true);
+                                    }
+                                } catch (IOException ex)
+                                {
+                                    Logger.getLogger(GamelobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                    });
         }).start();
     }
 
